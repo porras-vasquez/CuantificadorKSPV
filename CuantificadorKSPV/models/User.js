@@ -1,19 +1,18 @@
 'use strict'
-require('../connection');
-var User = require("../models/User");
 
-var userController = {};
+const mongoose = require('mongoose');
 
+const UserSchema = mongoose.Schema(
+  {
+    username: {
+      type: String,
+      unique: "El username ingresado ya fue utilizado por otro usuario"
+    },
+    password: String,
+    email: String
+  }
+);
 
-userController.save = function(req, res){
-    var user = new User( req.body );
-    
-    user.save(function(err){
-        if( err ){ console.log('Error: ', err); return; }
-        
-        console.log("Successfully created a product. :)");
-        //res.redirect("/products/show/"+product._id);
-        
-    });
-};
-module.exports = userController;
+UserSchema.plugin(require('mongoose-beautiful-unique-validation'));
+
+module.exports = mongoose.model('User', UserSchema);
