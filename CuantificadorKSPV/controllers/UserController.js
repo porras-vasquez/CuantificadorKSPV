@@ -7,7 +7,7 @@ var userController = {};
 
 userController.save = function(req, res){
     var user = new User( req.body );
-    
+    res.render('../views/users/NewUser');
     user.save(function(err){
         if( err ){ console.log('Error: ', err); return; }
         
