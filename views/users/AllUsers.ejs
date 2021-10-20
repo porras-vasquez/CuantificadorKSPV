@@ -33,14 +33,10 @@
                         <td>
                             <%=user.email%>
                         </td>
-
-
-
                         <td>
+                            <form action="/users/delete/<%=user._id%>" method="post">
 
-
-                            <form action="/users/delete/<%=user._id%> method=" post ">
-                                <input type="submit " class="btn btn-danger mt-0 " value="ELIMINAR ">
+                                <button type="danger " class="btn btn-danger">DELETE</button>
                             </form>
                         </td>
 
