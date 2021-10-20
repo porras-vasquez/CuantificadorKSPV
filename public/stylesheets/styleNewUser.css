@@ -6,12 +6,14 @@ body {
 a {
     color: #00B7FF;
 }
+
 .newUser{
     border: 1px solid #E1E1E1;
     border-radius: 5px;
     padding: 17px;
     width: 800px;
     background-color:rgb(126, 76, 41);
+    color: #E1E1E1;
 }
 h1{
     padding: 10px;
@@ -21,7 +23,8 @@ h3{
 }
 
 .container{
-margin-left: 450px;
+    margin-top: 95px;
+    margin-left: 450px;
 }
 .card-img-right{
     width: 200px;
