@@ -29,37 +29,39 @@
         </div>
     </nav>
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 mt-2">
             <div class="card" style="width: 18rem; height: 100%;">
-                <button class="btn btn primary">
-                    <img src="..." class="card-img-top" alt="...">
+                <button class="btn btn primary" style="background: rgb(95, 177, 168)">
+                    <img src="https://img.uefa.com/imgml/TP/players/1/2014/324x324/63706.jpg" class="card-img-top rounded-circle" alt="...">
                 </button>
-                <div class="card-body">
+                <div class="card-body" style="background: rgb(95, 177, 168)">
                     <ul class="list-group list-group-flush">
                         <a href="#" type="button" class="btn btn primary">Editar perfil</a>
                     </ul>
                 </div>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush" style="background: rgb(95, 177, 168)">
                     <a href="#" type="button" class="btn btn primary">Agregar usuario</a>
                 </ul>
-                <div class="card-body">
-                    <a href="#" type="button" class="btn btn primary">A</a>
-                    <a href="#" type="button" class="btn btn primary">I</a>
+                <ul class="list-group list-group-flush" style="background: rgb(95, 177, 168)">
+                    <a href="#" type="button" class="btn btn primary">Vista de usuarios</a>
+                </ul>
+                <div class="car text-center" style="margin-bottom: 75%;">
+                    coming soon
                 </div>
-              </div>
+            </div>
         </div>
         <div class="col-8">
-            <div class="container">
-                <h1>Lista de usuarios</h1>
+            <div class=" table container">
+                <h1 class="mt-3">Lista de usuarios</h1>
                 <table>
-                    <thead class="thead-light">
+                    <thead style="background-color: rgb(76, 50, 15); font-size: 18px;">
                         <tr>
-                            <th scope="col">Usuario</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Operación</th>
+                            <th scope="col" class="text-white ">Usuario</th>
+                            <th scope="col" class="text-white ">Correo</th>
+                            <th scope="col" class="text-white ">Operación</th>
                         </tr>
                     </thead>
-                    <tbody class="thead-light">
+                    <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
                         <% users.forEach((user)=>{ %>
                             <tr>
                                 <td>
