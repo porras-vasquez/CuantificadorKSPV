@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Product List</title>
+    </head>
+    <body>
+        <div class="container">
+        <h3><a href="/users/create">Create Product</a></h3>
+        <h1>Product List</h1>
+            {% if users is not empty %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div>No products found.</div>
+            {% endif %}
+        </div>
+    </body>
+</html>
