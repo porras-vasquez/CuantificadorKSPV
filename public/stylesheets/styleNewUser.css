@@ -1,0 +1,30 @@
+body {
+    
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+.newUser{
+    border: 1px solid #E1E1E1;
+    border-radius: 5px;
+    padding: 17px;
+    width: 800px;
+    background-color:rgb(126, 76, 41);
+}
+h1{
+    padding: 10px;
+}
+h3{
+    padding: 10px;
+}
+
+.container{
+margin-left: 450px;
+}
+.card-img-right{
+    width: 200px;
+    margin-left: 960px;
+    margin-top: -325px;
+}
