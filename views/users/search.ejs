@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Product</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Edit Product</h1>
+        <form action="/users/update/<%=user._id%>" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" name="username" value="<%=user.username%>" /></td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td><input type="text" name="email" value="<%=user.email%>" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button type="submit">Update</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

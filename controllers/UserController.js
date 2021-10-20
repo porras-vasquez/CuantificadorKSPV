@@ -29,15 +29,43 @@ userController.list = function(req, res) {
 
 };
 
-userController.show = function(req, res) {
-    User.findOne({ username: req.params.id }).exec(function(err, user) {
+userController.search = function(req, res) {
+    User.findOne({ _id: req.params.id }).exec(function(err, user) {
         if (err) { console.log('Error: ', err); return; }
 
-        res.render('../views/users/ver', { user: user });
+
+        res.render('../views/users/search', { user: user });
     });
 
 };
 
+userController.edit = function(req, res) {
+    User.findOne({ _id: req.params.id }).exec(function(err, user) {
+        if (err) { console.log("Error:", err); return; }
+
+        res.render('../views/users/search', { user: user });
+
+    });
+};
+userController.update = function(req, res) {
+    User.findByIdAndUpdate(req.params.id, {
+            $set: {
+                username: req.body.username,
+                email: req.body.email
+            }
+        }, { new: true },
+        function(err, user) {
+            if (err) {
+                console.log('Error: ', err);
+                res.redirect('/users/show');
+            }
+
+            console.log(user);
+
+            res.redirect('/users/show');
+
+        });
+};
 
 userController.delete = function(req, res) {
 
