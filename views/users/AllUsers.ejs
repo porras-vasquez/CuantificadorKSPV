@@ -15,7 +15,7 @@
             <a href="/users/create">Create Product</a>
         </h3>
         <h1>Product List</h1>
-        {% if users is not empty %}
+
         <table>
             <thead>
                 <tr>
@@ -24,25 +24,34 @@
                 </tr>
             </thead>
             <tbody>
-                {% for user in users %}
-                <tr>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>
+
+                <% users.forEach((user)=>{ %>
+                    <tr>
+                        <td>
+                            <%=user.username%>
+                        </td>
+                        <td>
+                            <%=user.email%>
+                        </td>
 
 
-                        <form action="/users/delete/{{user._id}}" method="post">
-                            <input type="submit" class="btn btn-danger mt-0" value="ELIMINAR">
-                        </form>
-                    </td>
 
-                </tr>
-                {% endfor %}
+                        <td>
+
+
+                            <form action="/users/delete/<%=user._id%> method=" post ">
+                                <input type="submit " class="btn btn-danger mt-0 " value="ELIMINAR ">
+                            </form>
+                        </td>
+
+                    </tr>
+                    <% }) %>
+
             </tbody>
         </table>
-        {% else %}
+
         <div>No products found.</div>
-        {% endif %}
+
     </div>
 </body>
 

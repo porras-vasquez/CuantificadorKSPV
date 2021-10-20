@@ -23,7 +23,7 @@ userController.list = function(req, res) {
     User.find({}).exec(function(err, users) {
         if (err) { console.log('Error: ', err); return; }
         console.log("The INDEX");
-        res.render('../views/users/Allusers', { users: users });
+        res.render('../views/users/AllUsers', { users: users });
 
     });
 
