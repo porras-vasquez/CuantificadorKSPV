@@ -28,3 +28,10 @@ margin-left: 450px;
     margin-left: 960px;
     margin-top: -325px;
 }
+.btn-success{
+    background-color:#00B7FF;
+}
+.btn-danger{
+    color:white;
+    background-color:crimson;
+}
