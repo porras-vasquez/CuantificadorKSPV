@@ -8,12 +8,13 @@
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link type="text/html" href="/views/generalComponents/navbar.html"/>
 </head>
 
 <body>
-    <!--ZONA DEL NAVBAR-->
-    <nav class="navbar navbar-expand-lg" style="background: rgb(1,167,152); background: linear-gradient(90deg, rgba(1,167,152,1) 0%, rgba(136,198,63,1) 71%);">
-        <a class="navbar-brand text-black font-weight-bold  mt-2 mb-2" href="#">Cuantificado KSPV</a>
+     <!--ZONA DEL NAVBAR-->
+     <nav class="navbar navbar-expand-lg" style="background: rgb(1,167,152); background: linear-gradient(90deg, rgba(1,167,152,1) 0%, rgba(136,198,63,1) 71%);">
+        <a style="margin-left: 1%;" class=" navbar-brand text-black font-weight-bold  mt-2 mb-2" href="#">Cuantificado KSPV</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,13 +22,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link text-black font-weight-bold mr-2" href="/">Inicio<span class="sr-only"></span></a>
+                    <a class="nav-link text-black font-weight-bold fs-5 mr-2" href="/">Inicio<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-black font-weight-bold" href="#">Compañias</a>
+                    <a class="nav-link text-black fs-5 font-weight-bold" href="#">Compañias</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-black font-weight-bold" href="/users/show">Usuariosssssssssssssssssssssssssss</a>
+                    <a class="nav-link text-black fs-5 font-weight-bold" href="/users/show">Usuarios</a>
                 </li>
             </ul>
         </div>
@@ -41,7 +42,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Usuarios</h5>
                     <p class="card-text">Ver toda la información de usuario.</p>
-                    <a href="#" class="btn text-white" style="background-color: rgba(26,145,125,255);">Ingresar al módulo</a>
+                    <a href="/users/show" class="btn text-white" style="background-color: rgba(26,145,125,255);">Ingresar al módulo</a>
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Compañías</h5>
                     <p class="card-text">Ver toda la información de compañías</p>
-                    <a href="#" class="btn text-white" style="background-color: rgba(26,145,125,255);">Ingresar al módulo</a>
+                    <a href="" class="btn text-white" style="background-color: rgba(26,145,125,255);">Ingresar al módulo</a>
                 </div>
             </div>
         </div>

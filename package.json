@@ -16,6 +16,7 @@
         "express": "~4.16.1",
         "express-session": "^1.17.2",
         "http-errors": "~1.6.3",
+        "materialize-css": "^1.0.0-rc.2",
         "mongoose": "^5.13.12",
         "mongoose-beautiful-unique-validation": "^7.1.1",
         "morgan": "~1.9.1",
