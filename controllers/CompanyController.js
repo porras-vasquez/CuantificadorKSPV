@@ -1,7 +1,7 @@
 'use strict'
 require('../connection');
 const Company = require('../models/Company');
-var User = require("../models/Company");
+var Company = require("../models/Company");
 
 var companyController = {};
 
@@ -35,7 +35,7 @@ companyController.search = function(req, res) {
         if (err) { console.log('Error: ', err); return; }
 
 
-        res.render('../views/companies/search', { user: user });
+        res.render('../views/companies/search', { company: company });
     });
 
 };
@@ -66,7 +66,7 @@ companyController.update = function(req, res) {
                 res.redirect('/companies/show');
             }
 
-            console.log(user);
+            console.log(company);
 
             res.redirect('/companies/show');
         });
