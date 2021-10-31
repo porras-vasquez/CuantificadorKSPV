@@ -4,8 +4,8 @@ var router = express.Router();
 const companyController = require('../controllers/CompanyController');
 const passport = require('passport');
 /* GET users listing. */
-router.get('/create', function(req, res) {
-    res.render('../views/companies/NewCompany');
+router.get('/createCompany', function(req, res) {
+    res.render('../views/company/NewCompany');
 });
 router.get('/principal', function(req, res) {
     res.render('../views/login');

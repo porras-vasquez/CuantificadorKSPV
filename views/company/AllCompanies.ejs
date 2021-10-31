@@ -31,8 +31,18 @@
             </ul>
         </div>
     </nav>
-
-
+    <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
+        <% companies.forEach((company)=>{ %>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><%=company.nombre%></h5> 
+                  <h6 class="card-subtitle mb-2 text-muted"><%=company.fecha_elaboracion%></h6> 
+                  <p class="card-text"><%=company.descripcion%></p>
+                  <a href="#" class="card-link">Ir</a>
+                </div>
+              </div>
+            <% }) %>
+    </tbody>
 </body>
 
 </html>

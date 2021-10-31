@@ -12,8 +12,8 @@ const CompanySchema = mongoose.Schema({
     tipo: String,
     aprobado_por: String,
     revisado_por: String,
-    fecha_elaboracion: String,
-    fecha_actualizacion: String,
+    fecha_elaboracion: Date,
+    fecha_actualizacion: Date,
     descripcion: String,
 });
 

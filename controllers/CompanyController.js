@@ -46,7 +46,7 @@ companyController.update = function(req, res) {
                 revisado_por: req.body.revisado_por,
                 fecha_elaboracion: req.body.fecha_elaboracion,
                 fecha_actualizacion: req.body.fecha_actualizacion,
-                descripcion: req.body.String,
+                descripcion: req.body.descripcion,
             }
         }, { new: true },
         function(err, company) {
