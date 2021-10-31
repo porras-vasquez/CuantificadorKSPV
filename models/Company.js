@@ -9,11 +9,11 @@ const CompanySchema = mongoose.Schema({
         unique: "El número de documento ingresado ya fue utilizado por otro usuario"
     },
     nombre: String,
-    tipo: Integer,
+    tipo: String,
     aprobado_por: String,
     revisado_por: String,
-    fecha_elaboracion: Timestamp,
-    fecha_actualización: Timestamp,
+    fecha_elaboracion: String,
+    fecha_actualización: String,
     descripcion: String,
 });
 

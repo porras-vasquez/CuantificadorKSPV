@@ -1,8 +1,6 @@
 'use strict'
 require('../connection');
-const Company = require('../models/Company');
 var Company = require("../models/Company");
-
 var companyController = {};
 
 

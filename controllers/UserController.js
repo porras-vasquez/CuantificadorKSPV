@@ -1,7 +1,6 @@
 'use strict'
 require('../connection');
 var User = require("../models/User");
-
 var userController = {};
 
 
