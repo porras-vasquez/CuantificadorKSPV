@@ -9,7 +9,7 @@ companyController.save = function(req, res) {
     company.save(function(err) {
         if (err) { console.log('Error: ', err); return; }
         console.log("Successfully created a product. :)");
-        res.redirect("/companies/create/");
+        res.redirect("/company/create/");
 
     });
 };
@@ -19,14 +19,14 @@ companyController.list = function(req, res) {
     Company.find({}).exec(function(err, companies) {
         if (err) { console.log('Error: ', err); return; }
         console.log("The INDEX");
-        res.render('../views/companies/AllCompanies', { companies: companies });
+        res.render('../views/company/AllCompanies', { companies: companies });
     });
 };
 
 companyController.search = function(req, res) {
     Company.findOne({ _id: req.params.id }).exec(function(err, company) {
         if (err) { console.log('Error: ', err); return; }
-        res.render('../views/companies/search', { company: company });
+        res.render('../views/company/search', { company: company });
     });
 
 };
@@ -34,7 +34,7 @@ companyController.search = function(req, res) {
 companyController.edit = function(req, res) {
     Company.findOne({ _id: req.params.id }).exec(function(err, company) {
         if (err) { console.log("Error:", err); return; }
-        res.render('../views/companies/search', { compant: company });
+        res.render('../views/company/search', { compant: company });
     });
 };
 companyController.update = function(req, res) {
@@ -52,12 +52,9 @@ companyController.update = function(req, res) {
         function(err, company) {
             if (err) {
                 console.log('Error: ', err);
-                res.redirect('/companies/show');
+                res.redirect('/company/show');
             }
-
-            console.log(company);
-
-            res.redirect('/companies/show');
+            res.redirect('/company/show');
         });
 };
 
@@ -65,7 +62,7 @@ companyController.delete = function(req, res) {
     Company.remove({ _numero_documento: req.params.numero_documento }, function(err) {
         if (err) { console.log('Error: ', err); return; }
         console.log("Company deleted!");
-        res.redirect("/companies/show");
+        res.redirect("/company/show");
 
     });
 

@@ -9,7 +9,7 @@ const session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
-var companiesRoutes = require('./routes/companies');
+var companiesRouter = require('./routes/companies');
   
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(express.static("public"));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
-app.use('/companies', companiesRoutes);
+app.use('/companies', companiesRouter);
 
 app.use(session({
     secret: 'mysecret',
