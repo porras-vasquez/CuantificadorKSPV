@@ -12,14 +12,14 @@ const UserSchema = mongoose.Schema({
     email: String
 });
 
-// UserSchema.methods.encryptPassword = (password) => {
-//     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+ UserSchema.methods.encryptPassword = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-// };
+ };
 
-// UserSchema.methods.comparePassword = function(password) {
-//     return bcrypt.compareSync(password, this.password);
-// };
+ UserSchema.methods.comparePassword = function(password) {
+     return bcrypt.compareSync(password, this.password);
+ };
 UserSchema.plugin(require('mongoose-beautiful-unique-validation'));
 
 module.exports = mongoose.model('User', UserSchema);
