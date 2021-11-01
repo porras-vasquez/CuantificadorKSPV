@@ -4,7 +4,19 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
 const ElectricitySchema = mongoose.Schema({
-   
+    id: {
+        type: int,
+        unique: "El id ingresado ya fue utilizado por otro reporte de electricidad"
+    },
+    titulo: String,
+    nise: int,
+    unidad_medida: String,
+    fuente_reporte: String,
+    ubicacion: String,
+    mes: String,
+    observacion: String,
+    total: int
+
 });
 
 // ElectricitySchema.methods.encryptPassword = (password) => {
