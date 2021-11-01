@@ -4,10 +4,14 @@ var User = require("../models/User");
 var userController = {};
 
 
-userController.save = function(req, res) {
+userController.save =  function(req, res) {
     var user = new User(req.body);
+   user.password =  user.encryptPassword(req.password);
+console.log(req.password);
     user.save(function(err) {
         if (err) { console.log('Error: ', err); return; }
+
+        console.log("Successfully created a product. :)");
         res.redirect("/users/create/");
 
     });
