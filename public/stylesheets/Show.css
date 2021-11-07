@@ -208,12 +208,6 @@ body{
     height: 0
 }
 
-.button:hover {
-    background-color: #faf3e5;
-    color: white;
-    border:1px solid #664f34;
-  }
-
 .img {
     width: 85%;
     height: 100%;
