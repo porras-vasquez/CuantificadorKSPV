@@ -9,28 +9,12 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link type="text/html" href="/views/generalComponents/navbar.html"/>
 </head>
+<header>
+    <!--ZONA DEL NAVBAR-->
+    <%- include('../views/navbar'); -%>
+</header>
 <body>
-     <!--ZONA DEL NAVBAR-->
-     <nav class="navbar navbar-expand-lg" style="background: rgb(1,167,152); background: linear-gradient(90deg, rgba(1,167,152,1) 0%, rgba(136,198,63,1) 71%);">
-        <a style="margin-left: 1%;" class=" navbar-brand text-black font-weight-bold  mt-2 mb-2" href="#">Cuantificado KSPV</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
- 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link text-black font-weight-bold fs-5 mr-2" href="/">Inicio<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link text-black fs-5 font-weight-bold" href="/companies/showCompany">Compañias</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link text-black fs-5 font-weight-bold" href="/users/show">Usuarios</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+
     <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
         <% companies.forEach((company)=>{ %>
             <div class="card" style="width: 18rem;">
