@@ -2,13 +2,13 @@
 require('../connection');
 var User = require("../models/User");
 var userController = {};
+const passport = require('passport');
 
-
-userController.save =  function(req, res) {
+userController.save =  async function(req, res) {
     var user = new User(req.body);
    user.password =  user.encryptPassword(req.password);
 console.log(req.password);
-    user.save(function(err) {
+await  user.save(function(err) {
         if (err) { console.log('Error: ', err); return; }
 
         console.log("Successfully created a product. :)");
@@ -78,4 +78,10 @@ userController.delete = function(req, res) {
     });
 
 };
+userController.login = passport.authenticate('local-signin',{
+  successRedirect: '/users/show',
+    failureRedirect: '/users/principal',
+    
+    failureFlash: true
+});
 module.exports = userController;

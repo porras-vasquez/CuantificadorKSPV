@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var companiesRouter = require('./routes/companies');
-  
+const flash = require('connect-flash');
 var app = express();
 
 var port = process.env.PORT || 3000;
@@ -29,18 +29,32 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/companies', companiesRouter);
 
+
 app.use(session({
     secret: 'mysecret',
     resave: false,
     saveUninitialized: false
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
 });
-
+app.use((req, res, next) => {
+    app.locals.signinMessage = req.flash('signinMessage');
+    app.locals.signupMessage = req.flash('signupMessage');
+    app.locals.user = req.user;
+    console.log(app.locals)
+    next();
+  });app.use((req, res, next) => {
+    app.locals.signinMessage = req.flash('signinMessage');
+    app.locals.signupMessage = req.flash('signupMessage');
+    app.locals.user = req.user;
+    console.log(app.locals)
+    next();
+  });
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development

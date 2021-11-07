@@ -17,9 +17,13 @@ const UserSchema = mongoose.Schema({
 
  };
 
- UserSchema.methods.comparePassword = function(password) {
-     return bcrypt.compareSync(password, this.password);
- };
+ UserSchema.methods.comparePassword = async function (password, pa) {
+     
+ console.log(pa);
+ console.log(password);
+  return await bcrypt.compare(password, pa);
+};
+
 UserSchema.plugin(require('mongoose-beautiful-unique-validation'));
 
 module.exports = mongoose.model('User', UserSchema);

@@ -10,11 +10,11 @@ router.get('/create', function(req, res) {
 router.get('/principal', function(req, res) {
     res.render('../views/login');
 });
-router.post('/principal', passport.authenticate('local-singup', {
-    succesRedirect: '/create',
-    failureRedirect: '/principal',
-    passReqToCallback: true
-}));
+router.post('/login', passport.authenticate('local-signin', {
+    successRedirect: '/users/show',
+    failureRedirect: '/users/principal',
+    failureFlash: true
+  }));
 router.get('/search/:id', userController.search);
 router.get('/show', userController.list);
 router.post('/save', userController.save);
