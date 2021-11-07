@@ -46,10 +46,10 @@
 
 <body style="background-color: #f4ffec;">
     <div class="container mt-5" style="padding-bottom: 20%;">
-        <div class="row clearfix" >
+        <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card chat-app" style="background-color: #beb39c;">
-                    <div class="people-list" >
+                    <div class="people-list">
                         <div class="col-12 row mt-5">
                             <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
                         </div>
@@ -66,25 +66,31 @@
                             <div class="col-12 mb-5"></div>
                         </ul>
                     </div>
-                    <div class="chat" style="padding-bottom: 20%;" >
-                        <h1>Editar usuario</h1>
-                        <form action="/users/update/<%=user._id%>" method="post">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Name</td>
-                                        <td><input type="text" name="username" value="<%=user.username%>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Price</td>
-                                        <td><input type="text" name="email" value="<%=user.email%>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><button type="submit">Update</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
+                    <div class="chat" style="padding-bottom: 20%; ">
+                        <div style="margin-right: 20%;">
+                            <div class="container">
+                                <h3>Editar usuario</h3>
+                                <form action="/users/update/<%=user._id%>" method="post">
+                                    <table>
+                                        <tbody>
+                                            <tr >
+                                                <td>Nombre: </td>
+                                                <td><input class="form-control" type="text" name="username" value="<%=user.username%>" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Correo: </td>
+                                                <td><input class="form-control"  type="text" name="email" value="<%=user.email%>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><button class="btn btn-success" type="submit">Actualizar</button></td>
+                                               
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
