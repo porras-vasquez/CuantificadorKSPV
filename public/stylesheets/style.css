@@ -34,13 +34,11 @@ h2 {
     color: #111111;
     
 }
-
-.button:hover {
-    background-color: rgba(145, 229, 222, 0.5);
-    color: white;
-    
-}
 .imgadd{
     width: 30%;
     height: 30%; 
+}
+
+h2:hover{
+    color: white;
 }
