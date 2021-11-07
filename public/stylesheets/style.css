@@ -42,3 +42,30 @@ h2 {
 h2:hover{
     color: white;
 }
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.text-white{
+    background-color: rgba(26,145,125,255);
+}
+
+a:hover{
+    color: rgba(229, 241, 251);
+}
+
+.text-white:hover{
+    box-shadow: 0 4px 16px rgba(3, 168, 151);
+    transition: all 0.2s ease;
+}
+
+tr:hover{
+    background-color: rgba(255, 245, 240, 1);
+}
+
+.button:hover{
+    box-shadow: 0 1px 8px rgba(113, 74, 38);
+    transition: all 0.2s ease;
+}
