@@ -39,7 +39,7 @@ h2 {
     height: 30%; 
 }
 
-h2:hover{
+.navbar-option:hover{
     color: white;
 }
 

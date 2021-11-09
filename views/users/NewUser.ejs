@@ -12,10 +12,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
 </head>
 <header>
-        <!--ZONA DEL NAVBAR-->
-        <%- include('../navbar'); -%> 
+    <!--ZONA DEL NAVBAR-->
+    <%- include('../navbar'); -%> 
 </header>
 
 <body style="background-color: #f4ffec;">
@@ -40,6 +42,11 @@
                             <div class="col-12 mb-5"></div>
                         </ul>
                     </div>
+                    <% if(typeof(message) != "undefined") { %>
+                        <div class="alert alert-success">
+                            {{message}} 
+                        </div>
+                    <% } %>
                     <div class="chat">
                         <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;">
                             <div class="container" >
@@ -65,8 +72,9 @@
                                         </div>
                                         <div class="btnContainer mb-4" style="padding-bottom: 3%;">
                     
-                                            <input type="submit" name="UserController" class="btn btn-success"
-                                                value="Guardar">
+                                            <button onclick="save()" type="submit" name="UserController" class="btn btn-success">
+                                                Guardar
+                                            </button>
                                             <button type="button" class="btn btn-danger">
                                                 Cancelar
                                             </button>
@@ -80,6 +88,24 @@
             </div>
         </div>
     </div>
+    <script>
+       /* var msg;
+        if(typeof(message) != "undefined"){
+            msg=message;
+        } */
+    
+        function save(){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Agregado exitosamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(({value}) => {
+                    //window.location='/users/create/';
+                });
+        }
+    </script>
 </body>
 
 </html>

@@ -15,6 +15,7 @@ router.post('/login', passport.authenticate('local-signin', {
     failureRedirect: '/users/principal',
     failureFlash: true
   }));
+  
 router.get('/search/:id', userController.search);
 router.get('/show', userController.list);
 router.post('/save', userController.save);

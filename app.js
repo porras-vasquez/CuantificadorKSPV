@@ -31,7 +31,8 @@ app.use('/companies', companiesRouter);
 
 
 app.use(session({
-    secret: 'mysecret',
+    secret: 'secret',
+    cookie: { maxAge : 6000},
     resave: false,
     saveUninitialized: false
 }));

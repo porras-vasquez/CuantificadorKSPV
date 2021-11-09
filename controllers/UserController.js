@@ -4,15 +4,27 @@ var User = require("../models/User");
 var userController = {};
 const passport = require('passport');
 
+
+/*userController.getMessage = async function(req, res){
+    res.render('../views/users/NewUser', {message : req.flash('message')});
+}*/
+
 userController.save =  async function(req, res) {
     var user = new User(req.body);
-   user.password =  user.encryptPassword(req.password);
-console.log(req.password);
-await  user.save(function(err) {
-        if (err) { console.log('Error: ', err); return; }
+    user.password =  user.encryptPassword(req.password);
+    console.log(req.password);
+    await  user.save(function(err) {
+        if (err) { 
+            res.send('error');
+            console.log('Error: ', err); return;
+        }
+        else{
+            res.send({ message: "successfuly" });
+            //res.send('success');
+            //res.redirect("/users/create/");
+        }
 
         console.log("Successfully created a product. :)");
-        res.redirect("/users/create/");
 
     });
 };
