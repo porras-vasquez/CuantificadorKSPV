@@ -43,9 +43,31 @@
                         </ul>
                     </div>
                     <% if(typeof(message) != "undefined") { %>
-                        <div class="alert alert-success">
-                            {{message}} 
-                        </div>
+                        <% if(message == "success") { %>
+                            <script>
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Exito al agregar',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(({value}) => {
+                                    //window.location='/users/create/';
+                                });
+                            </script>
+                        <% }else if(message == "error"){ %>
+                            <script>
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: 'Error al agregar',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(({value}) => {
+                                    //window.location='/users/create/';
+                                });
+                            </script>
+                        <% } %>    
                     <% } %>
                     <div class="chat">
                         <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;">
@@ -72,7 +94,7 @@
                                         </div>
                                         <div class="btnContainer mb-4" style="padding-bottom: 3%;">
                     
-                                            <button onclick="save()" type="submit" name="UserController" class="btn btn-success">
+                                            <button type="submit" name="UserController" class="btn btn-success">
                                                 Guardar
                                             </button>
                                             <button type="button" class="btn btn-danger">
@@ -88,24 +110,6 @@
             </div>
         </div>
     </div>
-    <script>
-       /* var msg;
-        if(typeof(message) != "undefined"){
-            msg=message;
-        } */
-    
-        function save(){
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Agregado exitosamente',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then(({value}) => {
-                    //window.location='/users/create/';
-                });
-        }
-    </script>
 </body>
 
 </html>

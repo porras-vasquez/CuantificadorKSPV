@@ -29,7 +29,7 @@ electricityController.search = function(req, res) {
         if (err) { console.log('Error: ', err); return; }
 
 
-        res.render('../views/electricity/searchElectricity', { electricity: electricity });
+        res.render('../views/electricity/search', { electricity: electricity });
     });
 
 };
@@ -38,7 +38,7 @@ electricityController.edit = function(req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function(err, electricity) {
         if (err) { console.log("Error:", err); return; }
 
-        res.render('../views/electricity/searchElectricity', { electricity: electricity });
+        res.render('../views/electricity/search', { electricity: electricity });
 
     });
 };
