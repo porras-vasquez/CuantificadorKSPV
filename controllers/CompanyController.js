@@ -9,7 +9,7 @@ companyController.save = function(req, res) {
     company.save(function(err) {
         if (err) { console.log('Error: ', err); return; }
         console.log("Successfully created a product. :)");
-        res.redirect("/company/createCompany");
+        res.redirect("/companies/createCompany");
 
     });
 };
@@ -52,9 +52,9 @@ companyController.update = function(req, res) {
         function(err, company) {
             if (err) {
                 console.log('Error: ', err);
-                res.redirect('/company/show');
+                res.redirect('/companies/show');
             }
-            res.redirect('/company/show');
+            res.redirect('/companies/show');
         });
 };
 
@@ -62,7 +62,7 @@ companyController.delete = function(req, res) {
     Company.remove({ _numero_documento: req.params.numero_documento }, function(err) {
         if (err) { console.log('Error: ', err); return; }
         console.log("Company deleted!");
-        res.redirect("/company/show");
+        res.redirect("/companies/show");
 
     });
 
