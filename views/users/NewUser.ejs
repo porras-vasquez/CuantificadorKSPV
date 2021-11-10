@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <header>
     <!--ZONA DEL NAVBAR-->
@@ -78,23 +79,23 @@
                                     <div class="col-6">
                     
                                         <div class="mb-2">
-                                            <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                                            <input type="text" name="username" class="form-control"
-                                                placeholder="Ingrese su nombre" required />
+                                            <label for="exampleInputEmail1" class="form-label">Nombre de usuario</label>
+                                            <input onchange="enable()" id="username" type="text" name="username" class="form-control"
+                                                pattern="/^[a-z0-9][a-z0-9_]{3,11}$/" minlength="4" maxlength="12" placeholder="Ingrese su nombre" required />
                                         </div>
                                         <div class="mb-2">
                                             <label for="inputPassword" class="form-label">Contraseña</label>
-                                            <input type="password" name="password" class="form-control"
+                                            <input onchange="enable()" id="password" type="password" name="password" class="form-control"
                                                 placeholder="Ingrese una contraseña valida" required />
                                         </div>
                                         <div class="mb-2">
                                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                                            <input type="text" name="email" class="form-control"
+                                            <input onchange="enable()" id="email" type="text" name="email" class="form-control"
                                                 placeholder="Ingrese un correo valido" required />
                                         </div>
                                         <div class="btnContainer mb-4" style="padding-bottom: 3%;">
                     
-                                            <button type="submit" name="UserController" class="btn btn-success">
+                                            <button disabled id="submit" type="submit" name="UserController" class="btn btn-success">
                                                 Guardar
                                             </button>
                                             <button type="button" class="btn btn-danger">
@@ -110,6 +111,23 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        /*$('#username').change(function(){
+            document.getElementById('submit').disabled=false;
+        });*/
+        let username = document.querySelector("#username");
+        let password = document.querySelector("#password");
+        let email = document.querySelector("#email");
+
+        function enable(){
+            if(document.getElementById('username').value=="" && document.getElementById('password').value=="" &&
+            document.getElementById('email').value==""){
+                document.getElementById('submit').disabled=true;
+            }else{
+                document.getElementById('submit').disabled=false;
+            }
+        }
+    </script>
 </body>
 
 </html>
