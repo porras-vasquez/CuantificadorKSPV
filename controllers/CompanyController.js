@@ -54,7 +54,6 @@ companyController.update = function(req, res) {
         }, { new: true },
         function(err, company) {
             if (err) {
-                console.log('Error: ', err);
                 res.redirect('/companies/showCompany');
             }
             res.redirect('/companies/showCompany');
