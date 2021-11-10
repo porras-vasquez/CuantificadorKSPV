@@ -52,9 +52,9 @@ companyController.update = function(req, res) {
         function(err, company) {
             if (err) {
                 console.log('Error: ', err);
-                res.redirect('/companies/show');
+                res.redirect('/companies/showCompany');
             }
-            res.redirect('/companies/show');
+            res.redirect('/companies/showCompany');
         });
 };
 
@@ -62,7 +62,7 @@ companyController.delete = function(req, res) {
     Company.remove({ _numero_documento: req.params.numero_documento }, function(err) {
         if (err) { console.log('Error: ', err); return; }
         console.log("Company deleted!");
-        res.redirect("/companies/show");
+        res.redirect("/companies/showCompany");
 
     });
 
