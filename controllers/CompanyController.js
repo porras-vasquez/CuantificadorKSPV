@@ -4,16 +4,18 @@ var Company = require("../models/Company");
 var companyController = {};
 
 
-companyController.save = function(req, res) {
+companyController.save =  async function(req, res) {
     var company = new Company(req.body);
-    company.save(function(err) {
-        if (err) { console.log('Error: ', err); return; }
-        console.log("Successfully created a product. :)");
-        res.redirect("/companies/createCompany");
+    await  company.save(function(err) {
+        if (err) { 
+            res.render('../views/company/NewCompany', { message : "error" });
+        }
+        else{
+            res.render('../views/company/NewCompany', { message : "success" });
+        }
 
     });
 };
-
 
 companyController.list = function(req, res) {
     Company.find({}).exec(function(err, companies) {
@@ -22,6 +24,7 @@ companyController.list = function(req, res) {
         res.render('../views/company/AllCompanies', { companies: companies });
     });
 };
+
 
 companyController.search = function(req, res) {
     Company.findOne({ _id: req.params.id }).exec(function(err, company) {
@@ -59,11 +62,9 @@ companyController.update = function(req, res) {
 };
 
 companyController.delete = function(req, res) {
-    Company.remove({ _numero_documento: req.params.numero_documento }, function(err) {
-        if (err) { console.log('Error: ', err); return; }
-        console.log("Company deleted!");
-        res.redirect("/companies/showCompany");
-
+    Company.remove({  _id: req.params.id }, function(err) {
+        if (err) { }
+        res.redirect("/companies/showCompany/");
     });
 
 };
