@@ -69,3 +69,6 @@ tr:hover{
     box-shadow: 0 1px 8px rgba(113, 74, 38);
     transition: all 0.2s ease;
 }
+.color{
+    color: rgba(229, 241, 251);
+}
