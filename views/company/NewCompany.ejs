@@ -48,7 +48,7 @@
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">No. Documento</label>
                                         <input type="text" name="numero_documento" class="form-control"
-                                            placeholder="Ingrese el nombre" required />
+                                            placeholder="Ingrese el numero de documento" required />
                                     </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Nombre</label>
@@ -56,9 +56,15 @@
                                             placeholder="Ingrese el nombre" required />
                                     </div>
                                     <div class="mb-2">
-                                        <label for="exampleInputEmail1" class="form-label">Tipo</label>
-                                        <input type="text" name="tipo" class="form-control"
-                                            placeholder="Ingrese el tipo de empresa" required />
+                                        <label for="exampleInputEmail1" class="form-label">Tipo de compañia</label>
+                                        <input type="text" name="tipo" list="typecompany" class="form-control" placeholder="Ingrese el tipo de compañia">
+                                        <datalist id="typecompany" >
+                                            <option value="Industrial" class="form-control">
+                                            <option value="Comercial" class="form-control">
+                                            <option value="Hotelera" class="form-control">
+                                            <option value="Agricola" class="form-control">
+                                            <option value="Ganadera" class="form-control">
+                                        </datalist>
                                     </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Aprobado por:</label>
@@ -72,15 +78,15 @@
                                     </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Fecha elaboracion:</label>
-                                        <input type="date" id="start" name="trip-start" value="yyyy-mm-dd" class="form-control"
-                                        required />
+                                        <input type="date" id="start" name="fecha_elaboracion" value="yyyy-mm-dd"
+                                            class="form-control" required />
 
 
                                     </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Fecha actualizacion:</label>
-                                        <input type="date" id="start" name="trip-start" value="yyyy-mm-dd" class="form-control"
-                                         required />
+                                        <input type="date" id="start" name="fecha_actualizacion" value="yyyy-mm-dd"
+                                            class="form-control" required />
                                     </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Descripción:</label>
