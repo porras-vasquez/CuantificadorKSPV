@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var companiesRouter = require('./routes/companies');
+var electricitiesRouter = require('./routes/electricities');
 const flash = require('connect-flash');
 var app = express();
 
@@ -28,7 +29,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/companies', companiesRouter);
-
+app.use('/electricities', electricitiesRouter);
 
 app.use(session({
     secret: 'secret',
