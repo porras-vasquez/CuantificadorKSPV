@@ -16,7 +16,7 @@ const ElectricitySchema = mongoose.Schema({
     mes: String,
     observacion: String,
     total: String
-
+ 
 });
 
 // ElectricitySchema.methods.encryptPassword = (password) => {
