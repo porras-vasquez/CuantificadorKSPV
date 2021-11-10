@@ -9,7 +9,7 @@ companyController.save = function(req, res) {
     company.save(function(err) {
         if (err) { console.log('Error: ', err); return; }
         console.log("Successfully created a product. :)");
-        res.redirect("/company/create/");
+        res.redirect("/company/createCompany");
 
     });
 };

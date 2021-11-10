@@ -6,14 +6,14 @@ const bcrypt = require('bcrypt-nodejs');
 const CompanySchema = mongoose.Schema({
     numero_documento: {
         type: String,
-        unique: "El número de documento ingresado ya fue utilizado por otro usuario"
+        unique: "El documento ingresado ya fue utilizado por otra compañia"
     },
     nombre: String,
     tipo: String,
     aprobado_por: String,
     revisado_por: String,
-    fecha_elaboracion: Date,
-    fecha_actualizacion: Date,
+    fecha_elaboracion: String,
+    fecha_actualizacion: String,
     descripcion: String,
 });
 

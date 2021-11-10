@@ -15,7 +15,7 @@
 </head>
 <header>
     <!--ZONA DEL NAVBAR-->
-    <%- include('../navbar'); -%> 
+    <%- include('../navbar'); -%>
 </header>
 
 <body style="background-color: #f4ffec;">
@@ -45,7 +45,11 @@
                             <h1 class="title">Información de la compañia</h1>
                             <form action="/companies/saveCompany" method="post" class="newUser">
                                 <div class="col-6">
-
+                                    <div class="mb-2">
+                                        <label for="exampleInputEmail1" class="form-label">No. Documento</label>
+                                        <input type="text" name="numero_documento" class="form-control"
+                                            placeholder="Ingrese el nombre" required />
+                                    </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Nombre</label>
                                         <input type="text" name="nombre" class="form-control"
@@ -64,22 +68,24 @@
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Revisado por:</label>
                                         <input type="text" name="revisado_por" class="form-control"
-                                            placeholder="Ingrese el nombre del aprobador" required />
+                                            placeholder="Ingrese el nombre del revisador" required />
                                     </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Fecha elaboracion:</label>
-                                        <input type="text" name="fecha_elaboracion" class="form-control"
-                                            placeholder="Ingrese el nombre del aprobador" required />
+                                        <input type="date" id="start" name="trip-start" value="yyyy-mm-dd" class="form-control"
+                                        required />
+
+
                                     </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Fecha actualizacion:</label>
-                                        <input type="text" name="fecha_actualizacion" class="form-control"
-                                            placeholder="Ingrese el nombre del aprobador" required />
+                                        <input type="date" id="start" name="trip-start" value="yyyy-mm-dd" class="form-control"
+                                         required />
                                     </div>
                                     <div class="mb-2">
                                         <label for="exampleInputEmail1" class="form-label">Descripción:</label>
                                         <input type="text" name="descripcion" class="form-control"
-                                            placeholder="Ingrese el nombre del aprobador" required />
+                                            placeholder="Ingrese una descripción" required />
                                     </div>
                                     <div class="btnContainer mb-4">
 
