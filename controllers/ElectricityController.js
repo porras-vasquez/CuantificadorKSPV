@@ -7,9 +7,12 @@ var electricityController = {};
 electricityController.save = function(req, res) {
     var electricity = new Electricity(req.body);
     electricity.save(function(err) {
-        if (err) { console.log('Error: ', err); return; }
-        res.redirect("/electricities/createElectricity/");
-
+    if (err) { 
+        res.render('../views/electricity/NewElectricity', { message : "error" });
+    }
+    else{
+        res.render('../views/electricity/NewElectricity', { message : "success" });
+    }
     });
 };
 
