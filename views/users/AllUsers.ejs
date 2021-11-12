@@ -53,29 +53,29 @@
                                 </thead>
                                 <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
                                     <% users.forEach((user)=>{ %>
-                                        <tr>
-                                            <td>
-                                                <div style="padding: 2%;">
-                                                    <%=user.username%>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div style="padding: 2%;">
-                                                    <%=user.email%>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <form action="/users/delete/<%=user._id%>" method="post">
-                                                    <button type="danger " class="btn btn-danger"><i
-                                                            class="material-icons">delete</i></button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <button type="link" class="btn btn-success editbtn "
-                                                    onclick="window.location. href=' /users/search/<%=user._id%>'"><i
-                                                        class="material-icons">menu</i></button>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>
+                                                    <div style="padding: 2%;">
+                                                        <%=user.username%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div style="padding: 2%;">
+                                                        <%=user.email%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <form action="/users/delete/<%=user._id%>" method="post">
+                                                        <button type="danger " class="btn btn-danger"><i
+                                                                class="material-icons">delete</i></button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <button type="link" class="btn btn-success editbtn "
+                                                        onclick="window.location. href='/users/search/<%=user._id%>'"><i
+                                                            class="material-icons">menu</i></button>
+                                                </td>
+                                            </tr>
                                         <% }) %>
                                 </tbody>
                             </table>
