@@ -77,6 +77,15 @@ userController.update = function(req, res) {
 
             res.redirect('/users/show');
 
+
+         /*   function(err, user) {
+                if (err) { 
+                    res.render('../views/users/AllUsers', {message : "error" });
+                }
+                else{
+                   // res.render('../views/users/AllUsers', { user: user, message : "success" });
+                   res.render('../views/users/AllUsers', { user: user, message : "success" });
+                }*/
         });
 };
 
