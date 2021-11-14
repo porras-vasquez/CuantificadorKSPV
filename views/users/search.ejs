@@ -27,61 +27,35 @@
                             <div class="col-12 mb-5"></div>
                         </ul>
                     </div>
-                    <% if(typeof(message) !="undefined" ) { %>
-                        <% if(message=="success" ) { %>
-                            <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: 'Exito al editar',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(({ value }) => {
-                                });
-                            </script>
-                            <% }else if(message=="error" ){ %>
-                                <script>
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'error',
-                                        title: 'Error al editar',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    }).then(({ value }) => {
-                                    });
-                                </script>
-                                <% } %>
-                                    <% } %>
-                                        <div class="chat" style="padding-bottom: 20%; ">
-                                            <div style="margin-right: 20%;">
-                                                <div class="container">
-                                                    <h3>Editar usuario</h3>
-                                                    <form action="/users/update/<%=user._id%>" method="post">
-                                                        <table>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Nombre: </td>
-                                                                    <td><input class="form-control" type="text"
-                                                                            name="username"
-                                                                            value="<%=user.username%>" />
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Correo: </td>
-                                                                    <td><input class="form-control" type="text"
-                                                                            name="email" value="<%=user.email%>" /></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="2"><button class="btn btn-success"
-                                                                            type="submit">Actualizar</button></td>
+                    <div class="chat" style="padding-bottom: 20%; ">
+                        <div style="margin-right: 20%;">
+                            <div class="container">
+                                <h3>Editar usuario</h3>
+                                <form action="/users/update/<%=user._id%>" method="post">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Nombre: </td>
+                                                <td><input class="form-control" type="text" name="username"
+                                                        value="<%=user.username%>" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Correo: </td>
+                                                <td><input class="form-control" type="text" name="email"
+                                                        value="<%=user.email%>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><button class="btn btn-success"
+                                                        type="submit">Actualizar</button></td>
 
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -15,8 +15,10 @@ const ElectricitySchema = mongoose.Schema({
     ubicacion: String,
     mes: String,
     observacion: String,
-    total: String
-
+    total: {
+        type: Number,
+        unique: "El tipo de dato no es númerico"
+    },
 });
 
 // ElectricitySchema.methods.encryptPassword = (password) => {

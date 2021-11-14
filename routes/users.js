@@ -18,6 +18,7 @@ router.post('/login', passport.authenticate('local-signin', {
   
 router.get('/search/:id', userController.search);
 router.get('/show', userController.list);
+router.get('/show2', userController.list2); //No eficiente, hay que ver que hacemos mas adelante
 router.post('/save', userController.save);
 router.post('/delete/:id', userController.delete);
 router.post('/update/:id', userController.update);

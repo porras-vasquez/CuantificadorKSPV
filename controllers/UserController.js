@@ -41,7 +41,19 @@ userController.list = function(req, res) {
     });
 
 };
+userController.list2 = function(req, res) {
+    User.find({}).exec(function(err, users) {
+        if (err) { 
+            res.render('../views/users/AllUsers', { message : "error" });
+        }
+        else{
+            res.render('../views/users/AllUsers', { users: users, message : "success"});
+        }
+        
 
+    });
+
+};
 userController.search = function(req, res) {
     User.findOne({ _id: req.params.id }).exec(function(err, user) {
         if (err) { console.log('Error: ', err); return; }
@@ -52,14 +64,14 @@ userController.search = function(req, res) {
 
 };
 
-userController.edit = function(req, res) {
+/*userController.edit = function(req, res) {
     User.findOne({ _id: req.params.id }).exec(function(err, user) {
         if (err) { console.log("Error:", err); return; }
 
         res.render('../views/users/search', { user: user });
 
     });
-};
+};*/
 userController.update = function(req, res) {
     User.findByIdAndUpdate(req.params.id, {
             $set: {
@@ -72,10 +84,7 @@ userController.update = function(req, res) {
                 console.log('Error: ', err);
                 res.redirect('/users/show');
             }
-
-            console.log(user);
-
-            res.redirect('/users/show');
+            res.redirect('/users/show2');
 
 
          /*   function(err, user) {
