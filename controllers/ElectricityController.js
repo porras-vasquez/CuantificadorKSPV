@@ -54,7 +54,17 @@ electricityController.update = function(req, res) {
                 unidad_medida: req.body.unidad_medida,
                 fuente_reporte: req.body.fuente_reporte,
                 ubicacion: req.body.ubicacion,
-                mes: req.body.mes,
+                enero: req.body.enero,
+                febrero: req.body.febrero,
+                marzo: req.body.marzo,
+                abril: req.body.abril,
+                junio: req.body.junio,
+                julio: req.body.julio,
+                agosto: req.body.agosto,
+                septiembre: req.body.septiembre,
+                octubre: req.body.octubre,
+                noviembre: req.body.noviembre,
+                diciembre: req.body.diciembre,
                 observacion: req.body.observacion,
                 total: req.body.total
             }
