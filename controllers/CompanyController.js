@@ -23,6 +23,16 @@ companyController.list = function (req, res) {
         res.render('../views/company/AllCompanies', { companies: companies });
     });
 };
+companyController.list2 = function (req, res) {
+    Company.find({}).exec(function (err, companies) {
+        if (err) { 
+            res.render('../views/company/AllCompanies', { message : "error" });
+        }
+        else{
+            res.render('../views/company/AllCompanies', { companies: companies, message : "success"});
+        }
+    });
+};
 //Buscar
 companyController.search = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
@@ -30,13 +40,6 @@ companyController.search = function (req, res) {
         res.render('../views/company/search', { company: company });
     });
 
-};
-//Editar
-companyController.edit = function (req, res) {
-    Company.findOne({ _id: req.params.id }).exec(function (err, company) {
-        if (err) { console.log("Error:", err); return; }
-        res.render('../views/company/search', { compant: company });
-    });
 };
 //Actualizar
 companyController.update = function (req, res) {
@@ -53,16 +56,17 @@ companyController.update = function (req, res) {
     }, { new: true },
         function (err, company) {
             if (err) {
-                res.redirect('/companies/showCompany');
+                console.log('Error: ', err);
+                res.redirect('/companies/showCompany2');
             }
-            res.redirect('/companies/showCompany');
+            res.redirect('/companies/showCompany2');
         });
 };
 //Eliminar
 companyController.delete = function (req, res) {
     Company.remove({ _id: req.params.id }, function (err) {
         if (err) { }
-        res.redirect("/companies/showCompany/");
+        res.redirect("/companies/showCompany2/");
     });
 
 };

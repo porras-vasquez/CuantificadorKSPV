@@ -52,7 +52,6 @@ userController.list2 = function(req, res) {
         
 
     });
-
 };
 userController.search = function(req, res) {
     User.findOne({ _id: req.params.id }).exec(function(err, user) {
@@ -63,15 +62,6 @@ userController.search = function(req, res) {
     });
 
 };
-
-/*userController.edit = function(req, res) {
-    User.findOne({ _id: req.params.id }).exec(function(err, user) {
-        if (err) { console.log("Error:", err); return; }
-
-        res.render('../views/users/search', { user: user });
-
-    });
-};*/
 userController.update = function(req, res) {
     User.findByIdAndUpdate(req.params.id, {
             $set: {
@@ -85,16 +75,6 @@ userController.update = function(req, res) {
                 res.redirect('/users/show');
             }
             res.redirect('/users/show2');
-
-
-         /*   function(err, user) {
-                if (err) { 
-                    res.render('../views/users/AllUsers', {message : "error" });
-                }
-                else{
-                   // res.render('../views/users/AllUsers', { user: user, message : "success" });
-                   res.render('../views/users/AllUsers', { user: user, message : "success" });
-                }*/
         });
 };
 
@@ -105,7 +85,7 @@ userController.delete = function(req, res) {
         if (err) { console.log('Error: ', err); return; }
 
         console.log("Product deleted!");
-        res.redirect("/users/show/");
+        res.redirect('/users/show2');
 
     });
 

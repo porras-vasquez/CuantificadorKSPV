@@ -17,6 +17,7 @@ router.post('/principal', passport.authenticate('local-singup', {
 }));
 router.get('/searchCompany/:id', companyController.search);
 router.get('/showCompany', companyController.list);
+router.get('/showCompany2', companyController.list2);
 router.post('/saveCompany', companyController.save);
 router.post('/deleteCompany/:id', companyController.delete);
 router.post('/updateCompany/:id', companyController.update);
