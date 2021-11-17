@@ -8,5 +8,5 @@ router.get('/',isAuthenticated, function(req, res, next) {
 router.get('/navbar', function(req, res) {
     res.render('../views/navbar');
 });
-
+ 
 module.exports = router;
