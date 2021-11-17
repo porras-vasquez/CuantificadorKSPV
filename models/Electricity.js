@@ -13,7 +13,19 @@ const ElectricitySchema = new mongoose.Schema({
     medidor: [{
             nrc : { type: String, required: true, unique: false },
             type : { type: String, required: true, unique: false },
-            medida : { type: String, required: true, unique: false }
+            medida : { type: String, required: true, unique: false },
+            enero: {type: String, unique: false},
+            febrero: {type: String, unique: false},
+            marzo: {type: String, unique: false},
+            abril: {type: String, unique: false},
+            mayo: {type: String, unique: false},
+            junio: {type: String, unique: false},
+            julio: {type: String, unique: false},
+            agosto: {type: String, unique: false},
+            septiembre: {type: String, unique: false},
+            octubre: {type: String, unique: false},
+            noviembre: {type: String, unique: false},
+            diciembre: {type: String, unique: false}
         }   
     ]/*,
     companies: [{

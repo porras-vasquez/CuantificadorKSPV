@@ -88,7 +88,19 @@ electricityController.addMeter = function(req, res) {
                     'medidor': {
                         nrc: req.body.nrc,
                         type: req.body.type,
-                        medida: req.body.medida
+                        medida: req.body.medida,
+                        enero: req.body.enero,
+                        febrero: req.body.febrero,
+                        marzo: req.body.marzo,
+                        abril: req.body.abril,
+                        mayo: req.body.mayo,
+                        junio: req.body.junio,
+                        julio: req.body.julio,
+                        agosto: req.body.agosto,
+                        septiembre: req.body.septiembre,
+                        octubre: req.body.octubre,
+                        noviembre: req.body.noviembre,
+                        diciembre: req.body.diciembre
                     }
                 }
             },
@@ -116,13 +128,14 @@ electricityController.addMeter = function(req, res) {
 };
 
 
+
 electricityController.delete = function(req, res) {
 
     Electricity.remove({ _id: req.params.id }, function(err) {
 
         if (err) { console.log('Error: ', err); return; }
 
-        console.log("Product deleted!");
+        console.log("deleted!");
         res.redirect("/electricities/showElectricity/");
 
     });
