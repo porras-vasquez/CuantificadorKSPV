@@ -13,15 +13,17 @@ passport.serializeUser((user, done) => {
 
 passport.use('local-signin', new LocalStrategy({
     usernameField: 'email',
-   // passwordField: 'password',
+    passwordField: 'password',
     passReqToCallback: true
   }, async (req, email, passwordd, done) => {
     const user = await User.findOne({email: email});
     if(!user) {
       return done(null, false, console.log(  'No User Found'));
     }
-    const match = await user.comparePassword(passwordd, user.password);
+    var match = await user.comparePassword(passwordd, user.password);
     if(!match) {
+     // console.log(user.password);
+
       return done(null, false, console.log( match));
     }
     return done(null, user);
