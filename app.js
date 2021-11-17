@@ -8,7 +8,7 @@ require('./passport/local-auth');
 const session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
+//var loginRouter = require('./routes/login');
 var companiesRouter = require('./routes/companies');
 var electricitiesRouter = require('./routes/electricities');
 const flash = require('connect-flash');
@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static("public"));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/login', loginRouter);
+//app.use('/login', loginRouter);
 app.use('/companies', companiesRouter);
 app.use('/electricities', electricitiesRouter);
 

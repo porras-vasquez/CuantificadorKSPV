@@ -91,7 +91,7 @@ userController.delete = function(req, res) {
 
 };
 userController.login = passport.authenticate('local-signin',{
-  successRedirect: '/users/show',
+  successRedirect: '/',
     failureRedirect: '/users/principal',
     
     failureFlash: true
@@ -99,6 +99,6 @@ userController.login = passport.authenticate('local-signin',{
 userController.logout = (req, res) => {
     req.logout();
     //req.flash("success_msg", "You are logged out now.");
-    res.redirect("/login/principal");
+    res.redirect("/users/principal");
   };
 module.exports = userController;

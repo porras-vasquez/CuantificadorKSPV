@@ -9,7 +9,10 @@ const isAuthenticated= require('../helpers/auth');
 router.get('/create', isAuthenticated,function(req, res) {
     res.render('../views/users/NewUser');
 });
-
+router.get('/principal', function(req, res) {
+    res.render('../views/login');
+});
+router.post('/login', userController.login);
   
 router.get('/search/:id', userController.search);
 router.get('/show', userController.list);

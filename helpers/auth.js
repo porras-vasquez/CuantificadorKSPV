@@ -4,6 +4,6 @@ const isAuthenticated = (req, res, next) => {
     }
    // req.flash("error_msg", "Not Authorized.");
    console.log("no autorizado");
-    res.redirect("/login/principal");
+    res.redirect("/users/principal");
   };
   module.exports = isAuthenticated;
