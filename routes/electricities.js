@@ -3,18 +3,17 @@ var express = require('express');
 var router = express.Router();
 const electricityController = require('../controllers/ElectricityController');
 const passport = require('passport');
+const isAuthenticated= require('../helpers/auth');
 /* GET electricities listing. */
-router.get('/createElectricity', function(req, res) {
+router.get('/createElectricity',isAuthenticated, function(req, res) {
     res.render('../views/electricity/NewElectricity');
 });
-router.get('/principal', function(req, res) {
-    res.render('../views/login');
-});
 
-router.get('/searchElectricity/:id', electricityController.search);
-router.get('/showElectricity', electricityController.list);
-router.post('/saveElectricity', electricityController.save);
-router.post('/deleteElectricity/:id', electricityController.delete);
-router.post('/addMeter/:_id', electricityController.addMeter);
+
+router.get('/searchElectricity/:id', isAuthenticated, electricityController.search);
+router.get('/showElectricity', isAuthenticated, electricityController.list);
+router.post('/saveElectricity', isAuthenticated, electricityController.save);
+router.post('/deleteElectricity/:id',isAuthenticated, electricityController.delete);
+router.post('/addMeter/:_id', isAuthenticated, electricityController.addMeter);
 //router.post('/updateElectricity/:id', electricityController.update);
 module.exports = router; 

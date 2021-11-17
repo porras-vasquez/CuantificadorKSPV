@@ -6,7 +6,7 @@ const passport = require('passport');
 const isAuthenticated= require('../helpers/auth');
 
 /* GET users listing. */
-router.get('/create', isAuthenticated,function(req, res) {
+router.get('/create', isAuthenticated,isAuthenticated,function(req, res) {
     res.render('../views/users/NewUser');
 });
 router.get('/principal', function(req, res) {
@@ -14,11 +14,11 @@ router.get('/principal', function(req, res) {
 });
 router.post('/login', userController.login);
 router.get('/logout', userController.logout);
-router.get('/search/:id', userController.search);
-router.get('/show', userController.list);
-router.get('/show2', userController.list2); //No eficiente, hay que ver que hacemos mas adelante
-router.post('/save', userController.save);
-router.post('/delete/:id', userController.delete);
-router.post('/update/:id', userController.update);
+router.get('/search/:id',isAuthenticated, userController.search);
+router.get('/show',isAuthenticated, userController.list);
+router.get('/show2',isAuthenticated, userController.list2); //No eficiente, hay que ver que hacemos mas adelante
+router.post('/save',isAuthenticated, userController.save);
+router.post('/delete/:id',isAuthenticated, userController.delete);
+router.post('/update/:id',isAuthenticated, userController.update);
 
 module.exports = router;
