@@ -10,11 +10,7 @@ router.get('/create', function(req, res) {
 router.get('/principal', function(req, res) {
     res.render('../views/login');
 });
-router.post('/login', passport.authenticate('local-signin', {
-    successRedirect: '/users/show',
-    failureRedirect: '/users/principal',
-    failureFlash: true
-  }));
+router.post('/login', userController.login);
   
 router.get('/search/:id', userController.search);
 router.get('/show', userController.list);

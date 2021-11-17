@@ -2,9 +2,8 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
-const Schema = moongose.Schema();
 
-const ElectricitySchema = new Schema({
+const ElectricitySchema = new mongoose.Schema({
     titulo: String,
     nise: String,
     unidad_medida: String,
@@ -12,15 +11,28 @@ const ElectricitySchema = new Schema({
     ubicacion: String,
     observacion: String,
     medidor: [{
-            modelo:{ type: String, required: true, unique: false },
-            descripcion : { type: String, required: true, unique: false }
+            nrc : { type: String, required: true, unique: false },
+            type : { type: String, required: true, unique: false },
+            medida : { type: String, required: true, unique: false },
+            enero: {type: String, unique: false},
+            febrero: {type: String, unique: false},
+            marzo: {type: String, unique: false},
+            abril: {type: String, unique: false},
+            mayo: {type: String, unique: false},
+            junio: {type: String, unique: false},
+            julio: {type: String, unique: false},
+            agosto: {type: String, unique: false},
+            septiembre: {type: String, unique: false},
+            octubre: {type: String, unique: false},
+            noviembre: {type: String, unique: false},
+            diciembre: {type: String, unique: false}
         }   
-    ],
+    ]/*,
     companies: [{
             type: Schema.Types.ObjectId,
             ref: 'companies'
         }
-    ]
+    ]*/
 });
 
 // ElectricitySchema.methods.encryptPassword = (password) => {

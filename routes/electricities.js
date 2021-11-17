@@ -15,5 +15,6 @@ router.get('/searchElectricity/:id', electricityController.search);
 router.get('/showElectricity', electricityController.list);
 router.post('/saveElectricity', electricityController.save);
 router.post('/deleteElectricity/:id', electricityController.delete);
-router.post('/updateElectricity/:id', electricityController.update);
+router.post('/addMeter/:_id', electricityController.addMeter);
+//router.post('/updateElectricity/:id', electricityController.update);
 module.exports = router; 
