@@ -1,10 +1,10 @@
 'use strict'
 require('../connection');
-var Electricity = require("../models/Electricity");
+const Electricity = require("../models/Electricity");
 var electricityController = {};
 
 
-electricityController.save = function(req, res) {
+/*electricityController.save = function(req, res) {
     var electricity = new Electricity(req.body);
     electricity.save(function(err) {
     if (err) { 
@@ -14,7 +14,7 @@ electricityController.save = function(req, res) {
         res.render('../views/electricity/NewElectricity', { message : "success" });
     }
     });
-};
+};*/
 
 
 electricityController.list = function(req, res) {
@@ -45,42 +45,75 @@ electricityController.edit = function(req, res) {
 
     });
 };
-electricityController.update = function(req, res) {
-    Electricity.findByIdAndUpdate(req.params.id, {
-            $set: {
-                medidor: req.body.medidor,
-                titulo: req.body.titulo,
-                nise: req.body.nise,
-                unidad_medida: req.body.unidad_medida,
-                fuente_reporte: req.body.fuente_reporte,
-                ubicacion: req.body.ubicacion,
-                enero: req.body.enero,
-                febrero: req.body.febrero,
-                marzo: req.body.marzo,
-                abril: req.body.abril,
-                junio: req.body.junio,
-                julio: req.body.julio,
-                agosto: req.body.agosto,
-                septiembre: req.body.septiembre,
-                octubre: req.body.octubre,
-                noviembre: req.body.noviembre,
-                diciembre: req.body.diciembre,
-                observacion: req.body.observacion,
-                total: req.body.total
-            }
-        }, { new: true },
-        function(err, electricity) {
+
+electricityController.save = function(req, res) {
+    let body = req.body;
+    let elect = new Electricity(body);
+    /*elect.save((err, contactoDB) => {
             if (err) {
-                console.log('Error: ', err);
-                res.redirect('/electricities/showElectricity');
+                return res.json({
+                    success: false,
+                    msj: 'No se pudo registrar',
+                    err
+                });
+            } else {
+                res.json({
+                    success: true,
+                    msj: 'Se registró con éxito'
+                });
             }
+        }
+    );*/
 
-            console.log(electricity);
-
-            res.redirect('/electricities/showElectricity');
-
-        });
+    elect.save(function(err) {
+        if (err) {
+            return res.json({
+                success: false,
+                msj: 'No se pudo registrar',
+                err
+            });
+        } else {
+            res.json({
+                success: true,
+                msj: 'Se registró con éxito'
+            });
+        }
+    });
 };
+
+electricityController.update = function(req, res) {
+    if (req.body._id) {
+        Electricity.updateOne({ _id: req.body._id }, {
+                $push: {
+                    'medidor': {
+                        numero: req.body.numero,
+                        descripcion: req.body.descripcion
+                    }
+                }
+            },
+           (error) => {
+                if (error) {
+                    return res.json({
+                        success: false,
+                        msj: 'No se pudo agregar el teléfono',
+                        err
+                    });
+                } else {
+                    return res.json({
+                        success: true,
+                        msj: 'Se agregó correctamente el teléfono'
+                    });
+                }
+            }
+        )
+    } else {
+        return res.json({
+            success: false,
+            msj: 'No se pudo agregar el teléfono, por favor verifique que el _id sea correcto'
+        });
+    }
+};
+
 
 electricityController.delete = function(req, res) {
 
