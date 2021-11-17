@@ -9,11 +9,11 @@ const passport = require('passport');
     res.render('../views/users/NewUser', {message : req.flash('message')});
 }*/
 
-userController.save =  async function(req, res) {
+userController.save = async function(req, res) {
     var user = new User(req.body);
-    user.password =  user.encryptPassword(req.password);
+    user.password = await user.encryptPassword(req.body.password);
     console.log(user.password);
-    await  user.save(function(err) {
+   await user.save(function(err) {
         if (err) { 
             //res.send('error');
             res.render('../views/users/NewUser', { message : "error" });

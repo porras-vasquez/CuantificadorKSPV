@@ -1,30 +1,40 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User');
+//const bcrypt=require('bcryptjs');
+
+passport.use('local-signin',
+  new LocalStrategy(
+    {
+      usernameField: "email",
+    },
+    async (email, password, done) => {
+      // Match Email's User
+      const user = await User.findOne({ email: email });
+
+      if (!user) {
+        return done(null, false,null);
+      } else {
+        // Match Password's User
+        const match = await user.comparePassword(password);
+        if (match) {
+          console.log(match);
+          return done(null, user);
+        } else {
+          console.log(match);
+          return done(null, false, null);
+        }
+      }
+    }
+  )
+);
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-  
-  passport.deserializeUser(async (id, done) => {
-    var user = await User.findById(id);
-    done(null, user);
-  });
+  done(null, user.id);
+});
 
-passport.use('local-signin', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-    passReqToCallback: true
-  }, async (req, email, passwordd, done) => {
-    const user = await User.findOne({email: email});
-    if(!user) {
-      return done(null, false, console.log(  'No User Found'));
-    }
-    var match = await user.comparePassword(passwordd, user.password);
-    if(!match) {
-     // console.log(user.password);
-
-      return done(null, false, console.log( match));
-    }
-    return done(null, user);
-  })); 
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
