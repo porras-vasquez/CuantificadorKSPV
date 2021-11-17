@@ -16,10 +16,10 @@
                         </div>
                         <ul class="list-unstyled chat-list  mb-0">
                             <ul class="list-group list-group-flush button">
-                                <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar compañia</a>
+                                <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar compañía</a>
                             </ul>
                             <ul class="list-group list-group-flush button">
-                                <a href="/companies/showCompany" type="button" class="btn btn primary ">Vista de compañia</a>
+                                <a href="/companies/showCompany" type="button" class="btn btn primary ">Vista de compañía</a>
                             </ul>
                             <div class="col-12 mb-5"></div>
                         </ul>
@@ -27,7 +27,7 @@
                     <div class="chat" style="padding-bottom: 20%; ">
                         <div style="margin-right: 20%;">
                             <div class="container">
-                                <h3>Editar compañia</h3>
+                                <h3>Editar compañía</h3>
                                 <form action="/companies/updateCompany/<%=company._id%>" method="post">
                                     <div class="col-6">
                                         <div class="mb-2">
@@ -41,7 +41,7 @@
                                             value="<%=company.nombre%>" required />
                                         </div>
                                         <div class="mb-2">
-                                            <label for="exampleInputEmail1" class="form-label">Tipo de compañia</label>
+                                            <label for="exampleInputEmail1" class="form-label">Tipo de compañía</label>
                                             <input type="text" name="tipo" list="typecompany" class="form-control" value="<%=company.tipo%>">
                                             <datalist id="typecompany" >
                                                 <option value="Industrial" class="form-control">
@@ -62,14 +62,14 @@
                                             value="<%=company.revisado_por%>" required />
                                         </div>
                                         <div class="mb-2">
-                                            <label for="exampleInputEmail1" class="form-label">Fecha elaboracion:</label>
+                                            <label for="exampleInputEmail1" class="form-label">Fecha elaboración:</label>
                                             <input type="date" id="start" name="fecha_elaboracion" value="<%=company.fecha_elaboracion%>"
                                                 class="form-control" required />
     
     
                                         </div>
                                         <div class="mb-2">
-                                            <label for="exampleInputEmail1" class="form-label">Fecha actualizacion:</label>
+                                            <label for="exampleInputEmail1" class="form-label">Fecha actualización:</label>
                                             <input type="date" id="start" name="fecha_actualizacion" value="<%=company.fecha_actualizacion%>"
                                                 class="form-control" required />
                                         </div>
