@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
+const isAuthenticated= require('../helpers/auth');
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/',isAuthenticated, function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 router.get('/navbar', function(req, res) {
