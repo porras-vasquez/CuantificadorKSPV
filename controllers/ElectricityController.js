@@ -81,13 +81,14 @@ electricityController.save = function(req, res) {
     });
 };
 
-electricityController.update = function(req, res) {
-    if (req.body._id) {
-        Electricity.updateOne({ _id: req.body._id }, {
+electricityController.addMeter = function(req, res) {
+    if (req.params._id) {
+        Electricity.updateOne({ _id: req.params._id }, {
                 $push: {
                     'medidor': {
-                        numero: req.body.numero,
-                        descripcion: req.body.descripcion
+                        nrc: req.body.nrc,
+                        type: req.body.type,
+                        medida: req.body.medida
                     }
                 }
             },
@@ -95,13 +96,13 @@ electricityController.update = function(req, res) {
                 if (error) {
                     return res.json({
                         success: false,
-                        msj: 'No se pudo agregar el teléfono',
+                        msj: 'No se pudo agregar el medidor',
                         err
                     });
                 } else {
                     return res.json({
                         success: true,
-                        msj: 'Se agregó correctamente el teléfono'
+                        msj: 'Se agregó correctamente el medidor'
                     });
                 }
             }
@@ -109,7 +110,7 @@ electricityController.update = function(req, res) {
     } else {
         return res.json({
             success: false,
-            msj: 'No se pudo agregar el teléfono, por favor verifique que el _id sea correcto'
+            msj: 'No se pudo agregar el medidor, por favor verifique que el _id sea correcto'
         });
     }
 };
