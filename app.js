@@ -31,11 +31,12 @@ app.use('/login', loginRouter);
 app.use('/companies', companiesRouter);
 app.use('/electricities', electricitiesRouter);
 
+
+app.use(express.urlencoded({extended: false}));
 app.use(session({
-    secret: 'secret',
-    cookie: { maxAge : 6000},
-    resave: false,
-    saveUninitialized: false
+  secret: 'mysecretsession',
+  resave: false,
+  saveUninitialized: false
 }));
 app.use(flash());
 app.use(passport.initialize());

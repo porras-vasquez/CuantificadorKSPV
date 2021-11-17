@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
-
+const SALT_ROUND ="12";
 const UserSchema = mongoose.Schema({
     username: {
         type: String,
@@ -13,15 +13,15 @@ const UserSchema = mongoose.Schema({
 });
 
  UserSchema.methods.encryptPassword = (password) => {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(1));
 
  };
 
- UserSchema.methods.comparePassword = async function (password, pa) {
+ UserSchema.methods.comparePassword = function (password) {
      
- console.log(pa);
+ console.log(this.password);
  console.log(password);
-  return await bcrypt.compare(password, pa);
+  return bcrypt.compareSync(password, this.password);
 };
 
 UserSchema.plugin(require('mongoose-beautiful-unique-validation'));
