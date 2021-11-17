@@ -96,4 +96,9 @@ userController.login = passport.authenticate('local-signin',{
     
     failureFlash: true
 });
+userController.logout = (req, res) => {
+    req.logout();
+    //req.flash("success_msg", "You are logged out now.");
+    res.redirect("/login/principal");
+  };
 module.exports = userController;

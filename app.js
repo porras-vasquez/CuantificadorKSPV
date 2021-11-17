@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "secret",
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     //store: MongoStore.create({ mongoUrl: config.MONGODB_URI }),
   })
