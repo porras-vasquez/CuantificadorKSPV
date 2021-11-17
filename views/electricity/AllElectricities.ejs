@@ -30,18 +30,13 @@
                 <th scope="col" class="text-white ">Diciembre</th>
                 <th scope="col" class="text-white ">Total</th>
                 <th scope="col" class="text-white "></th>
-                <th scope="col" class="text-white "></th>
-            
-                
-                
+                <th scope="col" class="text-white "></th> 
             </tr>
         </thead>
         <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
             <% electricities.forEach((electricity)=>{ %>
                 <tr>
-                    <td>
-                        <div style="padding: 2%;"><%=electricity.medidor%></div>
-                    </td>
+
                     <td>
                         <div style="padding: 2%;"><%=electricity.titulo%></div>
                     </td>
@@ -58,47 +53,9 @@
                         <div style="padding: 2%;"><%=electricity.ubicacion%></div>
                     </td>
                     <td>
-                        <div style=" text-align: center;"><%=electricity.enero%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.febrero%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.marzo%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.abril%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.mayo%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.junio%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.julio%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.agosto%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.septiembre%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.octubre%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.noviembre%></div>
-                    </td>
-                    <td>
-                        <div style=" text-align: center;"><%=electricity.diciembre%></div>
-                    </td>
-                    <td>
                         <div style="padding: 2%; text-align: center;"><%=electricity.observacion%></div>
                     </td>
-                    <td>
-                        <div style="text-align: center;"><%=electricity.total%></div>
-                    </td>
+                 
                     <td>
                         <form action="/electricities/deleteElectricity/<%=electricity._id%>" method="post">
                             <button type="danger " class="btn btn-danger"><i class="material-icons">delete</i></button>
