@@ -13,7 +13,7 @@ router.get('/principal', function(req, res) {
     res.render('../views/login');
 });
 router.post('/login', userController.login);
-  
+router.get('/logout', userController.logout);
 router.get('/search/:id', userController.search);
 router.get('/show', userController.list);
 router.get('/show2', userController.list2); //No eficiente, hay que ver que hacemos mas adelante
