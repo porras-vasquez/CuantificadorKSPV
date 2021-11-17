@@ -65,17 +65,17 @@
                                         <div class="mb-2">
                                             <label for="exampleInputEmail1" class="form-label">Nombre de usuario</label>
                                             <input onchange="enable()" id="username" type="text" name="username" class="form-control"
-                                                 minlength="4" maxlength="12" placeholder="Ingrese su nombre" required />
+                                                pattern="^[a-zA-Z]{2,8}[\d]{2,8}$" minlength="4" maxlength="16" placeholder="Ingrese su nombre" required />
                                         </div>
                                         <div class="mb-2">
                                             <label for="inputPassword" class="form-label">Contraseña</label>
                                             <input onchange="enable()" id="password" type="password" name="password" class="form-control"
-                                                placeholder="Ingrese una contraseña valida" required />
+                                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$" minlength="8" maxlength="16" placeholder="Ingrese una contraseña valida" required />
                                         </div>
                                         <div class="mb-2">
                                             <label for="exampleInputEmail1" class="form-label">Email</label>
                                             <input onchange="enable()" id="email" type="text" name="email" class="form-control"
-                                                placeholder="Ingrese un correo valido" required />
+                                                pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" placeholder="Ingrese un correo valido" required />
                                         </div>
                                         <div class="btnContainer mb-4" style="padding-bottom: 3%;">
                     
