@@ -10,7 +10,10 @@ const UserSchema = mongoose.Schema({
         unique: "El username ingresado ya fue utilizado por otro usuario"
     },
     password: String,
-    email: String
+    email: {
+      type: String,
+      unique: "El correo electrónico ingresado ya fue utilizado por otro usuario"
+    }
 });
 
  UserSchema.methods.encryptPassword =  (password) => {

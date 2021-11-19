@@ -16,8 +16,16 @@ userController.save = async function(req, res) {
    await user.save(function(err) {
         if (err) { 
             //res.send('error');
-            res.render('../views/users/NewUser', { message : "error" });
-            console.log('Error: ', err); return;
+            if(err.errors.username){
+                res.render('../views/users/NewUser', { message : "username" });
+                console.log('Error: ', err); return;
+            }else if(err.errors.email){
+                res.render('../views/users/NewUser', { message : "email" });
+                console.log('Error: ', err); return;
+            } else{            
+                res.render('../views/users/NewUser', { message : "error" });
+                console.log('Error: ', err); return;
+            }
         }
         else{
             console.log("Successfully created a user. :)");
