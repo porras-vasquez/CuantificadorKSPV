@@ -41,6 +41,41 @@ companyController.search = function (req, res) {
     });
 
 };
+
+companyController.searchCompany = function (req, res) {
+    Company.findOne({ _id: req.params.id }).exec(function (err, company) {
+        if (err) { console.log('Error: ', err); return; }
+        res.render('../views/electricity/NewElectricity', { company: company });
+    });
+
+};
+
+companyController.addElectricity = function(req, res) {
+    if (req.params.id) {
+        Company.findByIdAndUpdate(req.params.id, {
+                $push: {
+                    'electricidad': {
+                        unidad_medida: req.body.unidad_medida,
+                        fuente_reporte: req.body.fuente_reporte
+                    }
+                }
+            },
+           (error, company) => {
+                if (error) { 
+                    res.render('../views/electricity/NewElectricity', { message : "error", company: company });
+                }else{
+                    res.render('../views/electricity/NewElectricity', { message : "success", company: company });
+                }
+            }
+        )
+    } else {
+        return res.json({
+            success: false,
+            msj: 'No se pudo agregar el medidor, por favor verifique que el _id sea correcto'
+        });
+    }
+};
+
 //Actualizar
 companyController.update = function (req, res) {
     Company.findByIdAndUpdate(req.params.id, {

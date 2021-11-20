@@ -51,45 +51,19 @@
     <div class="chat">
         <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;"></div>
         <h1 class="title">Datos electricidad</h1>
-        <form action="/electricities/saveElectricity" method="post" class="newElectricity">
+        <form action="/companies/saveElectricity/<%=company._id%>" method="post" class="newElectricity">
             <div class="col-6">
-
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Medidor</label>
-                    <input type="text" name="medidor" class="form-control" required />
-                </div>
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Titulo</label>
-                    <input type="text" name="titulo" class="form-control" required />
-                </div>
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">NISE</label>
-                    <input type="tex" name="nise" class="form-control" required />
-                </div>
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Unidad de Medida</label>
-                    <input type="text" name="unidad_medida" class="form-control" required />
-                </div>
                 <div class="mb-2">
                     <label for="exampleInputEmail1" class="form-label">Fuente Reporte</label>
                     <input type="text" name="fuente_reporte" class="form-control" required />
                 </div>
                 <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Ubicación</label>
-                    <input type="text" name="ubicacion" class="form-control" required />
-                </div>
-            
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Observación</label>
-                    <input type="text" name="observacion" class="form-control" required />
-                </div>
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Total</label>
-                    <input type="text" name="total" class="form-control" required />
+                    <label for="exampleInputEmail1" class="form-label">Unidad de medida</label>
+                    <input type="text" name="unidad_medida" class="form-control" required />
                 </div>
                 <div class="btnContainer mb-4">
                     
-                    <input type="submit"  name="ElectricityController" class="btn btn-success" value="Guardar">
+                    <input type="submit"  name="CompanyController" class="btn btn-success" value="Guardar">
                     <button type="button" class="btn btn-danger">
                         Cancelar
                     </button>

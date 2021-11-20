@@ -15,6 +15,10 @@ const CompanySchema = mongoose.Schema({
     fecha_elaboracion: String,
     fecha_actualizacion: String,
     descripcion: String,
+    electricidad: [{
+        unidad_medida : { type: String, required: true, unique: false },
+        fuente_reporte : { type: String, required: true, unique: false },
+    }]
 });
 
 // CompanySchema.methods.encryptPassword = (password) => {
