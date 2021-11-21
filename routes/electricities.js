@@ -9,10 +9,10 @@ router.get('/createElectricity',isAuthenticated, function(req, res) {
     res.render('../views/electricity/NewElectricity');
 });
 
-
+router.get('/electricity/:id',isAuthenticated, electricityController.searchCompany);
 router.get('/searchElectricity/:id', isAuthenticated, electricityController.search);
 router.get('/showElectricity', isAuthenticated, electricityController.list);
-router.post('/saveElectricity', isAuthenticated, electricityController.save);
+router.post('/saveElectricity/:id', isAuthenticated, electricityController.save);
 router.post('/deleteElectricity/:id',isAuthenticated, electricityController.delete);
 router.post('/addMeter/:_id', isAuthenticated, electricityController.addMeter);
 //router.post('/updateElectricity/:id', electricityController.update);

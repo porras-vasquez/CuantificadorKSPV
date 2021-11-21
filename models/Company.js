@@ -2,8 +2,8 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
-
-const CompanySchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+const CompanySchema = new Schema({
     numero_documento: {
         type: String,
         unique: "El documento ingresado ya fue utilizado por otra compañia"
@@ -16,8 +16,8 @@ const CompanySchema = mongoose.Schema({
     fecha_actualizacion: String,
     descripcion: String,
     electricidad: [{
-        unidad_medida : { type: String, required: true, unique: false },
-        fuente_reporte : { type: String, required: true, unique: false },
+        type: Schema.Types.ObjectId,
+        ref: 'Electricity'
     }]
 });
 

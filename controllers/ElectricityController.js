@@ -1,21 +1,41 @@
 'use strict'
 require('../connection');
 const Electricity = require("../models/Electricity");
+const Company = require("../models/Company");
 var electricityController = {};
 
 
-/*electricityController.save = function(req, res) {
+electricityController.save = async function(req, res) {
     var electricity = new Electricity(req.body);
-    electricity.save(function(err) {
-    if (err) { 
-        res.render('../views/electricity/NewElectricity', { message : "error" });
-    }
-    else{
-        res.render('../views/electricity/NewElectricity', { message : "success" });
-    }
+    var comp = await Company.findById(req.params.id);
+    electricity.company = comp;
+    //console.log(comp);
+    await electricity.save(function(err, elec) {
+        console.log(elec);
+        if (err) { 
+            res.render('../views/electricity/NewElectricity', { message : "error", company: elec.company._id });
+        }
+        else{
+            comp.electricidad.push(electricity);
+            comp.save(function(err, company){
+                if (err) { 
+                    res.render('../views/electricity/NewElectricity', { message : "error", company: company });
+                }
+                else{
+                    res.render('../views/electricity/NewElectricity', { message : "success", company: company });
+                }
+            });
+        }
     });
-};*/
+};
 
+electricityController.searchCompany = function (req, res) {
+    Company.findOne({ _id: req.params.id }).exec(function (err, company) {
+        if (err) { console.log('Error: ', err); return; }
+        res.render('../views/electricity/NewElectricity', { company: company });
+    });
+
+};
 
 electricityController.list = function(req, res) {
     Electricity.find({}).exec(function(err, electricities) {
@@ -46,24 +66,9 @@ electricityController.edit = function(req, res) {
     });
 };
 
-electricityController.save = function(req, res) {
+/*electricityController.save = function(req, res) {
     let body = req.body;
     let elect = new Electricity(body);
-    /*elect.save((err, contactoDB) => {
-            if (err) {
-                return res.json({
-                    success: false,
-                    msj: 'No se pudo registrar',
-                    err
-                });
-            } else {
-                res.json({
-                    success: true,
-                    msj: 'Se registró con éxito'
-                });
-            }
-        }
-    );*/
 
     elect.save(function(err) {
         if (err) {
@@ -79,7 +84,7 @@ electricityController.save = function(req, res) {
             });
         }
     });
-};
+};*/
 
 electricityController.addMeter = function(req, res) {
     if (req.params._id) {

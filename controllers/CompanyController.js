@@ -42,14 +42,6 @@ companyController.search = function (req, res) {
 
 };
 
-companyController.searchCompany = function (req, res) {
-    Company.findOne({ _id: req.params.id }).exec(function (err, company) {
-        if (err) { console.log('Error: ', err); return; }
-        res.render('../views/electricity/NewElectricity', { company: company });
-    });
-
-};
-
 companyController.addElectricity = function(req, res) {
     if (req.params.id) {
         Company.findByIdAndUpdate(req.params.id, {
