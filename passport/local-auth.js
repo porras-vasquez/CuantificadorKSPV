@@ -10,10 +10,10 @@ passport.use('local-signin',
     },
     async (email, password, done) => {
       // Match Email's User
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({email});
 
       if (!user) {
-        return done(null, false,null);
+        return done(null, false,{ message: "hola" });
       } else {
         // Match Password's User
         const match = await user.comparePassword(password);
@@ -22,7 +22,7 @@ passport.use('local-signin',
           return done(null, user);
         } else {
           console.log(match);
-          return done(null, false, null);
+          return done(null, false,{ message: "error" });
         }
       }
     }
