@@ -73,6 +73,34 @@ electricityController.meter = function(req, res) {
     });
 };
 
+electricityController.getMeters = function(req, res) {
+    Electricity.findOne({ _id: req.params.id }).exec(function(err, electricity) {
+        if (err) { 
+            res.render('../views/electricity/AllMeters', { electricity: electricity});
+        }else{
+            res.render('../views/electricity/AllMeters', { electricity: electricity});
+        }
+
+    });
+};
+
+/*electricityController.updateMeter = function(req, res){
+    Electricity.findByIdAndUpdate(req.params.id, {
+        $set: {
+            medidor: req.body
+        }
+    }, { new: true },
+        function (err, electricity) {
+            if (err) {
+                console.log('Error: ', err);
+                //res.redirect('/electricities/electricities2');
+                res.send(err);
+            }
+            res.send(electricity.medidor);
+            //res.redirect('/electricities/electricities2');
+    });
+};*/
+
 electricityController.update = function (req, res) {
     Electricity.findByIdAndUpdate(req.params.id, {
         $set: {
