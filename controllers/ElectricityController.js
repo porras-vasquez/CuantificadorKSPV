@@ -61,19 +61,15 @@ electricityController.list2 = function (req, res) {
 electricityController.search = function(req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function(err, electricity) {
         if (err) { console.log('Error: ', err); return; }
-
-
         res.render('../views/electricity/search', { electricity: electricity });
     });
 
 };
 
-electricityController.edit = function(req, res) {
+electricityController.meter = function(req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function(err, electricity) {
         if (err) { console.log("Error:", err); return; }
-
-        res.render('../views/electricity/search', { electricity: electricity });
-
+        res.render('../views/electricity/NewMeter', { electricity: electricity });
     });
 };
 
@@ -138,24 +134,14 @@ electricityController.addMeter = function(req, res) {
             },
            (error) => {
                 if (error) {
-                    return res.json({
-                        success: false,
-                        msj: 'No se pudo agregar el medidor',
-                        err
-                    });
+                    res.render('../views/electricity/NewMeter', { eletricity: req.params._id, message : "error" });
                 } else {
-                    return res.json({
-                        success: true,
-                        msj: 'Se agregó correctamente el medidor'
-                    });
+                    res.render('../views/electricity/NewMeter', { eletricity: req.params._id, message : "success" });
                 }
             }
         )
     } else {
-        return res.json({
-            success: false,
-            msj: 'No se pudo agregar el medidor, por favor verifique que el _id sea correcto'
-        });
+        res.render('../views/electricity/NewMeter', { eletricity: req.params._id, message : "errror" });
     }
 };
 
