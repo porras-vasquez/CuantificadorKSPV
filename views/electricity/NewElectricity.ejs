@@ -54,12 +54,25 @@
         <form action="/electricities/saveElectricity/<%=company._id%>" method="post" class="newElectricity">
             <div class="col-6">
                 <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Titulo</label>
+                    <input type="text" name="titulo" class="form-control" required />
+                </div>
+                <div class="mb-2">
                     <label for="exampleInputEmail1" class="form-label">Fuente Reporte</label>
                     <input type="text" name="fuente_reporte" class="form-control" required />
                 </div>
                 <div class="mb-2">
                     <label for="exampleInputEmail1" class="form-label">Unidad de medida</label>
                     <input type="text" name="unidad_medida" class="form-control" required />
+                </div>
+
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Ultima actualización</label>
+                    <input type="text" name="ultima_update" class="form-control" required />
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Observacion</label>
+                    <input type="text" name="observacion" class="form-control" required />
                 </div>
                 <div class="btnContainer mb-4">
                     

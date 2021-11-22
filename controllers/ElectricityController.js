@@ -76,8 +76,13 @@ electricityController.meter = function(req, res) {
 electricityController.update = function (req, res) {
     Electricity.findByIdAndUpdate(req.params.id, {
         $set: {
+            titulo: req.body.titulo,
             unidad_medida: req.body.unidad_medida,
             fuente_reporte: req.body.fuente_reporte,
+            ultima_update: req.body.ultima_update,
+             observacion: req.body.observacion,
+         
+           
         }
     }, { new: true },
         function (err, electricity) {

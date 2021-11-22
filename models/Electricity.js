@@ -4,8 +4,12 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const Schema = mongoose.Schema;
 const ElectricitySchema = new Schema({
+    titulo: String,
     unidad_medida: String,
     fuente_reporte: String,
+    ultima_update: String,
+    observacion: String,
+    //total: Number,
     company: {
         type: Schema.Types.ObjectId,
         ref: 'Company'
