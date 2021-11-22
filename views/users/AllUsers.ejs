@@ -10,23 +10,6 @@
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card chat-app" style="background-color: #eef7e1;">
-                    <div class="people-list ">
-                        <div class="col-12 row mt-5">
-                            <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
-                        </div>
-                        <ul class="list-unstyled chat-list  mb-0">
-                            <ul class="list-group list-group-flush button">
-                                <a href="/users/search" type="button" class="btn btn primary ">Editar perfil</a>
-                            </ul>
-                            <ul class="list-group list-group-flush button">
-                                <a href="/users/create" type="button" class="btn btn primary ">Agregar usuario</a>
-                            </ul>
-                            <ul class="list-group list-group-flush button">
-                                <a href="/users/show" type="button" class="btn btn primary ">Vista de usuarios</a>
-                            </ul>
-                            <div class="col-12 mb-5"></div>
-                        </ul>
-                    </div>
                     <% if(typeof(message) !="undefined" ) { %>
                         <% if(message=="success" ) { %>
                             <script>
@@ -52,49 +35,61 @@
                                 </script>
                                 <% } %>
                                     <% } %>
-                    <div class="chat mbs">
-                        <div class=" table container" style="margin-left: 10%;">
-                            <h1 class="mt-3">Lista de usuarios</h1>
-                            <table style="width: 85%; height: 100%;">
-                                <thead style="background-color: rgb(76, 50, 15); font-size: 18px;">
-                                    <tr>
-                                        <th style="padding: 2%;" scope="col" class="text-white ">Usuario</th>
-                                        <th scope="col" class="text-white ">Correo</th>
-                                        <th scope="col" class="text-white "></th>
-                                        <th scope="col" class="text-white "></th>
-                                    </tr>
-                                </thead>
-                                <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
-                                    <% users.forEach((user)=>{ %>
-                                        <tr class="tr">
-                                            <td>
-                                                <div style="padding: 2%;">
-                                                    <%=user.username%>
+                                        <div class=" table container">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <h1 class="mt-3 letter">Lista de usuarios</h1>
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <div style="padding: 2%;">
-                                                    <%=user.email%>
+                                                
+                                                <div class="btn-group col-5 mb-3 mt-3" role="group"
+                                                    aria-label="Basic checkbox toggle button group">
+                                                        <button href="/users/search" class="btn btn-success text-black letter" type="submit">Perfil</button>
+                                                        <button href="/users/create" class="btn btn-success text-black letter" type="submit">Nuevo usuario</button>
+                                                        <button href="/users/show" class="btn btn-success text-black letter" type="submit">Usuarios</button>
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <form action="/users/delete/<%=user._id%>" method="post">
-                                                    <button type="danger " class="btn btn-danger"><i
-                                                            class="material-icons">delete</i></button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <button type="link" class="btn btn-success editbtn "
-                                                    onclick="window.location. href='/users/search/<%=user._id%>'"><i
-                                                        class="material-icons">menu</i></button>
-                                            </td>
-                                            
-                                        </tr>
-                                        <% }) %>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                            </div>
+                                            <table style="width: 85%; height: 100%;">
+                                                <thead style="background-color: rgb(76, 50, 15); font-size: 18px;">
+                                                    <tr>
+
+                                                        <th style="padding: 2%;" scope="col" class="text-white ">Usuario
+                                                        </th>
+                                                        <th scope="col" class="text-white ">Correo</th>
+                                                        <th scope="col" class="text-white "></th>
+                                                        <th scope="col" class="text-white "></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
+                                                    <% users.forEach((user)=>{ %>
+                                                        <tr class="tr">
+                                                            <td>
+                                                                <div style="padding: 2%;">
+                                                                    <%=user.username%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div style="padding: 2%;">
+                                                                    <%=user.email%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <form action="/users/delete/<%=user._id%>"
+                                                                    method="post">
+                                                                    <button type="danger " class="btn btn-danger"><i
+                                                                            class="material-icons">delete</i></button>
+                                                                </form>
+                                                            </td>
+                                                            <td>
+                                                                <button type="link" class="btn btn-success editbtn "
+                                                                    onclick="window.location. href='/users/search/<%=user._id%>'"><i
+                                                                        class="material-icons">menu</i></button>
+                                                            </td>
+
+                                                        </tr>
+                                                        <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
                 </div>
             </div>
         </div>
