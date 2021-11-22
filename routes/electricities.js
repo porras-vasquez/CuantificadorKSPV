@@ -17,6 +17,6 @@ router.post('/updateElectricity/:id', isAuthenticated, electricityController.upd
 router.post('/saveElectricity/:id', isAuthenticated, electricityController.save);
 router.post('/deleteElectricity/:id',isAuthenticated, electricityController.delete);
 router.post('/addMeter/:_id', isAuthenticated, electricityController.addMeter);
-router.get('/meters/:id', isAuthenticated, electricityController.meter);
+router.get('/newMeter/:id', isAuthenticated, electricityController.meter);
 //router.post('/updateElectricity/:id', electricityController.update);
 module.exports = router; 

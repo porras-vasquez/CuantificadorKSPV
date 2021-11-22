@@ -29,10 +29,9 @@
                                     Swal.fire({
                                         position: 'center',
                                         icon: 'success',
-                                        title: 'Exito al agregar reporte electricidad',
+                                        title: 'Exito al agregar los datos del medidor',
                                         showConfirmButton: false,
                                         timer: 1500
-                                    }).then(({ value }) => {
                                     });
                                 </script>
                             <% }else if(message=="error" ){ %>
@@ -40,13 +39,13 @@
                                     Swal.fire({
                                         position: 'center',
                                         icon: 'error',
-                                        title: 'Error al agregar reporte electricidad',
+                                        title: 'Error al agregar los datos del medidor',
                                         showConfirmButton: false,
                                         timer: 1500
                                         });
                                 </script>
                             <% } %>
-                        % } %>
+                        <% } %>
         <div class="chat">
             <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;"></div>
             <h1 class="title">Datos del medidor</h1>

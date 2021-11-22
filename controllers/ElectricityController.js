@@ -134,14 +134,14 @@ electricityController.addMeter = function(req, res) {
             },
            (error) => {
                 if (error) {
-                    res.render('../views/electricity/NewMeter', { eletricity: req.params._id, message : "error" });
+                    res.render('../views/electricity/NewMeter', { electricity: req.params._id, message : "error" });
                 } else {
-                    res.render('../views/electricity/NewMeter', { eletricity: req.params._id, message : "success" });
+                    res.render('../views/electricity/NewMeter', { electricity: req.params._id, message : "success" });
                 }
             }
         )
     } else {
-        res.render('../views/electricity/NewMeter', { eletricity: req.params._id, message : "errror" });
+        res.render('../views/electricity/NewMeter', { electricity: req.params._id, message : "error" });
     }
 };
 
