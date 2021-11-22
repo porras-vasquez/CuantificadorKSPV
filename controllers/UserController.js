@@ -82,7 +82,8 @@ userController.update = function(req, res) {
                 console.log('Error: ', err);
                 res.redirect('/users/show');
             }
-            res.redirect('/users/show2');
+            req.flash("success_msg", "updated");
+            res.redirect('/users/show');
         });
 };
 
@@ -93,7 +94,8 @@ userController.delete = function(req, res) {
         if (err) { console.log('Error: ', err); return; }
 
         console.log("Product deleted!");
-        res.redirect('/users/show2');
+        req.flash("success_msg", "deleted");
+        res.redirect('/users/show');
 
     });
 
