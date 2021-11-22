@@ -10,31 +10,44 @@
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card chat-app" style="background-color: #eef7e1;">
-                    <% if(typeof(message) !="undefined" ) { %>
-                        <% if(message=="success" ) { %>
+
+                        <% if(success_msg=="updated" ) { %>
                             <script>
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',
-                                    title: '¡Realizado exitosamente!',
+                                    title: '¡Actualizado exitosamente!',
                                     showConfirmButton: false,
                                     timer: 1500
                                 }).then(({ value }) => {
                                 });
                             </script>
-                            <% }else if(message=="error" ){ %>
+                            <% }else if(error_msg=="error" ){ %>
                                 <script>
                                     Swal.fire({
                                         position: 'center',
                                         icon: 'error',
-                                        title: '¡Realizado exitosamente!',
+                                        title: '¡error!',
                                         showConfirmButton: false,
                                         timer: 1500
                                     }).then(({ value }) => {
                                     });
                                 </script>
                                 <% } %>
-                                    <% } %>
+                                <% if(success_msg=="deleted" ) { %>
+                                    <script>
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Eliminado correctamente!',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        }).then(({ value }) => {
+                                        });
+                                    </script>
+                                    <% }%>
+
+
                                         <div class=" table container">
                                             <div class="row">
                                                 <div class="col-3">
