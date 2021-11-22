@@ -11,9 +11,7 @@ const CompanySchema = new Schema({
     nombre: String,
     tipo: String,
     aprobado_por: String,
-    revisado_por: String,
-    fecha_elaboracion: String,
-    fecha_actualizacion: String,
+    fecha_inicio: String,
     descripcion: String,
     electricidad: [{
         type: Schema.Types.ObjectId,

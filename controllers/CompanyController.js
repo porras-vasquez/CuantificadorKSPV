@@ -72,12 +72,12 @@ companyController.addElectricity = function(req, res) {
 companyController.update = function (req, res) {
     Company.findByIdAndUpdate(req.params.id, {
         $set: {
+            numero_documento: req.body.numero_documento,
             nombre: req.body.nombre,
             tipo: req.body.tipo,
             aprobado_por: req.body.aprobado_por,
             revisado_por: req.body.revisado_por,
-            fecha_elaboracion: req.body.fecha_elaboracion,
-            fecha_actualizacion: req.body.fecha_actualizacion,
+            fecha_inicio: req.body.fecha_inicio,
             descripcion: req.body.descripcion,
         }
     }, { new: true },
