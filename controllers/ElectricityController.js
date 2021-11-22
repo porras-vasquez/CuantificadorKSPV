@@ -136,12 +136,12 @@ electricityController.addMeter = function(req, res) {
 
 electricityController.delete = function(req, res) {
 
-    Electricity.remove({ _id: req.params.id }, function(err) {
+    Electricity.deleteOne({ _id: req.params.id }, function(err) {
 
         if (err) { console.log('Error: ', err); return; }
 
         console.log("deleted!");
-        res.redirect("/electricities/showElectricity/");
+        res.redirect("/electricities/electricities");
 
     });
 

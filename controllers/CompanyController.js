@@ -91,7 +91,7 @@ companyController.update = function (req, res) {
 };
 //Eliminar
 companyController.delete = function (req, res) {
-    Company.remove({ _id: req.params.id }, function (err) {
+    Company.deleteOne({ _id: req.params.id }, function (err) {
         if (err) { }
         res.redirect("/companies/showCompany2/");
     });
