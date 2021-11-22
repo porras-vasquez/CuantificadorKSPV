@@ -25,31 +25,54 @@
                             <div class="col-12 mb-5"></div>
                         </ul>
                     </div>
-                    <% if(typeof(message) !="undefined" ) { %>
-                        <% if(message=="success" ) { %>
+                        <% if(success_msg=="updated" ) { %>
                             <script>
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',
-                                    title: '¡Realizado exitosamente!',
+                                    title: '¡Actualizado exitosamente!',
                                     showConfirmButton: false,
                                     timer: 2000
                                 }).then(({ value }) => {
                                 });
                             </script>
-                            <% }else if(message=="error" ){ %>
+                            <% }else if(error_msg=="error_update" ){ %>
                                 <script>
                                     Swal.fire({
                                         position: 'center',
                                         icon: 'error',
-                                        title: '¡Realizado exitosamente!',
+                                        title: '!Error al actualizar!',
                                         showConfirmButton: false,
                                         timer: 2000
                                     }).then(({ value }) => {
                                     });
                                 </script>
                                 <% } %>
-                                    <% } %>
+
+                                 <% if(success_msg=="deleted" ) { %>
+                                        <script>
+                                            Swal.fire({
+                                                position: 'center',
+                                                icon: 'success',
+                                                title: '!Eliminado correctamente!',
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                            }).then(({ value }) => {
+                                            });
+                                        </script>
+                                        <% } else if(error_msg=="error_delete" ){ %>
+                                            <script>
+                                                Swal.fire({
+                                                    position: 'center',
+                                                    icon: 'error',
+                                                    title: '!Error al eliminar!',
+                                                    showConfirmButton: false,
+                                                    timer: 2000
+                                                }).then(({ value }) => {
+                                                });
+                                            </script>
+                                            <% } %>
+
                                         <div class="chat mbs">
                                             <div class="container card-body col-3"
                                                 style="margin-left: 3%; padding-bottom: 5%;">
