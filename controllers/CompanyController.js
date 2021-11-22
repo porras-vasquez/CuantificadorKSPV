@@ -26,7 +26,7 @@ companyController.list = function (req, res) {
 companyController.list2 = function (req, res) {
     Company.find({}).exec(function (err, companies) {
         if (err) { 
-            res.render('../views/company/AllCompanies', { message : "error" });
+            res.render('../views/company/AllCompanies', { companies: companies, message : "error" });
         }
         else{
             res.render('../views/company/AllCompanies', { companies: companies, message : "success"});

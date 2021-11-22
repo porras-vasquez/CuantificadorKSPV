@@ -47,6 +47,17 @@ electricityController.list = function(req, res) {
 
 };
 
+electricityController.list2 = function (req, res) {
+    Electricity.find({}).exec(function (err, electricities) {
+        if (err) { 
+            res.render('../views/electricity/AllElectricities', { electricities: electricities, message : "error" });
+        }
+        else{
+            res.render('../views/electricity/AllElectricities', { electricities: electricities, message : "success"});
+        }
+    });
+};
+
 electricityController.search = function(req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function(err, electricity) {
         if (err) { console.log('Error: ', err); return; }
@@ -64,6 +75,22 @@ electricityController.edit = function(req, res) {
         res.render('../views/electricity/search', { electricity: electricity });
 
     });
+};
+
+electricityController.update = function (req, res) {
+    Electricity.findByIdAndUpdate(req.params.id, {
+        $set: {
+            unidad_medida: req.body.unidad_medida,
+            fuente_reporte: req.body.fuente_reporte,
+        }
+    }, { new: true },
+        function (err, electricity) {
+            if (err) {
+                console.log('Error: ', err);
+                res.redirect('/electricities/electricities2');
+            }
+            res.redirect('/electricities/electricities2');
+        });
 };
 
 /*electricityController.save = function(req, res) {
@@ -141,7 +168,7 @@ electricityController.delete = function(req, res) {
         if (err) { console.log('Error: ', err); return; }
 
         console.log("deleted!");
-        res.redirect("/electricities/electricities");
+        res.redirect("/electricities/electricities2");
 
     });
 
