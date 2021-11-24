@@ -11,8 +11,8 @@ router.get('/createElectricity',isAuthenticated, function(req, res) {
 
 router.get('/electricity/:id',isAuthenticated, electricityController.searchCompany);
 router.get('/searchElectricity/:id', isAuthenticated, electricityController.search);
-router.get('/electricities', isAuthenticated, electricityController.list);
-router.get('/electricities2', isAuthenticated, electricityController.list2);
+router.get('/electricities/:id', isAuthenticated, electricityController.list);
+router.get('/electricities2/:id', isAuthenticated, electricityController.list2);
 router.post('/updateElectricity/:id', isAuthenticated, electricityController.update);
 router.post('/saveElectricity/:id', isAuthenticated, electricityController.save);
 router.post('/deleteElectricity/:id',isAuthenticated, electricityController.delete);

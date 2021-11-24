@@ -30,7 +30,6 @@ companyController.search = function (req, res) {
         if (err) { console.log('Error: ', err); return; }
         res.render('../views/company/search', { company: company });
     });
-
 };
 
 companyController.addElectricity = function(req, res) {

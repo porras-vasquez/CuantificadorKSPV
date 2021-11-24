@@ -15,7 +15,7 @@
                         </div>
                         <ul class="list-unstyled chat-list  mb-0">
                             <ul class="list-group list-group-flush button">
-                                <a href="/electricities/createElectricity" type="button" class="btn btn primary ">Agregar reporte electricidad</a>
+                                <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar reporte electricidad</a>
                             </ul>
                             <ul class="list-group list-group-flush button">
                                 <a href="/electricities/electricities" type="button" class="btn btn primary ">Vista de reportes electricidad</a>
@@ -30,18 +30,13 @@
                                 <form action="/electricities/updateElectricity/<%=electricity._id%>" method="post">
                                     <table>
                                         <tbody>
-                                            <tr >
-                                                <td>Medidor: </td>
-                                                <td><input class="form-control" type="text" name="medidor" value="<%=electricity.medidor%>" />
-                                                </td>
-                                            </tr>
                                             <tr>
                                                 <td>Titulo: </td>
                                                 <td><input class="form-control"  type="text" name="titulo" value="<%=electricity.titulo%>" /></td>
                                             </tr>
                                             <tr>
-                                                <td>NISE: </td>
-                                                <td><input class="form-control"  type="text" name="nise" value="<%=electricity.nise%>" /></td>
+                                                <td>Observación: </td>
+                                                <td><input class="form-control"  type="text" name="observacion" value="<%=electricity.observacion%>" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Unidad de Medida: </td>

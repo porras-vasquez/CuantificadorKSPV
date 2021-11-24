@@ -34,34 +34,36 @@ electricityController.searchCompany = function (req, res) {
         if (err) { console.log('Error: ', err); return; }
         res.render('../views/electricity/NewElectricity', { company: company });
     });
-
 };
 
 electricityController.list = function(req, res) {
-    Electricity.find({}).exec(function(err, electricities) {
-        if (err) { console.log('Error: ', err); return; }
-        console.log("The INDEX");
-        res.render('../views/electricity/AllElectricities', { electricities: electricities });
-
+    Company.findOne({ _id: req.params.id }).populate('electricidad').exec(function (err, company) {
+        if (err) { 
+            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad });
+        }else{
+            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad });
+        }
     });
-
 };
 
 electricityController.list2 = function (req, res) {
-    Electricity.find({}).exec(function (err, electricities) {
+    Company.findOne({ _id: req.params.id }).populate('electricidad').exec(function (err, company) {
         if (err) { 
-            res.render('../views/electricity/AllElectricities', { electricities: electricities, message : "error" });
-        }
-        else{
-            res.render('../views/electricity/AllElectricities', { electricities: electricities, message : "success"});
+            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad });
+        }else{
+            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad });
         }
     });
 };
 
 electricityController.search = function(req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function(err, electricity) {
-        if (err) { console.log('Error: ', err); return; }
-        res.render('../views/electricity/search', { electricity: electricity });
+        if (err) { 
+            console.log('Error: ', err);        
+            res.render('../views/electricity/search', { electricity: electricity, company: electricity.company }); 
+        }else{
+            res.render('../views/electricity/search', { electricity: electricity, company: electricity.company });
+        }
     });
 
 };
@@ -108,7 +110,7 @@ electricityController.update = function (req, res) {
             unidad_medida: req.body.unidad_medida,
             fuente_reporte: req.body.fuente_reporte,
             ultima_update: req.body.ultima_update,
-             observacion: req.body.observacion,
+            observacion: req.body.observacion,
          
            
         }
@@ -116,31 +118,25 @@ electricityController.update = function (req, res) {
         function (err, electricity) {
             if (err) {
                 console.log('Error: ', err);
-                res.redirect('/electricities/electricities2');
+                
+                Company.findOne({ _id: electricity.company }).populate('electricidad').exec(function (error, company) {
+                    if (error) { 
+                        res.render('../views/electricity/AllElectricities', { message: "error", electricities: company.electricidad });
+                    }else{
+                        res.render('../views/electricity/AllElectricities', {message: "success", electricities: company.electricidad });
+                    }
+                });
+            }else{
+                Company.findOne({ _id: electricity.company }).populate('electricidad').exec(function (error, company) {
+                    if (error) { 
+                        res.render('../views/electricity/AllElectricities', { message: "error", electricities: company.electricidad });
+                    }else{
+                        res.render('../views/electricity/AllElectricities', { message: "success", electricities: company.electricidad });
+                    }
+                });
             }
-            res.redirect('/electricities/electricities2');
         });
 };
-
-/*electricityController.save = function(req, res) {
-    let body = req.body;
-    let elect = new Electricity(body);
-
-    elect.save(function(err) {
-        if (err) {
-            return res.json({
-                success: false,
-                msj: 'No se pudo registrar',
-                err
-            });
-        } else {
-            res.json({
-                success: true,
-                msj: 'Se registró con éxito'
-            });
-        }
-    });
-};*/
 
 electricityController.addMeter = function(req, res) {
     if (req.params._id) {
@@ -177,8 +173,6 @@ electricityController.addMeter = function(req, res) {
         res.render('../views/electricity/NewMeter', { electricity: req.params._id, message : "error" });
     }
 };
-
-
 
 electricityController.delete = function(req, res) {
 
