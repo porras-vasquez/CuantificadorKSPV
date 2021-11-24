@@ -16,10 +16,10 @@
                             <ul class="list-unstyled chat-list  mb-0">
             
                                 <ul class="list-group list-group-flush button">
-                                    <a href="" type="button" class="btn btn primary ">Vista de reportes electricidad</a>
+                                    <a href="/electricities/meters/<%=electricity._id%>" type="button" class="btn btn primary ">Ver medidores</a>
                                 </ul>
                                 <ul class="list-group list-group-flush button">
-                                    <a href="/electricities/electricities/<%=electricity._id%>" type="button" class="btn btn primary ">Atrás</a>
+                                    <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Atrás</a>
                                 </ul>
                             </ul>
                         </div>
@@ -49,7 +49,7 @@
         <div class="chat">
             <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;"></div>
             <h1 class="title">Datos del medidor</h1>
-            <form action="/electricities/addMeter/<%=electricity._id%>" method="post" class="newElectricity">
+            <form action="/electricities/addMeter/<%=electricity._id%>/<%=electricity.company%>" method="post" class="newElectricity">
                 <div class="col-6">
                     <div class="mb-2">
                         <label for="exampleInputEmail1" class="form-label">Nrc</label>

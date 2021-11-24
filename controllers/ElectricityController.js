@@ -32,26 +32,28 @@ electricityController.save = async function(req, res) {
 electricityController.searchCompany = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) { console.log('Error: ', err); return; }
-        res.render('../views/electricity/NewElectricity', { company: company });
+        res.render('../views/electricity/NewElectricity', { company: company._id });
     });
 };
 
 electricityController.list = function(req, res) {
+    console.log(req.params.id);
     Company.findOne({ _id: req.params.id }).populate('electricidad').exec(function (err, company) {
         if (err) { 
-            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad });
+            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad, company: company._id});
         }else{
-            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad });
+            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad, company: company._id });
         }
+        console.log(company);
     });
 };
 
 electricityController.list2 = function (req, res) {
     Company.findOne({ _id: req.params.id }).populate('electricidad').exec(function (err, company) {
         if (err) { 
-            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad });
+            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad, company: company._id });
         }else{
-            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad });
+            res.render('../views/electricity/AllElectricities', { electricities: company.electricidad, company: company._id });
         }
     });
 };
@@ -70,38 +72,53 @@ electricityController.search = function(req, res) {
 
 electricityController.meter = function(req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function(err, electricity) {
-        if (err) { console.log("Error:", err); return; }
-        res.render('../views/electricity/NewMeter', { electricity: electricity });
+        if (err) { 
+            console.log("Error:", err);         
+            res.render('../views/electricity/NewMeter', { electricity: electricity, company: electricity.company }); 
+        }else{
+            res.render('../views/electricity/NewMeter', { electricity: electricity, company: electricity.company });
+        }
+        console.log(electricity.company);
     });
 };
 
 electricityController.getMeters = function(req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function(err, electricity) {
         if (err) { 
-            res.render('../views/electricity/AllMeters', { electricity: electricity});
+            res.render('../views/electricity/AllMeters', { electricity: electricity, company: electricity.company});
         }else{
-            res.render('../views/electricity/AllMeters', { electricity: electricity});
+            res.render('../views/electricity/AllMeters', { electricity: electricity, company: electricity.company});
         }
-
     });
 };
 
-/*electricityController.updateMeter = function(req, res){
-    Electricity.findByIdAndUpdate(req.params.id, {
-        $set: {
-            medidor: req.body
+electricityController.editMeter = function(req, res){
+    Electricity.findOne({ _id: req.params.elec }).exec(function(err, electricity) {
+        if (err) { 
+            res.render('../views/electricity/EditMeter', { electricity: electricity, company: electricity.company,
+            meter: electricity.medidor});
+        }else{
+            res.render('../views/electricity/EditMeter', { electricity: electricity,
+            company: electricity.company, meter: electricity.medidor});
         }
+    });    
+};
+
+electricityController.updateMeter = function(req, res){
+    Electricity.updateOne({_id: req.params.elec, "medidor._id": req.params.meter}, {
+        $set: { medidor: [req.body] } 
     }, { new: true },
         function (err, electricity) {
             if (err) {
                 console.log('Error: ', err);
                 //res.redirect('/electricities/electricities2');
                 res.send(err);
+            }else{
+                res.send(electricity.medidor);
             }
-            res.send(electricity.medidor);
             //res.redirect('/electricities/electricities2');
     });
-};*/
+};
 
 electricityController.update = function (req, res) {
     Electricity.findByIdAndUpdate(req.params.id, {
@@ -121,17 +138,17 @@ electricityController.update = function (req, res) {
                 
                 Company.findOne({ _id: electricity.company }).populate('electricidad').exec(function (error, company) {
                     if (error) { 
-                        res.render('../views/electricity/AllElectricities', { message: "error", electricities: company.electricidad });
+                        res.render('../views/electricity/AllElectricities', { message: "error", electricities: company.electricidad, company: company._id });
                     }else{
-                        res.render('../views/electricity/AllElectricities', {message: "success", electricities: company.electricidad });
+                        res.render('../views/electricity/AllElectricities', {message: "success", electricities: company.electricidad, company: company._id });
                     }
                 });
             }else{
                 Company.findOne({ _id: electricity.company }).populate('electricidad').exec(function (error, company) {
                     if (error) { 
-                        res.render('../views/electricity/AllElectricities', { message: "error", electricities: company.electricidad });
+                        res.render('../views/electricity/AllElectricities', { message: "error", electricities: company.electricidad, company: company._id });
                     }else{
-                        res.render('../views/electricity/AllElectricities', { message: "success", electricities: company.electricidad });
+                        res.render('../views/electricity/AllElectricities', { message: "success", electricities: company.electricidad, company: company._id });
                     }
                 });
             }
@@ -139,7 +156,6 @@ electricityController.update = function (req, res) {
 };
 
 electricityController.addMeter = function(req, res) {
-    if (req.params._id) {
         Electricity.updateOne({ _id: req.params._id }, {
                 $push: {
                     'medidor': {
@@ -161,28 +177,37 @@ electricityController.addMeter = function(req, res) {
                     }
                 }
             },
-           (error) => {
+           (error, electricity) => {
                 if (error) {
-                    res.render('../views/electricity/NewMeter', { electricity: req.params._id, message : "error" });
+                    res.render('../views/electricity/NewMeter', { company: electricity.company, electricity: electricity, message : "error" });
                 } else {
-                    res.render('../views/electricity/NewMeter', { electricity: req.params._id, message : "success" });
+                    res.render('../views/electricity/NewMeter', { company: electricity.company, electricity:  electricity, message : "success" });
                 }
             }
         )
-    } else {
-        res.render('../views/electricity/NewMeter', { electricity: req.params._id, message : "error" });
-    }
 };
 
 electricityController.delete = function(req, res) {
 
     Electricity.deleteOne({ _id: req.params.id }, function(err) {
 
-        if (err) { console.log('Error: ', err); return; }
-
-        console.log("deleted!");
-        res.redirect("/electricities/electricities2");
-
+        if (err) { 
+            Company.findOne({ _id: req.params.comp }).populate('electricidad').exec(function (error, company) {
+                if (error) { 
+                    res.render('../views/electricity/AllElectricities', {company: company, message: "error", electricities: company.electricidad });
+                }else{
+                    res.render('../views/electricity/AllElectricities', {company: company, message: "success", electricities: company.electricidad });
+                }
+            });
+        }else{
+            Company.findOne({ _id: req.params.comp }).populate('electricidad').exec(function (error, company) {
+                if (error) { 
+                    res.render('../views/electricity/AllElectricities', {company: company, message: "error", electricities: company.electricidad });
+                }else{
+                    res.render('../views/electricity/AllElectricities', {company: company, message: "success", electricities: company.electricidad });
+                }
+            });
+        }
     });
 
 };

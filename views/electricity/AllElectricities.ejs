@@ -15,6 +15,10 @@
                         </div>
                         <ul class="list-unstyled chat-list  mb-0">
                             <ul class="list-group list-group-flush button">
+                                <a onclick="window.location. href='/electricities/electricity/<%=company%>'" type="button" class="btn btn primary ">Agregar
+                                    reporte</a>
+                            </ul>
+                            <ul class="list-group list-group-flush button">
                                 <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar
                                     compañía</a>
                             </ul>
@@ -69,7 +73,7 @@
                                                     </div>
                                                     <div style="background-color: rgb(243, 235, 224); font-size: 18px;">
                                                         <form style="background-color: rgb(243, 235, 224); font-size: 18px;"
-                                                                    action="/electricities/deleteElectricity/<%=electricity._id%>" method="post">
+                                                                    action="/electricities/deleteElectricity/<%=electricity._id%>/<%=electricity.company%>" method="post">
                                                             <button type="danger "
                                                                 class="btn btn-danger"><i 
                                                                 class="material-icons">delete</i>
@@ -82,7 +86,7 @@
                                                         </button>
                                                         <button type="link"
                                                             class="btn btn-warning edit btn" title="Agregar medidor"><a class="material-icons"
-                                                            onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>'">
+                                                            onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=electricity.company%>'">
                                                             speed</a>
                                                         </button>
                                                         <button type="link"

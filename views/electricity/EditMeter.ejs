@@ -15,10 +15,10 @@
                         </div>
                         <ul class="list-unstyled chat-list  mb-0">
                             <ul class="list-group list-group-flush button">
-                                <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar reporte</a>
+                                <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar medidor</a>
                             </ul>
                             <ul class="list-group list-group-flush button">
-                                <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista de reportes</a>
+                                <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista de medidores</a>
                             </ul>
                             <div class="col-12 mb-5"></div>
                         </ul>
@@ -26,30 +26,26 @@
                     <div class="chat" style="padding-bottom: 20%; ">
                         <div style="margin-right: 20%;">
                             <div class="container">
-                                <h3>Editar electricidad</h3>
-                                <form action="/electricities/updateElectricity/<%=electricity._id%>" method="post">
+                                <h3>Editar medidor</h3>
+                                <form action="/electricities/updateMeter/<%=electricity._id%>" method="post">
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <td>Titulo: </td>
-                                                <td><input class="form-control"  type="text" name="titulo" value="<%=electricity.titulo%>" /></td>
+                                                <td>Nrc: </td>
+                                                <td><input class="form-control"  type="text" name="nrc" value="<%=meter.nrc%>" /></td>
                                             </tr>
                                             <tr>
-                                                <td>Observación: </td>
-                                                <td><input class="form-control"  type="text" name="observacion" value="<%=electricity.observacion%>" /></td>
+                                                <td>Título: </td>
+                                                <td><input class="form-control"  type="text" name="observacion" value="<%=meter.titulo%>" /></td>
                                             </tr>
                                             <tr>
-                                                <td>Unidad de Medida: </td>
-                                                <td><input class="form-control"  type="text" name="unidad_medida" value="<%=electricity.unidad_medida%>" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Fuente Reporte: </td>
-                                                <td><input class="form-control"  type="text" name="fuente_reporte" value="<%=electricity.fuente_reporte%>" /></td>
+                                                <td>Medida: </td>
+                                                <td><input class="form-control"  type="text" name="unidad_medida" value="<%=meter.medida%>" /></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="1">
                                                     <button class="btn btn-success" type="submit">Actualizar</button>
-                                                    <button class="btn btn-danger" type="button"><a href="/electricities/electricities/<%=electricity.company%>">Cancelar</a></button>
+                                                    <button class="btn btn-danger" type="button"><a href="/electricities/meters">Cancelar</a></button>
                                                 </td>
                                             </tr>
                                         </tbody>
