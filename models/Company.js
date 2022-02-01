@@ -16,6 +16,10 @@ const CompanySchema = new Schema({
     electricidad: [{
         type: Schema.Types.ObjectId,
         ref: 'Electricity'
+    }],
+    gaseslp: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Gaseslp'
     }]
 });
 
