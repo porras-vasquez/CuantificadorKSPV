@@ -27,7 +27,7 @@
                         <div style="margin-right: 20%;">
                             <div class="container">
                                 <h3>Editar medidor</h3>
-                                <form action="/electricities/updateMeter/<%=electricity._id%>" method="post">
+                                <form action="/electricities/updateMeter/<%=electricity._id%>/<%=meter._id%>" method="post">
                                     <table>
                                         <tbody>
                                             <tr>
@@ -40,7 +40,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Medida: </td>
-                                                <td><input class="form-control"  type="text" name="unidad_medida" value="<%=meter.medida%>" /></td>
+                                                <td><input class="form-control"  type="text" name="medida" value="<%=meter.medida%>" /></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="1">
