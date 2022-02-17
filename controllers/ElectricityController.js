@@ -98,8 +98,16 @@ electricityController.editMeter = function(req, res){
             res.render('../views/electricity/EditMeter', { electricity: electricity, company: electricity.company,
             meter: electricity.medidor});
         }else{
-            res.render('../views/electricity/EditMeter', { electricity: electricity,
-            company: electricity.company, meter: electricity.medidor});
+            var m = "";
+            for (var x of electricity.medidor) {
+                console.log(x._id + ' ' + x.nrc);
+                if(req.params.meter == x._id){
+                    m = x;
+                    console.log("MEDIDOR" + m);
+                }
+            }
+           res.render('../views/electricity/EditMeter', { electricity: electricity,
+            company: electricity.company, meter: m});
         }
     });    
 };
@@ -127,9 +135,7 @@ electricityController.update = function (req, res) {
             unidad_medida: req.body.unidad_medida,
             fuente_reporte: req.body.fuente_reporte,
             ultima_update: req.body.ultima_update,
-            observacion: req.body.observacion,
-         
-           
+            observacion: req.body.observacion
         }
     }, { new: true },
         function (err, electricity) {
