@@ -13,11 +13,11 @@ const GasesShema = new Schema({
         unique: "El documento ingresado ya fue utilizado por otra compañia"
     },
     titulo: String,
-    descripcion: String,
+ /*   descripcion: String,
     uso: String,
     mes: String,
     total: String,
-    observacion: String,
+    observacion: String,*/
 });
 
 module.exports = mongoose.model('Gases', GasesShema);

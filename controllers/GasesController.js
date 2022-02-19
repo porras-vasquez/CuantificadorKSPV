@@ -28,4 +28,10 @@ gasesController.save = async function(req, res) {
         }
     });
 };
+gasesController.searchCompany = function (req, res) {
+    Company.findOne({ _id: req.params.id }).exec(function (err, company) {
+        if (err) { console.log('Error: ', err); return; }
+        res.render('../views/gaseslp/NewGas', { company: company._id });
+    });
+};
 module.exports = gasesController;

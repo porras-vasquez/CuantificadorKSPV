@@ -57,6 +57,33 @@ companyController.addElectricity = function(req, res) {
         });
     }
 };
+//falta
+companyController.addGaslp = function(req, res) {
+    if (req.params.id) {
+        Company.findByIdAndUpdate(req.params.id, {
+                $push: {
+                    'gaslp': {
+                        titulo: req.body.titulo 
+                        /* ,
+                        descripcion: req.body.descripcion,
+                        uso: req.body.uso,
+                        mes: req.body.mes,
+                        total: req.body.total,
+                        observacion: req.body.observacion, */
+                    }
+                }
+            },
+           (error, company) => {
+                if (error) { 
+                    res.render('../views/electricity/NewElectricity', { message : "error", company: company });
+                }else{
+                    res.render('../views/electricity/NewElectricity', { message : "success", company: company });
+                }
+            }
+        )
+    } 
+};
+
 
 //Actualizar
 companyController.update = function (req, res) {
