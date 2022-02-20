@@ -63,12 +63,7 @@ companyController.addGaslp = function(req, res) {
         Company.findByIdAndUpdate(req.params.id, {
                 $push: {
                     'gaslp': {
-                        titulo: req.body.titulo 
-                         ,
                         descripcion: req.body.descripcion,
-                        uso: req.body.uso,
-                        mes: req.body.mes,
-                        total: req.body.total,
                         observacion: req.body.observacion, 
                     }
                 }
