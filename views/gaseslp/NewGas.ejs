@@ -2,17 +2,18 @@
 <html>
 <header>
     <!--ZONA DEL NAVBAR-->
-    <%- include('../navbar'); -%> 
+    <%- include('../navbar'); -%>
 </header>
+
 <body style="background-color: #f4ffec;">
     <div class="container mt-5">
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card chat-app" style="background-color: #beb39c;">
                     <div class="people-list ">
-                      
+
                     </div>
-                   <!-- <% if(typeof(message) !="undefined" ) { %>
+                    <!-- <% if(typeof(message) !="undefined" ) { %>
                         <% if(message=="success" ) { %>
                             <script>
                                 Swal.fire({
@@ -37,28 +38,49 @@
                                 </script>
                                 <% } %>
                                     <% } %>-->
-    <div class="chat">
-        <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;"></div>
-        <h1 class="title">Datos Gaseslp</h1>
-        <form action="/gaseslp/saveGas/<%=company._id%>" method="post"  class="newGas">
-            <div class="col-6">
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Titulo</label>
-                    <input type="text" name="titulo" class="form-control" required />
-                </div>
-                <div class="btnContainer mb-4">
-                    
-                    <input type="submit"  name="CompanyController" class="btn btn-success" value="Guardar">
-                    <button type="button" class="btn btn-danger">
-                        Cancelar
-                    </button>
-                </div>
+                    <div class="chat">
+                        <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;"></div>
+                        <h1 class="title">Datos Gaseslp</h1>
+                        <form action="/gaseslp/saveGas/<%=company._id%>" method="post" class="newGas">
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="exampleInputEmail1" class="form-label">Titulo</label>
+                                    <input type="text" name="titulo" class="form-control" required />
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleInputEmail1" class="form-label">Descripción</label>
+                                    <input type="text" name="descripcion" class="form-control" required />
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleInputEmail1" class="form-label">Uso</label>
+                                    <input type="text" name="uso" class="form-control" required />
+                                </div>
 
-            </div>
+                                <div class="mb-2">
+                                    <label for="exampleInputEmail1" class="form-label">Mes</label>
+                                    <input type="text" name="mes" class="form-control" required />
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleInputEmail1" class="form-label">Total</label>
+                                    <input type="text" name="total" class="form-control" required />
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleInputEmail1" class="form-label">Observación</label>
+                                    <input type="text" name="observacion" class="form-control" required />
+                                </div>
+                                <div class="btnContainer mb-4">
+                                    <input type="submit" name="CompanyController" class="btn btn-success"
+                                        value="Guardar">
+                                    <button type="button" class="btn btn-danger">
+                                        Cancelar
+                                    </button>
+                                </div>
 
-        </form>
-    </div>
-  
+                            </div>
+
+                        </form>
+                    </div>
+
 </body>
 
 </html>

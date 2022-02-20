@@ -64,23 +64,28 @@ companyController.addGaslp = function(req, res) {
                 $push: {
                     'gaslp': {
                         titulo: req.body.titulo 
-                        /* ,
+                         ,
                         descripcion: req.body.descripcion,
                         uso: req.body.uso,
                         mes: req.body.mes,
                         total: req.body.total,
-                        observacion: req.body.observacion, */
+                        observacion: req.body.observacion, 
                     }
                 }
             },
            (error, company) => {
                 if (error) { 
-                    res.render('../views/electricity/NewElectricity', { message : "error", company: company });
+                    res.render('../views/gaseslp/NewGas', { message : "error", company: company });
                 }else{
-                    res.render('../views/electricity/NewElectricity', { message : "success", company: company });
+                    res.render('../views/gaseslp/NewGas', { message : "success", company: company });
                 }
             }
         )
+    }else {
+        return res.json({
+            success: false,
+            msj: 'No se pudo agregar el tipo de emisión gases, por favor verifique que el _id sea correcto'
+        });
     } 
 };
 

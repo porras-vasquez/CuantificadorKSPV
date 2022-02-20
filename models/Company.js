@@ -17,7 +17,7 @@ const CompanySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Electricity'
     }],
-    gaseslp: [{
+    gaslp: [{
         type: Schema.Types.ObjectId,
         ref: 'Gaseslp'
     }]

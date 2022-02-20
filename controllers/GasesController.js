@@ -15,8 +15,7 @@ gasesController.save = async function(req, res) {
             res.render('../views/gaseslp/NewGas', { message : "error", company: gas.company._id });
         }
         else{
-            comp.gaseslp.push(gases);
-            
+            comp.gaslp.push(gases);
             comp.save(function(err, company){
                 if (err) { 
                     res.render('../views/gaseslp/NewGas', { message : "error", company: company });
