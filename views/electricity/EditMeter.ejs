@@ -23,6 +23,29 @@
                             <div class="col-12 mb-5"></div>
                         </ul>
                     </div>
+                    <% if(typeof(message) !="undefined" ) { %>
+                        <% if(message=="success") { %>
+                            <script>
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Éxito al actualizar los datos del medidor',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            </script>
+                        <% }else if(message=="error" ){ %>
+                            <script>
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: 'Error al actualizar los datos del medidor',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                    });
+                            </script>
+                        <% } %>
+                    <% } %>
                     <div class="chat" style="padding-bottom: 20%; ">
                         <div style="margin-right: 20%;">
                             <div class="container">
