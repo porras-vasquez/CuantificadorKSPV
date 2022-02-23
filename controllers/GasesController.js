@@ -33,4 +33,31 @@ gasesController.searchCompany = function (req, res) {
         res.render('../views/gaseslp/NewGas', { company: company._id });
     });
 };
+/*gasesController.list = function (req, res) {
+    console.log(req.params.id);
+    Company.findOne({ _id: req.params.id })
+        .populate("gaslp")
+        .exec(function (err, company) {
+            if (err) {
+                res.render("../views/gaseslp/AllGas", {
+                    gases: company.gaslp,
+                    company: company._id,
+                });
+            } else {
+                res.render("../views/gaseslp/AllGas", {
+                    gases: company.gaslp,
+                    company: company._id,
+                });
+            }
+            console.log(company);
+        });*/
+
+gasesController.list = function(req, res) {
+    Gaseslp.find({}).exec(function(err, gases) {
+        if (err) { console.log('Error: ', err); return; }
+        console.log("The INDEX");
+        res.render('../views/gaseslp/AllGas', { gases: gases });
+
+    });
+};
 module.exports = gasesController;

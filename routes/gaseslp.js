@@ -10,4 +10,5 @@ router.get('/createGases',isAuthenticated, function(req, res) {
 });
 router.get('/gasessearchcompany/:id',isAuthenticated, gasesController.searchCompany);
 router.post('/saveGas/:id', isAuthenticated, gasesController.save);
+router.get('/gasesshow/:id', isAuthenticated, gasesController.list);
 module.exports = router; 

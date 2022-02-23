@@ -2,7 +2,26 @@
 <header>
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/dropdownCompanyMain.css" />
 </header>
+<!--JS de menu de emisiones-->
+<script>$(function () {
+        $(".dropdown-menu > li > a.trigger").on("click", function (e) {
+            var current = $(this).next();
+            var grandparent = $(this).parent().parent();
+            if ($(this).hasClass('left-caret') || $(this).hasClass('right-caret'))
+                $(this).toggleClass('right-caret left-caret');
+            grandparent.find('.left-caret').not(this).toggleClass('right-caret left-caret');
+            grandparent.find(".sub-menu:visible").not(current).hide();
+            current.toggle();
+            e.stopPropagation();
+        });
+        $(".dropdown-menu > li > a:not(.trigger)").on("click", function () {
+            var root = $(this).closest('.dropdown');
+            root.find('.left-caret').toggleClass('right-caret left-caret');
+            root.find('.sub-menu:visible').hide();
+        });
+    });</script>
 
 <body style="background-color: #f4ffec;">
     <div class="container mt-5">
@@ -86,36 +105,23 @@
                                                                     <table class=""
                                                                         style="width: 85%; height: 100%; background-color: rgba(26,145,125,255);">
                                                                         <div class="card">
-                                                                            <div class="card-header"
+                                                                            <div class="card-header text-white"
                                                                                 style="background-color: rgba(26,145,125,255);">
-                                                                                <%=company.tipo%>
+                                                                                <%=company.nombre%>
                                                                             </div>
                                                                             <div class="card-body"
                                                                                 style="background-color: rgb(243, 235, 224); font-size: 18px;">
                                                                                 <h5 class="card-title">
-                                                                                    <%=company.nombre%>
+                                                                                    <%=company.tipo%>
                                                                                 </h5>
-                                                                                <p class="card-text">
+                                                                                <h5 class="card-text">
                                                                                     <%=company.descripcion%>
-                                                                                </p>
+                                                                                </h5>
                                                                             </div>
                                                                             <div
                                                                                 style="background-color: rgb(243, 235, 224); font-size: 18px;">
-                                                                                <form
-                                                                                    style="background-color: rgb(243, 235, 224); font-size: 18px;"
-                                                                                    action="/companies/deleteCompany/<%=company._id%>"
-                                                                                    method="post"><button type="danger "
-                                                                                        class="btn btn-danger"><i
-                                                                                            class="material-icons"
-                                                                                            title="Eliminar">delete</i></button>
-                                                                                </form>
-                                                                                <button type="link"
-                                                                                    class="btn btn-success edit btn"
-                                                                                    title="Editar compañía"
-                                                                                    onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
-                                                                                        class="material-icons">menu</i></button>
-                                                                                <!-- Nuevo-->
-                                                                                <button type="link"
+
+                                                                                <!--  <button type="link"
                                                                                     class="btn btn-warning edit btn"
                                                                                     title="Ver cantidades de consumos"><a
                                                                                         class="material-icons"
@@ -128,27 +134,61 @@
                                                                                         class="material-icons"
                                                                                         onclick="window.location. href='/electricities/electricity/<%=company._id%>'">
                                                                                         bolt
-                                                                                    </a></button>
+                                                                                    </a></button>-->
+                                                                                
+                                                                                    <form
+                                                                                        style="background-color: rgb(243, 235, 224); font-size: 18px;"
+                                                                                        action="/companies/deleteCompany/<%=company._id%>"
+                                                                                        method="post"><button
+                                                                                            type="danger "
+                                                                                            class="btn btn-danger marco"><i
+                                                                                                class="material-icons"
+                                                                                                title="Eliminar">delete</i></button>
+                                                                                    </form>
+                                                                                    <button type="link"
+                                                                                        class="btn btn-success marco"
+                                                                                        title="Editar compañía"
+                                                                                        onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
+                                                                                            class="material-icons">edit</i></button>
 
-
-                                                                                <div class="btn-group">
-                                                                                    <button type="button"
-                                                                                        class="btn btn-dark dropdown-toggle"
-                                                                                        data-toggle="dropdown"
-                                                                                        aria-haspopup="true"
-                                                                                        aria-expanded="false">
-                                                                                        Gases lp
-                                                                                    </button>
-                                                                                    <div class="dropdown-menu">
-                                                                                        <a class="dropdown-item"
-                                                                                            href=''>Mostrar</a>
-                                                                                        <a class="dropdown-item"
-                                                                                            href='/gaseslp/gasessearchcompany/<%=company._id%>'>Agregar</a>
-                                                                                        
+                                                                                    <div class="dropdown btn"
+                                                                                        style="position:relative">
+                                                                                        <a href="#"
+                                                                                            class="btn btn-primary material-icons marco" title="Menú de emisiones"
+                                                                                            data-toggle="dropdown">folder_copy <span
+                                                                                                class="caret"></span></a>
+                                                                                        <ul class="dropdown-menu">
+                                                                                            <li>
+                                                                                                <a
+                                                                                                    class="trigger right-caret text-black">Electricidad</a>
+                                                                                                <ul
+                                                                                                    class="dropdown-menu sub-menu">
+                                                                                                    <li><a class="dropdown-item"
+                                                                                                            href='/electricities/electricity/<%=company._id%>'>Agregar</a>
+                                                                                                    </li>
+                                                                                                    <li> <a class="dropdown-item"
+                                                                                                            href='/electricities/electricities/<%=company._id%>'>Mostrar</a>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <a
+                                                                                                    class="trigger right-caret text-black">Gases
+                                                                                                    LP</a>
+                                                                                                <ul
+                                                                                                    class="dropdown-menu sub-menu">
+                                                                                                    <li><a class="dropdown-item"
+                                                                                                            href='/gaseslp/gasessearchcompany/<%=company._id%>'>Agregar</a>
+                                                                                                    </li>
+                                                                                                    <li> <a class="dropdown-item"
+                                                                                                            href='/gaseslp/gasesshow/<%=company._id%>'>Mostrar</a>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </li>
+                                                                                        </ul>
                                                                                     </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                                
+
                                                                     </table>
                                                                     <% }) %>
                                                                 </div>

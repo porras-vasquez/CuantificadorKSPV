@@ -64,8 +64,6 @@ userController.list2 = function(req, res) {
 userController.search = function(req, res) {
     User.findOne({ _id: req.params.id }).exec(function(err, user) {
         if (err) { console.log('Error: ', err); return; }
-
-
         res.render('../views/users/search', { user: user });
     });
 
