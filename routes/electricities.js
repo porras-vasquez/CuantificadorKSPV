@@ -20,7 +20,7 @@ router.post('/addMeter/:_id/:comp', isAuthenticated, electricityController.addMe
 router.post('/updateMeter/:elec/:meter', isAuthenticated, electricityController.updateMeter);
 router.get('/newMeter/:id/:comp', isAuthenticated, electricityController.meter);
 router.get('/editMeter/:elec/:meter', isAuthenticated, electricityController.editMeter);
-//router.get('/deleteMeter/:elec/:meter', isAuthenticated, electricityController.deleteMeter);
+router.post('/deleteMeter/:elec/:meter', isAuthenticated, electricityController.deleteMeter);
 router.get('/meters/:id', isAuthenticated, electricityController.getMeters);
 //router.post('/updateElectricity/:id', electricityController.update);
 module.exports = router; 

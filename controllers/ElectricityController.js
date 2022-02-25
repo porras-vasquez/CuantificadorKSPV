@@ -194,7 +194,7 @@ electricityController.updateMeter = function (req, res) {
                         company: electric.company,
                         meter: m,
                     });
-                }else {
+                } else {
                     console.log("Error: ", err);
                     //res.redirect('/electricities/electricities2');
                     res.render("../views/electricity/EditMeter", {
@@ -347,6 +347,51 @@ electricityController.delete = function (req, res) {
                         });
                     }
                 });
+        }
+    });
+};
+
+electricityController.deleteMeter = function (req, res) {
+    console.log("ELIMINAR: " + req.params.meter);
+    Electricity.updateOne({ "_id": req.params.elec }, {
+        "$pull": {
+          "medidor": {
+            "_id": req.params.meter
+          }
+        }
+      }, {multi: true}).exec(function (err, electricity) {
+        if (err) {
+            Electricity.findOne({ _id: req.params.elec }).exec(function (err, electricity) {
+                if (err) {
+                    res.render("../views/electricity/AllMeters", {
+                        message: "error",
+                        electricity: electricity,
+                        company: electricity.company,
+                    });
+                } else {
+                    res.render("../views/electricity/AllMeters", {
+                        message: "success",
+                        electricity: electricity,
+                        company: electricity.company,
+                    });
+                }
+            });
+        } else {
+            Electricity.findOne({ _id: req.params.elec }).exec(function (err, electricity) {
+                if (err) {
+                    res.render("../views/electricity/AllMeters", {
+                        message: "error",
+                        electricity: electricity,
+                        company: electricity.company,
+                    });
+                } else {
+                    res.render("../views/electricity/AllMeters", {
+                        message: "success",
+                        electricity: electricity,
+                        company: electricity.company,
+                    });
+                }
+            });
         }
     });
 };
