@@ -13,9 +13,20 @@ const GasesShema = new Schema({
         unique: "El documento ingresado ya fue utilizado por otra compañia"
     },
     descripcion: String,
-   /* uso: String,
-    mes: String,
-    total: String,*/
+    uso: String,
+    enero: String,
+    febrero: String,
+    marzo: String,
+    abril: String,
+    mayo: String,
+    junio: String,
+    julio: String,
+    agosto: String,
+    septiembre: String,
+    octubre: String,
+    noviembre: String,
+    diciembre: String,
+    densidad: String,
     observacion: String
 });
 

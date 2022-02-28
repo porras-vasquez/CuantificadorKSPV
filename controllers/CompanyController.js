@@ -32,21 +32,21 @@ companyController.search = function (req, res) {
     });
 };
 
-companyController.addElectricity = function(req, res) {
+companyController.addElectricity = function (req, res) {
     if (req.params.id) {
         Company.findByIdAndUpdate(req.params.id, {
-                $push: {
-                    'electricidad': {
-                        unidad_medida: req.body.unidad_medida,
-                        fuente_reporte: req.body.fuente_reporte
-                    }
+            $push: {
+                'electricidad': {
+                    unidad_medida: req.body.unidad_medida,
+                    fuente_reporte: req.body.fuente_reporte
                 }
-            },
-           (error, company) => {
-                if (error) { 
-                    res.render('../views/electricity/NewElectricity', { message : "error", company: company });
-                }else{
-                    res.render('../views/electricity/NewElectricity', { message : "success", company: company });
+            }
+        },
+            (error, company) => {
+                if (error) {
+                    res.render('../views/electricity/NewElectricity', { message: "error", company: company });
+                } else {
+                    res.render('../views/electricity/NewElectricity', { message: "success", company: company });
                 }
             }
         )
@@ -58,30 +58,44 @@ companyController.addElectricity = function(req, res) {
     }
 };
 //falta
-companyController.addGaslp = function(req, res) {
+companyController.addGaslp = function (req, res) {
     if (req.params.id) {
         Company.findByIdAndUpdate(req.params.id, {
-                $push: {
-                    'gaslp': {
-                        descripcion: req.body.descripcion,
-                        observacion: req.body.observacion, 
-                    }
+            $push: {
+                'gaslp': {
+                    descripcion: req.body.descripcion,
+                    uso: req.body.uso,
+                    enero: req.body.enero,
+                    febrero: req.body.febrero,
+                    marzo: req.body.marzo,
+                    abril: req.body.abril,
+                    mayo: req.body.mayo,
+                    junio: req.body.junio,
+                    julio: req.body.julio,
+                    agosto: req.body.agosto,
+                    septiembre: req.body.septiembre,
+                    octubre: req.body.octubre,
+                    noviembre: req.body.noviembre,
+                    diciembre: req.body.diciembre,
+                    densidad: req.body.densidad,
+                    observacion: req.body.observacion,
                 }
-            },
-           (error, company) => {
-                if (error) { 
-                    res.render('../views/gaseslp/NewGas', { message : "error", company: company });
-                }else{
-                    res.render('../views/gaseslp/NewGas', { message : "success", company: company });
+            }
+        },
+            (error, company) => {
+                if (error) {
+                    res.render('../views/gaseslp/NewGas', { message: "error", company: company });
+                } else {
+                    res.render('../views/gaseslp/NewGas', { message: "success", company: company });
                 }
             }
         )
-    }else {
+    } else {
         return res.json({
             success: false,
             msj: 'No se pudo agregar el tipo de emisión gases, por favor verifique que el _id sea correcto'
         });
-    } 
+    }
 };
 
 
@@ -115,7 +129,7 @@ companyController.delete = function (req, res) {
         if (err) {
             //agregar error'
             req.flash("error_msg", "error_delete");
-         }
+        }
         req.flash("success_msg", "deleted");
         res.redirect("/companies/showCompany");
     });

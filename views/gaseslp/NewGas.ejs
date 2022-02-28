@@ -6,65 +6,94 @@
 </header>
 
 <body style="background-color: #f4ffec;">
-    <div class="container mt-5">
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #beb39c;">
-                    <div class="people-list ">
-
-                    </div>
-                    <!-- <% if(typeof(message) !="undefined" ) { %>
-                        <% if(message=="success" ) { %>
-                            <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: 'Exito al agregar reporte electricidad',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(({ value }) => {
-                                });
-                            </script>
-                            <% }else if(message=="error" ){ %>
-                                <script>
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'error',
-                                        title: 'Error al agregar reporte electricidad',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    }).then(({ value }) => {
-                                    });
-                                </script>
-                                <% } %>
-                                    <% } %>-->
-                    <div class="chat">
-                        <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;"></div>
-                        <h1 class="title">Datos Gaseslp</h1>
-                        <form action="/gaseslp/saveGas/<%=company._id%>" method="post" class="newGas">
-                            <div class="col-6">
-
-                                <div class="mb-2">
-                                    <label for="exampleInputEmail1" class="form-label">Descripción</label>
-                                    <input type="text" name="descripcion" class="form-control" required />
-                                </div>
-                                <div class="mb-2">
-                                    <label for="exampleInputEmail1" class="form-label">Observación</label>
-                                    <input type="text" name="observacion" class="form-control" required />
-                                </div>
-                                <div class="btnContainer mb-4">
-                                    <input type="submit" name="CompanyController" class="btn btn-success"
-                                        value="Guardar">
-                                    <button type="button" class="btn btn-danger">
-                                        Cancelar
-                                    </button>
-                                </div>
-
-                            </div>
-
-                        </form>
-                    </div>
-
+    <div class="mt-2 mb-2" style="margin-left: 5%; margin-right: 5%;">
+        <form action="/gaseslp/saveGas/<%=company._id%>" method="post" class="newGas row "
+            style="background-color: #beb39c;">
+            <h3>Módulo de Gases LP</h3>
+            <div class="col-3">
+                <div class="mb-2">
+                    <label class="form-label">Descripción</label>
+                    <input type="text" name="descripcion" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Uso</label>
+                    <input type="text" name="uso" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Observación</label>
+                    <input type="text" name="observacion" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Densidad</label>
+                    <input type="text" name="densidad" class="form-control" />
+                </div>
+            </div>
+            <div class=" col-4 row text-dark" style="background-color: #ffffff; margin-left: 6%;">
+                <h3 class="mt-2">
+                    Consumo de litros por mes
+                </h3>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label text">Enero</label>
+                    <input type="text" name="enero" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Febrero</label>
+                    <input type="text" name="febrero" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Marzo</label>
+                    <input type="text" name="marzo" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Abril</label>
+                    <input type="text" name="abril" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Mayo</label>
+                    <input type="text" name="mayo" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Junio</label>
+                    <input type="text" name="junio" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Julio</label>
+                    <input type="text" name="julio" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Agosto</label>
+                    <input type="text" name="agosto" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Septiembre</label>
+                    <input type="text" name="septiembre" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Octubre</label>
+                    <input type="text" name="octubre" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Noviembre</label>
+                    <input type="text" name="noviembre" class="textarea form-control" />
+                </div>
+                <div class="col-md-3 mb-1 text-center">
+                    <label for="exampleInputEmail1" class="form-label">Diciembre</label>
+                    <input type="text" name="diciembre" class="textarea form-control" />
+                </div>
+            </div>
+            <div class="btnContainer mb-4" style="margin-left: 1.7%;">
+                <input type="submit" name="CompanyController"  class="btn btn-success" value="Guardar">
+                <button type="button" class="btn btn-danger">
+                    <a href='/gaseslp/gasesshow/<%=company._id%>'>Cancelar</a>
+                </button>
+                <button type="button" class="btn btn-warning" href='/gaseslp/gasesshow/<%=company._id%>'>
+                    <a href='/gaseslp/gasesshow/<%=company._id%>'>Regresar</a>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-2"></div>
+    </div>
 </body>
 
 </html>
