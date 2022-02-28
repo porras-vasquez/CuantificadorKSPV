@@ -6,69 +6,127 @@
 </header>
 
 <body style="background-color: #f4ffec;">
-    <div class="container mt-5">
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #eef7e1;">
-                    <div class="people-list ">
-                        <div class="col-12 row mt-5">
-                            <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
-                        </div>
-                    </div>
-                    <!-- <% if(typeof(message) !="undefined" ) { %>
-                        <% if(message=="success" ) { %>
-                            <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: '¡Realizado exitosamente!',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
-                            </script>
-                            <% }else if(message=="error" ){ %>
-                                <script>
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'error',
-                                        title: '¡Realizado exitosamente!',
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                </script>
-                                <% } %>
-                                    <% } %>-->
-                    <div class="chat mbs">
-                        <div class="container card-body col-3" style="margin-left: 3%; padding-bottom: 5%;">
-                            <h3 class="mt-3">Reportes de gaseslp</h3>
-                            <div class="col-12">
-                                <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
-                                    <div>
-                                        <% gases.forEach((gaslp)=>{ %>
-                                            <table class=""
-                                                style="width: 85%; height: 100%; background-color: rgba(26,145,125,255);">
-                                                <div class="card">
-                                                    <div class="card-header"
-                                                        style="background-color: rgba(26,145,125,255);">
-                                                        <%=gaslp.descripcion%>
-                                                    </div>
-                                                    <div class="card-body"
-                                                        style="background-color: rgb(243, 235, 224); font-size: 18px;">
-                                                        <h5 class="card-title">
-                                                            <%=gaslp.observacion%>
-                                                        </h5>
-                                                    </div>
-                                                </div>
-                                            </table>
-                                            <% }) %>
-                                    </div>
-                                </tbody>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="mt-2 mb-2">
+        <h3>Módulo de Gases LP</h3>
+        <div class=" col-4 row text-dark">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col"> Descripción</th>
+                        <th scope="col">Uso</th>
+                        <th scope="col">Observación</th>
+                        <th scope="col">Densidad</th>
+                        <th scope="col">Enero</th>
+                        <th scope="col">Debrero</th>
+                        <th scope="col">Marzo</th>
+                        <th scope="col">Abril</th>
+                        <th scope="col">Mayo</th>
+                        <th scope="col">Junio</th>
+                        <th scope="col">Julio</th>
+                        <th scope="col">Agosto</th>
+                        <th scope="col">Septiembre</th>
+                        <th scope="col">Octubre</th>
+                        <th scope="col">Noviembre</th>
+                        <th scope="col">Diciembre</th>
+                        <th scope="col">Emisión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% gases.forEach((gaslp)=>{ %>
+                        <tr>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.descripcion%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.uso%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.observacion%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.densidad%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.enero%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.febrero%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.marzo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.abril%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.mayo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.junio%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.julio%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.agosto%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.septiembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.octubre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.noviembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=gaslp.diciembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    none
+                                </div>
+                            </td>
+                        </tr>
+
+                </tbody>
+            </table>
+            <% }) %>
         </div>
+    </div>
+    <div class="col-2"></div>
     </div>
 </body>
 
