@@ -79,6 +79,7 @@ companyController.addGaslp = function (req, res) {
                     diciembre: req.body.diciembre,
                     densidad: req.body.densidad,
                     observacion: req.body.observacion,
+                    emision: req.body.emision
                 }
             }
         },
