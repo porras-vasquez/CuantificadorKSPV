@@ -3,8 +3,8 @@
 <header>
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
-</header>
-<body style="background-color: #f4ffec;">
+</header> 
+<body style="background-color: #f4ffec;" onload="abreventana()">
     <div class="container mt-5">
         <div class="row clearfix">
             <div class="col-lg-12">
@@ -31,23 +31,29 @@
                     <% if(typeof(message) !="undefined" ) { %>
                         <% if(message=="success" ) { %>
                             <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: '¡Realizado exitosamente!',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
+                                if (!localStorage.getItem("message")) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: '¡Realizado exitosamente!',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                    localStorage.setItem("message", 1);
+                                }
                             </script>
                         <% }else if(message=="error" ){ %>
                             <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: '¡Realizado exitosamente!',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
+                                if (!localStorage.getItem("message")) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: '¡Lo sentimos, ocurrió un error!',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                    localStorage.setItem("message", 1);
+                                }                                
                             </script>
                         <% } %>
                     <% } %>
