@@ -27,7 +27,8 @@ const GasesShema = new Schema({
     noviembre: String,
     diciembre: String,
     densidad: String,
-    observacion: String
+    observacion: String,
+    emision: String
 });
 
 module.exports = mongoose.model('Gases', GasesShema);

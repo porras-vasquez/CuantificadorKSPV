@@ -6,126 +6,131 @@
 </header>
 
 <body style="background-color: #f4ffec;">
-    <div class="mt-2 mb-2">
-        <h3>Módulo de Gases LP</h3>
-        <div class=" col-4 row text-dark">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col"> Descripción</th>
-                        <th scope="col">Uso</th>
-                        <th scope="col">Observación</th>
-                        <th scope="col">Densidad</th>
-                        <th scope="col">Enero</th>
-                        <th scope="col">Debrero</th>
-                        <th scope="col">Marzo</th>
-                        <th scope="col">Abril</th>
-                        <th scope="col">Mayo</th>
-                        <th scope="col">Junio</th>
-                        <th scope="col">Julio</th>
-                        <th scope="col">Agosto</th>
-                        <th scope="col">Septiembre</th>
-                        <th scope="col">Octubre</th>
-                        <th scope="col">Noviembre</th>
-                        <th scope="col">Diciembre</th>
-                        <th scope="col">Emisión</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% gases.forEach((gaslp)=>{ %>
+    <div class="card mt-2 mb-2" style="margin-left: 2%; margin-right: 2%; background-color: #beb39c;">
+        <div class="mt-2 mb-2 " style="margin-left: 2.5%;">
+            <h3>Módulo de Gases LP</h3>
+            <div class=" col-4 row text-dark">
+                <table class="table table-bordered" style="background-color: white;">
+                    <thead>
                         <tr>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.descripcion%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.uso%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.observacion%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.densidad%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.enero%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.febrero%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.marzo%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.abril%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.mayo%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.junio%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.julio%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.agosto%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.septiembre%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.octubre%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.noviembre%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    <%=gaslp.diciembre%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    none
-                                </div>
-                            </td>
+                            <th scope="col"> Descripción</th>
+                            <th scope="col">Uso</th>
+                            <th scope="col">Observación</th>
+                            <th scope="col">Densidad</th>
+                            <th scope="col">Enero</th>
+                            <th scope="col">Debrero</th>
+                            <th scope="col">Marzo</th>
+                            <th scope="col">Abril</th>
+                            <th scope="col">Mayo</th>
+                            <th scope="col">Junio</th>
+                            <th scope="col">Julio</th>
+                            <th scope="col">Agosto</th>
+                            <th scope="col">Septiembre</th>
+                            <th scope="col">Octubre</th>
+                            <th scope="col">Noviembre</th>
+                            <th scope="col">Diciembre</th>
+                            <th scope="col">Emisión</th>
                         </tr>
-
-                </tbody>
-            </table>
-            <% }) %>
+                    </thead>
+                    <tbody>
+                        <% gases.forEach((gaslp)=>{ %>
+                            <tr>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.descripcion%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.uso%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.observacion%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.densidad%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.enero%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.febrero%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.marzo%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.abril%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.mayo%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.junio%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.julio%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.agosto%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.septiembre%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.octubre%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.noviembre%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        <%=gaslp.diciembre%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="padding: 2%;">
+                                        none
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <button type="button" style="margin-right: 90%; margin-left: 2%;" class="btn btn-warning mb-3" href="/companies/showCompany">
+            <a href="/companies/showCompany">Regresar</a>
+        </button>
     </div>
+
     <div class="col-2"></div>
     </div>
 </body>

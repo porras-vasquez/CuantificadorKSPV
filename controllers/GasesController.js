@@ -5,6 +5,7 @@ const Gaseslp = require('../models/Gaseslp');
 var gasesController = {};
 
 gasesController.save = async function(req, res) {
+    req.body.emision = 0;
     var gases = new Gaseslp(req.body);
     var comp = await Company.findById(req.params.id);
     gases.company = comp;
