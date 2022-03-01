@@ -24,185 +24,125 @@
     });</script>
 
 <body style="background-color: #f4ffec;">
-    <div class="container mt-5">
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #eef7e1;">
-                    <div class="people-list ">
-                        <div class="col-12 row mt-5">
-                            <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
-                        </div>
-                        <ul class="list-unstyled chat-list  mb-0">
-                            <ul class="list-group list-group-flush button">
-                                <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar
-                                    compañía</a>
-                            </ul>
-                            <ul class="list-group list-group-flush button">
-                                <a href="/" type="button" class="btn btn primary ">Atrás</a>
-                            </ul>
-                            <div class="col-12 mb-5"></div>
-                        </ul>
-                    </div>
-                    <% if(success_msg=="updated" ) { %>
+    <!--Mensajes de all company-->
+    <% if(success_msg=="updated" ) { %>
+        <script>
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '¡Actualizado exitosamente!',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(({ value }) => {
+            });
+        </script>
+        <% }else if(error_msg=="error_update" ){ %>
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: '!Error al actualizar!',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(({ value }) => {
+                });
+            </script>
+            <% } %>
+
+                <% if(success_msg=="deleted" ) { %>
+                    <script>
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: '!Eliminado correctamente!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(({ value }) => {
+                        });
+                    </script>
+                    <% } else if(error_msg=="error_delete" ){ %>
                         <script>
                             Swal.fire({
                                 position: 'center',
-                                icon: 'success',
-                                title: '¡Actualizado exitosamente!',
+                                icon: 'error',
+                                title: '!Error al eliminar!',
                                 showConfirmButton: false,
                                 timer: 2000
                             }).then(({ value }) => {
                             });
                         </script>
-                        <% }else if(error_msg=="error_update" ){ %>
-                            <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: '!Error al actualizar!',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                }).then(({ value }) => {
-                                });
-                            </script>
-                            <% } %>
+                        <% } %>
+                            <div class="card mt-2 mb-2"
+                                style="margin-left: 2%; margin-right: 2%; background-color: #beb39c;">
+                                <div class="mt-2 mb-2 " style="margin-left: 2.5%;">
+                                    <div class="col-6">
 
-                                <% if(success_msg=="deleted" ) { %>
-                                    <script>
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: '!Eliminado correctamente!',
-                                            showConfirmButton: false,
-                                            timer: 1500
-                                        }).then(({ value }) => {
-                                        });
-                                    </script>
-                                    <% } else if(error_msg=="error_delete" ){ %>
-                                        <script>
-                                            Swal.fire({
-                                                position: 'center',
-                                                icon: 'error',
-                                                title: '!Error al eliminar!',
-                                                showConfirmButton: false,
-                                                timer: 2000
-                                            }).then(({ value }) => {
-                                            });
-                                        </script>
-                                        <% } %>
-
-                                            <div class="chat mbs">
-                                                <div class="container card-body col-3"
-                                                    style="margin-left: 3%; padding-bottom: 5%;">
-                                                    <h3 class="mt-3">Compañías</h3>
-
-                                                    <div class="col-12">
-                                                        <tbody
-                                                            style="background-color: rgb(243, 235, 224); font-size: 18px;">
-                                                            <% companies.forEach((company)=>{ %>
-                                                                <div>
-                                                                    <table class=""
-                                                                        style="width: 85%; height: 100%; background-color: rgba(26,145,125,255);">
-                                                                        <div class="card">
-                                                                            <div class="card-header text-white"
-                                                                                style="background-color: rgba(26,145,125,255);">
-                                                                                <%=company.nombre%>
-                                                                            </div>
-                                                                            <div class="card-body"
-                                                                                style="background-color: rgb(243, 235, 224); font-size: 18px;">
-                                                                                <h5 class="card-title">
-                                                                                    <%=company.tipo%>
-                                                                                </h5>
-                                                                                <h5 class="card-text">
-                                                                                    <%=company.descripcion%>
-                                                                                </h5>
-                                                                            </div>
-                                                                            <div
-                                                                                style="background-color: rgb(243, 235, 224); font-size: 18px;">
-
-                                                                                <!--  <button type="link"
-                                                                                    class="btn btn-warning edit btn"
-                                                                                    title="Ver cantidades de consumos"><a
-                                                                                        class="material-icons"
-                                                                                        onclick="window.location. href='/electricities/electricities/<%=company._id%>'">
-                                                                                        fact_check
-                                                                                    </a></button>
-                                                                                <button type="link"
-                                                                                    class="btn btn-warning edit btn"
-                                                                                    title="Agregar consumos"><a
-                                                                                        class="material-icons"
-                                                                                        onclick="window.location. href='/electricities/electricity/<%=company._id%>'">
-                                                                                        bolt
-                                                                                    </a></button>-->
-                                                                                
-                                                                                    <form
-                                                                                        style="background-color: rgb(243, 235, 224); font-size: 18px;"
-                                                                                        action="/companies/deleteCompany/<%=company._id%>"
-                                                                                        method="post"><button
-                                                                                            type="danger "
-                                                                                            class="btn btn-danger marco"><i
-                                                                                                class="material-icons"
-                                                                                                title="Eliminar">delete</i></button>
-                                                                                    </form>
-                                                                                    <button type="link"
-                                                                                        class="btn btn-success marco"
-                                                                                        title="Editar compañía"
-                                                                                        onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
-                                                                                            class="material-icons">edit</i></button>
-
-                                                                                    <div class="dropdown btn"
-                                                                                        style="position:relative">
-                                                                                        <a href="#"
-                                                                                            class="btn btn-primary material-icons marco" title="Menú de emisiones"
-                                                                                            data-toggle="dropdown">folder_copy <span
-                                                                                                class="caret"></span></a>
-                                                                                        <ul class="dropdown-menu">
-                                                                                            <li>
-                                                                                                <a
-                                                                                                    class="trigger right-caret text-black">Electricidad</a>
-                                                                                                <ul
-                                                                                                    class="dropdown-menu sub-menu">
-                                                                                                    <li><a class="dropdown-item"
-                                                                                                            href='/electricities/electricity/<%=company._id%>'>Agregar</a>
-                                                                                                    </li>
-                                                                                                    <li> <a class="dropdown-item"
-                                                                                                            href='/electricities/electricities/<%=company._id%>'>Mostrar</a>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <a
-                                                                                                    class="trigger right-caret text-black">Gases
-                                                                                                    LP</a>
-                                                                                                <ul
-                                                                                                    class="dropdown-menu sub-menu">
-                                                                                                    <li><a class="dropdown-item"
-                                                                                                            href='/gaseslp/gasessearchcompany/<%=company._id%>'>Agregar</a>
-                                                                                                    </li>
-                                                                                                    <li> <a class="dropdown-item"
-                                                                                                            href='/gaseslp/gasesshow/<%=company._id%>'>Mostrar</a>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                
-
-                                                                    </table>
-                                                                    <% }) %>
-                                                                </div>
-                                                        </tbody>
-
+                                        <% companies.forEach((company)=>{ %>
+                                            <div>
+                                                <div class="card-header text-white"
+                                                    style="background-color: rgba(26,145,125,255);">
+                                                    <%=company.nombre%>
+                                                </div>
+                                                <div class="card-body"
+                                                    style="background-color: rgb(243, 235, 224); font-size: 18px;">
+                                                    <h5 class="card-title">
+                                                        <%=company.tipo%>
+                                                    </h5>
+                                                    <h5 class="card-text">
+                                                        <%=company.descripcion%>
+                                                    </h5>
+                                                </div>
+                                                <div style="background-color: rgb(243, 235, 224); font-size: 18px;">
+                                                    <form style="background-color: rgb(243, 235, 224); font-size: 18px;"
+                                                        action="/companies/deleteCompany/<%=company._id%>"
+                                                        method="post"><button type="danger "
+                                                            class="btn btn-danger marco"><i class="material-icons"
+                                                                title="Eliminar">delete</i></button>
+                                                    </form>
+                                                    <button type="link" class="btn btn-success marco"
+                                                        title="Editar compañía"
+                                                        onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
+                                                            class="material-icons">edit</i></button>
+                                                    <div class="dropdown btn" style="position:relative">
+                                                        <a href="#" class="btn btn-primary material-icons marco"
+                                                            title="Menú de emisiones" data-toggle="dropdown">folder_copy
+                                                            <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a
+                                                                    class="trigger right-caret text-black">Electricidad</a>
+                                                                <ul class="dropdown-menu sub-menu">
+                                                                    <li><a class="dropdown-item"
+                                                                            href='/electricities/electricity/<%=company._id%>'>Agregar</a>
+                                                                    </li>
+                                                                    <li> <a class="dropdown-item"
+                                                                            href='/electricities/electricities/<%=company._id%>'>Mostrar</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a class="trigger right-caret text-black">Gases
+                                                                    LP</a>
+                                                                <ul class="dropdown-menu sub-menu">
+                                                                    <li><a class="dropdown-item"
+                                                                            href='/gaseslp/gasessearchcompany/<%=company._id%>'>Agregar</a>
+                                                                    </li>
+                                                                    <li> <a class="dropdown-item"
+                                                                            href='/gaseslp/gasesshow/<%=company._id%>'>Mostrar</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
+
+
+                                                <% }) %>
                                             </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+                                    </div>
+                                </div>
+                            </div>
 </body>
-
-
-
 
 </html>
