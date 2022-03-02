@@ -67,3 +67,22 @@ a:hover{
 .color{
     color: rgba(229, 241, 251);
 }
+
+.cards-container{
+    display: flex;
+    width: 100% !important;
+    height: 100%;
+    float: right;
+}
+
+.card-container{
+    margin-right: 3%;
+}
+
+.botons-container{
+    display: flex;
+}
+
+.mb-2{
+    height: auto !important;
+}
