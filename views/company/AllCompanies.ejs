@@ -23,7 +23,7 @@
         });
     });</script>
 
-<body style="background-color: #f4ffec;">
+<body class="companies-body" style="background-color: #f4ffec;">
     <!--Mensajes de all company-->
     <% if(success_msg=="updated" ) { %>
         <script>
@@ -84,12 +84,11 @@
                                         <div class="cards-container">
                                             <% companies.forEach((company)=>{ %>
                                                 <div class="card-container">
-                                                    <div class="card-header text-white"
-                                                        style="background-color: rgba(26,145,125,255);">
+                                                    <div class="card-header text-white">
                                                         <%=company.nombre%>
                                                     </div>
                                                     <div class="card-body"
-                                                        style="background-color: rgb(243, 235, 224); font-size: 18px;">
+                                                        style="font-size: 18px;">
                                                         <h5 class="card-title">
                                                             <%=company.tipo%>
                                                         </h5>
@@ -101,9 +100,9 @@
                                                                 <i id="expand" class="material-icons">expand_more</i>
                                                             </div>
                                                             <div class="botons-container" id="botons-container"
-                                                                style="background-color: rgb(243, 235, 224); font-size: 18px;">
+                                                                style="font-size: 18px;">
                                                                 <form
-                                                                    style="background-color: rgb(243, 235, 224); font-size: 18px;"
+                                                                    style="font-size: 18px;"
                                                                     action="/companies/deleteCompany/<%=company._id%>"
                                                                     method="post" class="btn-company"><button type="danger "
                                                                         class="btn btn-danger"><i class="material-icons"

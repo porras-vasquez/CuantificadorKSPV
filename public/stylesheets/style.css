@@ -1,6 +1,7 @@
 body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     overflow-x: hidden;
+    overflow-y:hidden;
 }
 
 a {
@@ -85,9 +86,11 @@ a:hover{
 
 .card-container{
     margin-right: 2%;
-    margin-bottom: 2%;
+    margin-bottom: 1%;
     width:250px;
     height: 100%;
+    background-color: #E3E6E8;
+
 }
 
 .card-textx{
