@@ -23,7 +23,7 @@
         });
     });</script>
 
-<body class="companies-body" style="background-color: #f4ffec;">
+<body id="companies-body" class="companies-body" style="background-color: #f4ffec;">
     <!--Mensajes de all company-->
     <% if(success_msg=="updated" ) { %>
         <script>
@@ -73,24 +73,40 @@
                         </script>
                         <% } %>
                             <div class="card mt-2 mb-2"
-                                style="margin-left: 2%; margin-right: 2%; background-color: #beb39c;">
+                                style="margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
                                 <div class="mt-2 mb-2 " style="margin-left: 2.5%;">
                                     <div class="col-x">
-                                        <ul class="list-group list-group-flush button">
-                                            <a href="/companies/createCompany" type="button"
-                                                class="btn btn primary ">Agregar
-                                                compañía</a>
-                                        </ul>
+                                        <div id="menu-container" class="menu-container">
+                                            <div id="menu" class="menu">
+                                                <i id="expand" class="material-icons"
+                                                    style="font-size: 35px">menu_open</i>
+                                            </div>
+                                            <div class="flex-menu">
+                                                <ul class="list-unstyled chat-list  mb-0">
+                                                    <ul class="list-group list-group-flush button">
+                                                        <a href="/companies/createCompany" type="button"
+                                                            class="btn btn primary ">Agregar
+                                                            compañía</a>
+                                                    </ul>
+                                                    <ul class="list-group list-group-flush button">
+                                                        <a href="/" type="button" class="btn btn primary ">Atrás</a>
+                                                    </ul>
+                                                </ul>
+                                            </div>
+                                        </div>
                                         <div class="cards-container">
                                             <% companies.forEach((company)=>{ %>
                                                 <div class="card-container">
                                                     <div class="card-header text-white">
-                                                        <%=company.nombre%>
+                                                        <strong>
+                                                            <%=company.nombre%>
+                                                        </strong>
                                                     </div>
-                                                    <div class="card-body"
-                                                        style="font-size: 18px;">
+                                                    <div class="card-body" style="font-size: 18px;">
                                                         <h5 class="card-title">
-                                                            <%=company.tipo%>
+                                                            <b>
+                                                                <%=company.tipo%>
+                                                            </b>
                                                         </h5>
                                                         <h5 class="card-textx">
                                                             <%=company.descripcion%>
@@ -101,18 +117,18 @@
                                                             </div>
                                                             <div class="botons-container" id="botons-container"
                                                                 style="font-size: 18px;">
-                                                                <form
-                                                                    style="font-size: 18px;"
+                                                                <form style="font-size: 18px;"
                                                                     action="/companies/deleteCompany/<%=company._id%>"
-                                                                    method="post" class="btn-company"><button type="danger "
-                                                                        class="btn btn-danger"><i class="material-icons"
+                                                                    method="post" class="btn-company"><button
+                                                                        type="danger " class="btn btn-danger"><i
+                                                                            class="material-icons"
                                                                             title="Eliminar">delete</i></button>
                                                                 </form>
                                                                 <div class="btn-company">
                                                                     <button type="link" class="btn btn-success"
-                                                                    title="Editar compañía"
-                                                                    onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
-                                                                        class="material-icons">edit</i></button>
+                                                                        title="Editar compañía"
+                                                                        onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
+                                                                            class="material-icons">edit</i></button>
                                                                 </div>
                                                                 <div class="dropdown btn-company">
                                                                     <a href="#" class="btn btn-primary material-icons"
