@@ -28,6 +28,7 @@ gasesController.save = async function(req, res) {
         }
     });
 };
+
 gasesController.searchCompany = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) { console.log('Error: ', err); return; }
@@ -62,6 +63,7 @@ gasesController.list = function(req, res) {
     });
 };
 gasesController.update = function (req, res) {
+      req.body.emision = 0;
     Gaseslp.findByIdAndUpdate(
         req.params.id,
         {
@@ -96,31 +98,31 @@ gasesController.update = function (req, res) {
                         if (error) {
                             res.render("../views/gaseslp/AllGas", {
                                 message: "error",
-                                gases: company.gases,
+                                gases: company.gas,
                                 company: company._id,
                             });
                         } else {
                             res.render("../views/gaseslp/AllGas", {
                                 message: "success",
-                                gases: company.gases,
+                                gases: company.gas,
                                 company: company._id,
                             });
                         }
                     });
             } else {
                 Company.findOne({ _id: gases.company })
-                    .populate("electricidad")
+                    .populate("gaslp")
                     .exec(function (error, company) {
                         if (error) {
                             res.render("../views/gaseslp/AllGas", {
                                 message: "error",
-                                gases: company.gaslp,
+                                gases: company.gas,
                                 company: company._id,
                             });
                         } else {
                             res.render("../views/gaseslp/AllGas", {
                                 message: "success",
-                                gases: company.gaslp,
+                                gases: company.gas,
                                 company: company._id,
                             });
                         }
@@ -128,5 +130,22 @@ gasesController.update = function (req, res) {
             }
         }
     );
+};
+
+gasesController.search = function (req, res) {
+    Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gaslp) {
+        if (err) {
+            console.log("Error: ", err);
+            res.render("../views/gaseslp/search", {
+                gaslp: gaslp,
+                company: gaslp.company,
+            });
+        } else {
+            res.render("../views/gaseslp/search", {
+                gaslp: gaslp,
+                company: gaslp.company,
+            });
+        }
+    });
 };
 module.exports = gasesController;
