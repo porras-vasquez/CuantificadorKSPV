@@ -60,9 +60,14 @@ a:hover{
     background-color: rgb(211, 211, 211);
 }
 
+.button{
+    -webkit-transition: .3s linear;
+    transition: 0.5s linear;
+}
+
 .button:hover{
-    box-shadow: 0 1px 8px rgba(113, 74, 38);
-    transition: all 0.2s ease;
+    -webkit-box-shadow: 10px 10px 14px 2px rgba(0,0,0,0.47);
+    box-shadow: 10px 10px 14px 2px rgba(0,0,0,0.47);
 }
 .color{
     color: rgba(229, 241, 251);
@@ -82,17 +87,46 @@ a:hover{
     margin-right: 2%;
     margin-bottom: 2%;
     width:250px;
+    height: 100%;
 }
 
-.card-body{
-    height: 125px;
+.card-textx{
+    height: 60px;
     text-overflow: ellipsis;
     overflow-y: scroll;
 }
 
-.botons-container{
+#expand{
+    display: flex;
+    justify-self: center;
+}
+
+#botons-container{
     display: flex;
     justify-content: center;
+    display: none;
+}
+
+.card-menu{
+    height: 100px;
+}
+
+#options{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+#options:hover{
+	opacity: .8;
+}
+
+#botons-container:hover{
+    display: flex;
+}
+
+#options:hover + #botons-container{
+	display: flex;
 }
 
 .col-x{
@@ -107,6 +141,15 @@ a:hover{
 .btn-company{
     height: 100%;
     margin-right: 5%;
+    -webkit-transition: .3s linear;
+    transition: 0.4s linear;
+    background-color: #F1C40F;
+    border-radius: 5px;
+}
+
+.btn-company:hover{
+    -webkit-box-shadow: 10px 10px 14px 2px rgba(0,0,0,0.47);
+    box-shadow: 10px 10px 14px 2px rgba(0,0,0,0.47);
 }
 
 .btn-drop{
