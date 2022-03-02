@@ -6,111 +6,111 @@
 </header>
 
 <body style="background-color: #f4ffec;">
-    <div class="container mt-5">
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #eef7e1;">
-                    <% if(success_msg=="updated" ) { %>
+    <div class="card mt-2 mb-2" style="margin-left: 2%; margin-right: 2%; background-color: #beb39c;">
+        <% if(success_msg=="updated" ) { %>
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: '¡Actualizado exitosamente!',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(({ value }) => {
+                });
+            </script>
+            <% }else if(error_msg=="error" ){ %>
+                <script>
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: '¡error!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(({ value }) => {
+                    });
+                </script>
+                <% } %>
+                    <% if(success_msg=="deleted" ) { %>
                         <script>
                             Swal.fire({
                                 position: 'center',
                                 icon: 'success',
-                                title: '¡Actualizado exitosamente!',
+                                title: 'Eliminado correctamente!',
                                 showConfirmButton: false,
                                 timer: 1500
                             }).then(({ value }) => {
                             });
                         </script>
-                        <% }else if(error_msg=="error" ){ %>
+                        <% }%>
                             <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: '¡error!',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(({ value }) => {
+                                $("#capa").hover(function () {
+                                    $("#mensaje").show();
+                                }, function () {
+                                    $("#mensaje").hide();
                                 });
                             </script>
-                            <% } %>
-                                <% if(success_msg=="deleted" ) { %>
-                                    <script>
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: 'Eliminado correctamente!',
-                                            showConfirmButton: false,
-                                            timer: 1500
-                                        }).then(({ value }) => {
-                                        });
-                                    </script>
-                                    <% }%>
-                                        <script>
-                                            $("#capa").hover(function () {
-                                                $("#mensaje").show();
-                                            }, function () {
-                                                $("#mensaje").hide();
-                                            });
-                                        </script>
-                                        <div class=" table container">
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <h1 class="mt-3">Lista de usuarios</h1>
-                                                </div>
-                                                <div class="btn-group col-5 mb-3 mt-3" role="group"
-                                                    aria-label="Basic checkbox toggle button group">
-                                                    <button class="btn btn-success text-black" type="submit"><a
-                                                            href="/users/create">Nuevo usuario</a></button>
-                                                    <button class="btn btn-success text-black" type="submit"><a
-                                                            href="/users/show">Usuarios</a></button>
-                                                </div>
-                                            </div>
-                                            <table class="table-bordered" style="width: 85%; height: 100%;">
-                                                <thead style="background-color: rgb(76, 50, 15); font-size: 18px;">
-                                                    <tr>
+                            <div class="container mt-2">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <h3>Módulo de Gases LP</h3>
+                                    </div>
+                                    <div class="col-7">
 
-                                                        <th style="padding: 2%;" scope="col" class="text-white ">Usuario
-                                                        </th>
-                                                        <th scope="col" class="text-white ">Correo</th>
-                                                        <th scope="col" class="text-white "></th>
+                                    </div>
+                                    <div class="col-1">
+                                        <button class="btn btn-success" >
+                                            <a href="/users/create">Agregar</a>
+                                        </button>
+                                    </div>
+                                    <div class="col-1">
+                                        <button class="btn btn-danger">
+                                            <a href="/">Regresar</a>
+                                        </button>
+                                    </div>
 
-                                                    </tr>
-                                                </thead>
-                                                <tbody style="background-color: rgb(255, 255, 255); font-size: 18px;">
-                                                    <% users.forEach((user)=>{ %>
-                                                        <tr class="tr">
-                                                            <td>
-                                                                <div>
-                                                                    <%=user.username%>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div>
-                                                                    <%=user.email%>
-                                                                </div>
-                                                            </td>
-                                                            <td id="contenedor">
-                                                                <div id="boton">                                                                        
-                                                                    <form  action="/users/delete/<%=user._id%>"
-                                                                        method="post">
-                                                                        <button type="danger " class="btn btn-danger btn-sm"><i
-                                                                                class="material-icons">delete</i></button>
-                                                                    </form>
-                                                                    <button type="link" class="btn btn-success btn-sm"
-                                                                        onclick="window.location. href='/users/search/<%=user._id%>'"><i
-                                                                            class="material-icons">menu</i></button>
-                                                                </div>
-                                                            </td>
+                                </div>
+                                <table class="table-bordered mb-4" style="width: 100.4%; height: 90%;">
+                                    <thead style="background-color: rgb(76, 50, 15); font-size: 18px;">
+                                        <tr>
+
+                                            <th style="padding: 2%;" scope="col" class="text-white ">Usuario
+                                            </th>
+                                            <th scope="col" class="text-white ">Correo</th>
+                                            <th scope="col" class="text-white "></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color: rgb(255, 255, 255); font-size: 18px;">
+                                        <% users.forEach((user)=>{ %>
+                                            <tr class="tr">
+                                                <td>
+                                                    <div style="margin-left: 0.5%;">
+                                                        <%=user.username%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div style="margin-left: 0.5%;">
+                                                        <%=user.email%>
+                                                    </div>
+                                                </td>
+                                                <td id="contenedor">
+                                                    <div id="boton">
+                                                        <form action="/users/delete/<%=user._id%>" method="post">
+                                                            <button type="danger " class="btn btn-danger btn-sm"><i
+                                                                    class="material-icons">delete</i></button>
+                                                        </form>
+                                                        <button type="link" class="btn btn-success btn-sm"
+                                                            onclick="window.location. href='/users/search/<%=user._id%>'"><i
+                                                                class="material-icons">menu</i></button>
+                                                    </div>
+                                                </td>
 
 
-                                                        </tr>
-                                                        <% }) %>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                </div>
-            </div>
-        </div>
+                                            </tr>
+                                            <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
     </div>
 </body>
 
