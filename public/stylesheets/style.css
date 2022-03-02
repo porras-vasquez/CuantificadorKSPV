@@ -72,7 +72,10 @@ a:hover{
     display: flex;
     width: 100% !important;
     height: 100%;
-    float: right;
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .card-container{
@@ -81,6 +84,11 @@ a:hover{
 
 .botons-container{
     display: flex;
+}
+
+.col-x{
+    width: auto;
+    height:auto;
 }
 
 .mb-2{
