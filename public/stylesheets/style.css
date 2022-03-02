@@ -57,7 +57,7 @@ a:hover{
 }
 
 .tr:hover{
-    background-color: rgba(255, 245, 240, 1);
+    background-color: rgb(211, 211, 211);
 }
 
 .button:hover{
@@ -86,3 +86,20 @@ a:hover{
 .mb-2{
     height: auto !important;
 }
+
+
+/*Botones invisibles*/
+#contenedor{
+    height: 70px;
+    width: 87px;
+}
+  
+#boton{
+    display: none;
+}
+  
+#contenedor:hover > #boton{
+    display: block;
+    display: flex;
+}
+/*FIN Botones invisibles*/
