@@ -61,4 +61,72 @@ gasesController.list = function(req, res) {
 
     });
 };
+gasesController.update = function (req, res) {
+    Gaseslp.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set: {
+                descripcion: req.body.descripcion,
+                uso: req.body.uso,
+                enero: req.body.enero,
+                febrero: req.body.febrero,
+                marzo: req.body.marzo,
+                abril: req.body.abril,
+                mayo: req.body.mayo,
+                junio: req.body.junio,
+                julio: req.body.julio,
+                agosto: req.body.agosto,
+                septiembre: req.body.septiembre,
+                octubre: req.body.octubre,
+                noviembre: req.body.noviembre,
+                diciembre: req.body.diciembre,
+                densidad: req.body.densidad,
+                observacion: req.body.observacion,
+                emision: req.body.emision
+            },
+        },
+        { new: true },
+        function (err, gases) {
+            if (err) {
+                console.log("Error: ", err);
+
+                Company.findOne({ _id: gases.company })
+                    .populate("gaslp")
+                    .exec(function (error, company) {
+                        if (error) {
+                            res.render("../views/gaseslp/AllGas", {
+                                message: "error",
+                                gases: company.gases,
+                                company: company._id,
+                            });
+                        } else {
+                            res.render("../views/gaseslp/AllGas", {
+                                message: "success",
+                                gases: company.gases,
+                                company: company._id,
+                            });
+                        }
+                    });
+            } else {
+                Company.findOne({ _id: gases.company })
+                    .populate("electricidad")
+                    .exec(function (error, company) {
+                        if (error) {
+                            res.render("../views/gaseslp/AllGas", {
+                                message: "error",
+                                gases: company.gaslp,
+                                company: company._id,
+                            });
+                        } else {
+                            res.render("../views/gaseslp/AllGas", {
+                                message: "success",
+                                gases: company.gaslp,
+                                company: company._id,
+                            });
+                        }
+                    });
+            }
+        }
+    );
+};
 module.exports = gasesController;
