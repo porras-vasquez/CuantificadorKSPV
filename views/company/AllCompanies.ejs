@@ -99,16 +99,16 @@
                                                         <div class="botons-container" style="background-color: rgb(243, 235, 224); font-size: 18px;">
                                                             <form style="background-color: rgb(243, 235, 224); font-size: 18px;"
                                                                 action="/companies/deleteCompany/<%=company._id%>"
-                                                                method="post"><button type="danger "
-                                                                    class="btn btn-danger marco"><i class="material-icons"
+                                                                method="post" class="btn-company"><button type="danger "
+                                                                    class="btn btn-danger"><i class="material-icons"
                                                                         title="Eliminar">delete</i></button>
                                                             </form>
-                                                            <button type="link" class="btn btn-success marco"
+                                                            <button type="link" class="btn btn-success btn-company"
                                                                 title="Editar compañía"
                                                                 onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
                                                                     class="material-icons">edit</i></button>
-                                                            <div class="dropdown btn" style="position:relative">
-                                                                <a href="#" class="btn btn-primary material-icons marco"
+                                                            <div class="dropdown btn-drop">
+                                                                <a href="#" class="btn btn-primary material-icons"
                                                                     title="Menú de emisiones" data-toggle="dropdown">folder_copy
                                                                     <span class="caret"></span></a>
                                                                 <ul class="dropdown-menu">
