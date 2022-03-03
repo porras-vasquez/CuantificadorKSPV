@@ -99,7 +99,47 @@ companyController.addGaslp = function (req, res) {
     }
 };
 
-
+companyController.addFuelsAndOil = function (req, res) {
+    if (req.params.id) {
+        Company.findByIdAndUpdate(req.params.id, {
+            $push: {
+                'fuelsAndOil': {
+                    combustible: req.body.combustible,
+                    categoria_seleccion: req.body.categoria_seleccion,
+                    feCo2_L: req.body.feCo2_L,
+                    feCH4_L: req.body.feCH4_L,
+                    feN20_L: req.body.feN20_L,
+                    componente: req.body.componente,
+                    enero: req.body.enero,
+                    febrero: req.body.febrero,
+                    marzo: req.body.marzo,
+                    abril: req.body.abril,
+                    mayo: req.body.mayo,
+                    junio: req.body.junio,
+                    julio: req.body.julio,
+                    agosto: req.body.agosto,
+                    septiembre: req.body.septiembre,
+                    octubre: req.body.octubre,
+                    noviembre: req.body.noviembre,
+                    diciembre: req.body.diciembre
+                }
+            }
+        },
+            (error, company) => {
+                if (error) {
+                    res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: "error", company: company });
+                } else {
+                    res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: "success", company: company });
+                }
+            }
+        )
+    } else {
+        return res.json({
+            success: false,
+            msj: 'No se pudo agregar el tipo de emisión gases, por favor verifique que el _id sea correcto'
+        });
+    }
+};
 //Actualizar
 companyController.update = function (req, res) {
     Company.findByIdAndUpdate(req.params.id, {

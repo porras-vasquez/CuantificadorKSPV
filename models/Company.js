@@ -21,6 +21,11 @@ const CompanySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Gaseslp'
     }]
+,    fuelsAndOil: [{
+    type: Schema.Types.ObjectId,
+    ref: 'FuelsAndOil'
+}]
+
 });
 
 // CompanySchema.methods.encryptPassword = (password) => {
