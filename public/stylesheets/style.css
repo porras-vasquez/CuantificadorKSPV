@@ -1,12 +1,10 @@
-body {
+html, body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     overflow-x: hidden;
     overflow-y: hidden;
+    overflow: hidden;
 }
 
-html {
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-  }
 
 a {
     color: #00B7FF;
