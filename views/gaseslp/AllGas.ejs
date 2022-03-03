@@ -11,26 +11,26 @@
             <h3>Módulo de Gases LP</h3>
             <div class=" col-10 row text-dark">
                 <table class="table table-bordered col-8" style="background-color: white;">
-                    <thead class="col-8">
+                    <thead class="col-7">
                         <tr>
-                            <th scope="col"> Descripción</th>
-                            <th scope="col">Uso</th>
-                            <th scope="col">Observación</th>
-                            <th scope="col">Densidad</th>
-                            <th scope="col">Enero</th>
-                            <th scope="col">Debrero</th>
-                            <th scope="col">Marzo</th>
-                            <th scope="col">Abril</th>
-                            <th scope="col">Mayo</th>
-                            <th scope="col">Junio</th>
-                            <th scope="col">Julio</th>
-                            <th scope="col">Agosto</th>
-                            <th scope="col">Septiembre</th>
-                            <th scope="col">Octubre</th>
-                            <th scope="col">Noviembre</th>
-                            <th scope="col">Diciembre</th>
-                            <th scope="col">Emisión</th>
-                            <th scope="col"></th>
+                            <th scope="col text-whitex"> Descripción</th>
+                            <th scope="col text-whitex">Uso</th>
+                            <th scope="col text-whitex">Observación</th>
+                            <th scope="col text-whitex">Densidad</th>
+                            <th scope="col text-whitex">Enero</th>
+                            <th scope="col text-whitex">Debrero</th>
+                            <th scope="col text-whitex">Marzo</th>
+                            <th scope="col text-whitex">Abril</th>
+                            <th scope="col text-whitex">Mayo</th>
+                            <th scope="col text-whitex">Junio</th>
+                            <th scope="col text-whitex">Julio</th>
+                            <th scope="col text-whitex">Agosto</th>
+                            <th scope="col text-whitex">Septiembre</th>
+                            <th scope="col text-whitex">Octubre</th>
+                            <th scope="col text-whitex">Noviembre</th>
+                            <th scope="col text-whitex">Diciembre</th>
+                            <th scope="col text-whitex">Emisión</th>
+                            <th scope="col text-whitex"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -121,10 +121,17 @@
                                         none
                                     </div>
                                 </td>
-                                <td>
-                                    <button type="link" class="btn btn-success btn-sm"
+                                <td id="contenedor">
+                                    <div id="boton">
+                                        <button type="link" class="btn btn-success btn-sm"
                                         onclick="window.location. href='/gaseslp/searchGases/<%=gaslp._id%>'"><i
                                             class="material-icons">menu</i></button>
+                                        <form method="post">
+                                            <button type="danger " class="btn btn-danger btn-sm"><i
+                                                    class="material-icons">delete</i></button>
+                                                    <!-- action="/users/delete/<%=user._id%>"-->
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             <% }) %>
