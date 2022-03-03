@@ -134,10 +134,9 @@
                                             <button type="link" class="btn btn-success btn-sm"
                                                 onclick="window.location. href='/gaseslp/searchGases/<%=gaslp._id%>'"><i
                                                     class="material-icons">menu</i></button>
-                                            <form method="post">
-                                                <button type="danger " class="btn btn-danger btn-sm"><i
+                                            <form action="/gaseslp/deleteGases/<%=gaslp._id%>/<%=gaslp.company%>"  method="post">
+                                                <button type="danger" class="btn btn-danger btn-sm"><i
                                                         class="material-icons">delete</i></button>
-                                                <!-- action="/users/delete/<%=user._id%>"-->
                                             </form>
                                         </div>
                                     </div>
@@ -161,8 +160,6 @@
                 </button>
             </div>
         </div>
-
-
     </div>
 
     <div class="col-2"></div>
