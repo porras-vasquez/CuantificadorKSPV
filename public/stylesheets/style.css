@@ -4,6 +4,10 @@ body {
     overflow-y: hidden;
 }
 
+html {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
 a {
     color: #00B7FF;
 }
