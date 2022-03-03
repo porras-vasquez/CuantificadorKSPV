@@ -10,5 +10,6 @@ router.get('/createFuelsAndOil', function(req, res) {
 });
 router.get('/fuelsAndOilsearchcompany/:id',isAuthenticated, fuelsAndOilController.searchCompany);
 router.post('/saveFuelsAndOil/:id', fuelsAndOilController.save);
+router.get('/fuelsAndOilShow/:id', isAuthenticated, fuelsAndOilController.list);
 //router.get('/gasesshow/:id', isAuthenticated, gasesController.list);
 module.exports = router;
