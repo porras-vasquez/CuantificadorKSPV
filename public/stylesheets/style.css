@@ -5,7 +5,6 @@ html, body {
     overflow: hidden;
 }
 
-
 a {
     color: #00B7FF;
 }
@@ -153,8 +152,8 @@ a:hover{
 
 
 .card-container{
-    margin-right: 2%;
-    margin-bottom: 1%;
+    margin-right: 3.5%;
+    margin-bottom: 7%;
     width:300px;
     height: auto !important;
     background-color: #F4FFEC;
@@ -214,7 +213,9 @@ a:hover{
     height: 80% !important;
     overflow-y: scroll;
     min-height:655px !important;
+    
 }
+
 
 .mb-2x::-webkit-scrollbar {
     display: none;
