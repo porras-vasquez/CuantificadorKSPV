@@ -3,7 +3,6 @@ require('../connection');
 const Gaseslp = require('../models/Gaseslp');
 const Company = require("../models/Company");
 var gasesController = {};
-
 gasesController.save = async function(req, res) {
     req.body.emision = 0;
     var gases = new Gaseslp(req.body);
@@ -28,32 +27,12 @@ gasesController.save = async function(req, res) {
         }
     });
 };
-
 gasesController.searchCompany = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) { console.log('Error: ', err); return; }
         res.render('../views/gaseslp/NewGas', { company: company._id });
     });
 };
-/*gasesController.list = function (req, res) {
-    console.log(req.params.id);
-    Company.findOne({ _id: req.params.id })
-        .populate("gaslp")
-        .exec(function (err, company) {
-            if (err) {
-                res.render("../views/gaseslp/AllGas", {
-                    gases: company.gaslp,
-                    company: company._id,
-                });
-            } else {
-                res.render("../views/gaseslp/AllGas", {
-                    gases: company.gaslp,
-                    company: company._id,
-                });
-            }
-            console.log(company);
-        });*/
-
 gasesController.list = function(req, res) {
     Gaseslp.find({}).exec(function(err, gases) {
         if (err) { console.log('Error: ', err); return; }
@@ -150,5 +129,46 @@ gasesController.update = function (req, res) {
           }
       }
   );
+};
+gasesController.delete = function (req, res) {
+    Gaseslp.deleteOne({ _id: req.params.id }, function (err) {
+        if (err) {
+            Company.findOne({ _id: req.params.comp })
+                .populate("gaslp")
+                .exec(function (error, company) {
+                    if (error) {
+                        res.render("../views/gaseslp/AllGas", {
+                            company: company,
+                            message: "error",
+                            gases: company.gaslp,
+                        });
+                    } else {
+                        res.render("../views/gaseslp/AllGas", {
+                            company: company,
+                            message: "success",
+                            gases: company.gaslp,
+                        });
+                    }
+                });
+        } else {
+            Company.findOne({ _id: req.params.comp })
+                .populate("gaslp")
+                .exec(function (error, company) {
+                    if (error) {
+                        res.render("../views/gaseslp/AllGas", {
+                            company: company,
+                            message: "error",
+                            gases: company.gaslp,
+                        });
+                    } else {
+                        res.render("../views/gaseslp/AllGas", {
+                            company: company,
+                            message: "success",
+                            gases: company.gaslp,
+                        });
+                    }
+                });
+        }
+    });
 };
 module.exports = gasesController;
