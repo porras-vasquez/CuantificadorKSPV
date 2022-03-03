@@ -72,9 +72,8 @@
                             });
                         </script>
                         <% } %>
-                            <div class="card mt-2 mb-2x"
-                                style="margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
-                                <div class="mt-2 mb-2 " style="margin-left: 2.5%;">
+                            <div class="card mt-2 mb-2x" style="margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+                                <div class="mt-2 mb-2" style="margin-left: 2.5%;">
                                     <div class="col-x">
                                         <div id="menu-container" class="menu-container">
                                             <div id="menu" class="menu">
@@ -82,13 +81,13 @@
                                                     style="font-size: 35px">menu_open</i>
                                             </div>
                                             <div class="flex-menu">
-                                                <ul class="list-unstyled chat-list  mb-0">
-                                                    <ul class="list-group list-group-flush button">
+                                                <ul class="list-unstyled chat-list mb-0">
+                                                    <ul class="list-group list-group-flush button flex-color">
                                                         <a href="/companies/createCompany" type="button"
                                                             class="btn btn primary ">Agregar
                                                             compañía</a>
                                                     </ul>
-                                                    <ul class="list-group list-group-flush button">
+                                                    <ul class="list-group list-group-flush button flex-color">
                                                         <a href="/" type="button" class="btn btn primary ">Atrás</a>
                                                     </ul>
                                                 </ul>
@@ -103,9 +102,41 @@
                                                         </strong>
                                                     </div>
                                                     <div class="card-body" style="font-size: 18px;">
-                                                        <h5 class="card-title">
+                                                        <h5>
                                                             <b>
-                                                                <%=company.tipo%>
+                                                                Tipo: 
+                                                            </b>
+                                                        </h5>
+                                                        <h5 class="card-title">
+                                                            <%=company.tipo%>
+                                                        </h5>
+                                                        <h5>
+                                                            <b>
+                                                                Numero de documento: 
+                                                            </b>
+                                                        </h5>
+                                                        <h5>
+                                                            <%=company.numero_documento%>
+                                                        </h5>
+                                                        <h5>
+                                                            <b>
+                                                                Aprobado por: 
+                                                            </b>
+                                                        </h5>
+                                                        <h5>
+                                                            <%=company.aprobado_por%>
+                                                        </h5>
+                                                        <h5>
+                                                            <b>
+                                                                Fecha de inicio: 
+                                                            </b>
+                                                        </h5>
+                                                        <h5>
+                                                            <%=company.fecha_inicio%>
+                                                        </h5>
+                                                        <h5>
+                                                            <b>
+                                                                Descripción: 
                                                             </b>
                                                         </h5>
                                                         <h5 class="card-textx">
