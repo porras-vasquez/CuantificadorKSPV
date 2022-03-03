@@ -159,7 +159,7 @@ a:hover{
 }
 
 .card-textx{
-    height: 60px;
+    height: 50px;
     text-overflow: ellipsis;
     word-break: break-all;
     overflow-y: scroll;
@@ -181,7 +181,7 @@ a:hover{
 }
 
 .card-menu{
-    height: 100px;
+    height: 95px;
 }
 
 #options{
