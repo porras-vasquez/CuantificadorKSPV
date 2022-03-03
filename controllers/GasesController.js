@@ -1,7 +1,7 @@
 'use strict'
 require('../connection');
-const Company = require("../models/Company");
 const Gaseslp = require('../models/Gaseslp');
+const Company = require("../models/Company");
 var gasesController = {};
 
 gasesController.save = async function(req, res) {
@@ -105,14 +105,14 @@ gasesController.update = function (req, res) {
       },
       { new: true },
       function (err, gases) {
-          //console.log(gases);
+          console.log(gases);
+          console.log(gases.company);
           if (err) {
               console.log("Error: ", err);
 
               Company.findOne({ _id: gases.company })
                   .populate("gaslp")
                   .exec(function (error, company) {
-                    console.log(company);
                       if (error) {
                           res.render("../views/gaseslp/AllGas", {
                               message: "error",
@@ -131,6 +131,8 @@ gasesController.update = function (req, res) {
               Company.findOne({ _id: gases.company })
                   .populate("gaslp")
                   .exec(function (error, company) {
+                    console.log(error);
+                    console.log(company);
                       if (error) {
                           res.render("../views/gaseslp/AllGas", {
                               message: "error",
