@@ -9,31 +9,38 @@
     <div class="card mt-2 mb-2" style="margin-left: 2%; margin-right: 2%; background-color: #beb39c;">
         <div class="mt-2 mb-2 " style="margin-left: 2.5%;">
             <h3>Módulo de Gases LP</h3>
-            <div class=" col-10 row text-dark">
-                <table class="table table-bordered col-8" style="background-color: white;">
-                    <thead class="col-7">
-                        <tr>
+            <div class=" col-8 row text-dark">
+                <table class="tablediferent table-bordered" style="background-color: white; margin-right: 10%;">
+                    <thead>
+                        <tr class="text-center">
                             <th scope="col text-whitex"> Descripción</th>
-                            <th scope="col text-whitex">Uso</th>
-                            <th scope="col text-whitex">Observación</th>
-                            <th scope="col text-whitex">Densidad</th>
-                            <th scope="col text-whitex">Enero</th>
-                            <th scope="col text-whitex">Debrero</th>
-                            <th scope="col text-whitex">Marzo</th>
-                            <th scope="col text-whitex">Abril</th>
-                            <th scope="col text-whitex">Mayo</th>
-                            <th scope="col text-whitex">Junio</th>
-                            <th scope="col text-whitex">Julio</th>
-                            <th scope="col text-whitex">Agosto</th>
-                            <th scope="col text-whitex">Septiembre</th>
-                            <th scope="col text-whitex">Octubre</th>
-                            <th scope="col text-whitex">Noviembre</th>
-                            <th scope="col text-whitex">Diciembre</th>
-                            <th scope="col text-whitex">Emisión</th>
-                            <th scope="col text-whitex"></th>
+                            <th scope="col text-whitex"> Uso</th>
+                            <th scope="col text-whitex"> Observación</th>
+                            <th scope="col text-whitex"> Densidad</th>
+                            <th scope="col text-whitex"> Enero</th>
+                            <th scope="col text-whitex"> Febrero</th>
+                            <th scope="col text-whitex"> Marzo</th>
+                            <th scope="col text-whitex"> Abril</th>
+                            <th scope="col text-whitex"> Mayo</th>
+                            <th scope="col text-whitex"> Junio</th>
+                            <th scope="col text-whitex"> Julio</th>
+                            <th scope="col text-whitex"> Agosto</th>
+                            <th scope="col text-whitex"> Septiembre</th>
+                            <th scope="col text-whitex"> Octubre</th>
+                            <th scope="col text-whitex"> Noviembre</th>
+                            <th scope="col text-whitex"> Diciembre</th>
+                            <th scope="col text-whitex"> Emisión</th>
+                            <th scope="col text-whitex">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <script>
+                            $("#capa").hover(function () {
+                                $("#mensaje").show();
+                            }, function () {
+                                $("#mensaje").hide();
+                            });
+                        </script>
                         <% gases.forEach((gaslp)=>{ %>
                             <tr>
                                 <td>
@@ -121,16 +128,18 @@
                                         none
                                     </div>
                                 </td>
-                                <td id="contenedor">
-                                    <div id="boton">
-                                        <button type="link" class="btn btn-success btn-sm"
-                                        onclick="window.location. href='/gaseslp/searchGases/<%=gaslp._id%>'"><i
-                                            class="material-icons">menu</i></button>
-                                        <form method="post">
-                                            <button type="danger " class="btn btn-danger btn-sm"><i
-                                                    class="material-icons">delete</i></button>
-                                                    <!-- action="/users/delete/<%=user._id%>"-->
-                                        </form>
+                                <td>
+                                    <div id="contenedor">
+                                        <div id="boton">
+                                            <button type="link" class="btn btn-success btn-sm"
+                                                onclick="window.location. href='/gaseslp/searchGases/<%=gaslp._id%>'"><i
+                                                    class="material-icons">menu</i></button>
+                                            <form method="post">
+                                                <button type="danger " class="btn btn-danger btn-sm"><i
+                                                        class="material-icons">delete</i></button>
+                                                <!-- action="/users/delete/<%=user._id%>"-->
+                                            </form>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
