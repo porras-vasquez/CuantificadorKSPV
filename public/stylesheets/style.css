@@ -38,6 +38,38 @@ h2 {
     color: white;
 }
 
+
+.button-navbar{
+    display: inline-block;
+}
+
+.navbar-option{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.option-transition {
+    color: #fff !important;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .option-transition:before {
+    content:"";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 100%;
+    border: 2px rgba(255, 255, 255, 0.1) solid;
+    background: rgba(134, 16, 75, 0.1);
+    transition: all .8s ease;
+  }
+  .option-transition:hover:before {
+    width: 100%;
+  }
+
 a{
     text-decoration: none;
     color: #fff;

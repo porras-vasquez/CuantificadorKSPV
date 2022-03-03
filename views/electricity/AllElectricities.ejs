@@ -5,60 +5,39 @@
     <%- include('../navbar'); -%>
 </header> 
 <body style="background-color: #f4ffec;" onload="abreventana()">
+    <% if(typeof(message) !="undefined" ) { %>
+        <% if(message=="success" ) { %>
+            <script>
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '¡Realizado exitosamente!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    localStorage.setItem("message", 1);
+                }
+            </script>
+        <% }else if(message=="error" ){ %>
+            <script>
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: '¡Lo sentimos, ocurrió un error!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    localStorage.setItem("message", 1);
+                }                                
+            </script>
+        <% } %>
+    <% } %>
     <div class="container mt-5">
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #eef7e1;">
-                    <div class="people-list ">
-                        <div class="col-12 row mt-5">
-                            <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
-                        </div>
-                        <ul class="list-unstyled chat-list  mb-0">
-                            <ul class="list-group list-group-flush button">
-                                <a onclick="window.location. href='/electricities/electricity/<%=company%>'" type="button" class="btn btn primary ">Agregar
-                                    reporte</a>
-                            </ul>
-                            <ul class="list-group list-group-flush button">
-                                <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar
-                                    compañía</a>
-                            </ul>
-                            <ul class="list-group list-group-flush button">
-                                <a href="/companies/showCompany" type="button" class="btn btn primary ">Atrás</a>
-                            </ul>
-                            <div class="col-12 mb-5"></div>
-                        </ul>
-                    </div>
-                    <% if(typeof(message) !="undefined" ) { %>
-                        <% if(message=="success" ) { %>
-                            <script>
-                                if (!localStorage.getItem("message")) {
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'success',
-                                        title: '¡Realizado exitosamente!',
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                    localStorage.setItem("message", 1);
-                                }
-                            </script>
-                        <% }else if(message=="error" ){ %>
-                            <script>
-                                if (!localStorage.getItem("message")) {
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'error',
-                                        title: '¡Lo sentimos, ocurrió un error!',
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                    localStorage.setItem("message", 1);
-                                }                                
-                            </script>
-                        <% } %>
-                    <% } %>
+
                     <div class="chat mbs">
-                        <div class="container card-body col-3" style="margin-left: 3%; padding-bottom: 5%;">
+                        <div class="container card-body col-3">
                             <h3 class="mt-3">Reportes de electricidad</h3>
                             <div class="col-12">
                                 <tbody style="background-color: rgb(243, 235, 224); font-size: 18px;">
@@ -92,23 +71,20 @@
                                                         </button>
                                                         <button type="link"
                                                             class="btn btn-warning edit btn" title="Agregar medidor"><a class="material-icons"
-                                                            onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=electricity.company%>'">
-                                                            speed</a>
-                                                        </button>
-                                                        <button type="link"
-                                                            class="btn btn-warning edit btn" title="Ver medidores"><a class="material-icons"
-                                                            onclick="window.location. href='/electricities/meters/<%=electricity._id%>'">
-                                                            view_module</a>
-                                                    </button>
-                                                    </div>
-                                                </div>
-                                            </table>
-                                        <% }) %>
+                                                        onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=electricity.company%>'">
+                                                speed</a>
+                                            </button>
+                                            <button type="link"
+                                                class="btn btn-warning edit btn" title="Ver medidores"><a class="material-icons"
+                                                onclick="window.location. href='/electricities/meters/<%=electricity._id%>'">
+                                                view_module</a>
+                                            </button>
+                                        </div>
                                     </div>
-                                </tbody>
-                            </div>
+                                </table>
+                            <% }) %>
                         </div>
-                    </div>
+                    </tbody>
                 </div>
             </div>
         </div>
