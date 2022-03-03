@@ -43,6 +43,11 @@ a{
     color: #fff;
 }
 
+.text-whitex{
+    background-color: rgb(26,145,125,255);
+    color: #fff;
+}
+
 .card-header{
     background-color: rgba(26,145,125,255);
     border-top-left-radius: 15px !important;
