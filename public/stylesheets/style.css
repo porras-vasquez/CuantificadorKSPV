@@ -43,7 +43,7 @@ a{
     color: #fff;
 }
 
-.text-white{
+.card-header{
     background-color: rgba(26,145,125,255);
     border-top-left-radius: 15px !important;
     border-top-right-radius: 15px !important;
@@ -114,7 +114,7 @@ a:hover{
     margin-right: 2%;
     margin-bottom: 1%;
     width:250px;
-    height: 23%;
+    height: auto !important;
     background-color: #F4FFEC;
     border-radius: 15px;
 }
@@ -165,7 +165,7 @@ a:hover{
 
 .col-x{
     width: auto;
-    height:auto;
+    height: 100% !important;
 }
 
 .mb-2x{
