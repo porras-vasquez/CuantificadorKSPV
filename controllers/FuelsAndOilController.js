@@ -36,13 +36,23 @@ FuelsAndOilController.searchCompany = function (req, res) {
 };
 
 FuelsAndOilController.list = function(req, res) {
-    FuelsAndOil.find({}).exec(function(err, fuelsAndOils) {
-        if (err) { console.log('Error: ', err); return; }
-        console.log("The INDEX");
-        res.render('../views/fuelsAndOil/AllFuelsAndOil', { fuelsAndOils: fuelsAndOils });
-
-    });
+    Company.findOne({ _id: req.params.id })
+        .populate("fuelsAndOil")
+        .exec(function (err, company) {
+            if (err) {
+                res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                    fuelsAndOils: company.fuelsAndOil,
+                    company: company._id,
+                });
+            } else {
+                res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                    fuelsAndOils: company.fuelsAndOil,
+                    company: company._id,
+                });
+            }
+        });
 };
+
 /*gasesController.update = function (req, res) {
     Gaseslp.findByIdAndUpdate(
         req.params.id,

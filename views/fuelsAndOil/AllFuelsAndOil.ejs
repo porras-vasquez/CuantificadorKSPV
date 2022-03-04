@@ -14,11 +14,11 @@
                     <thead class="col-8">
                         <tr>
                             <th scope="col"> Combustible</th>
-                            <th scope="col">Categoria de fuente de seleccion</th>
+                          <!--  <th scope="col">Categoria de fuente de seleccion</th>-->
                             <th scope="col">FE Co2/l</th>
                             <th scope="col">FE CH4/l</th>
                             <th scope="col">FE N20/l</th>
-                            <th scope="col">Componente</th>
+                           <!-- <th scope="col">Componente</th>-->
                             <th scope="col">Enero</th>
                             <th scope="col">Febrero</th>
                             <th scope="col">Marzo</th>
@@ -43,11 +43,11 @@
                                         <%=fuelsAndOil.combustible%>
                                     </div>
                                 </td>
-                                <td>
+                            <!--    <td>
                                     <div style="padding: 2%;">
                                         <%=fuelsAndOil.categoria_seleccion%>
                                     </div>
-                                </td>
+                                </td>-->
                                 <td>
                                     <div style="padding: 2%;">
                                         <%=fuelsAndOil.feCo2_L%>
@@ -63,11 +63,11 @@
                                         <%=fuelsAndOil.feN20_L%>
                                     </div>
                                 </td>
-                                <td>
+                               <!-- <td>
                                     <div style="padding: 2%;">
                                         <%=fuelsAndOil.componente%>
                                     </div>
-                                </td>
+                                </td>-->
                                 <td>
                                     <div style="padding: 2%;">
                                         <%=fuelsAndOil.enero%>
@@ -134,9 +134,14 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button type="link" class="btn btn-success btn-sm"
-                                        onclick="window.location. href='/fuelsAndOil/searchFuelsAndOil/<%=fuelsAndOil._id%>'"><i
-                                            class="material-icons">menu</i></button>
+                                    <div id="contenedor">
+                                        <div id="boton">
+                                            <button type="link" class="btn btn-success btn-sm"
+                                                onclick="window.location. href='/fuelsAndOil/searchFuelsAndOil/<%=fuelsAndOil._id%>'"><i
+                                                    class="material-icons">menu</i></button>
+
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             <% }) %>
