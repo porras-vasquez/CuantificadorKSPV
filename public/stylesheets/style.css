@@ -1,8 +1,9 @@
-html, body {
+body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     overflow-x: hidden;
     overflow-y: hidden;
     overflow: hidden;
+    min-height: 100%;
 }
 
 a {
@@ -118,6 +119,7 @@ a:hover{
     justify-content:center;
     align-items: flex-start;
     flex-wrap: wrap;
+    /*margin-botton: 1.5%;*/
 }
 
 .flex-color{
@@ -127,10 +129,11 @@ a:hover{
 .menu-container{
     display: flex;
     float:right;
-    width: 15%;
+    width: 100%;
     justify-content: end;
     padding-right: 10px;
     margin-bottom: 1% !important;
+    margin-top: 1% !important;
 }
 
 .menu:hover + .flex-menu{
@@ -151,14 +154,20 @@ a:hover{
     background-color: #F4FFEC;
 }
 
+.table-container{
+    width: 100% !important;
+    height: 90%;
+}
 
 .card-container{
-    margin-right: 3.5%;
     margin-bottom: 5%;
     width:300px;
     height: auto !important;
     background-color: #F4FFEC;
     border-radius: 15px;
+    margin-bottom: 5%;
+    margin-right: 3%;
+    margin-left: 3%;
 }
 
 .card-textx{
@@ -210,9 +219,14 @@ a:hover{
     height: 100% !important;
 }
 
+.mb-2{
+    max-width: 100%;
+}
+
 .mb-2x{
     height: 80% !important;
     overflow-y: scroll;
+    min-height: 85% !important;
 }
 
 

@@ -34,86 +34,61 @@
                     }                                
                 </script>
                 <% } %>
-                    <% } %>
-
+            <% } %>
                         <div class="card mt-2 mb-2x"
-                            style="margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
-                            <div clas="mt-2 mb-2" style="margin-left: 2.5%;">
-                                <div class="col-x">
-                                    <div id="menu-container" class="menu-container">
-                                        <div id="menu" class="menu">
-                                            <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
-                                        </div>
-                                        <div class="flex-menu">
-                                            <ul class="list-unstyled chat-list  mb-0">
-                                                <ul class="list-group list-group-flush button flex-color">
-                                                    <a onclick="window.location. href='/electricities/electricity/<%=company%>'"
-                                                        type="button" class="btn btn primary ">Agregar
-                                                        reporte</a>
-                                                </ul>
-                                                <ul class="list-group list-group-flush button flex-color">
-                                                    <a href="/companies/createCompany" type="button"
-                                                        class="btn btn primary ">Agregar
-                                                        compañía</a>
-                                                </ul>
-                                                <ul class="list-group list-group-flush button flex-color">
-                                                    <a href="/companies/showCompany" type="button"
-                                                        class="btn btn primary ">Atrás</a>
-                                                </ul>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cards-container">
-                                        <% electricities.forEach((electricity)=>{ %>
-                                            <div class="card-container">
-                                                <div class="card-header text-white">
-                                                    <%=electricity.fuente_reporte%>
-                                                </div>
-                                                <div class="card-body" style="font-size: 18px;">
-                                                    <h5 class="card-title">
-                                                        <%=electricity.unidad_medida%>
-                                                    </h5>
-                                                    <p class="card-textx">
-                                                        <%=electricity.observacion%>
-                                                    </p>
-                                                </div>
-                                                <div class="card-menu">
-                                                    <div id="options" class="options">
-                                                        <i id="expand" class="material-icons">expand_more</i>
-                                                    </div>
-                                                    <div class="botons-container" id="botons-container"
-                                                    style="font-size: 18px;">
-                                                        <form class="btn-company" style="font-size: 18px;"
-                                                            action="/electricities/deleteElectricity/<%=electricity._id%>/<%=electricity.company%>"
-                                                            method="post">
-                                                            <button type="danger" class="btn btn-danger">
-                                                                <i class="material-icons">delete</i>
-                                                            </button>
-                                                        </form>
-                                                        <button type="link" class="btn btn-success edit btn-company"
-                                                            onclick="window.location. href='/electricities/searchElectricity/<%=electricity._id%>'">
-                                                            <i class="material-icons">edit</i>
-                                                        </button>
-                                                        <button type="link" class="btn btn-warning edit btn btn-company"
-                                                            title="Agregar medidor">
-                                                            <a class="material-icons"
-                                                                onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=electricity.company%>'">
-                                                                speed
-                                                            </a>
-                                                        </button>
-                                                        <button type="link" class="btn btn-warning edit btn btn-company"
-                                                            title="Ver medidores">
-                                                            <a class="material-icons"
-                                                                onclick="window.location. href='/electricities/meters/<%=electricity._id%>'">
-                                                                view_module
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <% }) %>
-                                    </div>
+                            style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+                            <div id="menu-container" class="menu-container">
+                                <div id="menu" class="menu">
+                                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
                                 </div>
+                                <div class="flex-menu">
+                                    <ul class="list-unstyled chat-list  mb-0">
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a onclick="window.location. href='/electricities/electricity/<%=company%>'"
+                                                type="button" class="btn btn primary ">Agregar reporte</a>
+                                        </ul>
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a href="/companies/createCompany" type="button"
+                                                class="btn btn primary ">Agregar compañía</a>
+                                        </ul>
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a href="/companies/showCompany" type="button"
+                                                class="btn btn primary ">Atrás</a>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <!--Table-->
+                                <table class="table table-bordered table-hover table-fixed" style="background-color: white;">
+                                    <!--Table head-->
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Fuente de reporte</th>
+                                            <th>Unidad de medida</th>
+                                            <th>Última actualización</th>
+                                            <th>Observación</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <!--Table head-->
+                                    <!--Table body-->
+                                    <tbody>
+                                        <% electricities.forEach((electricity)=>{ %>
+                                            <tr>
+                                                <td><%=electricity.titulo%></td>
+                                                <td><%=electricity.fuente_reporte%></td>
+                                                <td><%=electricity.unidad_medida%></td>
+                                                <td><%=electricity.ultima_update%></td>
+                                                <td><%=electricity.observacion%></td>
+                                                <td></td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                    <!--Table body-->
+                                </table>
+                                <!--Table-->
                             </div>
                         </div>
 </body>
