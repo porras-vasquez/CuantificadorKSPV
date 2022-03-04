@@ -130,6 +130,7 @@ a:hover{
     width: 15%;
     justify-content: end;
     padding-right: 10px;
+    margin-bottom: 1% !important;
 }
 
 .menu:hover + .flex-menu{
@@ -153,7 +154,7 @@ a:hover{
 
 .card-container{
     margin-right: 3.5%;
-    margin-bottom: 7%;
+    margin-bottom: 5%;
     width:300px;
     height: auto !important;
     background-color: #F4FFEC;
@@ -212,8 +213,6 @@ a:hover{
 .mb-2x{
     height: 80% !important;
     overflow-y: scroll;
-    min-height:655px !important;
-    
 }
 
 
