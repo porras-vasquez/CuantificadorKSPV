@@ -34,12 +34,21 @@ gasesController.searchCompany = function (req, res) {
     });
 };
 gasesController.list = function(req, res) {
-    Gaseslp.find({}).exec(function(err, gases) {
-        if (err) { console.log('Error: ', err); return; }
-        console.log("The INDEX");
-        res.render('../views/gaseslp/AllGas', { gases: gases });
-
-    });
+    Company.findOne({ _id: req.params.id })
+        .populate("gaslp")
+        .exec(function (err, company) {
+            if (err) {
+                res.render("../views/gaseslp/AllGas", {
+                    gases: company.gaslp,
+                    company: company._id,
+                });
+            } else {
+                res.render("../views/gaseslp/AllGas", {
+                    gases: company.gaslp,
+                    company: company._id,
+                });
+            }
+        });
 };
 gasesController.search = function (req, res) {
     Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gaslp) {
