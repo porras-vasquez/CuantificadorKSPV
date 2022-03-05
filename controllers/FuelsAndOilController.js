@@ -52,73 +52,94 @@ FuelsAndOilController.list = function(req, res) {
             }
         });
 };
-
-/*gasesController.update = function (req, res) {
-    Gaseslp.findByIdAndUpdate(
-        req.params.id,
-        {
-            $set: {
-                descripcion: req.body.descripcion,
-                uso: req.body.uso,
-                enero: req.body.enero,
-                febrero: req.body.febrero,
-                marzo: req.body.marzo,
-                abril: req.body.abril,
-                mayo: req.body.mayo,
-                junio: req.body.junio,
-                julio: req.body.julio,
-                agosto: req.body.agosto,
-                septiembre: req.body.septiembre,
-                octubre: req.body.octubre,
-                noviembre: req.body.noviembre,
-                diciembre: req.body.diciembre,
-                densidad: req.body.densidad,
-                observacion: req.body.observacion,
-                emision: req.body.emision
-            },
-        },
-        { new: true },
-        function (err, gases) {
-            if (err) {
-                console.log("Error: ", err);
-
-                Company.findOne({ _id: gases.company })
-                    .populate("gaslp")
-                    .exec(function (error, company) {
-                        if (error) {
-                            res.render("../views/gaseslp/AllGas", {
-                                message: "error",
-                                gases: company.gases,
-                                company: company._id,
-                            });
-                        } else {
-                            res.render("../views/gaseslp/AllGas", {
-                                message: "success",
-                                gases: company.gases,
-                                company: company._id,
-                            });
-                        }
-                    });
-            } else {
-                Company.findOne({ _id: gases.company })
-                    .populate("electricidad")
-                    .exec(function (error, company) {
-                        if (error) {
-                            res.render("../views/gaseslp/AllGas", {
-                                message: "error",
-                                gases: company.gaslp,
-                                company: company._id,
-                            });
-                        } else {
-                            res.render("../views/gaseslp/AllGas", {
-                                message: "success",
-                                gases: company.gaslp,
-                                company: company._id,
-                            });
-                        }
-                    });
-            }
+FuelsAndOilController.search = function (req, res) {
+    FuelsAndOil.findOne({ _id: req.params.id }).exec(function (err, fuelsAndOil) {
+        if (err) {
+            console.log("Error: ", err);
+            res.render("../views/fuelsAndOil/search", {
+                fuelsAndOil: fuelsAndOil,
+                company: fuelsAndOil.company,
+            });
+        } else {
+            res.render("../views/fuelsAndOil/search", {
+                fuelsAndOil: fuelsAndOil,
+                company: fuelsAndOil.company,
+            });
         }
-    );
-};*/
+    });
+};
+FuelsAndOilController.update = function (req, res) {
+    req.body.emision = 0;
+    FuelsAndOil.findByIdAndUpdate(
+      req.params.id,
+      {
+          $set: {
+            combustible: req.body.combustible,
+            feCo2_L: req.body.feCo2_L,
+            feCH4_L: req.body.feCH4_L,
+            feN20_L: req.body.feN20_L,
+            enero: req.body.enero,
+            febrero: req.body.febrero,
+            marzo: req.body.marzo,
+            abril: req.body.abril,
+            mayo: req.body.mayo,
+            junio: req.body.junio,
+            julio: req.body.julio,
+            agosto: req.body.agosto,
+            septiembre: req.body.septiembre,
+            octubre: req.body.octubre,
+            noviembre: req.body.noviembre,
+            diciembre: req.body.diciembre
+          },
+      },
+      { new: true },
+      function (err, fuelsAndOils) {
+          console.log(fuelsAndOils);
+          console.log(fuelsAndOils.company);
+          if (err) {
+              console.log("Error: ", err);
+
+              Company.findOne({ _id: fuelsAndOils.company })
+                  .populate("fuelsAndOil")
+                  .exec(function (error, company) {
+                      if (error) {
+                          res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                              message: "error",
+                              fuelsAndOils: company.fuelsAndOil,
+                              company: company._id,
+                          });
+                      } else {
+                          res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                              message: "success",
+                              fuelsAndOils: company.fuelsAndOil,
+                              company: company._id,
+                          });
+                      }
+                  });
+          } else {
+              Company.findOne({ _id: fuelsAndOils.company })
+                  .populate("fuelsAndOil")
+                  .exec(function (error, company) {
+                    console.log(error);
+                    console.log(company);
+                      if (error) {
+                          res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                              message: "error",
+                              fuelsAndOils: company.fuelsAndOil,
+                              company: company._id,
+                          });
+                      } else {
+                          res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                              message: "success",
+                              fuelsAndOils: company.fuelsAndOil,
+                              company: company._id,
+                          });
+                      }
+                  });
+          }
+      }
+  );
+};
+
+ 
 module.exports = FuelsAndOilController;
