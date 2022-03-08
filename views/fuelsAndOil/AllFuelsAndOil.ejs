@@ -5,172 +5,179 @@
     <%- include('../navbar'); -%>
 </header>
 
-<body style="background-color: #f4ffec;">
-    <div class="card mt-2 mb-2" style="margin-left: 2%; margin-right: 2%; background-color: #beb39c;">
-        <div class="mt-2 mb-2 " style="margin-left: 2.5%;">
-            <h3>Combustibles y lubricantes</h3>
-            <div class=" col-10 row text-dark">
-                <table class="table table-bordered col-8" style="background-color: white;">
-                    <thead class="col-8">
+<body style="background-color: #f4ffec; height: 100vh !important;">
+    <div class="card mt-2 mb-2x"
+        style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+        <div id="menu-container" class="menu-container">
+            <div id="menu" class="menu">
+                <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+            </div>
+            <div class="flex-menu">
+                <ul class="list-unstyled chat-list  mb-0">
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a onclick="window.location. href='/fuelsAndOil/fuelsAndOilsearchcompany/<%=company._id%>'"
+                            type="button" class="btn btn primary ">Agregar emisión</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar
+                            compañía</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a href="/companies/showCompany" type="button" class="btn btn primary ">Atrás</a>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+        <div class="row text-dark table-responsive table-container"
+            style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+            <h3>Combustibles y lubricantes: Mostrar</h3>
+            <table class="table-bordered" style="background-color: white;">
+                <thead style="background-color: rgba(26,145,125,255);">
+                    <tr class="text-center">
+                        <th scope="col"> Combustible</th>
+                        <th scope="col">Categoria de fuente de seleccion</th>
+                        <th scope="col">FE Co2/l</th>
+                        <th scope="col">FE CH4/l</th>
+                        <th scope="col">FE N20/l</th>
+                        <th scope="col">Componente</th>
+                        <th scope="col">Enero</th>
+                        <th scope="col">Febrero</th>
+                        <th scope="col">Marzo</th>
+                        <th scope="col">Abril</th>
+                        <th scope="col">Mayo</th>
+                        <th scope="col">Junio</th>
+                        <th scope="col">Julio</th>
+                        <th scope="col">Agosto</th>
+                        <th scope="col">Septiembre</th>
+                        <th scope="col">Octubre</th>
+                        <th scope="col">Noviembre</th>
+                        <th scope="col">Diciembre</th>
+                        <th scope="col">Emisión</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% fuelsAndOils.forEach((fuelsAndOil)=>{ %>
                         <tr>
-                            <th scope="col"> Combustible</th>
-                          <!--  <th scope="col">Categoria de fuente de seleccion</th>-->
-                            <th scope="col">FE Co2/l</th>
-                            <th scope="col">FE CH4/l</th>
-                            <th scope="col">FE N20/l</th>
-                           <!-- <th scope="col">Componente</th>-->
-                            <th scope="col">Enero</th>
-                            <th scope="col">Febrero</th>
-                            <th scope="col">Marzo</th>
-                            <th scope="col">Abril</th>
-                            <th scope="col">Mayo</th>
-                            <th scope="col">Junio</th>
-                            <th scope="col">Julio</th>
-                            <th scope="col">Agosto</th>
-                            <th scope="col">Septiembre</th>
-                            <th scope="col">Octubre</th>
-                            <th scope="col">Noviembre</th>
-                            <th scope="col">Diciembre</th>
-                            <th scope="col">Emisión</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% fuelsAndOils.forEach((fuelsAndOil)=>{ %>
-                            <tr>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.combustible%>
-                                    </div>
-                                </td>
-                            <!--    <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.categoria_seleccion%>
-                                    </div>
-                                </td>-->
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.feCo2_L%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.feCH4_L%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.feN20_L%>
-                                    </div>
-                                </td>
-                               <!-- <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.componente%>
-                                    </div>
-                                </td>-->
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.enero%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.febrero%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.marzo%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.abril%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.mayo%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.junio%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.julio%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.agosto%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.septiembre%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.octubre%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.noviembre%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=fuelsAndOil.diciembre%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        none
-                                    </div>
-                                </td>
-                                <td>
-                                    <div id="contenedor">
-                                        <div id="boton">
-                                            <button type="link" class="btn btn-success btn-sm"
-                                                onclick="window.location. href='/fuelsAndOil/searchFuelsAndOil/<%=fuelsAndOil._id%>'"><i
-                                                    class="material-icons">menu</i>
-                                            </button>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.combustible%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.categoria_seleccion%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.feCo2_L%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.feCH4_L%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.feN20_L%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.componente%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.enero%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.febrero%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.marzo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.abril%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.mayo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.junio%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.julio%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.agosto%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.septiembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.octubre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.noviembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    <%=fuelsAndOil.diciembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="padding: 2%;">
+                                    none
+                                </div>
+                            </td>
+                            <td>
+                                <div id="contenedor">
+                                    <div id="boton">
+                                        <button type="link" class="btn btn-success btn-sm"
+                                            onclick="window.location. href='/fuelsAndOil/searchFuelsAndOil/<%=fuelsAndOil._id%>'"><i
+                                                class="material-icons">menu</i>
+                                        </button>
 
-                                        <form action="/fuelsAndOil/deleteFuelsAndOil/<%=fuelsAndOil._id%>/<%=fuelsAndOil.company%>"
+                                        <form
+                                            action="/fuelsAndOil/deleteFuelsAndOil/<%=fuelsAndOil._id%>/<%=fuelsAndOil.company%>"
                                             method="post">
                                             <button type="danger" class="btn btn-danger btn-sm"><i
                                                     class="material-icons">delete</i></button>
-                                        </form>    
+                                        </form>
 
-                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <% }) %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-1" style="margin-left: 1.5%;">
-                <button type="button" style="margin-left: 2%;" class="btn btn-success mb-3">
-                    <a href="/companies/createCompany">Agregar</a>
-                </button>
-            </div>
-            <div class="col-1" style="margin-left: -1%;">
-                <button type="button" style="margin-left: 2%;" class="btn btn-danger mb-3"
-                    href="/companies/showCompany">
-                    <a href="/companies/showCompany">Regresar</a>
-                </button>
-            </div>
-        </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
 
-
+        </div>
     </div>
 
     <div class="col-2"></div>
