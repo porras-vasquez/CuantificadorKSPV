@@ -156,7 +156,7 @@ a:hover{
 }
 
 .table-container{
-    width: 100% !important;
+    width: 99% !important;
     height: 90%;
 }
 
@@ -232,6 +232,9 @@ a:hover{
 
 
 .mb-2x::-webkit-scrollbar {
+    display: none;
+}
+.table-container::-webkit-scrollbar {
     display: none;
 }
 

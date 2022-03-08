@@ -15,8 +15,8 @@
             <div class="flex-menu">
                 <ul class="list-unstyled chat-list  mb-0">
                     <ul class="list-group list-group-flush button flex-color">
-                        <a onclick="window.location. href='/electricities/electricity/<%=company%>'" type="button"
-                            class="btn btn primary ">Agregar reporte</a>
+                        <a onclick="window.location. href='/gaseslp/gasessearchcompany/<%=company._id%>'" type="button"
+                            class="btn btn primary ">Agregar emisión</a>
                     </ul>
                     <ul class="list-group list-group-flush button flex-color">
                         <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar
@@ -28,7 +28,7 @@
                 </ul>
             </div>
         </div>
-        <div class="row text-dark table-responsive">
+        <div class="row text-dark table-responsive table-container" style=" scrollbar-width: none !important;">
             <table class="table-bordered" style="background-color: white;">
                 <thead>
                     <tr class="text-center">
@@ -61,9 +61,9 @@
                         });
                     </script>
                     <% gases.forEach((gaslp)=>{ %>
-                        <tr>
+                        <tr class="text-center">
                             <td>
-                                <div>
+                                <div style="padding-left: 1%;">
                                     <%=gaslp.descripcion%>
                                 </div>
                             </td>
@@ -166,20 +166,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
-            <div class="col-1" style="margin-left: 1.5%;">
-                <button type="button" style="margin-left: 2%;" class="btn btn-success mb-3">
-                    <a href="/companies/createCompany">Agregar</a>
-                </button>
-            </div>
-            <div class="col-1" style="margin-left: -1%;">
-                <button type="button" style="margin-left: 2%;" class="btn btn-danger mb-3"
-                    href="/companies/showCompany">
-                    <a href="/companies/showCompany">Regresar</a>
-                </button>
-            </div>
-        </div>
-        <div class="col-2"></div>
     </div>
 </body>
 
