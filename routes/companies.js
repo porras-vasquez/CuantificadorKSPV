@@ -9,9 +9,6 @@ router.get('/createCompany', isAuthenticated,function(req, res) {
     res.render('../views/company/NewCompany');
 });
 
-router.post('/saveElectricity/:id',isAuthenticated, companyController.addElectricity);
-router.post('/saveGaslp/:id',isAuthenticated, companyController.addGaslp);
-router.post('/saveFuelsAndOil/:id',isAuthenticated, companyController.addFuelsAndOil);
 router.get('/searchCompany/:id',isAuthenticated, companyController.search);
 router.get('/showCompany', isAuthenticated,isAuthenticated,companyController.list);
 //router.get('/showCompany2',isAuthenticated, companyController.list2);
