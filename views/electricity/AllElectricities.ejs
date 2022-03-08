@@ -102,7 +102,35 @@
                                                         <%=electricity.observacion%>
                                                     </div>    
                                                 </td>
-                                                <td></td>
+                                                <td>
+                                                    <div>
+                                                        <form style="font-size: 18px;"
+                                                            action="/electricities/deleteElectricity/<%=electricity._id%>/<%=electricity.company%>"
+                                                            method="post">
+                                                            <button type="danger" class="btn btn-danger">
+                                                                <i class="material-icons">delete</i>
+                                                            </button>
+                                                        </form>
+                                                        <button type="link" class="btn btn-success edit btn-company"
+                                                            onclick="window.location. href='/electricities/searchElectricity/<%=electricity._id%>'">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button type="link" class="btn btn-warning edit btn btn-company"
+                                                            title="Agregar medidor">
+                                                            <a class="material-icons"
+                                                                onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=electricity.company%>'">
+                                                                speed
+                                                            </a>
+                                                        </button>
+                                                        <button type="link" class="btn btn-warning edit btn btn-company"
+                                                            title="Ver medidores">
+                                                            <a class="material-icons"
+                                                                onclick="window.location. href='/electricities/meters/<%=electricity._id%>'">
+                                                                view_module
+                                                            </a>
+                                                        </button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         <% }) %>
                                     </tbody>
