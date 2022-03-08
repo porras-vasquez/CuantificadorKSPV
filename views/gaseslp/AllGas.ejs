@@ -5,147 +5,166 @@
     <%- include('../navbar'); -%>
 </header>
 
-<body style="background-color: #f4ffec;">
-    <div class="card mt-2 mb-2" style="margin-left: 2%; margin-right: 2%; background-color: #beb39c;">
-        <div class="mt-2 mb-2 " style="margin-left: 2.5%;">
-            <h3>Módulo de Gases LP</h3>
-            <div class=" col-8 row text-dark">
-                <table class="tablediferent table-bordered" style="background-color: white; margin-right: 10%;">
-                    <thead>
-                        <tr class="text-center">
-                            <th scope="col text-whitex"> Descripción</th>
-                            <th scope="col text-whitex"> Uso</th>
-                            <th scope="col text-whitex"> Observación</th>
-                            <th scope="col text-whitex"> Densidad</th>
-                            <th scope="col text-whitex"> Enero</th>
-                            <th scope="col text-whitex"> Febrero</th>
-                            <th scope="col text-whitex"> Marzo</th>
-                            <th scope="col text-whitex"> Abril</th>
-                            <th scope="col text-whitex"> Mayo</th>
-                            <th scope="col text-whitex"> Junio</th>
-                            <th scope="col text-whitex"> Julio</th>
-                            <th scope="col text-whitex"> Agosto</th>
-                            <th scope="col text-whitex"> Septiembre</th>
-                            <th scope="col text-whitex"> Octubre</th>
-                            <th scope="col text-whitex"> Noviembre</th>
-                            <th scope="col text-whitex"> Diciembre</th>
-                            <th scope="col text-whitex"> Emisión</th>
-                            <th scope="col text-whitex">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <script>
-                            $("#capa").hover(function () {
-                                $("#mensaje").show();
-                            }, function () {
-                                $("#mensaje").hide();
-                            });
-                        </script>
-                        <% gases.forEach((gaslp)=>{ %>
-                            <tr>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.descripcion%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.uso%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.observacion%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.densidad%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.enero%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.febrero%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.marzo%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.abril%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.mayo%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.junio%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.julio%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.agosto%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.septiembre%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.octubre%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.noviembre%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        <%=gaslp.diciembre%>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="padding: 2%;">
-                                        none
-                                    </div>
-                                </td>
-                                <td>
-                                    <div id="contenedor">
-                                        <div id="boton">
-                                            <button type="link" class="btn btn-success btn-sm"
-                                                onclick="window.location. href='/gaseslp/searchGases/<%=gaslp._id%>'"><i
-                                                    class="material-icons">menu</i></button>
-                                            <form action="/gaseslp/deleteGases/<%=gaslp._id%>/<%=gaslp.company%>"  method="post">
-                                                <button type="danger" class="btn btn-danger btn-sm"><i
-                                                        class="material-icons">delete</i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <% }) %>
-                    </tbody>
-                </table>
+<body style="background-color: #f4ffec; height: 100vh !important;">
+    <div class="card mt-2 mb-2x"
+        style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+        <div id="menu-container" class="menu-container">
+            <div id="menu" class="menu">
+                <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
             </div>
+            <div class="flex-menu">
+                <ul class="list-unstyled chat-list  mb-0">
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a onclick="window.location. href='/electricities/electricity/<%=company%>'" type="button"
+                            class="btn btn primary ">Agregar reporte</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar
+                            compañía</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a href="/companies/showCompany" type="button" class="btn btn primary ">Atrás</a>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+        <div class="row text-dark table-responsive">
+            <table class="table-bordered" style="background-color: white;">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col text-whitex"> Descripción</th>
+                        <th scope="col text-whitex"> Uso</th>
+                        <th scope="col text-whitex"> Observación</th>
+                        <th scope="col text-whitex"> Densidad</th>
+                        <th scope="col text-whitex"> Enero</th>
+                        <th scope="col text-whitex"> Febrero</th>
+                        <th scope="col text-whitex"> Marzo</th>
+                        <th scope="col text-whitex"> Abril</th>
+                        <th scope="col text-whitex"> Mayo</th>
+                        <th scope="col text-whitex"> Junio</th>
+                        <th scope="col text-whitex"> Julio</th>
+                        <th scope="col text-whitex"> Agosto</th>
+                        <th scope="col text-whitex"> Septiembre</th>
+                        <th scope="col text-whitex"> Octubre</th>
+                        <th scope="col text-whitex"> Noviembre</th>
+                        <th scope="col text-whitex"> Diciembre</th>
+                        <th scope="col text-whitex"> Emisión</th>
+                        <th scope="col text-whitex">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <script>
+                        $("#capa").hover(function () {
+                            $("#mensaje").show();
+                        }, function () {
+                            $("#mensaje").hide();
+                        });
+                    </script>
+                    <% gases.forEach((gaslp)=>{ %>
+                        <tr>
+                            <td>
+                                <div>
+                                    <%=gaslp.descripcion%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.uso%>
+                                </div>
+                            </td>
+                            <td>
+                                <div">
+                                    <%=gaslp.observacion%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.densidad%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.enero%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.febrero%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.marzo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.abril%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.mayo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.junio%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.julio%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.agosto%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.septiembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.octubre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.noviembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.diciembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    none
+                                </div>
+                            </td>
+                            <td>
+                                <div id="contenedor">
+                                    <div id="boton">
+                                        <button type="link" class="btn btn-success btn-sm"
+                                            onclick="window.location. href='/gaseslp/searchGases/<%=gaslp._id%>'"><i
+                                                class="material-icons">menu</i></button>
+                                        <form action="/gaseslp/deleteGases/<%=gaslp._id%>/<%=gaslp.company%>"
+                                            method="post">
+                                            <button type="danger" class="btn btn-danger btn-sm"><i
+                                                    class="material-icons">delete</i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
         </div>
         <div class="row">
             <div class="col-1" style="margin-left: 1.5%;">
@@ -160,9 +179,7 @@
                 </button>
             </div>
         </div>
-    </div>
-
-    <div class="col-2"></div>
+        <div class="col-2"></div>
     </div>
 </body>
 
