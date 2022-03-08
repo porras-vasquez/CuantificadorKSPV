@@ -5,121 +5,148 @@
     <%- include('../navbar'); -%>
 </header>
 
-<body style="background-color: #f4ffec;">
-    <div class="mt-2 mb-2" style="margin-left: 5%; margin-right: 5%;">
-        <form action="/gaseslp/saveGas/<%=company._id%>" method="post" class="newGas row "
-            style="background-color: #beb39c;">
-            <h3>Módulo de Gases LP</h3>
-            <% if(typeof(message) != "undefined") { %>
-                <% if(message == "success") { %>
-                    <script>
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Exito al agregar',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(({value}) => {
-                            //window.location='/users/create/';
-                        });
-                    </script>
-                <% }else if(message == "error"){ %>
-                    <script>
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Lo sentimos, ocurrió un problema con el servidor',
-                            showConfirmButton: false,
-                            timer: 3500
-                        }).then(({value}) => {
-                            //window.location='/users/create/';
-                        });
-                    </script>
+<body style="background-color: #f4ffec; height: 100vh !important">
+    <% if(typeof(message) !="undefined" ) { %>
+        <% if(message=="success" ) { %>
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Exito al agregar',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(({ value }) => {
+                    //window.location='/users/create/';
+                });
+            </script>
+            <% }else if(message=="error" ){ %>
+                <script>
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Lo sentimos, ocurrió un problema con el servidor',
+                        showConfirmButton: false,
+                        timer: 3500
+                    }).then(({ value }) => {
+                        //window.location='/users/create/';
+                    });
+                </script>
                 <% } %>
-   
-            <% } %>
-            <div class="col-3">
-                <div class="mb-2">
-                    <label class="form-label">Descripción</label>
-                    <input type="text" name="descripcion" class="form-control" />
-                </div>
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Uso</label>
-                    <input type="text" name="uso" class="form-control" />
-                </div>
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Observación</label>
-                    <input type="text" name="observacion" class="form-control" />
-                </div>
-                <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Densidad</label>
-                    <input type="text" name="densidad" class="form-control" />
-                </div>
-            </div>
-            <div class=" col-4 row text-dark" style="background-color: #ffffff; margin-left: 6%;">
-                <h3 class="mt-2">
-                    Consumo de litros por mes
-                </h3>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label text">Enero</label>
-                    <input type="text" name="enero" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Febrero</label>
-                    <input type="text" name="febrero" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Marzo</label>
-                    <input type="text" name="marzo" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Abril</label>
-                    <input type="text" name="abril" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Mayo</label>
-                    <input type="text" name="mayo" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Junio</label>
-                    <input type="text" name="junio" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Julio</label>
-                    <input type="text" name="julio" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Agosto</label>
-                    <input type="text" name="agosto" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Septiembre</label>
-                    <input type="text" name="septiembre" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Octubre</label>
-                    <input type="text" name="octubre" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Noviembre</label>
-                    <input type="text" name="noviembre" class="textarea form-control" />
-                </div>
-                <div class="col-md-3 mb-1 text-center">
-                    <label for="exampleInputEmail1" class="form-label">Diciembre</label>
-                    <input type="text" name="diciembre" class="textarea form-control" />
-                </div>
-            </div>
-            <div class="btnContainer mb-4" style="margin-left: 1.7%;">
-                <input type="submit" name="CompanyController"  class="btn btn-success" value="Guardar">
-                <button type="button" class="btn btn-danger">
-                    <a href='/companies/showCompany'>Cancelar</a>
-                </button>
+                    <% } %>
+                        <div class="card mt-2 mb-2x"
+                            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+                            <div id="menu-container" class="menu-container">
+                                <div id="menu" class="menu">
+                                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+                                </div>
+                                <div class="flex-menu">
+                                    <ul class="list-unstyled chat-list  mb-0">
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a onclick="window.location. href='/gaseslp/gasesshow/<%=company._id%>'"
+                                                type="button" class="btn btn primary ">Mostrar emisión</a>
+                                        </ul>
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a href="/companies/createCompany" type="button"
+                                                class="btn btn primary ">Agregar
+                                                compañía</a>
+                                        </ul>
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a href="/companies/showCompany" type="button"
+                                                class="btn btn primary ">Atrás</a>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row text-dark table-container"
+                                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+                                <form action="/gaseslp/saveGas/<%=company._id%>" method="post" class="newGas row "
+                                    style="margin-left: 5%;">
+                                    <h3>Módulo Gases lp: Agregar</h3>
+                                    <div class="col-3">
+                                        <div class="mb-2">
+                                            <label class="form-label">Descripción</label>
+                                            <input type="text" name="descripcion" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Uso</label>
+                                            <input type="text" name="uso" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Observación</label>
+                                            <input type="text" name="observacion" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Densidad</label>
+                                            <input type="text" name="densidad" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class=" col-4 row text-dark"
+                                        style="background-color: #ffffff; margin-left: 6%;">
+                                        <h3 class="mt-2">
+                                            Consumo de litros por mes
+                                        </h3>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label text">Enero</label>
+                                            <input type="text" name="enero" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Febrero</label>
+                                            <input type="text" name="febrero" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Marzo</label>
+                                            <input type="text" name="marzo" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Abril</label>
+                                            <input type="text" name="abril" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Mayo</label>
+                                            <input type="text" name="mayo" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Junio</label>
+                                            <input type="text" name="junio" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Julio</label>
+                                            <input type="text" name="julio" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Agosto</label>
+                                            <input type="text" name="agosto" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Septiembre</label>
+                                            <input type="text" name="septiembre" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Octubre</label>
+                                            <input type="text" name="octubre" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Noviembre</label>
+                                            <input type="text" name="noviembre" class="textarea form-control" />
+                                        </div>
+                                        <div class="col-md-3 mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="form-label">Diciembre</label>
+                                            <input type="text" name="diciembre" class="textarea form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="btnContainer mb-4">
+                                        <input type="submit" name="CompanyController" class="btn btn-success"
+                                            value="Guardar">
+                                        <button type="button" class="btn btn-danger">
+                                            <a href='/companies/showCompany'>Cancelar</a>
+                                        </button>
 
-            </div>
-        </form>
-    </div>
-    <div class="col-2"></div>
-    </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        </div>
 </body>
 
 </html>
