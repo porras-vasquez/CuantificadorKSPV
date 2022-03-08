@@ -157,7 +157,7 @@ a:hover{
 
 .table-container{
     width: 99% !important;
-    height: 90%;
+    height: auto;
 }
 
 .card-container{
