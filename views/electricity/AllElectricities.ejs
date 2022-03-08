@@ -5,7 +5,7 @@
     <%- include('../navbar'); -%>
 </header>
 
-<body style="background-color: #f4ffec;">
+<body style="background-color: #f4ffec; height: 100vh !important;">
     <% if(typeof(message) !="undefined" ) { %>
         <% if(message=="success" ) { %>
             <script>
@@ -36,7 +36,7 @@
                 <% } %>
             <% } %>
                         <div class="card mt-2 mb-2x"
-                            style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+                            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
                             <div id="menu-container" class="menu-container">
                                 <div id="menu" class="menu">
                                     <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>

@@ -123,8 +123,9 @@ a:hover{
 }
 
 .flex-color{
-    background-color: rgba(167, 167, 167, 0.3);
+    background-color: #f4ffec;
 }
+
 
 .menu-container{
     display: flex;
