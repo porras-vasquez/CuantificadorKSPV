@@ -63,26 +63,74 @@
                                 <table class="table-bordered" style="background-color: white;">
                                     <!--Table head-->
                                     <thead>
-                                        <tr>
-                                            <th>Título</th>
-                                            <th>Fuente de reporte</th>
-                                            <th>Unidad de medida</th>
-                                            <th>Última actualización</th>
-                                            <th>Observación</th>
-                                            <th>Acción</th>
+                                        <tr class="text-center">
+                                            <th scope="col text-whitex">Título</th>
+                                            <th scope="col text-whitex">Fuente de reporte</th>
+                                            <th scope="col text-whitex">Unidad de medida</th>
+                                            <th scope="col text-whitex">Última actualización</th>
+                                            <th scope="col text-whitex">Observación</th>
+                                            <th scope="col text-whitex">Acción</th>
                                         </tr>
                                     </thead>
                                     <!--Table head-->
                                     <!--Table body-->
                                     <tbody>
                                         <% electricities.forEach((electricity)=>{ %>
-                                            <tr>
-                                                <td><%=electricity.titulo%></td>
-                                                <td><%=electricity.fuente_reporte%></td>
-                                                <td><%=electricity.unidad_medida%></td>
-                                                <td><%=electricity.ultima_update%></td>
-                                                <td><%=electricity.observacion%></td>
-                                                <td></td>
+                                            <tr class="text-center">
+                                                <td>
+                                                    <div>
+                                                        <%=electricity.titulo%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <%=electricity.fuente_reporte%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <%=electricity.unidad_medida%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <%=electricity.ultima_update%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <%=electricity.observacion%>
+                                                    </div>    
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <form style="font-size: 18px;"
+                                                            action="/electricities/deleteElectricity/<%=electricity._id%>/<%=electricity.company%>"
+                                                            method="post">
+                                                            <button type="danger" class="btn btn-danger">
+                                                                <i class="material-icons">delete</i>
+                                                            </button>
+                                                        </form>
+                                                        <button type="link" class="btn btn-success edit btn-company"
+                                                            onclick="window.location. href='/electricities/searchElectricity/<%=electricity._id%>'">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button type="link" class="btn btn-warning edit btn btn-company"
+                                                            title="Agregar medidor">
+                                                            <a class="material-icons"
+                                                                onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=electricity.company%>'">
+                                                                speed
+                                                            </a>
+                                                        </button>
+                                                        <button type="link" class="btn btn-warning edit btn btn-company"
+                                                            title="Ver medidores">
+                                                            <a class="material-icons"
+                                                                onclick="window.location. href='/electricities/meters/<%=electricity._id%>'">
+                                                                view_module
+                                                            </a>
+                                                        </button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         <% }) %>
                                     </tbody>
