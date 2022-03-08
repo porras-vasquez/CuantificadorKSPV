@@ -138,7 +138,14 @@
                                         <div id="boton">
                                             <button type="link" class="btn btn-success btn-sm"
                                                 onclick="window.location. href='/fuelsAndOil/searchFuelsAndOil/<%=fuelsAndOil._id%>'"><i
-                                                    class="material-icons">menu</i></button>
+                                                    class="material-icons">menu</i>
+                                            </button>
+
+                                        <form action="/fuelsAndOil/deleteFuelsAndOil/<%=fuelsAndOil._id%>/<%=fuelsAndOil.company%>"
+                                            method="post">
+                                            <button type="danger" class="btn btn-danger btn-sm"><i
+                                                    class="material-icons">delete</i></button>
+                                        </form>    
 
                                         </div>
                                     </div>

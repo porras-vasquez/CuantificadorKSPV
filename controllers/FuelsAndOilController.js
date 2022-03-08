@@ -141,5 +141,45 @@ FuelsAndOilController.update = function (req, res) {
   );
 };
 
- 
+FuelsAndOilController.delete = function (req, res) {
+    FuelsAndOil.deleteOne({ _id: req.params.id }, function (err) {
+        if (err) {
+            Company.findOne({ _id: req.params.comp })
+                .populate("fuelsAndOil")
+                .exec(function (error, company) {
+                    if (error) {
+                        res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                            company: company,
+                            message: "error",
+                            fuelsAndOils: company.fuelsAndOil
+                        });
+                    } else {
+                        res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                            company: company,
+                            message: "success",
+                            fuelsAndOils: company.fuelsAndOil
+                        });
+                    }
+                });
+        } else {
+            Company.findOne({ _id: req.params.comp })
+                .populate("fuelsAndOil")
+                .exec(function (error, company) {
+                    if (error) {
+                        res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                            company: company,
+                            message: "error",
+                            fuelsAndOils: company.fuelsAndOil
+                        });
+                    } else {
+                        res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                            company: company,
+                            message: "success",
+                            fuelsAndOils: company.fuelsAndOil
+                        });
+                    }
+                });
+        }
+    });
+}; 
 module.exports = FuelsAndOilController;
