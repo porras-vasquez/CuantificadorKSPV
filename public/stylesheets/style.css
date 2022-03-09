@@ -187,7 +187,7 @@ a:hover{
     justify-self: center;
 }
 
-#botons-container{
+#button-container{
     display: flex;
     justify-content: center;
     display: none;
@@ -207,12 +207,17 @@ a:hover{
 	opacity: .8;
 }
 
-#botons-container:hover{
+#button-container:hover{
     display: flex;
 }
 
-#options:hover + #botons-container{
+#options:hover + #button-container{
 	display: flex;
+}
+
+.btn-electricity{
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .col-x{
@@ -262,6 +267,10 @@ a:hover{
     height: 60px;
     width: 87px;
 }
+
+#container{
+    height: 60px;
+}
   
 #boton{
     display: none;
@@ -269,6 +278,10 @@ a:hover{
   
 #contenedor:hover > #boton{
     display: block;
+    display: flex;
+}
+
+#container:hover > #boton{
     display: flex;
 }
 /*FIN Botones invisibles*/
