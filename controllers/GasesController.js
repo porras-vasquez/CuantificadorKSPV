@@ -139,44 +139,51 @@ gasesController.update = function (req, res) {
       }
   );
 };
+
 gasesController.delete = function (req, res) {
-    Gaseslp.deleteOne({ _id: req.params.id }, function (err) {
-        if (err) {
-            Company.findOne({ _id: req.params.comp })
-                .populate("gaslp")
-                .exec(function (error, company) {
-                    if (error) {
-                        res.render("../views/gaseslp/AllGas", {
-                            company: company,
-                            message: "error",
-                            gases: company.gaslp,
+    Company.updateOne({ "_id": req.params.comp }, {
+        $pull:{"gaslp": req.params.id}
+      }).exec(function (err, objGases) {
+        if(objGases){
+            Gaseslp.deleteOne({ _id: req.params.id }, function (err) {
+                if (err) {
+                    Company.findOne({ _id: req.params.comp })
+                        .populate("gaslp")
+                        .exec(function (error, company) {
+                            if (error) {
+                                res.render("../views/gaseslp/AllGas", {
+                                    company: company,
+                                    message: "error",
+                                    gases: company.gaslp,
+                                });
+                            } else {
+                                res.render("../views/gaseslp/AllGas", {
+                                    company: company,
+                                    message: "success",
+                                    gases: company.gaslp,
+                                });
+                            }
                         });
-                    } else {
-                        res.render("../views/gaseslp/AllGas", {
-                            company: company,
-                            message: "success",
-                            gases: company.gaslp,
+                } else {
+                    Company.findOne({ _id: req.params.comp })
+                        .populate("gaslp")
+                        .exec(function (error, company) {
+                            if (error) {
+                                res.render("../views/gaseslp/AllGas", {
+                                    company: company,
+                                    message: "error",
+                                    gases: company.gaslp,
+                                });
+                            } else {
+                                res.render("../views/gaseslp/AllGas", {
+                                    company: company,
+                                    message: "success",
+                                    gases: company.gaslp,
+                                });
+                            }
                         });
-                    }
-                });
-        } else {
-            Company.findOne({ _id: req.params.comp })
-                .populate("gaslp")
-                .exec(function (error, company) {
-                    if (error) {
-                        res.render("../views/gaseslp/AllGas", {
-                            company: company,
-                            message: "error",
-                            gases: company.gaslp,
-                        });
-                    } else {
-                        res.render("../views/gaseslp/AllGas", {
-                            company: company,
-                            message: "success",
-                            gases: company.gaslp,
-                        });
-                    }
-                });
+                }
+            });
         }
     });
 };
