@@ -105,13 +105,13 @@ electricityController.meter = function (req, res) {
         if (err) {
             console.log("Error:", err);
             res.render("../views/electricity/NewMeter", {
-                electricity: electricity,
                 company: electricity.company,
+                electricity: electricity,
             });
         } else {
             res.render("../views/electricity/NewMeter", {
-                electricity: electricity,
                 company: electricity.company,
+                electricity: electricity,
             });
         }
         console.log(electricity.company);
@@ -291,18 +291,45 @@ electricityController.addMeter = function (req, res) {
                 },
             },
         },
-        (error, electricity) => {
+        (error, elec) => {
             if (error) {
-                res.render("../views/electricity/NewMeter", {
-                    company: electricity.company,
-                    electricity: electricity,
-                    message: "error",
+                Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
+                    if (err) {
+                        console.log("ERROR: "+err);
+                        console.log("PRUEBA: "+electricity);
+                        res.render("../views/electricity/NewMeter", {
+                            company: electricity.company,
+                            electricity: electricity,
+                            message: "error",
+                        });
+                    } else {
+                        console.log("PRUEBA: "+electricity);
+                        res.render("../views/electricity/NewMeter", {
+                            company: electricity.company,
+                            electricity: electricity,
+                            message: "success",
+                        });
+                    }
                 });
             } else {
-                res.render("../views/electricity/NewMeter", {
-                    company: electricity.company,
-                    electricity: electricity,
-                    message: "success",
+                Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
+                    if (err) {
+                        console.log("ERROR: "+err);
+                        console.log("PRUEBA: "+electricity);
+                        res.render("../views/electricity/NewMeter", {
+                            company: electricity.company,
+                            electricity: electricity,
+                            message: "error",
+                        });
+                    } else {
+                        console.log("ERROR: "+err);
+                        console.log("PRUEBA: "+electricity);
+                        res.render("../views/electricity/NewMeter", {
+                            company: electricity.company,
+                            electricity: electricity,
+                            message: "success",
+                        });
+                    }
                 });
             }
         }
