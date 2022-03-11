@@ -75,9 +75,6 @@ FuelsAndOilController.update = function (req, res) {
       {
           $set: {
             combustible: req.body.combustible,
-            feCo2_L: req.body.feCo2_L,
-            feCH4_L: req.body.feCH4_L,
-            feN20_L: req.body.feN20_L,
             enero: req.body.enero,
             febrero: req.body.febrero,
             marzo: req.body.marzo,
