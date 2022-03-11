@@ -68,7 +68,8 @@
                                             <th scope="col text-whitex">Fuente de reporte</th>
                                             <th scope="col text-whitex">Unidad de medida</th>
                                             <th scope="col text-whitex">Última actualización</th>
-                                            <th scope="col text-whitex">Observación</th>
+                                            <th scope="col text-whitex">Factir de emisión</th>
+                                            <th scope="col text-whitex">Total</th>
                                             <th scope="col text-whitex">Acción</th>
                                         </tr>
                                     </thead>
@@ -99,7 +100,12 @@
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <%=electricity.observacion%>
+                                                        <%=electricity.factor_emision%>
+                                                    </div>    
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <%=electricity.total%>
                                                     </div>    
                                                 </td>
                                                 <td id="container" style="width: 300px; padding-left: 2%; padding-right: 2%;">

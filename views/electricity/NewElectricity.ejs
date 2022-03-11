@@ -68,14 +68,13 @@
 
                 <div class="mb-2">
                     <label for="exampleInputEmail1" class="form-label">Ultima actualización</label>
-                    <input type="text" name="ultima_update" class="form-control" required />
+                    <input type="date" id="start" name="ultima_update" value="yyyy-mm-dd" class="form-control" required/>
                 </div>
                 <div class="mb-2">
-                    <label for="exampleInputEmail1" class="form-label">Observacion</label>
-                    <input type="text" name="observacion" class="form-control" required />
+                    <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
+                    <input type="text" name="factor_emision" class="form-control" required />
                 </div>
                 <div class="btnContainer mb-4">
-                    
                     <input type="submit"  name="CompanyController" class="btn btn-success" value="Guardar">
                     <button type="button" class="btn btn-danger">
                         <a href="/electricities/electricities/<%=company._id%>" type="button">Cancelar</a>

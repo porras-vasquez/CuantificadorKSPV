@@ -8,7 +8,8 @@ const ElectricitySchema = new Schema({
     unidad_medida: String,
     fuente_reporte: String,
     ultima_update: String,
-    observacion: String,
+    factor_emision: String,
+    total: String,
     //total: Number,
     company: {
         type: Schema.Types.ObjectId,

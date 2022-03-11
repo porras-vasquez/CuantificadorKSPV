@@ -5,6 +5,7 @@ const Company = require("../models/Company");
 var electricityController = {};
 
 electricityController.save = async function (req, res) {
+    req.body.total = 0;
     var electricity = new Electricity(req.body);
     var comp = await Company.findById(req.params.id);
     electricity.company = comp;
@@ -219,7 +220,7 @@ electricityController.update = function (req, res) {
                 unidad_medida: req.body.unidad_medida,
                 fuente_reporte: req.body.fuente_reporte,
                 ultima_update: req.body.ultima_update,
-                observacion: req.body.observacion,
+                factor_emision: req.body.factor_emision,
             },
         },
         { new: true },
