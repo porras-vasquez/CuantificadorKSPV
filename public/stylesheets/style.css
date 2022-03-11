@@ -115,11 +115,16 @@ a:hover{
 .cards-container{
     display: flex;
     width: 100% !important;
-    height: 90%;
+    height: auto;
     justify-content:center;
     align-items: flex-start;
     flex-wrap: wrap;
+    overflow-y: scroll;
     /*margin-botton: 1.5%;*/
+}
+
+.cards-container::-webkit-scrollbar {
+    display: none;
 }
 
 .flex-color{
