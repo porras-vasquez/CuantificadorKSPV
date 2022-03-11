@@ -169,9 +169,21 @@ electricityController.updateMeter = function (req, res) {
         { _id: req.params.elec, "medidor._id": req.params.meter },
         {
             $set: {
-                "medidor.$.nrc": req.body.nrc,
-                "medidor.$.type": req.body.type,
-                "medidor.$.medida": req.body.medida,
+                "medidor.$.numero": req.body.numero,
+                "medidor.$.nise": req.body.nise,
+                "medidor.$.ubicacion": req.body.ubicacion,
+                "medidor.$.enero": req.body.enero,
+                "medidor.$.febrero": req.body.febrero,
+                "medidor.$.marzo": req.body.marzo,
+                "medidor.$.abril": req.body.abril,
+                "medidor.$.mayo": req.body.mayo,
+                "medidor.$.junio": req.body.junio,
+                "medidor.$.julio": req.body.julio,
+                "medidor.$.agosto": req.body.agosto,
+                "medidor.$.septiembre": req.body.septiembre,
+                "medidor.$.octubre": req.body.octubre,
+                "medidor.$.noviembre": req.body.noviembre,
+                "medidor.$.diciembre": req.body.diciembre
             },
         },
         { new: true },
@@ -269,14 +281,15 @@ electricityController.update = function (req, res) {
 };
 
 electricityController.addMeter = function (req, res) {
+    req.body.total = 0;
     Electricity.updateOne(
         { _id: req.params._id },
         {
             $push: {
                 medidor: {
-                    nrc: req.body.nrc,
-                    type: req.body.type,
-                    medida: req.body.medida,
+                    numero: req.body.numero,
+                    nise: req.body.nise,
+                    ubicacion: req.body.ubicacion,
                     enero: req.body.enero,
                     febrero: req.body.febrero,
                     marzo: req.body.marzo,
@@ -289,6 +302,7 @@ electricityController.addMeter = function (req, res) {
                     octubre: req.body.octubre,
                     noviembre: req.body.noviembre,
                     diciembre: req.body.diciembre,
+                    total: req.body.total
                 },
             },
         },
