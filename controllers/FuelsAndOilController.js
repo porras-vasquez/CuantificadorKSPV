@@ -5,7 +5,19 @@ const FuelsAndOil = require('../models/FuelsAndOil');
 var FuelsAndOilController = {};
 
 FuelsAndOilController.save = async function(req, res) {
-
+    let en = parseFloat(req.body.enero)
+    let fe = parseFloat(req.body.febrero)
+    let mar = parseFloat(req.body.marzo)
+    let abr = parseFloat(req.body.abril)
+    let may = parseFloat(req.body.mayo)
+    let jun = parseFloat(req.body.junio)
+    let jul = parseFloat(req.body.julio)
+    let ago = parseFloat(req.body.agosto)
+    let sep = parseFloat(req.body.septiembre)
+    let oct = parseFloat(req.body.octubre)
+    let nov = parseFloat(req.body.noviembre)
+    let dic = parseFloat(req.body.diciembre)
+    req.body.total = en+fe+mar+abr+may+jun+jul+ago+sep+oct+nov+dic;
     var fuelsAndOil = new FuelsAndOil(req.body);
     var comp = await Company.findById(req.params.id);
     fuelsAndOil.company = comp;
@@ -70,6 +82,19 @@ FuelsAndOilController.search = function (req, res) {
 };
 FuelsAndOilController.update = function (req, res) {
     req.body.emision = 0;
+    let en = parseFloat(req.body.enero)
+    let fe = parseFloat(req.body.febrero)
+    let mar = parseFloat(req.body.marzo)
+    let abr = parseFloat(req.body.abril)
+    let may = parseFloat(req.body.mayo)
+    let jun = parseFloat(req.body.junio)
+    let jul = parseFloat(req.body.julio)
+    let ago = parseFloat(req.body.agosto)
+    let sep = parseFloat(req.body.septiembre)
+    let oct = parseFloat(req.body.octubre)
+    let nov = parseFloat(req.body.noviembre)
+    let dic = parseFloat(req.body.diciembre)
+    req.body.total = en+fe+mar+abr+may+jun+jul+ago+sep+oct+nov+dic;
     FuelsAndOil.findByIdAndUpdate(
       req.params.id,
       {
@@ -86,7 +111,8 @@ FuelsAndOilController.update = function (req, res) {
             septiembre: req.body.septiembre,
             octubre: req.body.octubre,
             noviembre: req.body.noviembre,
-            diciembre: req.body.diciembre
+            diciembre: req.body.diciembre,
+           total: req.body.total
           },
       },
       { new: true },
