@@ -1,72 +1,65 @@
 <!DOCTYPE html>
 <html>
-<header>
-    <!--ZONA DEL NAVBAR-->
-    <%- include('../navbar'); -%>
-</header>
-<script>
-    function removeMessage(){
-        localStorage.removeItem("message");
-    }
-</script>
-<body style="background-color: #f4ffec;">
-    <div class="container mt-5" style="padding-bottom: 20%;">
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #beb39c;">
-                    <div class="people-list">
-                        <div class="col-12 row mt-5">
-                            <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
-                        </div>
-                        <ul class="list-unstyled chat-list  mb-0">
-                            <ul class="list-group list-group-flush button">
-                                <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar reporte</a>
-                            </ul>
-                            <ul class="list-group list-group-flush button">
-                                <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista de reportes</a>
-                            </ul>
-                            <div class="col-12 mb-5"></div>
+    <header>
+        <!--ZONA DEL NAVBAR-->
+        <%- include('../navbar'); -%>
+    </header>
+    <script>
+        function removeMessage(){
+            localStorage.removeItem("message");
+        }
+    </script>
+    <body style="background-color: #f4ffec;">
+        <div class="card mt-2 mb-2x"
+            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+            <div id="menu-container" class="menu-container">
+                <div id="menu" class="menu">
+                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+                </div>
+                <div class="flex-menu">
+                    <ul class="list-unstyled chat-list  mb-0">
+                        <ul class="list-group list-group-flush button">
+                            <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar reporte</a>
                         </ul>
-                    </div>
-                    <div class="chat" style="padding-bottom: 20%; ">
-                        <div style="margin-right: 20%;">
-                            <div class="container">
-                                <h3>Editar electricidad</h3>
-                                <form action="/electricities/updateElectricity/<%=electricity._id%>" method="post">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>Titulo: </td>
-                                                <td><input class="form-control"  type="text" name="titulo" value="<%=electricity.titulo%>" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Observación: </td>
-                                                <td><input class="form-control"  type="text" name="observacion" value="<%=electricity.observacion%>" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Unidad de Medida: </td>
-                                                <td><input class="form-control"  type="text" name="unidad_medida" value="<%=electricity.unidad_medida%>" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Fuente Reporte: </td>
-                                                <td><input class="form-control"  type="text" name="fuente_reporte" value="<%=electricity.fuente_reporte%>" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="1">
-                                                    <button class="btn btn-success" onclick="removeMessage()" type="submit">Actualizar</button>
-                                                    <button class="btn btn-danger" type="button"><a href="/electricities/electricities/<%=electricity.company%>">Cancelar</a></button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                        <ul class="list-group list-group-flush button">
+                            <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista de reportes</a>
+                        </ul>
+                        <div class="col-12 mb-5"></div>
+                    </ul>
                 </div>
             </div>
+            <div class="row text-dark table-responsive table-container"
+                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+                <h1>Editar electricidad</h1>
+                <form action="/electricities/updateElectricity/<%=electricity._id%>" method="post">
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Titulo</label>
+                            <input class="form-control"  type="text" name="titulo" value="<%=electricity.titulo%>" required/>
+                        </div>
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Fuente Reporte</label>
+                            <input class="form-control"  type="text" name="fuente_reporte" value="<%=electricity.fuente_reporte%>" required/>
+                        </div>
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Unidad de medida</label>
+                            <input class="form-control"  type="text" name="unidad_medida" value="<%=electricity.unidad_medida%>" required/>
+                        </div>
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Ultima actualización</label>
+                            <input type="date" id="start" name="ultima_update" value="<%=electricity.ultima_update%>" class="form-control" required/>
+                        </div>
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
+                            <input class="form-control"  type="text" name="factor_emision" value="<%=electricity.factor_emision%>" required/>
+                        </div>
+                        <div class="btnContainer mb-4">
+                            <button class="btn btn-success" onclick="removeMessage()" type="submit">Actualizar</button>
+                            <button class="btn btn-danger" type="button"><a href="/electricities/electricities/<%=electricity.company%>">Cancelar</a></button>
+                        </div>
+                    </div> 
+                </form>
+            </div>
         </div>
-    </div>
-</body>
-
+    </body>
 </html>

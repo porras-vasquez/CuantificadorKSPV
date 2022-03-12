@@ -1,88 +1,132 @@
 <!DOCTYPE html>
 <html>
-<header>
-    <!--ZONA DEL NAVBAR-->
-    <%- include('../navbar'); -%>
-</header>
-<body style="background-color: #f4ffec;">
-    <div class="container mt-5" style="padding-bottom: 20%;">
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #beb39c;">
-                    <div class="people-list">
-                        <div class="col-12 row mt-5">
-                            <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
-                        </div>
-                        <ul class="list-unstyled chat-list  mb-0">
-                            <ul class="list-group list-group-flush button">
-                                <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar medidor</a>
-                            </ul>
-                            <ul class="list-group list-group-flush button">
-                                <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista de medidores</a>
-                            </ul>
-                            <div class="col-12 mb-5"></div>
+    <header>
+        <!--ZONA DEL NAVBAR-->
+        <%- include('../navbar'); -%>
+    </header>
+    <body style="background-color: #f4ffec; height: 100vh !important">
+        <div class="card mt-2 mb-2x"
+            style="min-height: 86.5% !important; scrollbar-width: none !important; 
+            margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+            <div id="menu-container" class="menu-container">
+                <div id="menu" class="menu">
+                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+                </div>
+                <div class="flex-menu">
+                    <ul class="list-unstyled chat-list  mb-0">
+                        <ul class="list-group list-group-flush button">
+                            <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar medidor</a>
                         </ul>
-                    </div>
-                    <% if(typeof(message) !="undefined" ) { %>
-                        <% if(message=="success") { %>
-                            <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: 'Éxito al actualizar los datos del medidor',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                            </script>
-                        <% }else if(message=="error" ){ %>
-                            <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: 'Error al actualizar los datos del medidor',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                    });
-                            </script>
-                        <% } %>
-                    <% } %>
-                    <div class="chat" style="padding-bottom: 20%; ">
-                        <div style="margin-right: 20%;">
-                            <div class="container">
-                                <h3>Editar medidor</h3>
-                                <form action="/electricities/updateMeter/<%=electricity._id%>/<%=meter._id%>" method="post">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>Nrc: </td>
-                                                <td><input class="form-control"  type="text" name="nrc" value="<%=meter.nrc%>" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tipo: </td>
-                                                <td><input class="form-control"  type="text" name="type" value="<%=meter.type%>" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Medida: </td>
-                                                <td><input class="form-control"  type="text" name="medida" value="<%=meter.medida%>" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="1">
-                                                    <button class="btn btn-success" type="submit">Actualizar</button>
-                                                    <button type="button" class="btn btn-danger">
-                                                        <a href="/electricities/meters/<%=electricity._id%>" type="button">Cancelar</a>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                        <ul class="list-group list-group-flush button">
+                            <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista de medidores</a>
+                        </ul>
+                    </ul>
                 </div>
             </div>
+            <% if(typeof(message) !="undefined" ) { %>
+                <% if(message=="success") { %>
+                    <script>
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Éxito al actualizar los datos del medidor',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    </script>
+                <% }else if(message=="error" ){ %>
+                    <script>
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Error al actualizar los datos del medidor',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    </script>
+                <% } %>
+            <% } %>
+            <div class="row text-dark table-container"
+                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+                <h1 class="title">Editar medidor</h1>
+                <form action="/electricities/updateMeter/<%=electricity._id%>/<%=meter._id%>" 
+                    method="post" class="row" style="margin-left: 5%;">
+                    <div class="col-3">
+                        <div class="mb-2">
+                            <label class="form-label">Número de medidor</label>
+                            <input class="form-control"  type="text" name="numero" value="<%=meter.numero%>" required/>
+                        </div>
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">NISE</label>
+                            <input class="form-control"  type="text" name="nise" value="<%=meter.nise%>" required/>
+                        </div>
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Ubicación</label>
+                            <input class="form-control"  type="text" name="ubicacion" value="<%=meter.ubicacion%>" required/>
+                        </div>
+                        <div class="mb-2">
+                            <button class="btn btn-success" type="submit">Actualizar</button>
+                            <button type="button" class="btn btn-danger">
+                                <a href="/electricities/meters/<%=electricity._id%>" type="button">Cancelar</a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class=" col-4 row text-dark" style="background-color: #ffffff; margin-left: 6%;">
+                        <h3 class="mt-2">
+                            Consumo de electricidad por mes
+                        </h3>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label text">Enero</label>
+                            <input type="text" name="enero" class="textarea form-control" value="<%=meter.enero%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Febrero</label>
+                            <input type="text" name="febrero" class="textarea form-control" value="<%=meter.febrero%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Marzo</label>
+                            <input type="text" name="marzo" class="textarea form-control" value="<%=meter.marzo%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Abril</label>
+                            <input type="text" name="abril" class="textarea form-control" value="<%=meter.abril%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Mayo</label>
+                            <input type="text" name="mayo" class="textarea form-control" value="<%=meter.mayo%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Junio</label>
+                            <input type="text" name="junio" class="textarea form-control" value="<%=meter.junio%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Julio</label>
+                            <input type="text" name="julio" class="textarea form-control" value="<%=meter.julio%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Agosto</label>
+                            <input type="text" name="agosto" class="textarea form-control" value="<%=meter.agosto%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Septiembre</label>
+                            <input type="text" name="septiembre" class="textarea form-control" value="<%=meter.septiembre%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Octubre</label>
+                            <input type="text" name="octubre" class="textarea form-control" value="<%=meter.octubre%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Noviembre</label>
+                            <input type="text" name="noviembre" class="textarea form-control"  value="<%=meter.noviembre%>" required/>
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label">Diciembre</label>
+                            <input type="text" name="diciembre" class="textarea form-control"  value="<%=meter.diciembre%>" required/>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 
 </html>

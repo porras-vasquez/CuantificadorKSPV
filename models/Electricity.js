@@ -8,16 +8,17 @@ const ElectricitySchema = new Schema({
     unidad_medida: String,
     fuente_reporte: String,
     ultima_update: String,
-    observacion: String,
+    factor_emision: String,
+    total: String,
     //total: Number,
     company: {
         type: Schema.Types.ObjectId,
         ref: 'Company'
     },
     medidor: [{
-            nrc : { type: String, required: true, unique: false },
-            type : { type: String, required: true, unique: false },
-            medida : { type: String, required: true, unique: false },
+            numero : { type: String, required: true, unique: false },
+            nise : { type: String, required: true, unique: false },
+            ubicacion : { type: String, required: true, unique: false },
             enero: {type: String, unique: false},
             febrero: {type: String, unique: false},
             marzo: {type: String, unique: false},
@@ -29,7 +30,8 @@ const ElectricitySchema = new Schema({
             septiembre: {type: String, unique: false},
             octubre: {type: String, unique: false},
             noviembre: {type: String, unique: false},
-            diciembre: {type: String, unique: false}
+            diciembre: {type: String, unique: false},
+            total: {type: String, unique: false}
         }   
     ]/*,
     companies: [{
