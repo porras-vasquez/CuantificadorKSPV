@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const Schema = mongoose.Schema;
 const GasesShema = new Schema({
-    descripcion: String,
+    unidad: String,
     uso: String,
     enero: String,
     febrero: String,
