@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <!--ZONA DEL NAVBAR-->
+    <%- include('../navbar'); -%>
+</header>
+
+<body style="background-color: #f4ffec; height: 100vh !important">
+    <% if(typeof(message) !="undefined" ) { %>
+        <% if(message=="success" ) { %>
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Exito al agregar',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(({ value }) => {
+                    //window.location='/users/create/';
+                });
+            </script>
+            <% }else if(message=="error" ){ %>
+                <script>
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Lo sentimos, ocurrió un problema con el servidor',
+                        showConfirmButton: false,
+                        timer: 3500
+                    }).then(({ value }) => {
+                        //window.location='/users/create/';
+                    });
+                </script>
+                <% } %>
+                    <% } %>
+                        <div class="card mt-2 mb-2x"
+                            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+                            <div id="menu-container" class="menu-container">
+                                <div id="menu" class="menu">
+                                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+                                </div>
+                                <div class="flex-menu">
+                                    <ul class="list-unstyled chat-list  mb-0">
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a onclick="window.location. href='/gaseslp/gasesshow/<%=company._id%>'"
+                                                type="button" class="btn btn primary ">Mostrar emisión</a>
+                                        </ul>
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a href="/companies/createCompany" type="button"
+                                                class="btn btn primary ">Agregar
+                                                compañía</a>
+                                        </ul>
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a href="/companies/showCompany" type="button"
+                                                class="btn btn primary ">Atrás</a>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row text-dark table-container"
+                                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+                                <form action="/airConditioning/saveAirConditioning/<%=company._id%>" method="post" class="newGas row "
+                                    style="margin-left: 5%;">
+                                    <h3>Módulo Gases lp: Agregar</h3>
+                                    <div class="col-3">
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Ubicacion</label>
+                                            <input type="text" name="ubicacion" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Numero de serie</label>
+                                            <input type="text" name="serie" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Marca</label>
+                                            <input type="text" name="marca" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Modelo</label>
+                                            <input type="text" name="modelo" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Capacidad</label>
+                                            <input type="text" name="capacidad" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Consumo</label>
+                                            <input type="text" name="consumo" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Tipo de refrigerante</label>
+                                            <input type="text" name="tipoRefrigerante" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Capacidad de confinamiento</label>
+                                            <input type="text" name="capacidadConfinamiento" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Aplicacion</label>
+                                            <input type="text" name="aplicacion" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Tasa anual de fuga</label>
+                                            <input type="text" name="tasaAnualFuga" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="btnContainer mb-4">
+                                        <input type="submit" name="CompanyController" class="btn btn-success"
+                                            value="Guardar">
+                                        <button type="button" class="btn btn-danger">
+                                            <a href='/companies/showCompany'>Cancelar</a>
+                                        </button>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        </div>
+</body>
+
+</html>

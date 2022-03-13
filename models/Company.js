@@ -20,10 +20,14 @@ const CompanySchema = new Schema({
     gaslp: [{
         type: Schema.Types.ObjectId,
         ref: 'Gaseslp'
-    }]
-,    fuelsAndOil: [{
+    }],
+    fuelsAndOil: [{
     type: Schema.Types.ObjectId,
     ref: 'FuelsAndOil'
+}],
+airConditioning: [{
+    type: Schema.Types.ObjectId,
+    ref: 'AirConditioning'
 }]
 
 });
