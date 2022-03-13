@@ -4,14 +4,13 @@ const Electricity = require("../models/Electricity");
 const Company = require("../models/Company");
 var electricityController = {};
 
+//Método para guardar reportes de electricidad
 electricityController.save = async function (req, res) {
     req.body.total = 0;
     var electricity = new Electricity(req.body);
     var comp = await Company.findById(req.params.id);
     electricity.company = comp;
-    //console.log(comp);
     await electricity.save(function (err, elec) {
-        console.log(elec);
         if (err) {
             res.render("../views/electricity/NewElectricity", {
                 message: "error",
@@ -36,37 +35,19 @@ electricityController.save = async function (req, res) {
     });
 };
 
-electricityController.searchCompany = function (req, res) {
+//Método que renderiza el objeto compañía a la vista de NewElectricity
+electricityController.renderPageNewElectricity = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) {
             console.log("Error: ", err);
-            return;
+            res.render("../views/electricity/NewElectricity", { company: company._id });
         }
         res.render("../views/electricity/NewElectricity", { company: company._id });
     });
 };
 
-electricityController.list = function (req, res) {
-    console.log(req.params.id);
-    Company.findOne({ _id: req.params.id })
-        .populate("electricidad")
-        .exec(function (err, company) {
-            if (err) {
-                res.render("../views/electricity/AllElectricities", {
-                    electricities: company.electricidad,
-                    company: company._id,
-                });
-            } else {
-                res.render("../views/electricity/AllElectricities", {
-                    electricities: company.electricidad,
-                    company: company._id,
-                });
-            }
-            console.log(company);
-        });
-};
-
-electricityController.list2 = function (req, res) {
+//Método que renderiza el objeto compañía a la vista de AllElectricities
+electricityController.renderPageAllElectricites = function (req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("electricidad")
         .exec(function (err, company) {
@@ -84,143 +65,21 @@ electricityController.list2 = function (req, res) {
         });
 };
 
-electricityController.search = function (req, res) {
+//Método que renderiza el objeto electricidad a la vista de EditElectricity
+electricityController.renderPageEditElectricity = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
         if (err) {
-            console.log("Error: ", err);
-            res.render("../views/electricity/search", {
+            res.render("../views/electricity/EditElectricity", {
                 electricity: electricity,
                 company: electricity.company,
             });
         } else {
-            res.render("../views/electricity/search", {
+            res.render("../views/electricity/EditElectricity", {
                 electricity: electricity,
                 company: electricity.company,
             });
         }
     });
-};
-
-electricityController.meter = function (req, res) {
-    Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
-        if (err) {
-            console.log("Error:", err);
-            res.render("../views/electricity/NewMeter", {
-                company: electricity.company,
-                electricity: electricity,
-            });
-        } else {
-            res.render("../views/electricity/NewMeter", {
-                company: electricity.company,
-                electricity: electricity,
-            });
-        }
-        console.log(electricity.company);
-    });
-};
-
-electricityController.getMeters = function (req, res) {
-    Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
-        if (err) {
-            res.render("../views/electricity/AllMeters", {
-                electricity: electricity,
-                company: electricity.company,
-            });
-        } else {
-            res.render("../views/electricity/AllMeters", {
-                electricity: electricity,
-                company: electricity.company,
-            });
-        }
-    });
-};
-
-electricityController.editMeter = function (req, res) {
-    Electricity.findOne({ _id: req.params.elec }).exec(function (
-        err,
-        electricity
-    ) {
-        if (err) {
-            res.render("../views/electricity/EditMeter", {
-                electricity: electricity,
-                company: electricity.company,
-                meter: electricity.medidor,
-            });
-        } else {
-            var m;
-            for (var x of electricity.medidor) {
-                console.log(x._id + " " + x.nrc);
-                if (req.params.meter == x._id) {
-                    m = x;
-                    console.log("MEDIDOR" + m);
-                }
-            }
-            res.render("../views/electricity/EditMeter", {
-                electricity: electricity,
-                company: electricity.company,
-                meter: m,
-            });
-        }
-    });
-};
-
-electricityController.updateMeter = function (req, res) {
-    Electricity.updateOne(
-        { _id: req.params.elec, "medidor._id": req.params.meter },
-        {
-            $set: {
-                "medidor.$.numero": req.body.numero,
-                "medidor.$.nise": req.body.nise,
-                "medidor.$.ubicacion": req.body.ubicacion,
-                "medidor.$.enero": req.body.enero,
-                "medidor.$.febrero": req.body.febrero,
-                "medidor.$.marzo": req.body.marzo,
-                "medidor.$.abril": req.body.abril,
-                "medidor.$.mayo": req.body.mayo,
-                "medidor.$.junio": req.body.junio,
-                "medidor.$.julio": req.body.julio,
-                "medidor.$.agosto": req.body.agosto,
-                "medidor.$.septiembre": req.body.septiembre,
-                "medidor.$.octubre": req.body.octubre,
-                "medidor.$.noviembre": req.body.noviembre,
-                "medidor.$.diciembre": req.body.diciembre
-            },
-        },
-        { new: true },
-        function (err, electricity) {
-            Electricity.findOne({ _id: req.params.elec }).exec(function (
-                err,
-                electric
-            ) {
-                if (electric) {
-                    var m;
-                    for (var x of electric.medidor) {
-                        console.log(x._id + " " + x.nrc);
-                        if (req.params.meter == x._id) {
-                            m = x;
-                            console.log("ACTUALIZAR" + m);
-                        }
-                    }
-                    res.render("../views/electricity/EditMeter", {
-                        message: "success",
-                        electricity: electric,
-                        company: electric.company,
-                        meter: m,
-                    });
-                } else {
-                    console.log("Error: ", err);
-                    //res.redirect('/electricities/electricities2');
-                    res.render("../views/electricity/EditMeter", {
-                        message: "error",
-                        electricity: electric,
-                        company: electric.company,
-                        meter: req.body,
-                    });
-                }
-            });
-            //res.redirect('/electricities/electricities2');
-        }
-    );
 };
 
 electricityController.update = function (req, res) {
@@ -238,8 +97,6 @@ electricityController.update = function (req, res) {
         { new: true },
         function (err, electricity) {
             if (err) {
-                console.log("Error: ", err);
-
                 Company.findOne({ _id: electricity.company })
                     .populate("electricidad")
                     .exec(function (error, company) {
@@ -275,77 +132,6 @@ electricityController.update = function (req, res) {
                             });
                         }
                     });
-            }
-        }
-    );
-};
-
-electricityController.addMeter = function (req, res) {
-    req.body.total = 0;
-    Electricity.updateOne(
-        { _id: req.params._id },
-        {
-            $push: {
-                medidor: {
-                    numero: req.body.numero,
-                    nise: req.body.nise,
-                    ubicacion: req.body.ubicacion,
-                    enero: req.body.enero,
-                    febrero: req.body.febrero,
-                    marzo: req.body.marzo,
-                    abril: req.body.abril,
-                    mayo: req.body.mayo,
-                    junio: req.body.junio,
-                    julio: req.body.julio,
-                    agosto: req.body.agosto,
-                    septiembre: req.body.septiembre,
-                    octubre: req.body.octubre,
-                    noviembre: req.body.noviembre,
-                    diciembre: req.body.diciembre,
-                    total: req.body.total
-                },
-            },
-        },
-        (error, elec) => {
-            if (error) {
-                Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
-                    if (err) {
-                        console.log("ERROR: "+err);
-                        console.log("PRUEBA: "+electricity);
-                        res.render("../views/electricity/NewMeter", {
-                            company: electricity.company,
-                            electricity: electricity,
-                            message: "error",
-                        });
-                    } else {
-                        console.log("PRUEBA: "+electricity);
-                        res.render("../views/electricity/NewMeter", {
-                            company: electricity.company,
-                            electricity: electricity,
-                            message: "success",
-                        });
-                    }
-                });
-            } else {
-                Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
-                    if (err) {
-                        console.log("ERROR: "+err);
-                        console.log("PRUEBA: "+electricity);
-                        res.render("../views/electricity/NewMeter", {
-                            company: electricity.company,
-                            electricity: electricity,
-                            message: "error",
-                        });
-                    } else {
-                        console.log("ERROR: "+err);
-                        console.log("PRUEBA: "+electricity);
-                        res.render("../views/electricity/NewMeter", {
-                            company: electricity.company,
-                            electricity: electricity,
-                            message: "success",
-                        });
-                    }
-                });
             }
         }
     );
@@ -353,9 +139,9 @@ electricityController.addMeter = function (req, res) {
 
 electricityController.delete = function (req, res) {
     Company.updateOne({ "_id": req.params.comp }, {
-        $pull:{"electricidad": req.params.id}
-      }).exec(function (err, electricity) {
-        if(electricity){
+        $pull: { "electricidad": req.params.id }
+    }).exec(function (err, electricity) {
+        if (electricity) {
             Electricity.deleteOne({ _id: req.params.id }, function (err) {
                 if (err) {
                     Company.findOne({ _id: req.params.comp })
@@ -399,15 +185,195 @@ electricityController.delete = function (req, res) {
     });
 };
 
+//--------------------------------------------------METER FUNCTIONS--------------------------------------------
+
+//Método que renderiza el objeto electricidad a la vista de NewMeter
+electricityController.renderPageNewMeter = function (req, res) {
+    Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
+        if (err) {
+            res.render("../views/electricity/NewMeter", {
+                company: electricity.company,
+                electricity: electricity,
+            });
+        } else {
+            res.render("../views/electricity/NewMeter", {
+                company: electricity.company,
+                electricity: electricity,
+            });
+        }
+    });
+};
+
+electricityController.addMeter = function (req, res) {
+    req.body.total = 0;
+    Electricity.updateOne(
+        { _id: req.params._id },
+        {
+            $push: {
+                medidor: {
+                    numero: req.body.numero,
+                    nise: req.body.nise,
+                    ubicacion: req.body.ubicacion,
+                    enero: req.body.enero,
+                    febrero: req.body.febrero,
+                    marzo: req.body.marzo,
+                    abril: req.body.abril,
+                    mayo: req.body.mayo,
+                    junio: req.body.junio,
+                    julio: req.body.julio,
+                    agosto: req.body.agosto,
+                    septiembre: req.body.septiembre,
+                    octubre: req.body.octubre,
+                    noviembre: req.body.noviembre,
+                    diciembre: req.body.diciembre,
+                    total: req.body.total
+                },
+            },
+        },
+        (error, elec) => {
+            if (error) {
+                Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
+                    if (err) {
+                        res.render("../views/electricity/NewMeter", {
+                            company: electricity.company,
+                            electricity: electricity,
+                            message: "error",
+                        });
+                    } else {
+                        res.render("../views/electricity/NewMeter", {
+                            company: electricity.company,
+                            electricity: electricity,
+                            message: "success",
+                        });
+                    }
+                });
+            } else {
+                Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
+                    if (err) {
+                        res.render("../views/electricity/NewMeter", {
+                            company: electricity.company,
+                            electricity: electricity,
+                            message: "error",
+                        });
+                    } else {
+                        res.render("../views/electricity/NewMeter", {
+                            company: electricity.company,
+                            electricity: electricity,
+                            message: "success",
+                        });
+                    }
+                });
+            }
+        }
+    );
+};
+
+//Método que renderiza el medidor a la vista de EditMeter
+electricityController.renderPageEditMeter = function (req, res) {
+    Electricity.findOne({ _id: req.params.elec }).exec(function (
+        err,
+        electricity
+    ) {
+        if (err) {
+            res.render("../views/electricity/EditMeter", {
+                electricity: electricity,
+                company: electricity.company,
+                meter: electricity.medidor,
+            });
+        } else {
+            var m;
+            for (var x of electricity.medidor) {
+                if (req.params.meter == x._id) {
+                    m = x;
+                }
+            }
+            res.render("../views/electricity/EditMeter", {
+                electricity: electricity,
+                company: electricity.company,
+                meter: m,
+            });
+        }
+    });
+};
+
+electricityController.updateMeter = function (req, res) {
+    Electricity.updateOne(
+        { _id: req.params.elec, "medidor._id": req.params.meter },
+        {
+            $set: {
+                "medidor.$.numero": req.body.numero,
+                "medidor.$.nise": req.body.nise,
+                "medidor.$.ubicacion": req.body.ubicacion,
+                "medidor.$.enero": req.body.enero,
+                "medidor.$.febrero": req.body.febrero,
+                "medidor.$.marzo": req.body.marzo,
+                "medidor.$.abril": req.body.abril,
+                "medidor.$.mayo": req.body.mayo,
+                "medidor.$.junio": req.body.junio,
+                "medidor.$.julio": req.body.julio,
+                "medidor.$.agosto": req.body.agosto,
+                "medidor.$.septiembre": req.body.septiembre,
+                "medidor.$.octubre": req.body.octubre,
+                "medidor.$.noviembre": req.body.noviembre,
+                "medidor.$.diciembre": req.body.diciembre
+            },
+        },
+        { new: true },
+        function (err, electricity) {
+            Electricity.findOne({ _id: req.params.elec }).exec(function (
+                err,
+                electric
+            ) {
+                if (electric) {
+                    var m;
+                    for (var x of electric.medidor) {
+                        if (req.params.meter == x._id) {
+                            m = x;
+                        }
+                    }
+                    res.render("../views/electricity/EditMeter", {
+                        message: "success",
+                        electricity: electric,
+                        company: electric.company,
+                        meter: m,
+                    });
+                } else {
+                    res.render("../views/electricity/EditMeter", {
+                        message: "error",
+                        electricity: electric,
+                        company: electric.company,
+                        meter: req.body,
+                    });
+                }
+            });
+        }
+    );
+};
+
+electricityController.renderPageAllMeters = function (req, res) {
+    Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
+        if (err) {
+            res.render("../views/electricity/AllMeters", {
+                electricity: electricity,
+                company: electricity.company,
+            });
+        } else {
+            res.render("../views/electricity/AllMeters", {
+                electricity: electricity,
+                company: electricity.company,
+            });
+        }
+    });
+};
+
 electricityController.deleteMeter = function (req, res) {
-    console.log("ELIMINAR: " + req.params.meter);
     Electricity.updateOne({ "_id": req.params.elec }, {
         "$pull": {
-          "medidor": {
-            "_id": req.params.meter
-          }
+            "medidor": {
+                "_id": req.params.meter
+            }
         }
-      }, {multi: true}).exec(function (err, electricity) {
+    }, { multi: true }).exec(function (err, electricity) {
         if (err) {
             Electricity.findOne({ _id: req.params.elec }).exec(function (err, electricity) {
                 if (err) {
