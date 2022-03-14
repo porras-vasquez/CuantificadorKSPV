@@ -35,115 +35,97 @@ airConditioningController.searchCompany = function (req, res) {
         res.render('../views/airConditioning/NewAirConditioning', { company: company._id });
     });
 };
-/*
-FuelsAndOilController.list = function(req, res) {
+
+airConditioningController.list = function(req, res) {
     Company.findOne({ _id: req.params.id })
-        .populate("fuelsAndOil")
+        .populate("airConditioning")
         .exec(function (err, company) {
             if (err) {
-                res.render("../views/fuelsAndOil/AllFuelsAndOil", {
-                    fuelsAndOils: company.fuelsAndOil,
+                res.render("../views/airConditioning/AllAirConditioning", {
+                    airConditionings: company.airConditioning,
                     company: company._id,
                 });
             } else {
-                res.render("../views/fuelsAndOil/AllFuelsAndOil", {
-                    fuelsAndOils: company.fuelsAndOil,
+                res.render("../views/airConditioning/AllAirConditioning", {
+                    airConditionings: company.airConditioning,
                     company: company._id,
                 });
             }
         });
 };
-FuelsAndOilController.search = function (req, res) {
-    FuelsAndOil.findOne({ _id: req.params.id }).exec(function (err, fuelsAndOil) {
+
+airConditioningController.search = function (req, res) {
+    AirConditioning.findOne({ _id: req.params.id }).exec(function (err, airConditioning) {
         if (err) {
             console.log("Error: ", err);
-            res.render("../views/fuelsAndOil/search", {
-                fuelsAndOil: fuelsAndOil,
-                company: fuelsAndOil.company,
+            res.render("../views/airConditioning/search", {
+                airConditioning: airConditioning,
+                company: airConditioning.company,
             });
         } else {
-            res.render("../views/fuelsAndOil/search", {
-                fuelsAndOil: fuelsAndOil,
-                company: fuelsAndOil.company,
+            res.render("../views/airConditioning/search", {
+                airConditioning: airConditioning,
+                company: airConditioning.company,
             });
         }
     });
 };
-FuelsAndOilController.update = function (req, res) {
-    req.body.emision = 0;
-    let en = parseFloat(req.body.enero)
-    let fe = parseFloat(req.body.febrero)
-    let mar = parseFloat(req.body.marzo)
-    let abr = parseFloat(req.body.abril)
-    let may = parseFloat(req.body.mayo)
-    let jun = parseFloat(req.body.junio)
-    let jul = parseFloat(req.body.julio)
-    let ago = parseFloat(req.body.agosto)
-    let sep = parseFloat(req.body.septiembre)
-    let oct = parseFloat(req.body.octubre)
-    let nov = parseFloat(req.body.noviembre)
-    let dic = parseFloat(req.body.diciembre)
-    req.body.total = en+fe+mar+abr+may+jun+jul+ago+sep+oct+nov+dic;
-    FuelsAndOil.findByIdAndUpdate(
+airConditioningController.update = function (req, res) {
+    AirConditioning.findByIdAndUpdate(
       req.params.id,
       {
           $set: {
-            combustible: req.body.combustible,
-            enero: req.body.enero,
-            febrero: req.body.febrero,
-            marzo: req.body.marzo,
-            abril: req.body.abril,
-            mayo: req.body.mayo,
-            junio: req.body.junio,
-            julio: req.body.julio,
-            agosto: req.body.agosto,
-            septiembre: req.body.septiembre,
-            octubre: req.body.octubre,
-            noviembre: req.body.noviembre,
-            diciembre: req.body.diciembre,
-           total: req.body.total
+            ubicacion: req.body.ubicacion,
+            serie: req.body.serie,
+            marca: req.body.marca,
+            modelo: req.body.modelo,
+            capacidad: req.body.capacidad,
+            consumo: req.body.consumo,
+            tipoRefrigerante: req.body.tipoRefrigerante,
+            capacidadConfinamiento: req.body.capacidadConfinamiento,
+            aplicacion: req.body.aplicacion,
+            tasaAnualFuga: req.body.tasaAnualFuga
           },
       },
       { new: true },
-      function (err, fuelsAndOils) {
-          console.log(fuelsAndOils);
-          console.log(fuelsAndOils.company);
+      function (err, airConditionings) {
+          console.log(airConditionings);
+          console.log(airConditionings.company);
           if (err) {
               console.log("Error: ", err);
-
-              Company.findOne({ _id: fuelsAndOils.company })
-                  .populate("fuelsAndOil")
+              Company.findOne({ _id: airConditionings.company})
+                  .populate("airConditioning")
                   .exec(function (error, company) {
-                      if (error) {
-                          res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                      if (error) { 
+                          res.render("../views/airConditioning/AllAirConditioning", {
                               message: "error",
-                              fuelsAndOils: company.fuelsAndOil,
+                              airConditionings: company.airConditioning,
                               company: company._id,
                           });
                       } else {
-                          res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                          res.render("../views/airConditioning/AllAirConditioning", {
                               message: "success",
-                              fuelsAndOils: company.fuelsAndOil,
+                              airConditionings: company.airConditioning,
                               company: company._id,
                           });
                       }
                   });
           } else {
-              Company.findOne({ _id: fuelsAndOils.company })
-                  .populate("fuelsAndOil")
+              Company.findOne({ _id: airConditionings.company })
+                  .populate("airConditioning")
                   .exec(function (error, company) {
                     console.log(error);
                     console.log(company);
                       if (error) {
-                          res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                          res.render("../views/airConditioning/AllAirConditioning", {
                               message: "error",
-                              fuelsAndOils: company.fuelsAndOil,
+                              airConditionings: company.airConditioning,
                               company: company._id,
                           });
                       } else {
-                          res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                          res.render("../views/airConditioning/AllAirConditioning", {
                               message: "success",
-                              fuelsAndOils: company.fuelsAndOil,
+                              airConditionings: company.airConditioning,
                               company: company._id,
                           });
                       }
@@ -152,7 +134,7 @@ FuelsAndOilController.update = function (req, res) {
       }
   );
 };
-
+/*
 FuelsAndOilController.delete = function (req, res) {
     Company.updateOne({ "_id": req.params.comp }, {
             $pull:{"fuelsAndOil": req.params.id}
