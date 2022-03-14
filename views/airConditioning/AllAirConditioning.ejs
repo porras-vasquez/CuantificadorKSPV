@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+    <!--ZONA DEL NAVBAR-->
+    <%- include('../navbar'); -%>
+</header>
+
+<body style="background-color: #f4ffec; height: 100vh !important;">
+    <div class="card mt-2 mb-2x"
+        style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+        <div id="menu-container" class="menu-container">
+            <div id="menu" class="menu">
+                <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+            </div>
+            <div class="flex-menu">
+                <ul class="list-unstyled chat-list  mb-0">
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a onclick="window.location. href='/gaseslp/gasessearchcompany/<%=company._id%>'" type="button"
+                            class="btn btn primary ">Agregar emisión</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar
+                            compañía</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a href="/companies/showCompany" type="button" class="btn btn primary ">Atrás</a>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+        <div class="row text-dark table-responsive table-container" style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+            <h3>Aires acondicionados: Mostrar</h3>
+            <table class="table-bordered" style="background-color: white;">
+                <thead style="background-color: rgba(26,145,125,255);">
+                    <tr class="text-center">
+                        <th scope="col text-whitex"> Ubicación</th>
+                        <th scope="col text-whitex"> Serie</th>
+                        <th scope="col text-whitex"> Marca</th>
+                        <th scope="col text-whitex"> Modelo</th>
+                        <th scope="col text-whitex"> Capacidad</th>
+                        <th scope="col text-whitex"> Consumo</th>
+                        <th scope="col text-whitex"> Tipo de refrigerante</th>
+                        <th scope="col text-whitex"> Capacidad de confinamieto</th>
+                        <th scope="col text-whitex"> aplicacion</th>
+                        <th scope="col text-whitex"> Tasa anual de fuga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <script>
+                        $("#capa").hover(function () {
+                            $("#mensaje").show();
+                        }, function () {
+                            $("#mensaje").hide();
+                        });
+                    </script>
+                    <% airConditionings.forEach((airConditioning)=>{ %>
+                        <tr class="text-center tr">
+                            <td>
+                                <div style="padding-left: 1%;">
+                                    <%=airConditioning.ubicacion%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=airConditioning.serie%>
+                                </div>
+                            </td>
+                            <td>
+                                <div">
+                                    <%=airConditioning.marca%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=airConditioning.modelo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=airConditioning.capacidad%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=airConditioning.consumo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=airConditioning.tipoRefrigerante%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=airConditioning.capacidadConfinamiento%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=airConditioning.aplicacion%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=airConditioning.tasaAnualFuga%>
+                                </div>
+                            </td>                            
+                            <td>
+                                <div id="contenedor">
+                                    <div id="boton">
+                                        <button type="link" class="btn btn-success btn-sm"
+                                            onclick="window.location. href='/airConditioning/searchAirConditioning/<%=airConditioning._id%>'"><i
+                                                class="material-icons">menu</i></button>
+                                        <form action="/gaseslp/deleteGases/<%=airConditioning._id%>/<%=airConditioning.company%>"
+                                            method="post">
+                                            <button type="danger" class="btn btn-danger btn-sm"><i
+                                                    class="material-icons">delete</i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

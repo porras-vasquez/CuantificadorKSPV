@@ -13,6 +13,8 @@ var companiesRouter = require('./routes/companies');
 var electricitiesRouter = require('./routes/electricities');
 var gasesRouter = require('./routes/gaseslp');
 var fuelsAndOilRouter = require('./routes/fuelsAndOil');
+var airConditioningRouter = require('./routes/airConditioning');
+
 const flash = require('connect-flash');
 
 
@@ -56,7 +58,7 @@ app.use('/companies', companiesRouter);
 app.use('/electricities', electricitiesRouter);
 app.use('/gaseslp', gasesRouter);
 app.use('/fuelsAndOil',fuelsAndOilRouter);
-
+app.use('/airConditioning',airConditioningRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

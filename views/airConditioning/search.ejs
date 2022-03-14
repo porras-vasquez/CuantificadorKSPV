@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <!--ZONA DEL NAVBAR-->
+    <%- include('../navbar'); -%>
+</header>
+
+<body style="background-color: #f4ffec;">
+    <div class="mt-2 mb-2" style="margin-left: 5%; margin-right: 5%;">
+        <form action="/airConditioning/updateAirConditioning/<%=airConditioning._id%>" method="post" class="newGas row "
+            style="background-color: #beb39c;">
+            <h3>Módulo de Gases LP: Editar</h3>
+            <div class="col-3">
+                <div class="mb-2">
+                    <label class="form-label">Ubicacion</label>
+                    <input  type="text" name="ubicacion" class="form-control" value="<%=airConditioning.ubicacion%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Serie</label>
+                    <input  type="text" name="serie" class="form-control" value="<%=airConditioning.serie%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Marca</label>
+                    <input  type="text" name="marca" class="form-control" value="<%=airConditioning.marca%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Modelo</label>
+                    <input  type="text" name="modelo" class="form-control" value="<%=airConditioning.modelo%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Capacidad</label>
+                    <input  type="text" name="capacidad" class="form-control" value="<%=airConditioning.capacidad%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Consumo</label>
+                    <input  type="text" name="consumo" class="form-control" value="<%=airConditioning.consumo%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Tipo de refrigerante</label>
+                    <input  type="text" name="tipoRefrigerante" class="form-control" value="<%=airConditioning.tipoRefrigerante%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Capacidad de confinamineto</label>
+                    <input  type="text" name="capacidadConfinamiento" class="form-control" value="<%=airConditioning.capacidadConfinamiento%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">aplicacion</label>
+                    <input  type="text" name="aplicacion" class="form-control" value="<%=airConditioning.aplicacion%>" required/>
+                </div>
+                <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Tasa anual de fuga</label>
+                    <input  type="text" name="tasaAnualFuga" class="form-control" value="<%=airConditioning.tasaAnualFuga%>" required/>
+                </div>
+            </div>
+
+            </div>
+            <div class="btnContainer mb-4" style="margin-left: 1.7%;">
+                <input type="submit"class="btn btn-success" value="Actualizar">
+                <button type="button" class="btn btn-danger">
+                    <a href='/companies/showCompany'>Cancelar</a>
+                </button>
+
+            </div>
+        </form>
+    </div>
+    <div class="col-2"></div>
+    </div>
+</body>
+
+</html>

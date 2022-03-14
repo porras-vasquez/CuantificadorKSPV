@@ -4,7 +4,11 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="background-color: #f4ffec; height: 100vh !important;">
     <% if(typeof(message) !="undefined" ) { %>
         <% if(message=="success" ) { %>
@@ -34,7 +38,7 @@
                     }                                
                 </script>
                 <% } %>
-            <% } %>
+                    <% } %>
                         <div class="card mt-2 mb-2x"
                             style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
                             <div id="menu-container" class="menu-container">
@@ -58,7 +62,8 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="row text-dark table-responsive table-container" style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+                            <div class="row text-dark table-responsive table-container"
+                                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
                                 <!--Table-->
                                 <table class="table-bordered" style="background-color: white;">
                                     <!--Table head-->
@@ -101,27 +106,28 @@
                                                 <td>
                                                     <div>
                                                         <%=electricity.factor_emision%>
-                                                    </div>    
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div>
                                                         <%=electricity.total%>
-                                                    </div>    
+                                                    </div>
                                                 </td>
-                                                <td id="container" style="width: 300px; padding-left: 2%; padding-right: 2%;">
+                                                <td id="container"
+                                                    style="width: 300px; padding-left: 2%; padding-right: 2%;">
                                                     <div id="boton">
                                                         <div class="btn-electricity">
                                                             <form style="font-size: 18px;"
                                                                 action="/electricities/deleteElectricity/<%=electricity._id%>/<%=electricity.company%>"
                                                                 method="post">
-                                                                <button type="danger" class="btn btn-danger">
+                                                                <button type="danger" onclick="removeMessage()" class="btn btn-danger">
                                                                     <i class="material-icons">delete</i>
                                                                 </button>
                                                             </form>
                                                         </div>
                                                         <div class="btn-electricity">
                                                             <button type="link" class="btn btn-success"
-                                                                onclick="window.location. href='/electricities/searchElectricity/<%=electricity._id%>'">
+                                                                onclick="window.location. href='/electricities/editElectricity/<%=electricity._id%>'">
                                                                 <i class="material-icons">edit</i>
                                                             </button>
                                                         </div>
@@ -146,7 +152,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        <% }) %>
+                                            <% }) %>
                                     </tbody>
                                     <!--Table body-->
                                 </table>
