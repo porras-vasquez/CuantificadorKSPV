@@ -5,8 +5,8 @@
         <%- include('../navbar'); -%> 
     </header>
     <body style="background-color: #f4ffec; height: 100vh !important;">
-        <% if(typeof(message) !="undefined" ) { %>
-            <% if(message=="success" ) { %>
+        <% if(typeof(status) !="undefined" ) { %>
+            <% if(status==200) { %>
                 <script>
                     Swal.fire({
                         position: 'center',
@@ -17,7 +17,7 @@
                     }).then(({ value }) => {
                     });
                 </script>
-            <% }else if(message=="error" ){ %>
+            <% }else if(status==404){ %>
                     <script>
                         Swal.fire({
                             position: 'center',
