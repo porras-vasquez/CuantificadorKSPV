@@ -3,6 +3,24 @@ require("../connection");
 const Electricity = require("../models/Electricity");
 const Company = require("../models/Company");
 var electricityController = {};
+var status = 0;
+
+//Método para verificar el estatus de las transacciones 
+function verifyStatus(err, obj){
+    if(obj){//Satisfactorio
+        status=200;
+    }else if(err){//Solicitud incorrecta
+        status=400;
+    }else if(err){//No autenticado
+        status=401;
+    }else if(err){//No encontrado
+        status=404;
+    }else if(err){//Error del servidor
+        status=500;
+    }else if(err){//Mantenimiento
+        status=503;
+    }
+}
 
 //Método para guardar reportes de electricidad
 electricityController.save = async function (req, res) {
@@ -10,10 +28,12 @@ electricityController.save = async function (req, res) {
     var electricity = new Electricity(req.body);
     var comp = await Company.findById(req.params.id);
     electricity.company = comp;
-    await electricity.save(function (err, elec) {
-        if (err) {
+    await electricity.save(function (error, elec) {
+        verifyStatus(error, elec);
+        res.send(error);
+        if (error) {
             res.render("../views/electricity/NewElectricity", {
-                message: "error",
+                status: status,
                 company: elec.company._id,
             });
         } else {
@@ -21,28 +41,29 @@ electricityController.save = async function (req, res) {
             comp.save(function (err, company) {
                 if (err) {
                     res.render("../views/electricity/NewElectricity", {
-                        message: "error",
+                        status: status,
                         company: company,
                     });
                 } else {
                     res.render("../views/electricity/NewElectricity", {
-                        message: "success",
+                        status: status,
                         company: company,
                     });
                 }
             });
         }
     });
+    status=0;
 };
 
 //Método que renderiza el objeto compañía a la vista de NewElectricity
 electricityController.renderPageNewElectricity = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) {
-            console.log("Error: ", err);
+            res.render("../views/electricity/NewElectricity", { company: company._id });
+        }else{
             res.render("../views/electricity/NewElectricity", { company: company._id });
         }
-        res.render("../views/electricity/NewElectricity", { company: company._id });
     });
 };
 
