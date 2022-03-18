@@ -4,21 +4,28 @@ const Electricity = require("../models/Electricity");
 const Company = require("../models/Company");
 var electricityController = {};
 var status = 0;
+var message="";
 
 //Método para verificar el estatus de las transacciones 
-function verifyStatus(err, obj){
-    if(obj){//Satisfactorio
+function verifyStatus(statusCode){
+    if(statusCode==200){//Satisfactorio
         status=200;
-    }else if(err){//Solicitud incorrecta
+        message="¡Realizado exitosamente!";
+    }else if(statusCode==400){//Solicitud incorrecta
         status=400;
-    }else if(err){//No autenticado
+        message="¡Error, solicitud incorrecta!";
+    }else if(statusCode==401){//No autenticado
         status=401;
-    }else if(err){//No encontrado
+        message="¡Error, usuario no autenticado!";
+    }else if(statusCode==404){//No encontrado
         status=404;
-    }else if(err){//Error del servidor
+        message="¡Ocurrió un problema con la ruta de acceso!";
+    }else if(statusCode==500){//Error del servidor
         status=500;
-    }else if(err){//Mantenimiento
+        message="¡Lo sentimos, ocurrió un problema con el servidor!";
+    }else if(statusCode==503){//Mantenimiento
         status=503;
+        message="¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
 }
 
@@ -29,31 +36,34 @@ electricityController.save = async function (req, res) {
     var comp = await Company.findById(req.params.id);
     electricity.company = comp;
     await electricity.save(function (error, elec) {
-        verifyStatus(error, elec);
-        res.send(error);
         if (error) {
+            verifyStatus(res.statusCode);
             res.render("../views/electricity/NewElectricity", {
                 status: status,
                 company: elec.company._id,
+                message: message
             });
         } else {
             comp.electricidad.push(electricity);
             comp.save(function (err, company) {
                 if (err) {
+                    verifyStatus(res.statusCode);
                     res.render("../views/electricity/NewElectricity", {
                         status: status,
                         company: company,
+                        message: message
                     });
                 } else {
+                    verifyStatus(res.statusCode);
                     res.render("../views/electricity/NewElectricity", {
                         status: status,
                         company: company,
+                        message: message
                     });
                 }
             });
         }
     });
-    status=0;
 };
 
 //Método que renderiza el objeto compañía a la vista de NewElectricity
@@ -122,16 +132,20 @@ electricityController.update = function (req, res) {
                     .populate("electricidad")
                     .exec(function (error, company) {
                         if (error) {
+                            verifyStatus(res.statusCode);
                             res.render("../views/electricity/AllElectricities", {
-                                message: "error",
+                                message: message,
                                 electricities: company.electricidad,
                                 company: company._id,
+                                status: status
                             });
                         } else {
+                            verifyStatus(res.statusCode);
                             res.render("../views/electricity/AllElectricities", {
-                                message: "success",
+                                message: message,
                                 electricities: company.electricidad,
                                 company: company._id,
+                                status: status
                             });
                         }
                     });
@@ -140,16 +154,20 @@ electricityController.update = function (req, res) {
                     .populate("electricidad")
                     .exec(function (error, company) {
                         if (error) {
+                            verifyStatus(res.statusCode);
                             res.render("../views/electricity/AllElectricities", {
-                                message: "error",
+                                message: message,
                                 electricities: company.electricidad,
                                 company: company._id,
+                                status: status
                             });
                         } else {
+                            verifyStatus(res.statusCode);
                             res.render("../views/electricity/AllElectricities", {
-                                message: "success",
+                                message: message,
                                 electricities: company.electricidad,
                                 company: company._id,
+                                status: status
                             });
                         }
                     });
@@ -169,16 +187,20 @@ electricityController.delete = function (req, res) {
                         .populate("electricidad")
                         .exec(function (error, company) {
                             if (error) {
+                                verifyStatus(res.statusCode);
                                 res.render("../views/electricity/AllElectricities", {
                                     company: company,
-                                    message: "error",
+                                    message: message,
                                     electricities: company.electricidad,
+                                    status: status
                                 });
                             } else {
+                                verifyStatus(res.statusCode);
                                 res.render("../views/electricity/AllElectricities", {
                                     company: company,
-                                    message: "success",
+                                    message: message,
                                     electricities: company.electricidad,
+                                    status: status
                                 });
                             }
                         });
@@ -187,16 +209,20 @@ electricityController.delete = function (req, res) {
                         .populate("electricidad")
                         .exec(function (error, company) {
                             if (error) {
+                                verifyStatus(res.statusCode);
                                 res.render("../views/electricity/AllElectricities", {
                                     company: company,
-                                    message: "error",
+                                    message: message,
                                     electricities: company.electricidad,
+                                    status: status
                                 });
                             } else {
+                                verifyStatus(res.statusCode);
                                 res.render("../views/electricity/AllElectricities", {
                                     company: company,
-                                    message: "success",
+                                    message: message,
                                     electricities: company.electricidad,
+                                    status: status
                                 });
                             }
                         });
@@ -255,32 +281,40 @@ electricityController.addMeter = function (req, res) {
             if (error) {
                 Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
                     if (err) {
+                        verifyStatus(res.statusCode);
                         res.render("../views/electricity/NewMeter", {
                             company: electricity.company,
                             electricity: electricity,
-                            message: "error",
+                            message: message,
+                            status: status
                         });
                     } else {
+                        verifyStatus(res.statusCode);
                         res.render("../views/electricity/NewMeter", {
                             company: electricity.company,
                             electricity: electricity,
-                            message: "success",
+                            message: message,
+                            status: status
                         });
                     }
                 });
             } else {
                 Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
                     if (err) {
+                        verifyStatus(res.statusCode);
                         res.render("../views/electricity/NewMeter", {
                             company: electricity.company,
                             electricity: electricity,
-                            message: "error",
+                            message: message,
+                            status: status
                         });
                     } else {
+                        verifyStatus(res.statusCode);
                         res.render("../views/electricity/NewMeter", {
                             company: electricity.company,
                             electricity: electricity,
-                            message: "success",
+                            message: message,
+                            status: status
                         });
                     }
                 });
@@ -352,18 +386,22 @@ electricityController.updateMeter = function (req, res) {
                             m = x;
                         }
                     }
-                    res.render("../views/electricity/EditMeter", {
-                        message: "success",
+                    verifyStatus(res.statusCode);
+                    res.render("../views/electricity/AllMeters", {
+                        message: message,
                         electricity: electric,
                         company: electric.company,
                         meter: m,
+                        status: status
                     });
                 } else {
-                    res.render("../views/electricity/EditMeter", {
-                        message: "error",
+                    verifyStatus(res.statusCode);
+                    res.render("../views/electricity/AllMeters", {
+                        message: message,
                         electricity: electric,
                         company: electric.company,
                         meter: req.body,
+                        status: status
                     });
                 }
             });
@@ -398,32 +436,40 @@ electricityController.deleteMeter = function (req, res) {
         if (err) {
             Electricity.findOne({ _id: req.params.elec }).exec(function (err, electricity) {
                 if (err) {
+                    verifyStatus(res.statusCode);
                     res.render("../views/electricity/AllMeters", {
-                        message: "error",
+                        message: message,
                         electricity: electricity,
                         company: electricity.company,
+                        status: status
                     });
                 } else {
+                    verifyStatus(res.statusCode);
                     res.render("../views/electricity/AllMeters", {
-                        message: "success",
+                        message: message,
                         electricity: electricity,
                         company: electricity.company,
+                        status: status
                     });
                 }
             });
         } else {
             Electricity.findOne({ _id: req.params.elec }).exec(function (err, electricity) {
                 if (err) {
+                    verifyStatus(res.statusCode);
                     res.render("../views/electricity/AllMeters", {
-                        message: "error",
+                        message: message,
                         electricity: electricity,
                         company: electricity.company,
+                        status: status
                     });
                 } else {
+                    verifyStatus(res.statusCode);
                     res.render("../views/electricity/AllMeters", {
-                        message: "success",
+                        message: message,
                         electricity: electricity,
                         company: electricity.company,
+                        status: status
                     });
                 }
             });

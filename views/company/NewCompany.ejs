@@ -4,30 +4,38 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="background-color: #f4ffec; height: 100vh !important;">
     <% if(typeof(status) != "undefined" ) { %>
         <% if(status==200 ) { %>
             <script>
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: '<%-message%>',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then(({ value }) => {
-                });
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '<%-message%>',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    localStorage.setItem("message", 1);
+                }  
             </script>
             <% }else if(status!=200 ){ %>
                 <script>
+                if (!localStorage.getItem("message")) {
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
                         title: '<%-message%>',
                         showConfirmButton: false,
                         timer: 1500
-                    }).then(({ value }) => {
                     });
+                    localStorage.setItem("message", 1);
+                }  
                 </script>
                 <% } %>
                     <% } %>
@@ -100,7 +108,7 @@
                                             </div>
                                             <div class="btnContainer mb-4">
 
-                                                <input type="submit" name="CompanyController" class="btn btn-success"
+                                                <input type="submit" onclick="removeMessage()" name="CompanyController" class="btn btn-success"
                                                     value="Guardar">
                                                 <button type="button" class="btn btn-danger">
                                                     <a href="/companies/showCompany" type="button">Cancelar</a>

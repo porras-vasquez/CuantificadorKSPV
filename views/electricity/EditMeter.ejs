@@ -4,6 +4,11 @@
         <!--ZONA DEL NAVBAR-->
         <%- include('../navbar'); -%>
     </header>
+    <script>
+        function removeMessage(){
+            localStorage.removeItem("message");
+        }
+    </script>
     <body style="background-color: #f4ffec; height: 100vh !important">
         <div class="card mt-2 mb-2x"
             style="min-height: 86.5% !important; scrollbar-width: none !important; 
@@ -23,26 +28,32 @@
                     </ul>
                 </div>
             </div>
-            <% if(typeof(message) !="undefined" ) { %>
-                <% if(message=="success") { %>
+            <% if(typeof(status) !="undefined" ) { %>
+                <% if(status==200) { %>
                     <script>
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Éxito al actualizar los datos del medidor',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                        if (!localStorage.getItem("message")) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: '<%-message%>',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            localStorage.setItem("message", 1);
+                        }
                     </script>
-                <% }else if(message=="error" ){ %>
+                <% }else if(status!=200 ){ %>
                     <script>
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Error al actualizar los datos del medidor',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                        if (!localStorage.getItem("message")) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: '<%-message%>',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            localStorage.setItem("message", 1);
+                        }
                     </script>
                 <% } %>
             <% } %>
@@ -65,7 +76,7 @@
                             <input class="form-control"  type="text" name="ubicacion" value="<%=meter.ubicacion%>" required/>
                         </div>
                         <div class="mb-2">
-                            <button class="btn btn-success" type="submit">Actualizar</button>
+                            <button class="btn btn-success" onclick="removeMessage()" type="submit">Actualizar</button>
                             <button type="button" class="btn btn-danger">
                                 <a href="/electricities/meters/<%=electricity._id%>" type="button">Cancelar</a>
                             </button>
