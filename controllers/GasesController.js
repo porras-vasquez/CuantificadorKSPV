@@ -209,4 +209,10 @@ gasesController.delete = function (req, res) {
         }
     });
 };
+/*gasesController.pagination = function (req, res) {
+    let perPage = 9;
+    let page = req.params.page || 1;
+
+
+}*/
 module.exports = gasesController;

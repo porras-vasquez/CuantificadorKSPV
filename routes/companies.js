@@ -12,6 +12,7 @@ router.get('/createCompany', isAuthenticated,function(req, res) {
 router.get('/searchCompany/:id',isAuthenticated, companyController.search);
 router.get('/showCompany', isAuthenticated,isAuthenticated,companyController.list);
 //router.get('/showCompany2',isAuthenticated, companyController.list2);
+
 router.post('/saveCompany', isAuthenticated,companyController.save);
 router.post('/deleteCompany/:id', isAuthenticated,companyController.delete);
 router.post('/updateCompany/:id',isAuthenticated, companyController.update);

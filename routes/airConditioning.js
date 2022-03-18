@@ -9,8 +9,8 @@ router.get('/createAirConditioning',isAuthenticated, function(req, res) {
 });
 router.get('/airConditioningSearchcompany/:id', isAuthenticated, AirConditioningController.searchCompany);
 router.get('/airConditioningShow/:id', isAuthenticated, AirConditioningController.list);
-router.post('/updateAirConditioning/:id', isAuthenticated, AirConditioningController.update);
 router.get('/searchAirConditioning/:id', isAuthenticated, AirConditioningController.search);
 
+router.post('/updateAirConditioning/:id', isAuthenticated, AirConditioningController.update);
 router.post('/saveAirConditioning/:id', isAuthenticated, AirConditioningController.save);
 module.exports = router; 
