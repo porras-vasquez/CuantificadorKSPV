@@ -4,6 +4,11 @@
     <%- include('../navbar'); -%>
         <link rel="stylesheet" type="text/css" href="/stylesheets/dropdownCompanyMain.css" />
 </header>
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <!--JS de menu de emisiones-->
 <script>$(function () {
         $(".dropdown-menu > li > a.trigger").on("click", function (e) {
@@ -23,55 +28,37 @@
         });
     });</script>
 
-<body id="companies-body" class="companies-body" style="background-color: #f4ffec;">
+<body id="companies-body" class="companies-body" style="scrollbar-width: none !important; background-color: #f4ffec;">
     <!--Mensajes de all company-->
-    <% if(success_msg=="updated" ) { %>
-        <script>
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '¡Actualizado exitosamente!',
-                showConfirmButton: false,
-                timer: 2000
-            }).then(({ value }) => {
-            });
-        </script>
-        <% }else if(error_msg=="error_update" ){ %>
+    <% if(typeof(status) != "undefined" ) { %>
+        <% if(status==200 ) { %>
             <script>
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: '!Error al actualizar!',
-                    showConfirmButton: false,
-                    timer: 2000
-                }).then(({ value }) => {
-                });
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '<%-message%>',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    localStorage.setItem("message", 1);
+                }    
             </script>
-            <% } %>
-
-                <% if(success_msg=="deleted" ) { %>
-                    <script>
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: '!Eliminado correctamente!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(({ value }) => {
-                        });
-                    </script>
-                    <% } else if(error_msg=="error_delete" ){ %>
-                        <script>
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: '!Error al eliminar!',
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then(({ value }) => {
-                            });
-                        </script>
-                        <% } %>
+            <% }else if(status!=200 ){ %>
+                <script>
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: '<%-message%>',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    localStorage.setItem("message", 1);
+                }  
+                </script>
+                <% } %>
+                    <% } %>
                             <div class="card mt-2 mb-2x" style=" margin-left: 2%; margin-right: 2%; scrollbar-width: none !important; background-color: #c5dfbe;">
                                         <div id="menu-container" class="menu-container">
                                             <div id="menu" class="menu">
@@ -148,7 +135,7 @@
                                                                 style="font-size: 18px;">
                                                                 <form style="font-size: 18px;"
                                                                     action="/companies/deleteCompany/<%=company._id%>"
-                                                                    method="post" class="btn-company"><button
+                                                                    method="post" class="btn-company"><button onclick="removeMessage()"
                                                                         type="danger " class="btn btn-danger"><i
                                                                             class="material-icons"
                                                                             title="Eliminar">delete</i></button>

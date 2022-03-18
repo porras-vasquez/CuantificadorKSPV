@@ -4,7 +4,11 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="background-color: #f4ffec;">
     <div class="container mt-5" style="padding-bottom: 20%;">
         <div class="row clearfix">
@@ -58,7 +62,7 @@
                                         </div>
                                         <div class="mb-2">
                                             <label for="exampleInputEmail1" class="form-label">Fecha de Inicio:</label>
-                                            <input type="date" id="start" name="fecha_inicio" value="<%=company.fecha_elaboracion%>"
+                                            <input type="date" id="start" name="fecha_inicio" value="<%=company.fecha_inicio%>"
                                                 class="form-control" required />
                                         </div>
                                         <div class="mb-2">
@@ -67,7 +71,7 @@
                                             value="<%=company.descripcion%>" required />
                                         </div>
                                         <div class="btnContainer mb-4">
-                                            <td colspan="2"><button class="btn btn-success" type="submit">Actualizar</button></td>
+                                            <td colspan="2"><button class="btn btn-success" onclick="removeMessage()" type="submit">Actualizar</button></td>
                                             <button type="button" class="btn btn-danger">
                                                 <a href="/companies/showCompany" type="button">Cancelar</a>
                                             </button>
