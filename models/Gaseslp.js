@@ -21,6 +21,8 @@ const GasesShema = new Schema({
     densidad: String,
     observacion: String,
     emision: String,
+    gei: String,
+    pcg: String,
     company: {
         type: Schema.Types.ObjectId,
         ref: 'Company'
