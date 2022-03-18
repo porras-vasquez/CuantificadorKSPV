@@ -21,7 +21,7 @@ FuelsAndOilController.save = async function(req, res) {
     var fuelsAndOil = new FuelsAndOil(req.body);
     var comp = await Company.findById(req.params.id);
     fuelsAndOil.company = comp;
-    //console.log(comp);
+    console.log(req.body.total);
     await fuelsAndOil.save(function(err, fuels) {
         console.log(fuels);
         if (err) { 
