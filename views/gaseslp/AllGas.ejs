@@ -28,7 +28,8 @@
                 </ul>
             </div>
         </div>
-        <div class="row text-dark table-responsive table-container" style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+        <div class="row text-dark table-responsive table-container"
+            style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
             <h3>Módulo Gases lp: Mostrar</h3>
             <table class="table-bordered" style="background-color: white;">
                 <thead style="background-color: rgba(26,145,125,255);">
@@ -49,7 +50,7 @@
                         <th scope="col text-whitex"> Octubre</th>
                         <th scope="col text-whitex"> Noviembre</th>
                         <th scope="col text-whitex"> Diciembre</th>
-                        <th scope="col text-whitex"> Emisión</th>
+                        <th scope="col text-whitex"> Total</th>
                         <th scope="col text-whitex">Acción</th>
                     </tr>
                 </thead>
@@ -76,97 +77,117 @@
                             <td>
                                 <div">
                                     <%=gaslp.observacion%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.densidad%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.enero%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.febrero%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.marzo%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.abril%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.mayo%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.junio%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.julio%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.agosto%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.septiembre%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.octubre%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.noviembre%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.diciembre%>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <%=gaslp.emision%>
-                                </div>
-                            </td>
-                            <td>
-                                <div id="contenedor">
-                                    <div id="boton">
-                                        <button type="link" class="btn btn-success btn-sm"
-                                            onclick="window.location. href='/gaseslp/searchGases/<%=gaslp._id%>'"><i
-                                                class="material-icons">menu</i></button>
-                                        <form action="/gaseslp/deleteGases/<%=gaslp._id%>/<%=gaslp.company%>"
-                                            method="post">
-                                            <button type="danger" class="btn btn-danger btn-sm"><i
-                                                    class="material-icons">delete</i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <% }) %>
-                </tbody>
-            </table>
         </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.densidad%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.enero%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.febrero%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.marzo%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.abril%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.mayo%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.junio%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.julio%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.agosto%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.septiembre%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.octubre%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.noviembre%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.diciembre%>
+            </div>
+        </td>
+        <td>
+            <div>
+                <%=gaslp.emision%>
+            </div>
+        </td>
+        <td>
+            <div id="contenedor">
+                <div id="boton">
+                    <button type="link" class="btn btn-success btn-sm"
+                        onclick="window.location. href='/gaseslp/searchGases/<%=gaslp._id%>'"><i
+                            class="material-icons">menu</i></button>
+                    <form action="/gaseslp/deleteGases/<%=gaslp._id%>/<%=gaslp.company%>" method="post">
+                        <button type="danger" class="btn btn-danger btn-sm"><i
+                                class="material-icons">delete</i></button>
+                    </form>
+                </div>
+            </div>
+        </td>
+        </tr>
+        <% }) %>
+        <td class="text-center">Total</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-center"><%=enero%></td>
+        <td class="text-center"><%=febrero%></td>
+        <td class="text-center"><%=marzo%></td>
+        <td class="text-center"><%=abril%></td>
+        <td class="text-center"><%=mayo%></td>
+        <td class="text-center"><%=junio%></td>
+        <td class="text-center"><%=julio%></td>
+        <td class="text-center"><%=agosto%></td>
+        <td class="text-center"><%=septiembre%></td>
+        <td class="text-center"><%=octubre%></td>
+        <td class="text-center"><%=noviembre%></td>
+        <td class="text-center"><%=diciembre%></td>
+            <td>
+                <div class="text-center">
+                    <%=sumatoria%>
+                </div>
+            </td>
+            </tbody>
+            </table>
+    </div>
     </div>
 </body>
 
