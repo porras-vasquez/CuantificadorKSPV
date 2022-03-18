@@ -4,21 +4,6 @@ const Gaseslp = require('../models/Gaseslp');
 const Company = require("../models/Company");
 const { clearCache } = require('ejs');
 var gasesController = {};
-//Variables tabla totales
-var sumatoria = 0;
-var enero = 0;
-var febrero = 0;
-var marzo = 0;
-var abril = 0;
-var mayo = 0;
-var junio = 0;
-var julio = 0;
-var agosto = 0;
-var septiembre = 0;
-var octubre = 0;
-var noviembre = 0;
-var diciembre = 0;
-// fin
 function calc(req) {
     let en = parseFloat(req.body.enero);
     let fe = parseFloat(req.body.febrero);
@@ -39,23 +24,6 @@ function calc(req) {
         req.body.emision = en + fe + mar + abr + may + jun + jul + ago + sep + oct + nov + dic;
     }
 };
-function datesAll(y){
-    for (var x of y) {
-        sumatoria = sumatoria + parseFloat(x.emision);
-        enero = enero + parseFloat(x.enero);
-        febrero = febrero + parseFloat(x.febrero);
-        marzo = marzo + parseFloat(x.marzo);
-        abril = abril + parseFloat(x.abril);
-        mayo = mayo + parseFloat(x.mayo);
-        junio = junio + parseFloat(x.junio);
-        julio = julio + parseFloat(x.julio);
-        agosto = agosto + parseFloat(x.agosto);
-        septiembre = septiembre + parseFloat(x.septiembre);
-        octubre = octubre + parseFloat(x.octubre);
-        noviembre = noviembre + parseFloat(x.noviembre);
-        diciembre = diciembre + parseFloat(x.diciembre);
-    }
-}
 gasesController.save = async function (req, res) {
     calc(req);
     var gases = new Gaseslp(req.body);
@@ -91,7 +59,34 @@ gasesController.list = function (req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("gaslp")
         .exec(function (err, company) {
-            datesAll(company.gaslp);
+            var sumatoria = 0;
+            var enero = 0;
+            var febrero = 0;
+            var marzo = 0;
+            var abril = 0;
+            var mayo = 0;
+            var junio = 0;
+            var julio = 0;
+            var agosto = 0;
+            var septiembre = 0;
+            var octubre = 0;
+            var noviembre = 0;
+            var diciembre = 0;
+            for (var x of company.gaslp) {
+                sumatoria = sumatoria + parseFloat(x.emision);
+                enero = enero + parseFloat(x.enero);
+                febrero = febrero + parseFloat(x.febrero);
+                marzo = marzo + parseFloat(x.marzo);
+                abril = abril + parseFloat(x.abril);
+                mayo = mayo + parseFloat(x.mayo);
+                junio = junio + parseFloat(x.junio);
+                julio = julio + parseFloat(x.julio);
+                agosto = agosto + parseFloat(x.agosto);
+                septiembre = septiembre + parseFloat(x.septiembre);
+                octubre = octubre + parseFloat(x.octubre);
+                noviembre = noviembre + parseFloat(x.noviembre);
+                diciembre = diciembre + parseFloat(x.diciembre);
+            }
             if (err) {
                 res.render("../views/gaseslp/AllGas", {
                     gases: company.gaslp,
@@ -184,7 +179,34 @@ gasesController.update = function (req, res) {
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
-                        datesAll(company.gaslp);
+                        var sumatoria = 0;
+                        var enero = 0;
+                        var febrero = 0;
+                        var marzo = 0;
+                        var abril = 0;
+                        var mayo = 0;
+                        var junio = 0;
+                        var julio = 0;
+                        var agosto = 0;
+                        var septiembre = 0;
+                        var octubre = 0;
+                        var noviembre = 0;
+                        var diciembre = 0;
+                        for (var x of company.gaslp) {
+                            sumatoria = sumatoria + parseFloat(x.emision);
+                            enero = enero + parseFloat(x.enero);
+                            febrero = febrero + parseFloat(x.febrero);
+                            marzo = marzo + parseFloat(x.marzo);
+                            abril = abril + parseFloat(x.abril);
+                            mayo = mayo + parseFloat(x.mayo);
+                            junio = junio + parseFloat(x.junio);
+                            julio = julio + parseFloat(x.julio);
+                            agosto = agosto + parseFloat(x.agosto);
+                            septiembre = septiembre + parseFloat(x.septiembre);
+                            octubre = octubre + parseFloat(x.octubre);
+                            noviembre = noviembre + parseFloat(x.noviembre);
+                            diciembre = diciembre + parseFloat(x.diciembre);
+                        }
                         if (error) {
                             res.render("../views/gaseslp/AllGas", {
                                 message: "error",
@@ -229,7 +251,34 @@ gasesController.update = function (req, res) {
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
-                        datesAll(company.gaslp);
+                        var sumatoria = 0;
+                        var enero = 0;
+                        var febrero = 0;
+                        var marzo = 0;
+                        var abril = 0;
+                        var mayo = 0;
+                        var junio = 0;
+                        var julio = 0;
+                        var agosto = 0;
+                        var septiembre = 0;
+                        var octubre = 0;
+                        var noviembre = 0;
+                        var diciembre = 0;
+                        for (var x of company.gaslp) {
+                            sumatoria = sumatoria + parseFloat(x.emision);
+                            enero = enero + parseFloat(x.enero);
+                            febrero = febrero + parseFloat(x.febrero);
+                            marzo = marzo + parseFloat(x.marzo);
+                            abril = abril + parseFloat(x.abril);
+                            mayo = mayo + parseFloat(x.mayo);
+                            junio = junio + parseFloat(x.junio);
+                            julio = julio + parseFloat(x.julio);
+                            agosto = agosto + parseFloat(x.agosto);
+                            septiembre = septiembre + parseFloat(x.septiembre);
+                            octubre = octubre + parseFloat(x.octubre);
+                            noviembre = noviembre + parseFloat(x.noviembre);
+                            diciembre = diciembre + parseFloat(x.diciembre);
+                        }
                         console.log(error);
                         console.log(company);
                         if (error) {
@@ -289,7 +338,34 @@ gasesController.delete = function (req, res) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("gaslp")
                         .exec(function (error, company) {
-                            datesAll(company.gaslp);
+                            var sumatoria = 0;
+                            var enero = 0;
+                            var febrero = 0;
+                            var marzo = 0;
+                            var abril = 0;
+                            var mayo = 0;
+                            var junio = 0;
+                            var julio = 0;
+                            var agosto = 0;
+                            var septiembre = 0;
+                            var octubre = 0;
+                            var noviembre = 0;
+                            var diciembre = 0;
+                            for (var x of company.gaslp) {
+                                sumatoria = sumatoria + parseFloat(x.emision);
+                                enero = enero + parseFloat(x.enero);
+                                febrero = febrero + parseFloat(x.febrero);
+                                marzo = marzo + parseFloat(x.marzo);
+                                abril = abril + parseFloat(x.abril);
+                                mayo = mayo + parseFloat(x.mayo);
+                                junio = junio + parseFloat(x.junio);
+                                julio = julio + parseFloat(x.julio);
+                                agosto = agosto + parseFloat(x.agosto);
+                                septiembre = septiembre + parseFloat(x.septiembre);
+                                octubre = octubre + parseFloat(x.octubre);
+                                noviembre = noviembre + parseFloat(x.noviembre);
+                                diciembre = diciembre + parseFloat(x.diciembre);
+                            }
                             if (error) {
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
@@ -334,7 +410,34 @@ gasesController.delete = function (req, res) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("gaslp")
                         .exec(function (error, company) {
-                        datesAll(company.gaslp);
+                            var sumatoria = 0;
+                            var enero = 0;
+                            var febrero = 0;
+                            var marzo = 0;
+                            var abril = 0;
+                            var mayo = 0;
+                            var junio = 0;
+                            var julio = 0;
+                            var agosto = 0;
+                            var septiembre = 0;
+                            var octubre = 0;
+                            var noviembre = 0;
+                            var diciembre = 0;
+                            for (var x of company.gaslp) {
+                                sumatoria = sumatoria + parseFloat(x.emision);
+                                enero = enero + parseFloat(x.enero);
+                                febrero = febrero + parseFloat(x.febrero);
+                                marzo = marzo + parseFloat(x.marzo);
+                                abril = abril + parseFloat(x.abril);
+                                mayo = mayo + parseFloat(x.mayo);
+                                junio = junio + parseFloat(x.junio);
+                                julio = julio + parseFloat(x.julio);
+                                agosto = agosto + parseFloat(x.agosto);
+                                septiembre = septiembre + parseFloat(x.septiembre);
+                                octubre = octubre + parseFloat(x.octubre);
+                                noviembre = noviembre + parseFloat(x.noviembre);
+                                diciembre = diciembre + parseFloat(x.diciembre);
+                            }
                             if (error) {
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
@@ -359,7 +462,7 @@ gasesController.delete = function (req, res) {
                                     company: company,
                                     message: "success",
                                     gases: company.gaslp,
-                                    sumatoria: sumatoria,
+                                     sumatoria: sumatoria,
                                     enero: enero,
                                     febrero: febrero,
                                     marzo: marzo,
