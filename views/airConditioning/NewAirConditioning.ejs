@@ -33,7 +33,7 @@
                 </script>
                 <% } %>
                     <% } %>
-                        <div class="card mt-2 mb-2x"
+                        <div class="card mt-2"
                             style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
                             <div id="menu-container" class="menu-container">
                                 <div id="menu" class="menu">
@@ -61,11 +61,11 @@
                                 style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
                                 <form action="/airConditioning/saveAirConditioning/<%=company._id%>" method="post" class="newGas row "
                                     style="margin-left: 5%;">
-                                    <h3>Módulo Gases lp: Agregar</h3>
+                                    <h2 style="margin-bottom: 1%;">Módulo Aires Acondicionados: Agregar</h2>
                                     <div class="col-3">
-                                        <div>
+                                        <div >
                                             <label for="exampleInputEmail1" class="form-label">Ubicacion</label>
-                                            <input type="text" name="ubicacion" class="form-control" />
+                                            <input  type="text" name="ubicacion" class="form-control" />
                                         </div>
                                         <div>
                                             <label for="exampleInputEmail1" class="form-label">Numero de serie</label>
@@ -83,6 +83,8 @@
                                             <label for="exampleInputEmail1" class="form-label">Capacidad</label>
                                             <input type="text" name="capacidad" class="form-control" />
                                         </div>
+                                    </div>
+                                    <div class="col-3">
                                         <div>
                                             <label for="exampleInputEmail1" class="form-label">Consumo</label>
                                             <input type="text" name="consumo" class="form-control" />
@@ -104,7 +106,7 @@
                                             <input type="text" name="tasaAnualFuga" class="form-control" />
                                         </div>
                                     </div>
-                                    <div class="btnContainer mb-4">
+                                    <div class="btnContainer mb-4" style="margin-top: 1%">
                                         <input type="submit" name="CompanyController" class="btn btn-success"
                                             value="Guardar">
                                         <button type="button" class="btn btn-danger">
