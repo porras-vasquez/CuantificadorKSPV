@@ -4,7 +4,11 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%> 
 </header>
-
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="background-color: #f4ffec;">
     <div class="container mt-5">
         <div class="row clearfix">
@@ -27,56 +31,34 @@
                             <div class="col-12 mb-5"></div>
                         </ul>
                     </div>
-                    <% if(typeof(message) != "undefined") { %>
-                        <% if(message == "success") { %>
+                    <% if(typeof(status) != "undefined") { %>
+                        <% if(status == 200) { %>
                             <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: 'Exito al agregar',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(({value}) => {
-                                    //window.location='/users/create/';
-                                });
+                                if (!localStorage.getItem("message")) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: '<%-message%>',
+                                        showConfirmButton: false,
+                                        timer: 2500
+                                    });
+                                    localStorage.setItem("message", 1);
+                                }  
                             </script>
-                        <% }else if(message == "error"){ %>
+                        <% }else if(status != 200){ %>
                             <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: 'Lo sentimos, ocurrió un problema con el servidor',
-                                    showConfirmButton: false,
-                                    timer: 3500
-                                }).then(({value}) => {
-                                    //window.location='/users/create/';
-                                });
+                                if (!localStorage.getItem("message")) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: '<%-message%>',
+                                        showConfirmButton: false,
+                                        timer: 2500
+                                    });
+                                    localStorage.setItem("message", 1);
+                                }  
                             </script>
-                        <% } else if(message == "username"){%>  
-                            <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: 'Error, el nombre de usuario ingresado ya fue utilizado',
-                                    showConfirmButton: false,
-                                    timer: 3500
-                                }).then(({value}) => {
-                                    //window.location='/users/create/';
-                                });
-                            </script>
-                        <% } else if(message == "email"){%> 
-                            <script>
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: 'Error, el correo electrónico ingresado ya fue utilizado',
-                                    showConfirmButton: false,
-                                    timer: 3500
-                                }).then(({value}) => {
-                                    //window.location='/users/create/';
-                                });
-                            </script>
-                        <%} %>    
+                        <% } %>
                     <% } %>
                     <div class="chat">
                         <div style="background-color: #beb39c; margin-top: 4%; margin-bottom: 4%;">
@@ -103,7 +85,7 @@
                                         </div>
                                         <div class="btnContainer mb-4" style="padding-bottom: 3%;">
                     
-                                            <button disabled id="submit" type="submit" name="UserController" class="btn btn-success">
+                                            <button onclick="removeMessage()" disabled id="submit" type="submit" name="UserController" class="btn btn-success">
                                                 Guardar
                                             </button>
                                             <button type="button" class="btn btn-danger">

@@ -4,7 +4,11 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="background-color: #f4ffec;">
     <div class="container mt-5" style="padding-bottom: 20%;">
         <div class="row clearfix">
@@ -46,7 +50,7 @@
                                                         value="<%=user.email%>" /></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2"><button class="btn btn-success"
+                                                <td colspan="2"><button onclick="removeMessage()" class="btn btn-success"
                                                         type="submit">Actualizar</button>
                                                         <button type="button" class="btn btn-danger">
                                                             <a href="/users/show" type="button" >Cancelar</a>

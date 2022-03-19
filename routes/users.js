@@ -16,7 +16,6 @@ router.post('/login', userController.login);
 router.get('/logout', userController.logout);
 router.get('/search/:id',isAuthenticated, userController.search);
 router.get('/show',isAuthenticated, userController.list);
-router.get('/show2',isAuthenticated, userController.list2); //No eficiente, hay que ver que hacemos mas adelante
 router.post('/save',isAuthenticated, userController.save);
 router.post('/delete/:id',isAuthenticated, userController.delete);
 router.post('/update/:id',isAuthenticated, userController.update);

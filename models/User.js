@@ -7,12 +7,14 @@ const saltRounds = 10;
 const UserSchema = mongoose.Schema({
     username: {
         type: String,
-        unique: "El username ingresado ya fue utilizado por otro usuario"
+        unique: true,
+        index: true
     },
     password: String,
     email: {
       type: String,
-      unique: "El correo electrónico ingresado ya fue utilizado por otro usuario"
+      unique: true, 
+      index: true
     }
 });
 

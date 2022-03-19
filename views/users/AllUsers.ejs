@@ -4,43 +4,41 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="background-color: #f4ffec; height: 100vh !important;">
-    <% if(success_msg=="updated" ) { %>
-        <script>
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '¡Actualizado exitosamente!',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(({ value }) => {
-            });
-        </script>
-        <% }else if(error_msg=="error" ){ %>
+    <% if(typeof(status) != "undefined" ) { %>
+        <% if(status==200 ) { %>
             <script>
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: '¡error!',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then(({ value }) => {
-                });
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '<%-message%>',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    localStorage.setItem("message", 1);
+                }
             </script>
-            <% } %>
-                <% if(success_msg=="deleted" ) { %>
-                    <script>
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Eliminado correctamente!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(({ value }) => {
-                        });
-                    </script>
-                    <% }%>
+        <% }else if(status!=200 ){ %>
+            <script>
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: '<%-message%>',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    localStorage.setItem("message", 1);
+                }
+            </script>
+        <% } %>
+    <% } %>    
                         <script>
                             $("#capa").hover(function () {
                                 $("#mensaje").show();
@@ -101,7 +99,7 @@
                                                 <td id="contenedor">
                                                     <div id="boton">
                                                         <form action="/users/delete/<%=user._id%>" method="post">
-                                                            <button type="danger " class="btn btn-danger btn-sm"><i
+                                                            <button onclick="removeMessage()" type="danger " class="btn btn-danger btn-sm"><i
                                                                     class="material-icons">delete</i></button>
                                                         </form>
                                                         <button type="link" class="btn btn-success btn-sm"
