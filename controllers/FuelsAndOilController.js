@@ -2,9 +2,10 @@
 require('../connection');
 const Company = require("../models/Company");
 const FuelsAndOil = require('../models/FuelsAndOil');
+const { clearCache } = require('ejs');
 var FuelsAndOilController = {};
 
-FuelsAndOilController.save = async function(req, res) {
+function calc(req){
     let en = parseFloat(req.body.enero)
     let fe = parseFloat(req.body.febrero)
     let mar = parseFloat(req.body.marzo)
@@ -17,13 +18,17 @@ FuelsAndOilController.save = async function(req, res) {
     let oct = parseFloat(req.body.octubre)
     let nov = parseFloat(req.body.noviembre)
     let dic = parseFloat(req.body.diciembre)
-    req.body.total = en+fe+mar+abr+may+jun+jul+ago+sep+oct+nov+dic;
+    if (dic > 0) {
+        req.body.emision = en + fe + mar + abr + may + jun + jul + ago + sep + oct + nov + dic;
+    }
+};
+FuelsAndOilController.save = async function(req, res) {
+    calc(req);
     var fuelsAndOil = new FuelsAndOil(req.body);
     var comp = await Company.findById(req.params.id);
     fuelsAndOil.company = comp;
     console.log(req.body.total);
     await fuelsAndOil.save(function(err, fuels) {
-        console.log(fuels);
         if (err) { 
             res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : "error", company: fuels.company._id });
         }
@@ -51,15 +56,69 @@ FuelsAndOilController.list = function(req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("fuelsAndOil")
         .exec(function (err, company) {
+            var sumatoria = 0;
+            var enero = 0;
+            var febrero = 0;
+            var marzo = 0;
+            var abril = 0;
+            var mayo = 0;
+            var junio = 0;
+            var julio = 0;
+            var agosto = 0;
+            var septiembre = 0;
+            var octubre = 0;
+            var noviembre = 0;
+            var diciembre = 0;
+            for (var x of company.fuelsAndOil) {
+                sumatoria = sumatoria + parseFloat(x.emision);
+                enero = enero + parseFloat(x.enero);
+                febrero = febrero + parseFloat(x.febrero);
+                marzo = marzo + parseFloat(x.marzo);
+                abril = abril + parseFloat(x.abril);
+                mayo = mayo + parseFloat(x.mayo);
+                junio = junio + parseFloat(x.junio);
+                julio = julio + parseFloat(x.julio);
+                agosto = agosto + parseFloat(x.agosto);
+                septiembre = septiembre + parseFloat(x.septiembre);
+                octubre = octubre + parseFloat(x.octubre);
+                noviembre = noviembre + parseFloat(x.noviembre);
+                diciembre = diciembre + parseFloat(x.diciembre);
+            }
             if (err) {
                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                     fuelsAndOils: company.fuelsAndOil,
                     company: company._id,
+                    sumatoria: sumatoria,
+                    enero: enero,
+                    febrero: febrero,
+                    marzo: marzo,
+                    abril: abril,
+                    mayo: mayo,
+                    junio: junio,
+                    julio: julio,
+                    agosto: agosto,
+                    septiembre: septiembre,
+                    octubre: octubre,
+                    noviembre: noviembre,
+                    diciembre: diciembre,
                 });
             } else {
                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                     fuelsAndOils: company.fuelsAndOil,
                     company: company._id,
+                    sumatoria: sumatoria,
+                    enero: enero,
+                    febrero: febrero,
+                    marzo: marzo,
+                    abril: abril,
+                    mayo: mayo,
+                    junio: junio,
+                    julio: julio,
+                    agosto: agosto,
+                    septiembre: septiembre,
+                    octubre: octubre,
+                    noviembre: noviembre,
+                    diciembre: diciembre,
                 });
             }
         });
@@ -81,20 +140,7 @@ FuelsAndOilController.search = function (req, res) {
     });
 };
 FuelsAndOilController.update = function (req, res) {
-    req.body.emision = 0;
-    let en = parseFloat(req.body.enero)
-    let fe = parseFloat(req.body.febrero)
-    let mar = parseFloat(req.body.marzo)
-    let abr = parseFloat(req.body.abril)
-    let may = parseFloat(req.body.mayo)
-    let jun = parseFloat(req.body.junio)
-    let jul = parseFloat(req.body.julio)
-    let ago = parseFloat(req.body.agosto)
-    let sep = parseFloat(req.body.septiembre)
-    let oct = parseFloat(req.body.octubre)
-    let nov = parseFloat(req.body.noviembre)
-    let dic = parseFloat(req.body.diciembre)
-    req.body.total = en+fe+mar+abr+may+jun+jul+ago+sep+oct+nov+dic;
+    calc(req);
     FuelsAndOil.findByIdAndUpdate(
       req.params.id,
       {
@@ -112,7 +158,7 @@ FuelsAndOilController.update = function (req, res) {
             octubre: req.body.octubre,
             noviembre: req.body.noviembre,
             diciembre: req.body.diciembre,
-           total: req.body.total
+            emision: req.body.emision
           },
       },
       { new: true },
@@ -125,17 +171,72 @@ FuelsAndOilController.update = function (req, res) {
               Company.findOne({ _id: fuelsAndOils.company })
                   .populate("fuelsAndOil")
                   .exec(function (error, company) {
+                    var sumatoria = 0;
+                    var enero = 0;
+                    var febrero = 0;
+                    var marzo = 0;
+                    var abril = 0;
+                    var mayo = 0;
+                    var junio = 0;
+                    var julio = 0;
+                    var agosto = 0;
+                    var septiembre = 0;
+                    var octubre = 0;
+                    var noviembre = 0;
+                    var diciembre = 0;
+                    for (var x of company.fuelsAndOil) {
+                        sumatoria = sumatoria + parseFloat(x.emision);
+                        enero = enero + parseFloat(x.enero);
+                        febrero = febrero + parseFloat(x.febrero);
+                        marzo = marzo + parseFloat(x.marzo);
+                        abril = abril + parseFloat(x.abril);
+                        mayo = mayo + parseFloat(x.mayo);
+                        junio = junio + parseFloat(x.junio);
+                        julio = julio + parseFloat(x.julio);
+                        agosto = agosto + parseFloat(x.agosto);
+                        septiembre = septiembre + parseFloat(x.septiembre);
+                        octubre = octubre + parseFloat(x.octubre);
+                        noviembre = noviembre + parseFloat(x.noviembre);
+                        diciembre = diciembre + parseFloat(x.diciembre);
+                    }
+
                       if (error) {
                           res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                               message: "error",
                               fuelsAndOils: company.fuelsAndOil,
                               company: company._id,
+                              sumatoria: sumatoria,
+                              enero: enero,
+                              febrero: febrero,
+                              marzo: marzo,
+                              abril: abril,
+                              mayo: mayo,
+                              junio: junio,
+                              julio: julio,
+                              agosto: agosto,
+                              septiembre: septiembre,
+                              octubre: octubre,
+                              noviembre: noviembre,
+                              diciembre: diciembre,
                           });
                       } else {
                           res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                               message: "success",
                               fuelsAndOils: company.fuelsAndOil,
                               company: company._id,
+                              sumatoria: sumatoria,
+                              enero: enero,
+                              febrero: febrero,
+                              marzo: marzo,
+                              abril: abril,
+                              mayo: mayo,
+                              junio: junio,
+                              julio: julio,
+                              agosto: agosto,
+                              septiembre: septiembre,
+                              octubre: octubre,
+                              noviembre: noviembre,
+                              diciembre: diciembre,
                           });
                       }
                   });
@@ -143,6 +244,34 @@ FuelsAndOilController.update = function (req, res) {
               Company.findOne({ _id: fuelsAndOils.company })
                   .populate("fuelsAndOil")
                   .exec(function (error, company) {
+                    var sumatoria = 0;
+                    var enero = 0;
+                    var febrero = 0;
+                    var marzo = 0;
+                    var abril = 0;
+                    var mayo = 0;
+                    var junio = 0;
+                    var julio = 0;
+                    var agosto = 0;
+                    var septiembre = 0;
+                    var octubre = 0;
+                    var noviembre = 0;
+                    var diciembre = 0;
+                    for (var x of company.fuelsAndOil) {
+                        sumatoria = sumatoria + parseFloat(x.emision);
+                        enero = enero + parseFloat(x.enero);
+                        febrero = febrero + parseFloat(x.febrero);
+                        marzo = marzo + parseFloat(x.marzo);
+                        abril = abril + parseFloat(x.abril);
+                        mayo = mayo + parseFloat(x.mayo);
+                        junio = junio + parseFloat(x.junio);
+                        julio = julio + parseFloat(x.julio);
+                        agosto = agosto + parseFloat(x.agosto);
+                        septiembre = septiembre + parseFloat(x.septiembre);
+                        octubre = octubre + parseFloat(x.octubre);
+                        noviembre = noviembre + parseFloat(x.noviembre);
+                        diciembre = diciembre + parseFloat(x.diciembre);
+                    }
                     console.log(error);
                     console.log(company);
                       if (error) {
@@ -150,12 +279,38 @@ FuelsAndOilController.update = function (req, res) {
                               message: "error",
                               fuelsAndOils: company.fuelsAndOil,
                               company: company._id,
+                              sumatoria: sumatoria,
+                              enero: enero,
+                              febrero: febrero,
+                              marzo: marzo,
+                              abril: abril,
+                              mayo: mayo,
+                              junio: junio,
+                              julio: julio,
+                              agosto: agosto,
+                              septiembre: septiembre,
+                              octubre: octubre,
+                              noviembre: noviembre,
+                              diciembre: diciembre,
                           });
                       } else {
                           res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                               message: "success",
                               fuelsAndOils: company.fuelsAndOil,
                               company: company._id,
+                              sumatoria: sumatoria,
+                              enero: enero,
+                              febrero: febrero,
+                              marzo: marzo,
+                              abril: abril,
+                              mayo: mayo,
+                              junio: junio,
+                              julio: julio,
+                              agosto: agosto,
+                              septiembre: septiembre,
+                              octubre: octubre,
+                              noviembre: noviembre,
+                              diciembre: diciembre,
                           });
                       }
                   });
@@ -174,17 +329,71 @@ FuelsAndOilController.delete = function (req, res) {
                         Company.findOne({ _id: req.params.comp })
                             .populate("fuelsAndOil")
                             .exec(function (error, company) {
+                                var sumatoria = 0;
+                                var enero = 0;
+                                var febrero = 0;
+                                var marzo = 0;
+                                var abril = 0;
+                                var mayo = 0;
+                                var junio = 0;
+                                var julio = 0;
+                                var agosto = 0;
+                                var septiembre = 0;
+                                var octubre = 0;
+                                var noviembre = 0;
+                                var diciembre = 0;
+                                for (var x of company.fuelsAndOil) {
+                                    sumatoria = sumatoria + parseFloat(x.emision);
+                                    enero = enero + parseFloat(x.enero);
+                                    febrero = febrero + parseFloat(x.febrero);
+                                    marzo = marzo + parseFloat(x.marzo);
+                                    abril = abril + parseFloat(x.abril);
+                                    mayo = mayo + parseFloat(x.mayo);
+                                    junio = junio + parseFloat(x.junio);
+                                    julio = julio + parseFloat(x.julio);
+                                    agosto = agosto + parseFloat(x.agosto);
+                                    septiembre = septiembre + parseFloat(x.septiembre);
+                                    octubre = octubre + parseFloat(x.octubre);
+                                    noviembre = noviembre + parseFloat(x.noviembre);
+                                    diciembre = diciembre + parseFloat(x.diciembre);
+                                }
                                 if (error) {
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
                                         message: "error",
                                         fuelsAndOils: company.fuelsAndOil,
+                                        sumatoria: sumatoria,
+                                        enero: enero,
+                                        febrero: febrero,
+                                        marzo: marzo,
+                                        abril: abril,
+                                        mayo: mayo,
+                                        junio: junio,
+                                        julio: julio,
+                                        agosto: agosto,
+                                        septiembre: septiembre,
+                                        octubre: octubre,
+                                        noviembre: noviembre,
+                                        diciembre: diciembre,
                                     });
                                 } else {
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
                                         message: "success",
                                         fuelsAndOils: company.fuelsAndOil,
+                                        sumatoria: sumatoria,
+                                        enero: enero,
+                                        febrero: febrero,
+                                        marzo: marzo,
+                                        abril: abril,
+                                        mayo: mayo,
+                                        junio: junio,
+                                        julio: julio,
+                                        agosto: agosto,
+                                        septiembre: septiembre,
+                                        octubre: octubre,
+                                        noviembre: noviembre,
+                                        diciembre: diciembre,
                                     });
                                 }
                             });
@@ -192,17 +401,71 @@ FuelsAndOilController.delete = function (req, res) {
                         Company.findOne({ _id: req.params.comp })
                             .populate("fuelsAndOil")
                             .exec(function (error, company) {
+                                var sumatoria = 0;
+                                var enero = 0;
+                                var febrero = 0;
+                                var marzo = 0;
+                                var abril = 0;
+                                var mayo = 0;
+                                var junio = 0;
+                                var julio = 0;
+                                var agosto = 0;
+                                var septiembre = 0;
+                                var octubre = 0;
+                                var noviembre = 0;
+                                var diciembre = 0;
+                                for (var x of company.fuelsAndOil) {
+                                    sumatoria = sumatoria + parseFloat(x.emision);
+                                    enero = enero + parseFloat(x.enero);
+                                    febrero = febrero + parseFloat(x.febrero);
+                                    marzo = marzo + parseFloat(x.marzo);
+                                    abril = abril + parseFloat(x.abril);
+                                    mayo = mayo + parseFloat(x.mayo);
+                                    junio = junio + parseFloat(x.junio);
+                                    julio = julio + parseFloat(x.julio);
+                                    agosto = agosto + parseFloat(x.agosto);
+                                    septiembre = septiembre + parseFloat(x.septiembre);
+                                    octubre = octubre + parseFloat(x.octubre);
+                                    noviembre = noviembre + parseFloat(x.noviembre);
+                                    diciembre = diciembre + parseFloat(x.diciembre);
+                                }
                                 if (error) {
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
                                         message: "error",
                                         fuelsAndOils: company.fuelsAndOil,
+                                        sumatoria: sumatoria,
+                                        enero: enero,
+                                        febrero: febrero,
+                                        marzo: marzo,
+                                        abril: abril,
+                                        mayo: mayo,
+                                        junio: junio,
+                                        julio: julio,
+                                        agosto: agosto,
+                                        septiembre: septiembre,
+                                        octubre: octubre,
+                                        noviembre: noviembre,
+                                        diciembre: diciembre,
                                     });
                                 } else {
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
                                         message: "success",
                                         fuelsAndOils: company.fuelsAndOil,
+                                        sumatoria: sumatoria,
+                                        enero: enero,
+                                        febrero: febrero,
+                                        marzo: marzo,
+                                        abril: abril,
+                                        mayo: mayo,
+                                        junio: junio,
+                                        julio: julio,
+                                        agosto: agosto,
+                                        septiembre: septiembre,
+                                        octubre: octubre,
+                                        noviembre: noviembre,
+                                        diciembre: diciembre,
                                     });
                                 }
                             });

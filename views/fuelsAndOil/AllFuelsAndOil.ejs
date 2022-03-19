@@ -50,85 +50,80 @@
                         <th scope="col">Noviembre</th>
                         <th scope="col">Diciembre</th>
                         <th scope="col">total</th>
-                        <th scope="col"></th>
+                        <th scope="col">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% fuelsAndOils.forEach((fuelsAndOil)=>{ %>
-                        <tr>
+                        <tr class="text-center tr">
                             <td>
-                                <div style="padding: 2%;">
+                                <div style="padding-left: 1%;">
                                     <%=fuelsAndOil.combustible%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.enero%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.febrero%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.marzo%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.abril%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.mayo%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.junio%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.julio%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.agosto%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.septiembre%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.octubre%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.noviembre%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
+                                <div>
                                     <%=fuelsAndOil.diciembre%>
                                 </div>
                             </td>
                             <td>
-                                <div style="padding: 2%;">
-                                    <%=fuelsAndOil.total%>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="padding: 2%;">
-                                    none
+                                <div>
+                                    <%=fuelsAndOil.emision%>
                                 </div>
                             </td>
                             <td>
@@ -151,6 +146,25 @@
                             </td>
                         </tr>
                         <% }) %>
+                        <td class="text-center">Total</td>
+                        <td class="text-center"><%=enero%></td>
+                        <td class="text-center"><%=febrero%></td>
+                        <td class="text-center"><%=marzo%></td>
+                        <td class="text-center"><%=abril%></td>
+                        <td class="text-center"><%=mayo%></td>
+                        <td class="text-center"><%=junio%></td>
+                        <td class="text-center"><%=julio%></td>
+                        <td class="text-center"><%=agosto%></td>
+                        <td class="text-center"><%=septiembre%></td>
+                        <td class="text-center"><%=octubre%></td>
+                        <td class="text-center"><%=noviembre%></td>
+                        <td class="text-center"><%=diciembre%></td>
+                            <td>
+                                <div class="text-center">
+                                    <%=sumatoria%>
+                                </div>
+                            </td>
+
                 </tbody>
             </table>
 
