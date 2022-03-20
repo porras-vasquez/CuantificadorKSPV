@@ -38,6 +38,36 @@ function calc(req) {
     );
 };
 
+function calcTotal(id){
+    Electricity.findOne({ _id: id }).exec(function (
+        err,
+        electricity
+    ) {
+        if (electricity) {
+            var m = 0;
+            for (var x of electricity.medidor) {
+                m = parseFloat(m) + parseFloat(x.total);
+            }
+            console.log(m);
+            Electricity.findByIdAndUpdate(
+                id,
+                {
+                    $set: {
+                        total: m
+                    },
+                },
+                { new: true },
+                function (err, electricity) {
+                    if (err) {
+
+                    } else {
+                    }
+                }
+            );
+        }
+    });
+}
+
 //Método para guardar reportes de electricidad
 electricityController.save = async function (req, res) {
     req.body.total = 0;
@@ -310,6 +340,7 @@ electricityController.addMeter = function (req, res) {
                     }
                 });
             } else {
+                calcTotal(req.params._id);
                 Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
                     if (err) {
                         verifyStatus(res.statusCode);
@@ -388,36 +419,39 @@ electricityController.updateMeter = function (req, res) {
         },
         { new: true },
         function (err, electricity) {
-            Electricity.findOne({ _id: req.params.elec }).exec(function (
-                err,
-                electric
-            ) {
-                if (electric) {
-                    var m;
-                    for (var x of electric.medidor) {
-                        if (req.params.meter == x._id) {
-                            m = x;
+            if(electricity){
+                calcTotal(req.params.elec);
+                Electricity.findOne({ _id: req.params.elec }).exec(function (
+                    err,
+                    electric
+                ) {
+                    if (electric) {
+                        var m;
+                        for (var x of electric.medidor) {
+                            if (req.params.meter == x._id) {
+                                m = x;
+                            }
                         }
+                        verifyStatus(res.statusCode);
+                        res.render("../views/electricity/AllMeters", {
+                            message: message,
+                            electricity: electric,
+                            company: electric.company,
+                            meter: m,
+                            status: status
+                        });
+                    } else {
+                        verifyStatus(res.statusCode);
+                        res.render("../views/electricity/AllMeters", {
+                            message: message,
+                            electricity: electric,
+                            company: electric.company,
+                            meter: req.body,
+                            status: status
+                        });
                     }
-                    verifyStatus(res.statusCode);
-                    res.render("../views/electricity/AllMeters", {
-                        message: message,
-                        electricity: electric,
-                        company: electric.company,
-                        meter: m,
-                        status: status
-                    });
-                } else {
-                    verifyStatus(res.statusCode);
-                    res.render("../views/electricity/AllMeters", {
-                        message: message,
-                        electricity: electric,
-                        company: electric.company,
-                        meter: req.body,
-                        status: status
-                    });
-                }
-            });
+                });
+            }
         }
     );
 };
@@ -467,6 +501,7 @@ electricityController.deleteMeter = function (req, res) {
                 }
             });
         } else {
+            calcTotal(req.params.elec);
             Electricity.findOne({ _id: req.params.elec }).exec(function (err, electricity) {
                 if (err) {
                     verifyStatus(res.statusCode);
