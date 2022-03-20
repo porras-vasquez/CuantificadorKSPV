@@ -123,6 +123,8 @@ electricityController.update = function (req, res) {
                 fuente_reporte: req.body.fuente_reporte,
                 ultima_update: req.body.ultima_update,
                 factor_emision: req.body.factor_emision,
+                gei: req.body.gei,
+                pcg: req.body.pcg,
             },
         },
         { new: true },

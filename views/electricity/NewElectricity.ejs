@@ -56,11 +56,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="row text-dark table-responsive table-container"
+            <div class="row text-dark table-container"
                 style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                <form action="/electricities/saveElectricity/<%=company._id%>" method="post" class="newElectricity" style="margin-left: 5%;">
+                <form action="/electricities/saveElectricity/<%=company._id%>" method="post" class="newElectricity row" style="margin-left: 5%;">
                     <h2 style="margin-bottom: 1%;">Módulo Electricidad: Agregar</h2>
-                    <div class="col-6">
+                    <div class="col-3">
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Titulo</label>
                             <input type="text" name="titulo" class="form-control" required />
@@ -71,8 +71,19 @@
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Unidad de medida</label>
-                            <input type="text" name="unidad_medida" class="form-control" required />
+                            <select name="unidad_medida" class="form-select" aria-label="Default select example">
+                                <option disabled selected value="">Seleccione</option>
+                                <option value="Kilowatts">Kilowatts</option>
+                            </select>
                         </div>
+                        <div class="btnContainer mb-4" style="margin-top: 5%;">
+                            <input type="submit" onclick="removeMessage()" name="CompanyController" class="btn btn-success" value="Guardar">
+                            <button type="button" class="btn btn-danger">
+                                <a href="/electricities/electricities/<%=company._id%>" type="button">Cancelar</a>
+                            </button>
+                        </div>
+                    </div> 
+                    <div class="col-3">
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Ultima actualización</label>
                             <input type="date" id="start" name="ultima_update" value="yyyy-mm-dd" class="form-control" required/>
@@ -81,13 +92,17 @@
                             <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
                             <input type="text" name="factor_emision" class="form-control" required />
                         </div>
-                        <div class="btnContainer mb-4">
-                            <input type="submit" onclick="removeMessage()" name="CompanyController" class="btn btn-success" value="Guardar">
-                            <button type="button" class="btn btn-danger">
-                                <a href="/electricities/electricities/<%=company._id%>" type="button">Cancelar</a>
-                            </button>
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Datos emisión general</label>
+                            <select name="gei" aria-placeholder="GEI" class="form-select" aria-label="Default select example">
+                                <option value="" disabled selected>Seleccione el GEI</option>
+                                <option value="CO2">CO2</option>
+                            </select>
                         </div>
-                    </div> 
+                        <div class="mb-2">
+                            <input type="number" step="0.001" min="0" autocomplete="off" placeholder="PCG" name="pcg" class="form-control" />
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>   

@@ -9,6 +9,8 @@ const ElectricitySchema = new Schema({
     fuente_reporte: String,
     ultima_update: String,
     factor_emision: String,
+    gei: String,
+    pcg: String,
     total: String,
     //total: Number,
     company: {
