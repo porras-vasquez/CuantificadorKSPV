@@ -22,6 +22,8 @@ const FuelsAndOilSchema = new Schema({
     noviembre: String,
     diciembre: String,
     emision: String,
+    gei: String,
+    pcg: String,
 });
 
 module.exports = mongoose.model('FuelsAndOil', FuelsAndOilSchema);
