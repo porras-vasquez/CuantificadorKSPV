@@ -51,7 +51,8 @@
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
-                            <input class="form-control"  type="text" name="factor_emision" value="<%=electricity.factor_emision%>" required/>
+                            <input class="form-control" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" type="text" name="factor_emision" value="<%=electricity.factor_emision%>" required/>
                         </div>
                         <div class="btnContainer mb-4">
                             <button class="btn btn-success" onclick="removeMessage()" type="submit">Actualizar</button>

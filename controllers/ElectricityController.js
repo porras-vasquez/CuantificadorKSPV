@@ -29,6 +29,15 @@ function verifyStatus(statusCode){
     }
 }
 
+function calc(req) {
+    req.body.total = (
+        parseFloat(req.body.enero) + parseFloat(req.body.febrero) + parseFloat(req.body.marzo)
+        + parseFloat(req.body.abril) + parseFloat(req.body.mayo) + parseFloat(req.body.junio) 
+        + parseFloat(req.body.julio) + parseFloat(req.body.agosto) + parseFloat(req.body.septiembre) 
+        + parseFloat(req.body.octubre) + parseFloat(req.body.noviembre) + parseFloat(req.body.diciembre)
+    );
+};
+
 //Método para guardar reportes de electricidad
 electricityController.save = async function (req, res) {
     req.body.total = 0;
@@ -254,7 +263,7 @@ electricityController.renderPageNewMeter = function (req, res) {
 };
 
 electricityController.addMeter = function (req, res) {
-    req.body.total = 0;
+    calc(req);
     Electricity.updateOne(
         { _id: req.params._id },
         {
@@ -354,6 +363,7 @@ electricityController.renderPageEditMeter = function (req, res) {
 };
 
 electricityController.updateMeter = function (req, res) {
+    calc(req);
     Electricity.updateOne(
         { _id: req.params.elec, "medidor._id": req.params.meter },
         {
@@ -372,7 +382,8 @@ electricityController.updateMeter = function (req, res) {
                 "medidor.$.septiembre": req.body.septiembre,
                 "medidor.$.octubre": req.body.octubre,
                 "medidor.$.noviembre": req.body.noviembre,
-                "medidor.$.diciembre": req.body.diciembre
+                "medidor.$.diciembre": req.body.diciembre,
+                "medidor.$.total": req.body.total
             },
         },
         { new: true },

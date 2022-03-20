@@ -59,9 +59,9 @@
             <% } %>            
             <div class="row text-dark table-container"
                 style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                <h1 class="title">Datos del medidor</h1>
                 <form action="/electricities/addMeter/<%=electricity._id%>/<%=electricity.company%>" method="post" 
                     class="newElectricity row" style="margin-left: 5%;">
+                    <h2 style="margin-bottom: 1%;">Módulo Electricidad: Agregar medidor</h2>
                     <div class="col-3">
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Número de medidor</label>
@@ -88,51 +88,63 @@
                         </h3>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label text">Enero</label>
-                            <input type="text" name="enero" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="enero" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Febrero</label>
-                            <input type="text" name="febrero" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="febrero" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Marzo</label>
-                            <input type="text" name="marzo" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="marzo" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Abril</label>
-                            <input type="text" name="abril" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="abril" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Mayo</label>
-                            <input type="text" name="mayo" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="mayo" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Junio</label>
-                            <input type="text" name="junio" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="junio" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Julio</label>
-                            <input type="text" name="julio" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="julio" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Agosto</label>
-                            <input type="text" name="agosto" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="agosto" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Septiembre</label>
-                            <input type="text" name="septiembre" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="septiembre" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Octubre</label>
-                            <input type="text" name="octubre" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="octubre" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Noviembre</label>
-                            <input type="text" name="noviembre" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="noviembre" class="textarea form-control" required/>
                         </div>
                         <div class="col-md-3 mb-1 text-center">
                             <label for="exampleInputEmail1" class="form-label">Diciembre</label>
-                            <input type="text" name="diciembre" class="textarea form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="diciembre" class="textarea form-control" required/>
                         </div>
                     </div>
                 </form>
