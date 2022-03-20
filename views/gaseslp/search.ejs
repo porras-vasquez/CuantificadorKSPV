@@ -15,8 +15,8 @@
                 <div class="col-3">
                     <div class="mb-2">
                         <label for="exampleInputEmail1" class="form-label">Unidad de medida</label>
-                        <select value="<%=gaslp.unidad%>" name="unidad" class="form-select" aria-label="Default select example">
-                            <option value="" disabled selected>Selecccione</option>
+                        <select value="" name="unidad" class="form-select" aria-label="Default select example">
+                            <option selected><%=gaslp.unidad%></option>
                             <option value="Kilogramo">Kilogramo</option>
                             <option value="Litro">Litro</option>
                             <option value="Otro">Otro</option>
@@ -41,7 +41,7 @@
                         <label for="exampleInputEmail1" class="form-label">Datos emisión general</label>
                         <select name="gei" aria-placeholder="GEI" class="form-select"
                             aria-label="Default select example">
-                            <option value="" disabled selected>Seleccione el GEI</option>
+                            <option selected><%=gaslp.gei%></option>
                             <option value="CO2">CO2</option>
                             <option value="CH4">CH4</option>
                             <option value="N20">N20</option>
