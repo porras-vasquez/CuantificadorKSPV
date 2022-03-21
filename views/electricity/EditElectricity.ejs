@@ -9,8 +9,8 @@
             localStorage.removeItem("message");
         }
     </script>
-    <body style="background-color: #f4ffec;">
-        <div class="card mt-2 mb-2x"
+    <body style="background-color: #f4ffec; height: 100vh !important;">
+        <div class="card mt-2"
             style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
             <div id="menu-container" class="menu-container">
                 <div id="menu" class="menu">
@@ -24,15 +24,14 @@
                         <ul class="list-group list-group-flush button">
                             <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista de reportes</a>
                         </ul>
-                        <div class="col-12 mb-5"></div>
                     </ul>
                 </div>
             </div>
-            <div class="row text-dark table-responsive table-container"
+            <div class="row text-dark table-container"
                 style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                <h1>Editar electricidad</h1>
-                <form action="/electricities/updateElectricity/<%=electricity._id%>" method="post">
-                    <div class="col-6">
+                <form action="/electricities/updateElectricity/<%=electricity._id%>" method="post" class="row" style="margin-left: 5%;">
+                    <h2 style="margin-bottom: 1%;">Módulo Electricidad: Editar</h2>
+                    <div class="col-3">
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Titulo</label>
                             <input class="form-control"  type="text" name="titulo" value="<%=electricity.titulo%>" required/>
@@ -49,16 +48,30 @@
                             <label for="exampleInputEmail1" class="form-label">Ultima actualización</label>
                             <input type="date" id="start" name="ultima_update" value="<%=electricity.ultima_update%>" class="form-control" required/>
                         </div>
+                        <div class="btnContainer mb-4" style="margin-top: 5%;">
+                            <button class="btn btn-success" onclick="removeMessage()" type="submit">Actualizar</button>
+                            <button class="btn btn-danger" type="button"><a href="/electricities/electricities/<%=electricity.company%>">Cancelar</a></button>
+                        </div>
+                    </div> 
+                    <div class="col-3">
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
                             <input class="form-control" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
                             oninput="this.setCustomValidity('')" autocomplete="off" type="text" name="factor_emision" value="<%=electricity.factor_emision%>" required/>
                         </div>
-                        <div class="btnContainer mb-4">
-                            <button class="btn btn-success" onclick="removeMessage()" type="submit">Actualizar</button>
-                            <button class="btn btn-danger" type="button"><a href="/electricities/electricities/<%=electricity.company%>">Cancelar</a></button>
+                        <div class="mb-2">
+                            <div style="margin-top: 5%;">
+                                <strong style="display: flex; justify-content: center;">Datos emisión general</strong>
+                            </div>
+                            <label for="exampleInputEmail1" class="form-label">GEI</label>
+                            <select name="gei" aria-placeholder="GEI" class="form-select" aria-label="Default select example">
+                                <option value="<%=electricity.gei%>" selected><%=electricity.gei%></option>
+                            </select>
+                            <label for="exampleInputEmail1" style="margin-top: 2%;" class="form-label">PCG</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=electricity.pcg%>" placeholder="PCG" name="pcg" class="form-control" />
                         </div>
-                    </div> 
+                    </div>
                 </form>
             </div>
         </div>
