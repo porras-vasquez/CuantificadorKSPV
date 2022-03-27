@@ -37,7 +37,8 @@ companyController.save = async function (req, res) {
         }
         else {
             verifyStatus(res.statusCode);
-            res.render('../views/company/NewCompany', { status: status, message: message });
+            return res.status(200).json('company created'); 
+            //res.render('../views/company/NewCompany', { status: status, message: message });
         }
 
     });
@@ -45,17 +46,24 @@ companyController.save = async function (req, res) {
 //Listar todos
 companyController.list = function (req, res) {
     Company.find({}).exec(function (err, companies) {
-        if (err) { console.log('Error: ', err); return; }
-        console.log("The INDEX");
-        res.render('../views/company/AllCompanies', { companies: companies });
+        if (err) {
+            res.render('../views/company/AllCompanies', { companies: companies });
+        }else{
+            return res.status(200).json("all companies sent");
+            //res.render('../views/company/AllCompanies', { companies: companies });
+        }
     });
 };
 
 //Buscar
 companyController.search = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
-        if (err) { console.log('Error: ', err); return; }
-        res.render('../views/company/search', { company: company });
+        if (err) {
+            res.render('../views/company/search', { company: company });
+        }else{
+            return res.json("Company 622c2682e592c22e5044c81b found");
+            //res.render('../views/company/search', { company: company });
+        }    
     });
 };
 
@@ -111,7 +119,8 @@ companyController.delete = function (req, res) {
                 if (err) { 
                     res.render('../views/company/AllCompanies', { companies: companies, status: status, message: message });
                 }else{
-                    res.render('../views/company/AllCompanies', { companies: companies, status: status, message: message });
+                    return res.json("Company deleted!");
+                    //res.render('../views/company/AllCompanies', { companies: companies, status: status, message: message });
                 }
             });
         }
