@@ -57,6 +57,7 @@ userController.list = function(req, res) {
         if (err) { 
             res.render('../views/users/AllUsers', { users: users });
         }else{
+            //return res.json("all users sent");
             res.render('../views/users/AllUsers', { users: users });
         }
     });
@@ -64,11 +65,18 @@ userController.list = function(req, res) {
 
 userController.search = function(req, res) {
     User.findOne({ _id: req.params.id }).exec(function(err, user) {
-        if (err) {         
+        if (err) {  
+           // return res.status(404).json("User not found");       
             res.render('../views/users/search', { user: user });
+
         }else{
+           // return res.json("User 62203979f485525b84be6132 found");
             res.render('../views/users/search', { user: user });
+
         }
+
+
+
     });
 
 };

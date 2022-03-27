@@ -2,13 +2,15 @@ const request = require('supertest')
 const app = require('../app')
 
 /*SHOW*/
-it('respond with json containing a list of all users', () =>{
+it('respond with json containing a list of all users', (done) =>{
     request(app)
     .get('/users/show')
         .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
-                .expect(200);
+                .expect(200, done);
 });
+
+
 /*ADD*/
 /*it('save all the information of user', () =>{
     request(app)
