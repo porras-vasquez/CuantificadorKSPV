@@ -1,7 +1,8 @@
-const request = require('supertest')
+const request = require('supertest');
+const { set } = require('../app');
 const app = require('../app')
 
-/*SHOW*/
+/*SHOW test que muestra todos los datos*/
 it('respond with json containing a list of all users', (done) =>{
     request(app)
     .get('/users/show')
@@ -9,21 +10,39 @@ it('respond with json containing a list of all users', (done) =>{
             .expect('Content-Type', /json/)
                 .expect(200, done);
 });
-
-
-/*ADD*/
-/*it('save all the information of user', () =>{
+/* Test para realizar una busqueda*/
+it("respond with json containing a single user", (done)=>{
     request(app)
-    .save('/users/show')
+    .get('/users/search/62203979f485525b84be6132')
         .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
-                .expect(200);
+                .expect(200, done);
 });
+/** test para guardar informacion */
+it('save all the information of user', done =>{
 
-it("should be able to add and complete TODOs", function() {
-    let todos = new Todos();
-    todos.add("get up from bed");
-    todos.add("make up bed");
-    assert.strictEqual(todos.list().length, 0);
-});*/
+    const data = {
+        username: 'test',
+        password: '1234',
+        email: 'test@test'
+    }
+    request(app)
+    .post('/users/save')
+        .send(data)
+            .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                    .expect(200)
+                        .end(err =>{
+                            if(err) return done(err);
+                            done();
+                        });
+});
+/** test para eliminar */
+it("delete user", (done)=>{
+    request(app)
+    .post('/users/delete/624010a65d14130d90adb256')
+        .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+                .expect(200, done);
+});
 

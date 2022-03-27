@@ -29,6 +29,7 @@ function verifyStatus(statusCode){
 }
 
 userController.save = async function(req, res) {
+   // const {username, password, email}= req.body;
     var user = new User(req.body);
     user.password = await user.encryptPassword(req.body.password);
     console.log(user.password);
@@ -38,12 +39,14 @@ userController.save = async function(req, res) {
                 res.render('../views/users/NewUser', { message : "El nombre de usuario ingresado ya ha sido utilizado por otro usuario", status: 406 });
             }else if(err.errors.email){
                 res.render('../views/users/NewUser', { message : "El email ingresado ya ha sido utilizado por otro usuario", status: 406 });
-            } else{       
+            } else{    
+
                 verifyStatus(res.statusCode);  
                 res.render('../views/users/NewUser', { message : message, status: status });
             }
         }
         else{
+           // return res.status(200).json('user created'); 
             verifyStatus(res.statusCode);
             res.render('../views/users/NewUser', { message : message, status: status});
         }
@@ -129,6 +132,7 @@ userController.delete = function(req, res) {
                 if (err) { 
                     res.render('../views/users/AllUsers', { users: users, message: message, status: status});
                 }else{
+                   // return res.json("User deleted!");
                     res.render('../views/users/AllUsers', { users: users, message: message, status: status});
                 }
             });
