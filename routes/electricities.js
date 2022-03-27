@@ -12,7 +12,9 @@ router.get('/createElectricity',isAuthenticated, function(req, res) {
 //RENDERIZAN PÁGINAS
 router.get('/electricity/:id',isAuthenticated, electricityController.renderPageNewElectricity);
 router.get('/editElectricity/:id', isAuthenticated, electricityController.renderPageEditElectricity);
-router.get('/electricities/:id', isAuthenticated, electricityController.renderPageAllElectricites);
+router.get('/electricities/:id', isAuthenticated, electricityController.renderPageAllElectricites, (req, res) =>{
+    return res.json("all electricity sent"); 
+});
 router.get('/newMeter/:id/:comp', isAuthenticated, electricityController.renderPageNewMeter);
 router.get('/editMeter/:elec/:meter', isAuthenticated, electricityController.renderPageEditMeter);
 router.get('/meters/:id', isAuthenticated, electricityController.renderPageAllMeters);

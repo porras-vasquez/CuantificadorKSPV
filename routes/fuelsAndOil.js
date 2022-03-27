@@ -9,7 +9,9 @@ router.get('/createFuelsAndOil', function(req, res) {
     res.render('../views/fuelsAndOil/NewFuelsAndOil');
 });
 router.get('/fuelsAndOilsearchcompany/:id',isAuthenticated, fuelsAndOilController.searchCompany);
-router.get('/fuelsAndOilShow/:id', isAuthenticated, fuelsAndOilController.list);
+router.get('/fuelsAndOilShow/:id', isAuthenticated, fuelsAndOilController.list, (req, res) =>{
+    return res.json("all fuelandoil sent"); 
+});
 router.get('/searchFuelsAndOil/:id', isAuthenticated, fuelsAndOilController.search);
 
 router.post('/saveFuelsAndOil/:id',isAuthenticated, fuelsAndOilController.save);
