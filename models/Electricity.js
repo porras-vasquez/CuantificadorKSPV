@@ -12,7 +12,6 @@ const ElectricitySchema = new Schema({
     gei: String,
     pcg: String,
     total: String,
-    //total: Number,
     company: {
         type: Schema.Types.ObjectId,
         ref: 'Company'
