@@ -94,6 +94,7 @@ electricityController.save = async function (req, res) {
                     });
                 } else {
                     verifyStatus(res.statusCode);
+                    //return res.status(200).json('electricity created'); 
                     res.render("../views/electricity/NewElectricity", {
                         status: status,
                         company: company,
@@ -127,6 +128,7 @@ electricityController.renderPageAllElectricites = function (req, res) {
                     company: company._id,
                 });
             } else {
+                //return res.status(200).json("all electricities sent");
                 res.render("../views/electricity/AllElectricities", {
                     electricities: company.electricidad,
                     company: company._id,
@@ -144,6 +146,7 @@ electricityController.renderPageEditElectricity = function (req, res) {
                 company: electricity.company,
             });
         } else {
+            //return res.json("Electricity 623690133929f43a5ce4a1d8 found");
             res.render("../views/electricity/EditElectricity", {
                 electricity: electricity,
                 company: electricity.company,
@@ -258,6 +261,7 @@ electricityController.delete = function (req, res) {
                                     status: status
                                 });
                             } else {
+                                //return res.json("Electricity deleted!");
                                 verifyStatus(res.statusCode);
                                 res.render("../views/electricity/AllElectricities", {
                                     company: company,
@@ -352,6 +356,7 @@ electricityController.addMeter = function (req, res) {
                         });
                     } else {
                         verifyStatus(res.statusCode);
+                        //return res.status(200).json('Meter created');
                         res.render("../views/electricity/NewMeter", {
                             company: electricity.company,
                             electricity: electricity,
@@ -384,6 +389,7 @@ electricityController.renderPageEditMeter = function (req, res) {
                     m = x;
                 }
             }
+            //return res.json("Meter 6236c47570128e323c51b05c found");
             res.render("../views/electricity/EditMeter", {
                 electricity: electricity,
                 company: electricity.company,
@@ -464,6 +470,7 @@ electricityController.renderPageAllMeters = function (req, res) {
                 company: electricity.company,
             });
         } else {
+            //return res.status(200).json("all meters sent");
             res.render("../views/electricity/AllMeters", {
                 electricity: electricity,
                 company: electricity.company,
@@ -513,6 +520,7 @@ electricityController.deleteMeter = function (req, res) {
                     });
                 } else {
                     verifyStatus(res.statusCode);
+                    //return res.json("Meter deleted!");
                     res.render("../views/electricity/AllMeters", {
                         message: message,
                         electricity: electricity,

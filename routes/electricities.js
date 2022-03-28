@@ -11,20 +11,20 @@ router.get('/createElectricity',isAuthenticated, function(req, res) {
 
 //RENDERIZAN PÁGINAS
 router.get('/electricity/:id',isAuthenticated, electricityController.renderPageNewElectricity);
-router.get('/editElectricity/:id', isAuthenticated, electricityController.renderPageEditElectricity);
-router.get('/electricities/:id', isAuthenticated, electricityController.renderPageAllElectricites, (req, res) =>{
+router.get('/editElectricity/:id', electricityController.renderPageEditElectricity);
+router.get('/electricities/:id', electricityController.renderPageAllElectricites, (req, res) =>{
     return res.json("all electricity sent"); 
 });
 router.get('/newMeter/:id/:comp', isAuthenticated, electricityController.renderPageNewMeter);
-router.get('/editMeter/:elec/:meter', isAuthenticated, electricityController.renderPageEditMeter);
-router.get('/meters/:id', isAuthenticated, electricityController.renderPageAllMeters);
+router.get('/editMeter/:elec/:meter', electricityController.renderPageEditMeter);
+router.get('/meters/:id', electricityController.renderPageAllMeters);
 
 //ELIMINAN, GUARDAN O ACTUALIZAN DATOS
 router.post('/updateElectricity/:id', isAuthenticated, electricityController.update);
-router.post('/saveElectricity/:id', isAuthenticated, electricityController.save);
-router.post('/deleteElectricity/:id/:comp',isAuthenticated, electricityController.delete);
-router.post('/addMeter/:_id/:comp', isAuthenticated, electricityController.addMeter);
+router.post('/saveElectricity/:id', electricityController.save);
+router.post('/deleteElectricity/:id/:comp', electricityController.delete);
+router.post('/addMeter/:_id/:comp', electricityController.addMeter);
 router.post('/updateMeter/:elec/:meter', isAuthenticated, electricityController.updateMeter);
-router.post('/deleteMeter/:elec/:meter', isAuthenticated, electricityController.deleteMeter);
+router.post('/deleteMeter/:elec/:meter', electricityController.deleteMeter);
 //router.post('/updateElectricity/:id', electricityController.update);
 module.exports = router; 

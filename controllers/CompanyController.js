@@ -37,8 +37,8 @@ companyController.save = async function (req, res) {
         }
         else {
             verifyStatus(res.statusCode);
-            return res.status(200).json('company created'); 
-            //res.render('../views/company/NewCompany', { status: status, message: message });
+            //return res.status(200).json('company created'); 
+            res.render('../views/company/NewCompany', { status: status, message: message });
         }
 
     });
@@ -49,8 +49,8 @@ companyController.list = function (req, res) {
         if (err) {
             res.render('../views/company/AllCompanies', { companies: companies });
         }else{
-            return res.status(200).json("all companies sent");
-            //res.render('../views/company/AllCompanies', { companies: companies });
+            //return res.status(200).json("all companies sent");
+            res.render('../views/company/AllCompanies', { companies: companies });
         }
     });
 };
@@ -61,8 +61,8 @@ companyController.search = function (req, res) {
         if (err) {
             res.render('../views/company/search', { company: company });
         }else{
-            return res.json("Company 622c2682e592c22e5044c81b found");
-            //res.render('../views/company/search', { company: company });
+            //return res.json("Company 622c2682e592c22e5044c81b found");
+            res.render('../views/company/search', { company: company });
         }    
     });
 };
@@ -119,8 +119,8 @@ companyController.delete = function (req, res) {
                 if (err) { 
                     res.render('../views/company/AllCompanies', { companies: companies, status: status, message: message });
                 }else{
-                    return res.json("Company deleted!");
-                    //res.render('../views/company/AllCompanies', { companies: companies, status: status, message: message });
+                    //return res.json("Company deleted!");
+                    res.render('../views/company/AllCompanies', { companies: companies, status: status, message: message });
                 }
             });
         }
