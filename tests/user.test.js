@@ -46,3 +46,16 @@ it("delete user", (done)=>{
                 .expect(200, done);
 });
 
+it('update all the information of user', (done) =>{
+    const data = {
+        username: 'testUpdated',
+        email: 'test@test'
+    }
+    request(app)
+    .post('/users/update/624099dee7a7961238bc446e')
+        .send(data)
+            .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                    .expect(200, done);
+});
+

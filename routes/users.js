@@ -18,6 +18,6 @@ router.get('/search/:id', userController.search);
 router.get('/show', userController.list);
 router.post('/save', userController.save);
 router.post('/delete/:id', userController.delete);
-router.post('/update/:id',isAuthenticated, userController.update);
+router.post('/update/:id', userController.update);
 /** Para realizar los test es necesario quitar 'isAuthenticated' para poder acceder a los metodos */
 module.exports = router;
