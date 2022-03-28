@@ -107,7 +107,8 @@ userController.update = function(req, res) {
                     if (err) { 
                         res.render('../views/users/AllUsers', { users: users, message: message, status: status});
                     }else{
-                        res.render('../views/users/AllUsers', { users: users, message: message, status: status});
+                    //return res.json("all users updated");
+                       res.render('../views/users/AllUsers', { users: users, message: message, status: status});
                     }
                 });
             }

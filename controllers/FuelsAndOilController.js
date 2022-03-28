@@ -23,6 +23,7 @@ function calc(req){
     }
 };
 FuelsAndOilController.save = async function(req, res) {
+    const {combustible, enero, febrero, marzo, abril, junio, julio, agosto, septiembre, octubre, noviembre, diciembre, emision, gei, pcg}= req.body; //
     calc(req);
     var fuelsAndOil = new FuelsAndOil(req.body);
     var comp = await Company.findById(req.params.id);
@@ -39,6 +40,7 @@ FuelsAndOilController.save = async function(req, res) {
                     res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : "error", company: company });
                 }
                 else{
+                //    return res.status(200).json('fuels and oil created'); 
                     res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : "success", company: company });
                 }
             });
@@ -103,6 +105,7 @@ FuelsAndOilController.list = function(req, res) {
                     diciembre: diciembre,
                 });
             } else {
+            //    return res.json("all fuels and oil updated");
                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                     fuelsAndOils: company.fuelsAndOil,
                     company: company._id,
@@ -126,12 +129,13 @@ FuelsAndOilController.list = function(req, res) {
 FuelsAndOilController.search = function (req, res) {
     FuelsAndOil.findOne({ _id: req.params.id }).exec(function (err, fuelsAndOil) {
         if (err) {
-            console.log("Error: ", err);
+        //    return res.status(404).json("Fuel and oil not found"); 
             res.render("../views/fuelsAndOil/search", {
                 fuelsAndOil: fuelsAndOil,
                 company: fuelsAndOil.company,
             });
         } else {
+        //    return res.json("FuelsAndOil 62203979f485525b84be6132 found"); 
             res.render("../views/fuelsAndOil/search", {
                 fuelsAndOil: fuelsAndOil,
                 company: fuelsAndOil.company,
@@ -168,8 +172,6 @@ FuelsAndOilController.update = function (req, res) {
           console.log(fuelsAndOils);
           console.log(fuelsAndOils.company);
           if (err) {
-              console.log("Error: ", err);
-
               Company.findOne({ _id: fuelsAndOils.company })
                   .populate("fuelsAndOil")
                   .exec(function (error, company) {
@@ -243,6 +245,7 @@ FuelsAndOilController.update = function (req, res) {
                       }
                   });
           } else {
+            //  return res.json("all fuels and oil updated");
               Company.findOne({ _id: fuelsAndOils.company })
                   .populate("fuelsAndOil")
                   .exec(function (error, company) {
@@ -451,6 +454,7 @@ FuelsAndOilController.delete = function (req, res) {
                                         diciembre: diciembre,
                                     });
                                 } else {
+                                //    return res.json("fuels and oil deleted!"); 
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
                                         message: "success",
