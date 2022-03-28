@@ -25,11 +25,11 @@ function calc(req) {
     }
 };
 gasesController.save = async function (req, res) {
+    //const {unidad,uso, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre ,diciembre, densidad, observacion, emision, gei, pcg,}= req.body; 
     calc(req);
     var gases = new Gaseslp(req.body);
     var comp = await Company.findById(req.params.id);
     gases.company = comp;
-    //console.log(comp);
     await gases.save(function (err, gas) {
         console.log(gas);
         if (err) {
@@ -42,6 +42,7 @@ gasesController.save = async function (req, res) {
                     res.render('../views/gaseslp/NewGas', { message: "error", company: company });
                 }
                 else {
+                  //  return res.status(200).json('gas created'); 
                     res.render('../views/gaseslp/NewGas', { message: "success", company: company });
                 }
             });
@@ -108,6 +109,7 @@ gasesController.list = function (req, res) {
 
                 });
             } else {
+              //  return res.json("all gases sent"); 
                 res.render("../views/gaseslp/AllGas", {
                     gases: company.gaslp,
                     company: company._id,
@@ -131,12 +133,13 @@ gasesController.list = function (req, res) {
 gasesController.search = function (req, res) {
     Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gaslp) {
         if (err) {
-            console.log("Error: ", err);
+           // return res.status(404).json("gas not found");  
             res.render("../views/gaseslp/search", {
                 gaslp: gaslp,
                 company: gaslp.company,
             });
         } else {
+          //  return res.json("Gaseslp 62203979f485525b84be6132 found");
             res.render("../views/gaseslp/search", {
                 gaslp: gaslp,
                 company: gaslp.company,
@@ -171,8 +174,6 @@ gasesController.update = function (req, res) {
         },
         { new: true },
         function (err, gases) {
-            console.log(gases);
-            console.log(gases.company);
             if (err) {
                 console.log("Error: ", err);
 
@@ -248,6 +249,7 @@ gasesController.update = function (req, res) {
                         }
                     });
             } else {
+              //  return res.json("all gases updated"); 
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
@@ -301,6 +303,7 @@ gasesController.update = function (req, res) {
                                 diciembre: diciembre,
                             });
                         } else {
+                            //return res.json("all gases updated"); 
                             res.render("../views/gaseslp/AllGas", {
                                 message: "success",
                                 gases: company.gaslp,
@@ -458,6 +461,7 @@ gasesController.delete = function (req, res) {
                                     diciembre: diciembre,
                                 });
                             } else {
+                                //return res.json("gas deleted!");
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
                                     message: "success",

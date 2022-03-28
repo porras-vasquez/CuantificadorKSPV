@@ -45,7 +45,7 @@ it("delete user", (done)=>{
             .expect('Content-Type', /json/)
                 .expect(200, done);
 });
-
+/** test para actualizar */
 it('update all the information of user', (done) =>{
     const data = {
         username: 'testUpdated',
