@@ -12,9 +12,9 @@ router.get('/fuelsAndOilsearchcompany/:id',isAuthenticated, fuelsAndOilControlle
 router.get('/fuelsAndOilShow/:id', isAuthenticated, fuelsAndOilController.list, (req, res) =>{
     return res.json("all fuelandoil sent"); 
 });
-router.get('/searchFuelsAndOil/:id', isAuthenticated, fuelsAndOilController.search);
+router.get('/searchFuelsAndOil/:id',/**/ isAuthenticated, fuelsAndOilController.search);
 
-router.post('/saveFuelsAndOil/:id',isAuthenticated, fuelsAndOilController.save);
-router.post('/updateFuelsAndOil/:id', isAuthenticated, fuelsAndOilController.update);
-router.post('/deleteFuelsAndOil/:id/:comp', isAuthenticated, fuelsAndOilController.delete);
+router.post('/saveFuelsAndOil/:id',/**/isAuthenticated, fuelsAndOilController.save);
+router.post('/updateFuelsAndOil/:id',/**/ isAuthenticated, fuelsAndOilController.update);
+router.post('/deleteFuelsAndOil/:id/:comp',/**/ isAuthenticated, fuelsAndOilController.delete);
 module.exports = router;

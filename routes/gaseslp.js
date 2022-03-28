@@ -14,6 +14,6 @@ router.get('/gasesshow/:id', isAuthenticated, gasesController.list);
 
 //ELIMINAN, GUARDAN O ACTUALIZAN DATOS
 router.post('/saveGas/:id', /**/isAuthenticated, gasesController.save);
-router.post('/updateGases/:id', /*isAuthenticated,*/ gasesController.update);
+router.post('/updateGases/:id', /**/isAuthenticated, gasesController.update);
 router.post('/deleteGases/:id/:comp', /**/isAuthenticated, gasesController.delete);
 module.exports = router; 

@@ -175,8 +175,6 @@ gasesController.update = function (req, res) {
         { new: true },
         function (err, gases) {
             if (err) {
-                console.log("Error: ", err);
-
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
