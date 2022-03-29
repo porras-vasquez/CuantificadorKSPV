@@ -56,8 +56,8 @@
                     <div class="col-3">
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
-                            <input class="form-control" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" type="text" name="factor_emision" value="<%=electricity.factor_emision%>" required/>
+                            <input class="form-control" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" type="text" name="factor_emision" value="<%=electricity.factor_emision%>" required="true"/>
                         </div>
                         <div class="mb-2">
                             <div style="margin-top: 5%;">
@@ -68,8 +68,8 @@
                                 <option value="<%=electricity.gei%>" selected><%=electricity.gei%></option>
                             </select>
                             <label for="exampleInputEmail1" style="margin-top: 2%;" class="form-label">PCG</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=electricity.pcg%>" placeholder="PCG" name="pcg" class="form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=electricity.pcg%>" placeholder="PCG" name="pcg" class="form-control" required="true"/>
                         </div>
                     </div>
                 </form>

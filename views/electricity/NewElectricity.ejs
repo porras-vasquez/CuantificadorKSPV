@@ -90,8 +90,8 @@
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="factor_emision" class="form-control" required />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" name="factor_emision" class="form-control" required="true" />
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Datos emisión general</label>
@@ -101,8 +101,8 @@
                             </select>
                         </div>
                         <div class="mb-2">
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" placeholder="PCG" name="pcg" class="form-control" />
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" placeholder="PCG" name="pcg" class="form-control" required="true"/>
                         </div>
                     </div>
                 </form>
