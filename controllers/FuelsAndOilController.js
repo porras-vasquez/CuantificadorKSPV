@@ -4,6 +4,30 @@ const Company = require("../models/Company");
 const FuelsAndOil = require('../models/FuelsAndOil');
 const { clearCache } = require('ejs');
 var FuelsAndOilController = {};
+var status = 0;
+var message="";
+
+function verifyStatus(statusCode){
+    if(statusCode==200){//Satisfactorio
+        status=200;
+        message="¡Realizado exitosamente!";
+    }else if(statusCode==400){//Solicitud incorrecta
+        status=400;
+        message="¡Error, solicitud incorrecta!";
+    }else if(statusCode==401){//No autenticado
+        status=401;
+        message="¡Error, usuario no autenticado!";
+    }else if(statusCode==404){//No encontrado
+        status=404;
+        message="¡Ocurrió un problema con la ruta de acceso!";
+    }else if(statusCode==500){//Error del servidor
+        status=500;
+        message="¡Lo sentimos, ocurrió un problema con el servidor!";
+    }else if(statusCode==503){//Mantenimiento
+        status=503;
+        message="¡Lo sentimos, el servidor se encuentra en mantenimiento!";
+    }
+}
 
 function calc(req){
     let en = parseFloat(req.body.enero)
@@ -31,17 +55,20 @@ FuelsAndOilController.save = async function(req, res) {
     console.log(req.body.total);
     await fuelsAndOil.save(function(err, fuels) {
         if (err) { 
-            res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : "error", company: fuels.company._id });
+            verifyStatus(res.statusCode);
+            res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : message, company: fuels.company._id, status: status });
         }
         else{
             comp.fuelsAndOil.push(fuels);
             comp.save(function(err, company){
                 if (err) { 
-                    res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : "error", company: company });
+                    verifyStatus(res.statusCode);
+                    res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : message, company: company, status: status });
                 }
                 else{
+                    verifyStatus(res.statusCode);
                 //    return res.status(200).json('fuels and oil created'); 
-                    res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : "success", company: company });
+                    res.render('../views/fuelsAndOil/NewfuelsAndOil', { message : message, company: company, status: status });
                 }
             });
         }
@@ -175,6 +202,7 @@ FuelsAndOilController.update = function (req, res) {
               Company.findOne({ _id: fuelsAndOils.company })
                   .populate("fuelsAndOil")
                   .exec(function (error, company) {
+                    verifyStatus(res.statusCode);
                     var sumatoria = 0;
                     var enero = 0;
                     var febrero = 0;
@@ -205,8 +233,9 @@ FuelsAndOilController.update = function (req, res) {
                     }
 
                       if (error) {
+                        verifyStatus(res.statusCode);
                           res.render("../views/fuelsAndOil/AllFuelsAndOil", {
-                              message: "error",
+                              message: message,
                               fuelsAndOils: company.fuelsAndOil,
                               company: company._id,
                               sumatoria: sumatoria,
@@ -222,10 +251,12 @@ FuelsAndOilController.update = function (req, res) {
                               octubre: octubre,
                               noviembre: noviembre,
                               diciembre: diciembre,
+                              status: status
                           });
                       } else {
+                        verifyStatus(res.statusCode);
                           res.render("../views/fuelsAndOil/AllFuelsAndOil", {
-                              message: "success",
+                              message: message,
                               fuelsAndOils: company.fuelsAndOil,
                               company: company._id,
                               sumatoria: sumatoria,
@@ -241,6 +272,7 @@ FuelsAndOilController.update = function (req, res) {
                               octubre: octubre,
                               noviembre: noviembre,
                               diciembre: diciembre,
+                              status: status
                           });
                       }
                   });
@@ -280,8 +312,9 @@ FuelsAndOilController.update = function (req, res) {
                     console.log(error);
                     console.log(company);
                       if (error) {
+                        verifyStatus(res.statusCode);
                           res.render("../views/fuelsAndOil/AllFuelsAndOil", {
-                              message: "error",
+                              message: message,
                               fuelsAndOils: company.fuelsAndOil,
                               company: company._id,
                               sumatoria: sumatoria,
@@ -297,10 +330,12 @@ FuelsAndOilController.update = function (req, res) {
                               octubre: octubre,
                               noviembre: noviembre,
                               diciembre: diciembre,
+                              status: status
                           });
                       } else {
+                        verifyStatus(res.statusCode);
                           res.render("../views/fuelsAndOil/AllFuelsAndOil", {
-                              message: "success",
+                              message: message,
                               fuelsAndOils: company.fuelsAndOil,
                               company: company._id,
                               sumatoria: sumatoria,

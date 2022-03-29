@@ -4,7 +4,11 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="background-color: #f4ffec;">
     <div class="mt-2 mb-2" style="margin-left: 5%; margin-right: 5%;">
         <form action="/fuelsAndOil/updateFuelsAndOil/<%=fuelsAndOil._id%>" method="post" class="newGas row "
@@ -99,7 +103,7 @@
                     oninput="this.setCustomValidity('')" autocomplete="off" value="<%=fuelsAndOil.diciembre%>" name="diciembre" class="textarea form-control" required="true"/>
                 </div>
             <div class="btnContainer mb-4" style="margin-left: 1.7%;">
-                <input type="submit"class="btn btn-success" value="Actualizar">
+                <input onclick="removeMessage()" type="submit"class="btn btn-success" value="Actualizar">
                 <button type="button" class="btn btn-danger">
                     <a href='/fuelsAndOil/fuelsAndOilShow/<%=company._id%>'>Cancelar</a>
                 </button>
