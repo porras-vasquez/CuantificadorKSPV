@@ -351,6 +351,7 @@ FuelsAndOilController.update = function (req, res) {
                               octubre: octubre,
                               noviembre: noviembre,
                               diciembre: diciembre,
+                              status: status
                           });
                       }
                   });
@@ -398,9 +399,10 @@ FuelsAndOilController.delete = function (req, res) {
                                     diciembre = diciembre + parseFloat(x.diciembre);
                                 }
                                 if (error) {
+                                    verifyStatus(res.statusCode);
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
-                                        message: "error",
+                                        message: message,
                                         fuelsAndOils: company.fuelsAndOil,
                                         sumatoria: sumatoria,
                                         enero: enero,
@@ -415,11 +417,13 @@ FuelsAndOilController.delete = function (req, res) {
                                         octubre: octubre,
                                         noviembre: noviembre,
                                         diciembre: diciembre,
+                                        status: status
                                     });
                                 } else {
+                                    verifyStatus(res.statusCode);
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
-                                        message: "success",
+                                        message: message,
                                         fuelsAndOils: company.fuelsAndOil,
                                         sumatoria: sumatoria,
                                         enero: enero,
@@ -434,6 +438,7 @@ FuelsAndOilController.delete = function (req, res) {
                                         octubre: octubre,
                                         noviembre: noviembre,
                                         diciembre: diciembre,
+                                        status: status
                                     });
                                 }
                             });
@@ -470,9 +475,10 @@ FuelsAndOilController.delete = function (req, res) {
                                     diciembre = diciembre + parseFloat(x.diciembre);
                                 }
                                 if (error) {
+                                    verifyStatus(res.statusCode);
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
-                                        message: "error",
+                                        message: message,
                                         fuelsAndOils: company.fuelsAndOil,
                                         sumatoria: sumatoria,
                                         enero: enero,
@@ -487,12 +493,14 @@ FuelsAndOilController.delete = function (req, res) {
                                         octubre: octubre,
                                         noviembre: noviembre,
                                         diciembre: diciembre,
+                                        status: status
                                     });
                                 } else {
                                 //    return res.json("fuels and oil deleted!"); 
+                                    verifyStatus(res.statusCode);
                                     res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                         company: company,
-                                        message: "success",
+                                        message: message,
                                         fuelsAndOils: company.fuelsAndOil,
                                         sumatoria: sumatoria,
                                         enero: enero,
@@ -507,6 +515,7 @@ FuelsAndOilController.delete = function (req, res) {
                                         octubre: octubre,
                                         noviembre: noviembre,
                                         diciembre: diciembre,
+                                        status: status
                                     });
                                 }
                             });
