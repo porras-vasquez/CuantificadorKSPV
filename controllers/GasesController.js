@@ -150,7 +150,9 @@ gasesController.update = function (req, res) {
                 diciembre: req.body.diciembre,
                 densidad: req.body.densidad,
                 observacion: req.body.observacion,
-                emision: req.body.emision
+                emision: req.body.emision,
+                gei: req.body.gei,
+                pcg: req.body.pcg
             },
         },
         { new: true },
