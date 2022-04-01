@@ -4,7 +4,11 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+<script>
+    function removeMessage(){
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="background-color: #f4ffec;">
     <div class="card mt-2 mb-2x"
         style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">

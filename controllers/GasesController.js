@@ -4,6 +4,29 @@ const Gaseslp = require('../models/Gaseslp');
 const Company = require("../models/Company");
 const { clearCache } = require('ejs');
 var gasesController = {};
+var status = 0;
+var message = "";
+function verifyStatus(statusCode) {
+    if (statusCode == 200) {//Satisfactorio
+        status = 200;
+        message = "¡Realizado exitosamente!";
+    } else if (statusCode == 400) {//Solicitud incorrecta
+        status = 400;
+        message = "¡Error, solicitud incorrecta!";
+    } else if (statusCode == 401) {//No autenticado
+        status = 401;
+        message = "¡Error, usuario no autenticado!";
+    } else if (statusCode == 404) {//No encontrado
+        status = 404;
+        message = "¡Ocurrió un problema con la ruta de acceso!";
+    } else if (statusCode == 500) {//Error del servidor
+        status = 500;
+        message = "¡Lo sentimos, ocurrió un problema con el servidor!";
+    } else if (statusCode == 503) {//Mantenimiento
+        status = 503;
+        message = "¡Lo sentimos, el servidor se encuentra en mantenimiento!";
+    }
+}
 function calc(req) {
     if (parseFloat(req.body.densidad) > 0) {
         req.body.emision = (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
@@ -24,17 +47,20 @@ gasesController.save = async function (req, res) {
     gases.company = comp;
     await gases.save(function (err, gas) {
         if (err) {
-            res.render('../views/gaseslp/NewGas', { message: "error", company: gas.company._id });
+            verifyStatus(res.statusCode);
+            res.render('../views/gaseslp/NewGas', { message: message, company: gas.company._id, status: status });
         }
         else {
             comp.gaslp.push(gases);
             comp.save(function (err, company) {
                 if (err) {
-                    res.render('../views/gaseslp/NewGas', { message: "error", company: company });
+                    verifyStatus(res.statusCode);
+                    res.render('../views/gaseslp/NewGas', { message: message, company: company, status: status });
                 }
                 else {
+                    verifyStatus(res.statusCode);
                   //  return res.status(200).json('gas created'); 
-                    res.render('../views/gaseslp/NewGas', { message: "success", company: company });
+                    res.render('../views/gaseslp/NewGas', { message: message, company: company, status: status });
                 }
             });
         }
@@ -133,6 +159,7 @@ gasesController.update = function (req, res) {
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
+                        verifyStatus(res.statusCode);
                         var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
                         var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
                         for (var x of company.gaslp) {
@@ -143,24 +170,26 @@ gasesController.update = function (req, res) {
                             noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
                         }
                         if (error) {
+                            verifyStatus(res.statusCode);
                             res.render("../views/gaseslp/AllGas", {
-                                message: "error",
+                                message: message,
                                 gases: company.gaslp,
                                 company: company._id,
                                 sumatoria: sumatoria, enero: enero, febrero: febrero,
                                 marzo: marzo, abril: abril, mayo: mayo, junio: junio,
                                 julio: julio, agosto: agosto, septiembre: septiembre,
-                                octubre: octubre, noviembre: noviembre, diciembre: diciembre
+                                octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                             });
                         } else {
+                            verifyStatus(res.statusCode);
                             res.render("../views/gaseslp/AllGas", {
-                                message: "success",
+                                message: message,
                                 gases: company.gaslp,
                                 company: company._id,
                                 sumatoria: sumatoria, enero: enero, febrero: febrero,
                                 marzo: marzo, abril: abril, mayo: mayo, junio: junio,
                                 julio: julio, agosto: agosto, septiembre: septiembre,
-                                octubre: octubre, noviembre: noviembre, diciembre: diciembre
+                                octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                             });
                         }
                     });
@@ -178,28 +207,28 @@ gasesController.update = function (req, res) {
                             septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
                             noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
                         }
-                        console.log(error);
-                        console.log(company);
                         if (error) {
+                            verifyStatus(res.statusCode);
                             res.render("../views/gaseslp/AllGas", {
-                                message: "error",
+                                message: message,
                                 gases: company.gaslp,
                                 company: company._id,
                                 sumatoria: sumatoria, enero: enero, febrero: febrero,
                                 marzo: marzo, abril: abril, mayo: mayo, junio: junio,
                                 julio: julio, agosto: agosto, septiembre: septiembre,
-                                octubre: octubre, noviembre: noviembre, diciembre: diciembre
+                                octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                             });
                         } else {
+                            verifyStatus(res.statusCode);
                             //return res.json("all gases updated"); 
                             res.render("../views/gaseslp/AllGas", {
-                                message: "success",
+                                message: message,
                                 gases: company.gaslp,
                                 company: company._id,
                                 sumatoria: sumatoria, enero: enero, febrero: febrero,
                                 marzo: marzo, abril: abril, mayo: mayo, junio: junio,
                                 julio: julio, agosto: agosto, septiembre: septiembre,
-                                octubre: octubre, noviembre: noviembre, diciembre: diciembre
+                                octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                             });
                         }
                     });
@@ -230,24 +259,26 @@ gasesController.delete = function (req, res) {
                                 noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
                             }
                             if (error) {
+                                verifyStatus(res.statusCode);
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
-                                    message: "error",
+                                    message: message,
                                     gases: company.gaslp,
                                     sumatoria: sumatoria, enero: enero, febrero: febrero,
                                     marzo: marzo, abril: abril, mayo: mayo, junio: junio,
                                     julio: julio, agosto: agosto, septiembre: septiembre,
-                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
+                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                                 });
                             } else {
+                                verifyStatus(res.statusCode);
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
-                                    message: "success",
+                                    message: message,
                                     gases: company.gaslp,
                                     sumatoria: sumatoria, enero: enero, febrero: febrero,
                                     marzo: marzo, abril: abril, mayo: mayo, junio: junio,
                                     julio: julio, agosto: agosto, septiembre: septiembre,
-                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
+                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                                 });
                             }
                         });
@@ -265,25 +296,26 @@ gasesController.delete = function (req, res) {
                                 noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
                             }
                             if (error) {
+                                verifyStatus(res.statusCode);
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
-                                    message: "error",
+                                    message: message,
                                     gases: company.gaslp,
                                     sumatoria: sumatoria, enero: enero, febrero: febrero,
                                     marzo: marzo, abril: abril, mayo: mayo, junio: junio,
                                     julio: julio, agosto: agosto, septiembre: septiembre,
-                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
+                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                                 });
                             } else {
                                 //return res.json("gas deleted!");
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
-                                    message: "success",
+                                    message: message,
                                     gases: company.gaslp,
                                     sumatoria: sumatoria, enero: enero, febrero: febrero,
                                     marzo: marzo, abril: abril, mayo: mayo, junio: junio,
                                     julio: julio, agosto: agosto, septiembre: septiembre,
-                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
+                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                                 });
                             }
                         });

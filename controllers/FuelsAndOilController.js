@@ -165,8 +165,6 @@ FuelsAndOilController.update = function (req, res) {
         },
         { new: true },
         function (err, fuelsAndOils) {
-            console.log(fuelsAndOils);
-            console.log(fuelsAndOils.company);
             if (err) {
                 Company.findOne({ _id: fuelsAndOils.company })
                     .populate("fuelsAndOil")
