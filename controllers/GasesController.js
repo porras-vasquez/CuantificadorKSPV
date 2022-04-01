@@ -5,25 +5,17 @@ const Company = require("../models/Company");
 const { clearCache } = require('ejs');
 var gasesController = {};
 function calc(req) {
-    let en = parseFloat(req.body.enero);
-    let fe = parseFloat(req.body.febrero);
-    let mar = parseFloat(req.body.marzo);
-    let abr = parseFloat(req.body.abril);
-    let may = parseFloat(req.body.mayo);
-    let jun = parseFloat(req.body.junio);
-    let jul = parseFloat(req.body.julio);
-    let ago = parseFloat(req.body.agosto);
-    let sep = parseFloat(req.body.septiembre);
-    let oct = parseFloat(req.body.octubre);
-    let nov = parseFloat(req.body.noviembre);
-    let dic = parseFloat(req.body.diciembre);
-    let densidad = parseFloat(req.body.densidad);
-    if (densidad > 0) {
-        req.body.emision = (en + fe + mar + abr + may + jun + jul + ago + sep + oct + nov + dic) / densidad;
+    if (parseFloat(req.body.densidad) > 0) {
+        req.body.emision = (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
+                            parseFloat(req.body.mayo)+parseFloat(req.body.junio)+parseFloat(req.body.julio)+parseFloat(req.body.agosto)+ 
+                            parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre))/parseFloat(req.body.densidad);
     } else {
-        req.body.emision = en + fe + mar + abr + may + jun + jul + ago + sep + oct + nov + dic;
+        req.body.emision = (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
+                            parseFloat(req.body.mayo)+parseFloat(req.body.junio)+parseFloat(req.body.julio)+parseFloat(req.body.agosto)+ 
+                            parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre));
     }
 };
+//Guardar un gas
 gasesController.save = async function (req, res) {
     //const {unidad,uso, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre ,diciembre, densidad, observacion, emision, gei, pcg,}= req.body; 
     calc(req);
@@ -31,7 +23,6 @@ gasesController.save = async function (req, res) {
     var comp = await Company.findById(req.params.id);
     gases.company = comp;
     await gases.save(function (err, gas) {
-        console.log(gas);
         if (err) {
             res.render('../views/gaseslp/NewGas', { message: "error", company: gas.company._id });
         }
@@ -49,104 +40,68 @@ gasesController.save = async function (req, res) {
         }
     });
 };
+//Buscar la compañía del gas
 gasesController.searchCompany = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) { console.log('Error: ', err); return; }
         res.render('../views/gaseslp/NewGas', { company: company._id });
     });
 };
+//Listar todos los gases
 gasesController.list = function (req, res) {
-
     Company.findOne({ _id: req.params.id })
         .populate("gaslp")
         .exec(function (err, company) {
-            var sumatoria = 0;
-            var enero = 0;
-            var febrero = 0;
-            var marzo = 0;
-            var abril = 0;
-            var mayo = 0;
-            var junio = 0;
-            var julio = 0;
-            var agosto = 0;
-            var septiembre = 0;
-            var octubre = 0;
-            var noviembre = 0;
-            var diciembre = 0;
+            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
+            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
             for (var x of company.gaslp) {
-                sumatoria = sumatoria + parseFloat(x.emision);
-                enero = enero + parseFloat(x.enero);
-                febrero = febrero + parseFloat(x.febrero);
-                marzo = marzo + parseFloat(x.marzo);
-                abril = abril + parseFloat(x.abril);
-                mayo = mayo + parseFloat(x.mayo);
-                junio = junio + parseFloat(x.junio);
-                julio = julio + parseFloat(x.julio);
-                agosto = agosto + parseFloat(x.agosto);
-                septiembre = septiembre + parseFloat(x.septiembre);
-                octubre = octubre + parseFloat(x.octubre);
-                noviembre = noviembre + parseFloat(x.noviembre);
-                diciembre = diciembre + parseFloat(x.diciembre);
+                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
             }
             if (err) {
                 res.render("../views/gaseslp/AllGas", {
                     gases: company.gaslp,
                     company: company._id,
-                    sumatoria: sumatoria,
-                    enero: enero,
-                    febrero: febrero,
-                    marzo: marzo,
-                    abril: abril,
-                    mayo: mayo,
-                    junio: junio,
-                    julio: julio,
-                    agosto: agosto,
-                    septiembre: septiembre,
-                    octubre: octubre,
-                    noviembre: noviembre,
-                    diciembre: diciembre,
-
-
+                    sumatoria: sumatoria, enero: enero, febrero: febrero,
+                    marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                    julio: julio, agosto: agosto, septiembre: septiembre,
+                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
                 });
             } else {
               //  return res.json("all gases sent"); 
                 res.render("../views/gaseslp/AllGas", {
                     gases: company.gaslp,
                     company: company._id,
-                    sumatoria: sumatoria,
-                    enero: enero,
-                    febrero: febrero,
-                    marzo: marzo,
-                    abril: abril,
-                    mayo: mayo,
-                    junio: junio,
-                    julio: julio,
-                    agosto: agosto,
-                    septiembre: septiembre,
-                    octubre: octubre,
-                    noviembre: noviembre,
-                    diciembre: diciembre,
+                    sumatoria: sumatoria, enero: enero, febrero: febrero,
+                    marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                    julio: julio, agosto: agosto, septiembre: septiembre,
+                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
                 });
             }
         });
 };
+//Buscar un gas
 gasesController.search = function (req, res) {
     Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gaslp) {
         if (err) {
            // return res.status(404).json("gas not found");  
-            res.render("../views/gaseslp/search", {
+            res.render("../views/gaseslp/EditGas", {
                 gaslp: gaslp,
                 company: gaslp.company,
             });
         } else {
           //  return res.json("Gaseslp 62203979f485525b84be6132 found");
-            res.render("../views/gaseslp/search", {
+            res.render("../views/gaseslp/EditGas", {
                 gaslp: gaslp,
                 company: gaslp.company,
             });
         }
     });
 };
+//Actualizar un gas
 gasesController.update = function (req, res) {
     calc(req);
     Gaseslp.findByIdAndUpdate(
@@ -178,71 +133,34 @@ gasesController.update = function (req, res) {
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
-                        var sumatoria = 0;
-                        var enero = 0;
-                        var febrero = 0;
-                        var marzo = 0;
-                        var abril = 0;
-                        var mayo = 0;
-                        var junio = 0;
-                        var julio = 0;
-                        var agosto = 0;
-                        var septiembre = 0;
-                        var octubre = 0;
-                        var noviembre = 0;
-                        var diciembre = 0;
+                        var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
+                        var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
                         for (var x of company.gaslp) {
-                            sumatoria = sumatoria + parseFloat(x.emision);
-                            enero = enero + parseFloat(x.enero);
-                            febrero = febrero + parseFloat(x.febrero);
-                            marzo = marzo + parseFloat(x.marzo);
-                            abril = abril + parseFloat(x.abril);
-                            mayo = mayo + parseFloat(x.mayo);
-                            junio = junio + parseFloat(x.junio);
-                            julio = julio + parseFloat(x.julio);
-                            agosto = agosto + parseFloat(x.agosto);
-                            septiembre = septiembre + parseFloat(x.septiembre);
-                            octubre = octubre + parseFloat(x.octubre);
-                            noviembre = noviembre + parseFloat(x.noviembre);
-                            diciembre = diciembre + parseFloat(x.diciembre);
+                            sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+                            marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+                            junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+                            septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+                            noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
                         }
                         if (error) {
                             res.render("../views/gaseslp/AllGas", {
                                 message: "error",
                                 gases: company.gaslp,
                                 company: company._id,
-                                sumatoria: sumatoria,
-                                enero: enero,
-                                febrero: febrero,
-                                marzo: marzo,
-                                abril: abril,
-                                mayo: mayo,
-                                junio: junio,
-                                julio: julio,
-                                agosto: agosto,
-                                septiembre: septiembre,
-                                octubre: octubre,
-                                noviembre: noviembre,
-                                diciembre: diciembre,
+                                sumatoria: sumatoria, enero: enero, febrero: febrero,
+                                marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                                julio: julio, agosto: agosto, septiembre: septiembre,
+                                octubre: octubre, noviembre: noviembre, diciembre: diciembre
                             });
                         } else {
                             res.render("../views/gaseslp/AllGas", {
                                 message: "success",
                                 gases: company.gaslp,
                                 company: company._id,
-                                sumatoria: sumatoria,
-                                enero: enero,
-                                febrero: febrero,
-                                marzo: marzo,
-                                abril: abril,
-                                mayo: mayo,
-                                junio: junio,
-                                julio: julio,
-                                agosto: agosto,
-                                septiembre: septiembre,
-                                octubre: octubre,
-                                noviembre: noviembre,
-                                diciembre: diciembre,
+                                sumatoria: sumatoria, enero: enero, febrero: febrero,
+                                marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                                julio: julio, agosto: agosto, septiembre: septiembre,
+                                octubre: octubre, noviembre: noviembre, diciembre: diciembre
                             });
                         }
                     });
@@ -251,33 +169,14 @@ gasesController.update = function (req, res) {
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
-                        var sumatoria = 0;
-                        var enero = 0;
-                        var febrero = 0;
-                        var marzo = 0;
-                        var abril = 0;
-                        var mayo = 0;
-                        var junio = 0;
-                        var julio = 0;
-                        var agosto = 0;
-                        var septiembre = 0;
-                        var octubre = 0;
-                        var noviembre = 0;
-                        var diciembre = 0;
+                        var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
+                        var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
                         for (var x of company.gaslp) {
-                            sumatoria = sumatoria + parseFloat(x.emision);
-                            enero = enero + parseFloat(x.enero);
-                            febrero = febrero + parseFloat(x.febrero);
-                            marzo = marzo + parseFloat(x.marzo);
-                            abril = abril + parseFloat(x.abril);
-                            mayo = mayo + parseFloat(x.mayo);
-                            junio = junio + parseFloat(x.junio);
-                            julio = julio + parseFloat(x.julio);
-                            agosto = agosto + parseFloat(x.agosto);
-                            septiembre = septiembre + parseFloat(x.septiembre);
-                            octubre = octubre + parseFloat(x.octubre);
-                            noviembre = noviembre + parseFloat(x.noviembre);
-                            diciembre = diciembre + parseFloat(x.diciembre);
+                            sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+                            marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+                            junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+                            septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+                            noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
                         }
                         console.log(error);
                         console.log(company);
@@ -286,19 +185,10 @@ gasesController.update = function (req, res) {
                                 message: "error",
                                 gases: company.gaslp,
                                 company: company._id,
-                                sumatoria: sumatoria,
-                                enero: enero,
-                                febrero: febrero,
-                                marzo: marzo,
-                                abril: abril,
-                                mayo: mayo,
-                                junio: junio,
-                                julio: julio,
-                                agosto: agosto,
-                                septiembre: septiembre,
-                                octubre: octubre,
-                                noviembre: noviembre,
-                                diciembre: diciembre,
+                                sumatoria: sumatoria, enero: enero, febrero: febrero,
+                                marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                                julio: julio, agosto: agosto, septiembre: septiembre,
+                                octubre: octubre, noviembre: noviembre, diciembre: diciembre
                             });
                         } else {
                             //return res.json("all gases updated"); 
@@ -306,19 +196,10 @@ gasesController.update = function (req, res) {
                                 message: "success",
                                 gases: company.gaslp,
                                 company: company._id,
-                                sumatoria: sumatoria,
-                                enero: enero,
-                                febrero: febrero,
-                                marzo: marzo,
-                                abril: abril,
-                                mayo: mayo,
-                                junio: junio,
-                                julio: julio,
-                                agosto: agosto,
-                                septiembre: septiembre,
-                                octubre: octubre,
-                                noviembre: noviembre,
-                                diciembre: diciembre,
+                                sumatoria: sumatoria, enero: enero, febrero: febrero,
+                                marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                                julio: julio, agosto: agosto, septiembre: septiembre,
+                                octubre: octubre, noviembre: noviembre, diciembre: diciembre
                             });
                         }
                     });
@@ -339,71 +220,34 @@ gasesController.delete = function (req, res) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("gaslp")
                         .exec(function (error, company) {
-                            var sumatoria = 0;
-                            var enero = 0;
-                            var febrero = 0;
-                            var marzo = 0;
-                            var abril = 0;
-                            var mayo = 0;
-                            var junio = 0;
-                            var julio = 0;
-                            var agosto = 0;
-                            var septiembre = 0;
-                            var octubre = 0;
-                            var noviembre = 0;
-                            var diciembre = 0;
+                            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
+                            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
                             for (var x of company.gaslp) {
-                                sumatoria = sumatoria + parseFloat(x.emision);
-                                enero = enero + parseFloat(x.enero);
-                                febrero = febrero + parseFloat(x.febrero);
-                                marzo = marzo + parseFloat(x.marzo);
-                                abril = abril + parseFloat(x.abril);
-                                mayo = mayo + parseFloat(x.mayo);
-                                junio = junio + parseFloat(x.junio);
-                                julio = julio + parseFloat(x.julio);
-                                agosto = agosto + parseFloat(x.agosto);
-                                septiembre = septiembre + parseFloat(x.septiembre);
-                                octubre = octubre + parseFloat(x.octubre);
-                                noviembre = noviembre + parseFloat(x.noviembre);
-                                diciembre = diciembre + parseFloat(x.diciembre);
+                                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+                                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+                                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+                                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+                                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
                             }
                             if (error) {
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
                                     message: "error",
                                     gases: company.gaslp,
-                                    sumatoria: sumatoria,
-                                    enero: enero,
-                                    febrero: febrero,
-                                    marzo: marzo,
-                                    abril: abril,
-                                    mayo: mayo,
-                                    junio: junio,
-                                    julio: julio,
-                                    agosto: agosto,
-                                    septiembre: septiembre,
-                                    octubre: octubre,
-                                    noviembre: noviembre,
-                                    diciembre: diciembre,
+                                    sumatoria: sumatoria, enero: enero, febrero: febrero,
+                                    marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                                    julio: julio, agosto: agosto, septiembre: septiembre,
+                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
                                 });
                             } else {
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
                                     message: "success",
                                     gases: company.gaslp,
-                                    sumatoria: sumatoria,
-                                    enero: enero,
-                                    febrero: febrero,
-                                    marzo: marzo,
-                                    abril: abril,
-                                    mayo: mayo,
-                                    junio: junio,
-                                    julio: julio,
-                                    agosto: agosto,
-                                    septiembre: septiembre,
-                                    octubre: octubre,
-                                    noviembre: noviembre,
-                                    diciembre: diciembre,
+                                    sumatoria: sumatoria, enero: enero, febrero: febrero,
+                                    marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                                    julio: julio, agosto: agosto, septiembre: septiembre,
+                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
                                 });
                             }
                         });
@@ -411,52 +255,24 @@ gasesController.delete = function (req, res) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("gaslp")
                         .exec(function (error, company) {
-                            var sumatoria = 0;
-                            var enero = 0;
-                            var febrero = 0;
-                            var marzo = 0;
-                            var abril = 0;
-                            var mayo = 0;
-                            var junio = 0;
-                            var julio = 0;
-                            var agosto = 0;
-                            var septiembre = 0;
-                            var octubre = 0;
-                            var noviembre = 0;
-                            var diciembre = 0;
+                            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
+                            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
                             for (var x of company.gaslp) {
-                                sumatoria = sumatoria + parseFloat(x.emision);
-                                enero = enero + parseFloat(x.enero);
-                                febrero = febrero + parseFloat(x.febrero);
-                                marzo = marzo + parseFloat(x.marzo);
-                                abril = abril + parseFloat(x.abril);
-                                mayo = mayo + parseFloat(x.mayo);
-                                junio = junio + parseFloat(x.junio);
-                                julio = julio + parseFloat(x.julio);
-                                agosto = agosto + parseFloat(x.agosto);
-                                septiembre = septiembre + parseFloat(x.septiembre);
-                                octubre = octubre + parseFloat(x.octubre);
-                                noviembre = noviembre + parseFloat(x.noviembre);
-                                diciembre = diciembre + parseFloat(x.diciembre);
+                                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+                                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+                                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+                                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+                                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
                             }
                             if (error) {
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
                                     message: "error",
                                     gases: company.gaslp,
-                                    sumatoria: sumatoria,
-                                    enero: enero,
-                                    febrero: febrero,
-                                    marzo: marzo,
-                                    abril: abril,
-                                    mayo: mayo,
-                                    junio: junio,
-                                    julio: julio,
-                                    agosto: agosto,
-                                    septiembre: septiembre,
-                                    octubre: octubre,
-                                    noviembre: noviembre,
-                                    diciembre: diciembre,
+                                    sumatoria: sumatoria, enero: enero, febrero: febrero,
+                                    marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                                    julio: julio, agosto: agosto, septiembre: septiembre,
+                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
                                 });
                             } else {
                                 //return res.json("gas deleted!");
@@ -464,19 +280,10 @@ gasesController.delete = function (req, res) {
                                     company: company,
                                     message: "success",
                                     gases: company.gaslp,
-                                     sumatoria: sumatoria,
-                                    enero: enero,
-                                    febrero: febrero,
-                                    marzo: marzo,
-                                    abril: abril,
-                                    mayo: mayo,
-                                    junio: junio,
-                                    julio: julio,
-                                    agosto: agosto,
-                                    septiembre: septiembre,
-                                    octubre: octubre,
-                                    noviembre: noviembre,
-                                    diciembre: diciembre,
+                                    sumatoria: sumatoria, enero: enero, febrero: febrero,
+                                    marzo: marzo, abril: abril, mayo: mayo, junio: junio,
+                                    julio: julio, agosto: agosto, septiembre: septiembre,
+                                    octubre: octubre, noviembre: noviembre, diciembre: diciembre
                                 });
                             }
                         });
