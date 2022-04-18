@@ -124,6 +124,9 @@ userController.delete = function(req, res) {
                 if (err) { 
                     res.render('../views/users/AllUsers', { users: users, message: message, status: status});
                 }else{
+                    
+                    //res.statusCode = 404; 
+                    console.log(res.statusCode);
                     res.render('../views/users/AllUsers', { users: users, message: message, status: status});
                 }
             });
@@ -133,7 +136,7 @@ userController.delete = function(req, res) {
                 if (err) { 
                     res.render('../views/users/AllUsers', { users: users, message: message, status: status});
                 }else{
-                   // return res.json("User deleted!");
+
                     res.render('../views/users/AllUsers', { users: users, message: message, status: status});
                 }
             });
