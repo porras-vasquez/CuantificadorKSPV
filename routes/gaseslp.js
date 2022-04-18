@@ -5,7 +5,7 @@ const gasesController = require('../controllers/GasesController');
 const passport = require('passport');
 const isAuthenticated= require('../helpers/auth');
 //RENDERIZAN PÁGINAS
-router.get('/createGases',isAuthenticated, function(req, res) {res.render('../views/gaseslp/NewGas');});
+router.get('/createGases', /**/ isAuthenticated, function(req, res) {res.render('../views/gaseslp/NewGas');});
 router.get('/gasessearchcompany/:id', isAuthenticated, gasesController.searchCompany);
 router.get('/editGases/:id', /**/isAuthenticated, gasesController.search);
 router.get('/gasesshow/:id', isAuthenticated, gasesController.list);
