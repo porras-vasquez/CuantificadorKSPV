@@ -3,19 +3,19 @@ const { set } = require('../app');
 const app = require('../app')
 
 /*SHOW test que muestra todos los datos*/
-it('respond with json containing a list of all meters', (done) =>{
+it('respond with html containing a list of all meters', (done) =>{
     request(app)
     .get('/electricities/meters/6236c45870128e323c51b049')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
                 .expect(200, done);
 });
 /* Test para realizar una busqueda*/
-it("respond with json containing a single meter", (done)=>{
+it("respond with html containing a single meter", (done)=>{
     request(app)
-    .get('/electricities/editMeter/6236c45870128e323c51b049/6236c47570128e323c51b05c')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
+    .get('/electricities/editMeter/6236c45870128e323c51b049/625de31ac5fb6e0ab83df5aa')
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
                 .expect(200, done);
 });
 /** test para guardar informacion */
@@ -42,8 +42,8 @@ it('save all the information of meter', done =>{
     request(app)
     .post('/electricities/addMeter/6236c45870128e323c51b049/622c2682e592c22e5044c81b')
         .send(data)
-            .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+            .set('Accept', 'application/html')
+                .expect('Content-Type', /html/)
                     .expect(200)
                         .end(err =>{
                             if(err) return done(err);
@@ -54,7 +54,7 @@ it('save all the information of meter', done =>{
 it("delete meter", (done)=>{
     request(app)
     .post('/electricities/deleteMeter/6236c45870128e323c51b049/6236c47570128e323c51b05c')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
                 .expect(200, done);
 });
