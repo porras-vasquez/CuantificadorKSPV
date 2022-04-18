@@ -59,7 +59,6 @@ gasesController.save = async function (req, res) {
                 }
                 else {
                     verifyStatus(res.statusCode);
-                  //  return res.status(200).json('gas created'); 
                     res.render('../views/gaseslp/NewGas', { message: message, company: company, status: status });
                 }
             });
@@ -97,7 +96,6 @@ gasesController.list = function (req, res) {
                     octubre: octubre, noviembre: noviembre, diciembre: diciembre
                 });
             } else {
-              //  return res.json("all gases sent"); 
                 res.render("../views/gaseslp/AllGas", {
                     gases: company.gaslp,
                     company: company._id,
@@ -113,13 +111,11 @@ gasesController.list = function (req, res) {
 gasesController.search = function (req, res) {
     Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gaslp) {
         if (err) {
-           // return res.status(404).json("gas not found");  
             res.render("../views/gaseslp/EditGas", {
                 gaslp: gaslp,
                 company: gaslp.company,
             });
         } else {
-          //  return res.json("Gaseslp 62203979f485525b84be6132 found");
             res.render("../views/gaseslp/EditGas", {
                 gaslp: gaslp,
                 company: gaslp.company,
@@ -222,7 +218,6 @@ gasesController.update = function (req, res) {
                             });
                         } else {
                             verifyStatus(res.statusCode);
-                            //return res.json("all gases updated"); 
                             res.render("../views/gaseslp/AllGas", {
                                 message: message,
                                 gases: company.gaslp,
@@ -309,7 +304,6 @@ gasesController.delete = function (req, res) {
                                     octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                                 });
                             } else {
-                                //return res.json("gas deleted!");
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
                                     message: message,

@@ -1,37 +1,23 @@
 const request = require('supertest')
 const app = require('../app')
 const gas = require('../controllers/GasesController')
-/*SHOW test que muestra todos los datos
-it('respond with json containing a list of all gases', () =>{
+/*SHOW test que muestra todos los datos*/
+it('respond with html containing a list of all gases', () =>{
     request(app)
-    .get('/gaseslp/gasesshow/6234bde44d54cf47a0b734c1')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
+    .get('/gaseslp/gasesshow/62412386c29e4f41a8fb1dee')
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
                 .expect(200);
-});*/
-/* Test para realizar una busqueda
-describe("Testing a view", function () {
-    const req = {
-        params: {
-            id: '62412386c29e4f41a8fb1dee'
-        }
-    };*/
-
-  /* --- beforeEach(function () {*/    
-        /*console.log('pasa');
-        const resultT = gas.search(req);
-
-        it("render() should return the view object", function () {
-            expect(this.resultT.render()).equal(this.resultT.render(
-                "../views/gaseslp/EditGas", {
-                    gaslp: gaslp,
-                    company: gaslp.company,
-                }
-            ))
-        });*/
-  /*  });
-});--*/
-/** test para guardar informacion 
+});
+/* Test para realizar una busqueda*/
+it("respond with html containing a single gas", (done)=>{
+    request(app)
+    .get('/gaseslp/editGases/62412386c29e4f41a8fb1dee')
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
+                .expect(200, done);
+});
+//test para guardar informacion 
 it('save all the information of gas ', done =>{
     const data = {
         unidad: 'Kilogramo',
@@ -57,23 +43,15 @@ it('save all the information of gas ', done =>{
     request(app)
     .post('/gaseslp/saveGas/6234bde44d54cf47a0b734c1')
         .send(data)
-            .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+            .set('Accept', 'application/html')
+                .expect('Content-Type', /html/)
                     .expect(200)
                         .end(err =>{
                             if(err) return done(err);
                             done();
                         });
-});*/
-/* test para eliminar
-it("delete gas", (done)=>{
-    request(app)
-    .post('/gaseslp/deleteGases/6238cc4d1bd88a0904f1d23b/6234bde44d54cf47a0b734c1')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-                .expect(200, done);
-}); */
-/** test para actualizar 
+});
+// test para actualizar 
 it('update all the information of gas', (done) =>{
     const data = {
         unidad: 'Kilogramo',
@@ -97,9 +75,17 @@ it('update all the information of gas', (done) =>{
         pcg: '2',
     }
     request(app)
-    .post('/gaseslp/updateGases/6234bde44d54cf47a0b734c1')
+    .post('/gaseslp/updateGases/624123b3d8d98f12e4b7c42d')
         .send(data)
-            .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+            .set('Accept', 'application/html')
+                .expect('Content-Type', /html/)
                     .expect(200, done);
-});*/
+});
+//test para eliminar
+it("delete gas", (done)=>{
+    request(app)
+    .post('/gaseslp/deleteGases/62469d061a123d299066684d/6234bde44d54cf47a0b734c1')
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
+                .expect(200, done);
+});
