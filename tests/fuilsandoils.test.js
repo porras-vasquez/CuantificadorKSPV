@@ -1,19 +1,19 @@
 const request = require('supertest')
 const app = require('../app')
 /*SHOW test que muestra todos los datos*/
-it('respond with json containing a list of all fuels and oil', () =>{
+it('respond with html containing a list of all fuels and oil', () =>{
     request(app)
-    .get('/fuelsAndOil/fuelsAndOilShow/6234bde44d54cf47a0b734c1')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
+    .get('/fuelsAndOil/fuelsAndOilShow/6234f480878e1521c0e5e3b2')
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
                 .expect(200);
 });
 /* Test para realizar una busqueda*/
-it("respond with json containing a single fuils and oils", (done)=>{
+it("respond with html containing a single fuils and oils", (done)=>{
     request(app)
-    .get('/fuelsAndOil/searchFuelsAndOil/62203979f485525b84be6132')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
+    .get('/fuelsAndOil/searchFuelsAndOil/6234f480878e1521c0e5e3b2')
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
                 .expect(200, done);
 });
 /** test para guardar informacion */
@@ -39,21 +39,13 @@ it('save all the information of fuils and oils.', done =>{
     request(app)
     .post('/fuelsAndOil/saveFuelsAndOil/6234bde44d54cf47a0b734c1')
         .send(data)
-            .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+            .set('Accept', 'application/html')
+                .expect('Content-Type', /html/)
                     .expect(200)
                         .end(err =>{
                             if(err) return done(err);
                             done();
                         });
-});
-/* test para eliminar */
-it("delete fuils and oils", (done)=>{
-    request(app)
-    .post('/fuelsAndOil/deleteFuelsAndOil/62413a15c838370aac1d14e3/6234bde44d54cf47a0b734c1')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-                .expect(200, done);
 });
 /** test para actualizar */
 it('update all the information of fuils and oils', (done) =>{
@@ -76,9 +68,17 @@ it('update all the information of fuils and oils', (done) =>{
         pcg: '8',
     }
     request(app)
-    .post('/fuelsAndOil/updateFuelsAndOil/6234f480878e1521c0e5e3b2')
+    .post('/fuelsAndOil/updateFuelsAndOil/624141cda8f88240f0820309')
         .send(data)
-            .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+            .set('Accept', 'application/html')
+                .expect('Content-Type', /html/)
                     .expect(200, done);
+});
+/* test para eliminar */
+it("delete fuils and oils", (done)=>{
+    request(app)
+    .post('/fuelsAndOil/deleteFuelsAndOil/6243283648f81e299c2d5297/622c2682e592c22e5044c81b')
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
+                .expect(200, done);
 });
