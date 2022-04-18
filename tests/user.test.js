@@ -3,19 +3,19 @@ const { set } = require('../app');
 const app = require('../app')
 
 /*SHOW test que muestra todos los datos*/
-it('respond with json containing a list of all users', (done) =>{
+it('respond with html containing a list of all users', (done) =>{
     request(app)
     .get('/users/show')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
                 .expect(200, done);
 });
 /* Test para realizar una busqueda*/
-it("respond with json containing a single user", (done)=>{
+it("respond with html containing a single user", (done)=>{
     request(app)
     .get('/users/search/62203979f485525b84be6132')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
                 .expect(200, done);
 });
 /** test para guardar informacion */
@@ -29,22 +29,15 @@ it('save all the information of user', done =>{
     request(app)
     .post('/users/save')
         .send(data)
-            .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+            .set('Accept', 'application/html')
+                .expect('Content-Type', /html/)
                     .expect(200)
                         .end(err =>{
                             if(err) return done(err);
                             done();
                         });
 });
-/** test para eliminar */
-it("delete user", (done)=>{
-    request(app)
-    .post('/users/delete/624010a65d14130d90adb256')
-        .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-                .expect(200, done);
-});
+
 /** test para actualizar */
 it('update all the information of user', (done) =>{
     const data = {
@@ -54,8 +47,16 @@ it('update all the information of user', (done) =>{
     request(app)
     .post('/users/update/624099dee7a7961238bc446e')
         .send(data)
-            .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+            .set('Accept', 'application/html')
+                .expect('Content-Type', /html/)
                     .expect(200, done);
 });
 
+/** test para eliminar */
+it("delete user", (done)=>{
+  request(app)
+  .post('/users/delete/624010a65d14130d90adb256')
+      .set('Accept', 'application/html')
+          .expect('Content-Type', /html/)
+              .expect(200, done);
+});
