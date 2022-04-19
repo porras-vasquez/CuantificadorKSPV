@@ -13,7 +13,7 @@ passport.use('local-signin',
       const user = await User.findOne({email});
 
       if (!user) {
-        return done(null, false,{ message: "hola" });
+        return done(null, false,{ message: "error" });
       } else {
         // Match Password's User
         const match = await user.comparePassword(password);
