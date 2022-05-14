@@ -4,8 +4,20 @@ const Company = require("../models/Company");
 const AirConditioning = require('../models/AirConditioning');
 var airConditioningController = {};
 
-airConditioningController.save = async function(req, res) {
 
+function calc(req) {
+    
+        req.body.fugaTotal = ((parseFloat(req.body.capacidadConfinamiento)*parseFloat(req.body.tasaAnualFuga))/100);
+        req.body.totalHCFC = (parseFloat(req.body.fugaTotal)/1000);
+        req.body.totalR22 = (parseFloat(req.body.fugaTotal)/1000);
+        req.body.totalCO2 = (parseFloat(req.body.potencialCalentamineto)*parseFloat(req.body.totalHCFC));
+        req.body.totalCO2R22 = (parseFloat(req.body.potencialCalentamineto)*parseFloat(req.body.totalR22));
+    
+};
+
+
+airConditioningController.save = async function(req, res) {
+    calc(req);
     var airConditioning = new AirConditioning(req.body);
     var comp = await Company.findById(req.params.id);
     airConditioning.company = comp;

@@ -13,12 +13,12 @@ const AirConditioningShema = new Schema({
     capacidadConfinamiento: String,
     aplicacion: String,
     tasaAnualFuga: String,
-    fugaTotal: String,
+    fugaTotal: String, // capacidadconfinamiento * tasaanualfuga /100
     potencialCalentamineto: String,
-    totalHCFC: String,
-    totalR22: String,
-    totalCO2: String,
-    totalCO2R22: String,
+    totalHCFC: String, //fugatotal/1000
+    totalR22: String,//fugatotal/1000
+    totalCO2: String,//potencialDeCalentamiento*totalhfc
+    totalCO2R22: String,//potencialDeCalentamiento*totalr22
     /*
     enero: String,
     febrero: String,
