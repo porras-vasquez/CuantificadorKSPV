@@ -1,6 +1,7 @@
 'use strict'
 require('../connection');
 var Company = require("../models/Company");
+var Emission = require("../models/Emission");
 var companyController = {};
 var status = 0;
 var message = "";
@@ -30,14 +31,30 @@ function verifyStatus(statusCode){
 //Guardar
 companyController.save = async function (req, res) {
     var company = new Company(req.body);
-    await company.save(function (err) {
+    await company.save(function (err, comp) {
         if (err) {
             verifyStatus(res.statusCode);
             res.render('../views/company/NewCompany', { status: status, message: message});
         }
         else {
             verifyStatus(res.statusCode);
-            //return res.status(200).json('company created'); 
+            var body = {
+                alcance: "",
+                cantidad: "",
+                unidad: "",
+                kilogram: "",
+                ton: "",
+                gei: "",
+                pcg: "",
+                co2: "",
+                ch4: "",
+                n2o: "",
+                totalTon: "",
+                totalFuente: "",
+                company: comp._id
+            };
+            var emission = new Emission(body);
+            emission.save();
             res.render('../views/company/NewCompany', { status: status, message: message });
         }
 

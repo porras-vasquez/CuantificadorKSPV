@@ -464,16 +464,51 @@ electricityController.updateMeter = function (req, res) {
 
 electricityController.renderPageAllMeters = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
+        var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
+        var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
+        for (var x of electricity.medidor) {
+            sumatoria = sumatoria + parseFloat(x.total); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+            marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+            junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+            septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+            noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
+        }
         if (err) {
             res.render("../views/electricity/AllMeters", {
                 electricity: electricity,
                 company: electricity.company,
+                sumatoria: sumatoria,
+                enero: enero,
+                febrero: febrero,
+                marzo: marzo,
+                abril: abril,
+                mayo: mayo,
+                junio: junio,
+                julio: julio,
+                agosto: agosto,
+                septiembre: septiembre,
+                octubre: octubre,
+                noviembre: noviembre,
+                diciembre: diciembre,
             });
         } else {
             //return res.status(200).json("all meters sent");
             res.render("../views/electricity/AllMeters", {
                 electricity: electricity,
                 company: electricity.company,
+                sumatoria: sumatoria,
+                enero: enero,
+                febrero: febrero,
+                marzo: marzo,
+                abril: abril,
+                mayo: mayo,
+                junio: junio,
+                julio: julio,
+                agosto: agosto,
+                septiembre: septiembre,
+                octubre: octubre,
+                noviembre: noviembre,
+                diciembre: diciembre,
             });
         }
     });
