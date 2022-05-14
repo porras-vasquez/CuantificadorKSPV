@@ -2,6 +2,7 @@
 require("../connection");
 const Electricity = require("../models/Electricity");
 const Company = require("../models/Company");
+var Emission = require("../models/Emission");
 var electricityController = {};
 var status = 0;
 var message="";
@@ -38,36 +39,6 @@ function calc(req) {
     );
 };
 
-function calcTotal(id){
-    Electricity.findOne({ _id: id }).exec(function (
-        err,
-        electricity
-    ) {
-        if (electricity) {
-            var m = 0;
-            for (var x of electricity.medidor) {
-                m = parseFloat(m) + parseFloat(x.total);
-            }
-            console.log(m);
-            Electricity.findByIdAndUpdate(
-                id,
-                {
-                    $set: {
-                        total: m
-                    },
-                },
-                { new: true },
-                function (err, electricity) {
-                    if (err) {
-
-                    } else {
-                    }
-                }
-            );
-        }
-    });
-}
-
 //Método para guardar reportes de electricidad
 electricityController.save = async function (req, res) {
     req.body.total = 0;
@@ -83,24 +54,37 @@ electricityController.save = async function (req, res) {
                 message: message
             });
         } else {
-            comp.electricidad.push(electricity);
-            comp.save(function (err, company) {
-                if (err) {
-                    verifyStatus(res.statusCode);
-                    res.render("../views/electricity/NewElectricity", {
-                        status: status,
-                        company: company,
-                        message: message
-                    });
-                } else {
-                    verifyStatus(res.statusCode);
-                    //return res.status(200).json('electricity created'); 
-                    res.render("../views/electricity/NewElectricity", {
-                        status: status,
-                        company: company,
-                        message: message
-                    });
-                }
+            var ton = electricity.factor_emision/1000;
+            var cant = electricity.total;
+            var pcg = electricity.pcg;
+            var co2 = cant * ton * pcg;
+            var body = {
+                alcance: "2",
+                fuente_generador:"Electricidad",
+                cantidad: cant,
+                unidad: "Kilowatts/hora",
+                kilogram: electricity.factor_emision,
+                ton: ton,
+                gei: electricity.gei,
+                pcg: pcg,
+                co2: co2,
+                ch4: "",
+                n2o: "",
+                totalTon: "",
+                totalFuente: "",
+                company: elec.company._id
+            };
+            var emission = new Emission(body);
+            emission.save();
+
+            comp.electricidad.push(electricity, emission);
+            comp.save();
+
+            verifyStatus(res.statusCode);
+            res.render("../views/electricity/NewElectricity", {
+                status: status,
+                company: elec.company._id,
+                message: message
             });
         }
     });

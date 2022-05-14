@@ -1,7 +1,6 @@
 'use strict'
 require('../connection');
 var Company = require("../models/Company");
-var Emission = require("../models/Emission");
 var companyController = {};
 var status = 0;
 var message = "";
@@ -38,23 +37,6 @@ companyController.save = async function (req, res) {
         }
         else {
             verifyStatus(res.statusCode);
-            var body = {
-                alcance: "",
-                cantidad: "",
-                unidad: "",
-                kilogram: "",
-                ton: "",
-                gei: "",
-                pcg: "",
-                co2: "",
-                ch4: "",
-                n2o: "",
-                totalTon: "",
-                totalFuente: "",
-                company: comp._id
-            };
-            var emission = new Emission(body);
-            emission.save();
             res.render('../views/company/NewCompany', { status: status, message: message });
         }
 
