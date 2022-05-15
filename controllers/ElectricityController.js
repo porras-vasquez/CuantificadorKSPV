@@ -55,19 +55,16 @@ electricityController.save = async function (req, res) {
             });
         } else {
             var ton = electricity.factor_emision/1000;
-            var cant = electricity.total;
-            var pcg = electricity.pcg;
-            var co2 = cant * ton * pcg;
             var body = {
                 alcance: "2",
                 fuente_generador:"Electricidad",
-                cantidad: cant,
+                cantidad: "",
                 unidad: "Kilowatts/hora",
                 kilogram: electricity.factor_emision,
                 ton: ton,
                 gei: electricity.gei,
-                pcg: pcg,
-                co2: co2,
+                pcg: electricity.pcg,
+                co2: "",
                 ch4: "",
                 n2o: "",
                 totalTon: "",

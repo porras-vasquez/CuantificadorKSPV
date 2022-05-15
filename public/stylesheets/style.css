@@ -189,6 +189,18 @@ a:hover{
     background-color: #F4FFEC;
 }
 
+@keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 300%;
+    }
+  
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
+
 .table-container{
     width: 99% !important;
     height: auto;
@@ -202,6 +214,12 @@ a:hover{
     margin-bottom: 4.6%;
     margin-right: 3%;
     margin-left: 3%;
+}
+
+.list-group-flush{
+    animation-duration: 1s;
+    animation-name: slidein;
+    animation-iteration-count: 1;
 }
 
 .card-textx{
