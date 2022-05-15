@@ -10,9 +10,9 @@ router.get('/createElectricity',isAuthenticated, function(req, res) {
 });
 
 //RENDERIZAN PÁGINAS
-router.get('/electricity/:id',isAuthenticated, electricityController.renderPageNewElectricity);
+router.get('/electricity/:comp',isAuthenticated, electricityController.renderPageNewElectricity);
 router.get('/editElectricity/:id', electricityController.renderPageEditElectricity);
-router.get('/electricities/:id', electricityController.renderPageAllElectricites, (req, res) =>{
+router.get('/electricities/:comp', electricityController.renderPageAllElectricites, (req, res) =>{
     return res.json("all electricity sent"); 
 });
 router.get('/newMeter/:id/:comp', isAuthenticated, electricityController.renderPageNewMeter);
@@ -21,7 +21,7 @@ router.get('/meters/:id', electricityController.renderPageAllMeters);
 
 //ELIMINAN, GUARDAN O ACTUALIZAN DATOS
 router.post('/updateElectricity/:id', isAuthenticated, electricityController.update);
-router.post('/saveElectricity/:id', electricityController.save);
+router.post('/saveElectricity/:comp', electricityController.save);
 router.post('/deleteElectricity/:id/:comp', electricityController.delete);
 router.post('/addMeter/:_id/:comp', electricityController.addMeter);
 router.post('/updateMeter/:elec/:meter', isAuthenticated, electricityController.updateMeter);

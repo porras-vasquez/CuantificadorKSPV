@@ -24,11 +24,15 @@ const CompanySchema = new Schema({
     fuelsAndOil: [{
     type: Schema.Types.ObjectId,
     ref: 'FuelsAndOil'
-}],
-airConditioning: [{
-    type: Schema.Types.ObjectId,
-    ref: 'AirConditioning'
-}]
+    }],
+    airConditioning: [{
+        type: Schema.Types.ObjectId,
+        ref: 'AirConditioning'
+    }],
+    emission: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Emission'
+    }]
 
 });
 

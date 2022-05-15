@@ -43,7 +43,7 @@ function calc(req) {
 electricityController.save = async function (req, res) {
     req.body.total = 0;
     var electricity = new Electricity(req.body);
-    var comp = await Company.findById(req.params.id);
+    var comp = await Company.findById(req.params.comp);
     electricity.company = comp;
     await electricity.save(function (error, elec) {
         if (error) {
@@ -77,7 +77,8 @@ electricityController.save = async function (req, res) {
             var emission = new Emission(body);
             emission.save();
 
-            comp.electricidad.push(electricity, emission);
+            comp.electricidad.push(electricity);
+            comp.emission.push(emission);
             comp.save();
 
             verifyStatus(res.statusCode);
@@ -92,7 +93,7 @@ electricityController.save = async function (req, res) {
 
 //Método que renderiza el objeto compañía a la vista de NewElectricity
 electricityController.renderPageNewElectricity = function (req, res) {
-    Company.findOne({ _id: req.params.id }).exec(function (err, company) {
+    Company.findOne({ _id: req.params.comp }).exec(function (err, company) {
         if (err) {
             res.render("../views/electricity/NewElectricity", { company: company._id });
         }else{
@@ -103,7 +104,7 @@ electricityController.renderPageNewElectricity = function (req, res) {
 
 //Método que renderiza el objeto compañía a la vista de AllElectricities
 electricityController.renderPageAllElectricites = function (req, res) {
-    Company.findOne({ _id: req.params.id })
+    Company.findOne({ _id: req.params.comp })
         .populate("electricidad")
         .exec(function (err, company) {
             if (err) {
