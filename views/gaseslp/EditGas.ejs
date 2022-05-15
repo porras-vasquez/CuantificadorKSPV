@@ -12,6 +12,30 @@
 <body style="background-color: #f4ffec;">
     <div class="card mt-2 mb-2x"
         style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+        <div id="menu-container" class="menu-container">
+            <div id="menu" class="menu">
+                <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+            </div>
+            <div class="flex-menu">
+                <ul class="list-unstyled chat-list  mb-0">
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a onclick="window.location. href='/gaseslp/gasessearchcompany/<%=company._id%>'" type="button"
+                            class="btn btn primary ">Agregar emisión</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a href="/companies/createCompany" type="button" class="btn btn primary ">Agregar
+                            compañía</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a onclick="window.location. href='/gaseslp/gasesshow/<%=company._id%>'"
+                            type="button" class="btn btn primary ">Mostrar emisiones</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button flex-color">
+                        <a href="/companies/showCompany" type="button" class="btn btn primary ">Atrás</a>
+                    </ul>
+                </ul>
+            </div>
+        </div>
         <div class="row text-dark table-container"
             style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
             <form action="/gaseslp/updateGases/<%=gaslp._id%>" method="post" class="newGas row ">

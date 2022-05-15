@@ -171,6 +171,10 @@ a:hover{
     display: block;
 }
 
+.menu:hover{
+    cursor: pointer;
+}
+
 .flex-menu:hover{
     display: block;
 }
