@@ -50,15 +50,29 @@ airConditioningController.list = function(req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("airConditioning")
         .exec(function(err, company) {
+            var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0;
+            for (var x of company.airConditioning) {
+                totalHCFC = totalHCFC + parseFloat(x.totalHCFC); totalR22 = totalR22 + parseFloat(x.totalR22); 
+                totalCO2 = totalCO2 + parseFloat(x.totalCO2); totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
+            }
             if (err) {
                 res.render("../views/airConditioning/AllAirConditioning", {
                     airConditionings: company.airConditioning,
                     company: company._id,
+                    totalHCFC:totalHCFC,
+                    totalR22: totalR22,
+                    totalCO2: totalCO2,
+                    totalCO2R22: totalCO2R22,
+
                 });
             } else {
                 res.render("../views/airConditioning/AllAirConditioning", {
                     airConditionings: company.airConditioning,
                     company: company._id,
+                    totalHCFC:totalHCFC,
+                    totalR22: totalR22,
+                    totalCO2: totalCO2,
+                    totalCO2R22: totalCO2R22,
                 });
             }
         });
@@ -81,6 +95,7 @@ airConditioningController.search = function(req, res) {
     });
 };
 airConditioningController.update = function(req, res) {
+    calc(req);
     AirConditioning.findByIdAndUpdate(
         req.params.id, {
             $set: {
@@ -130,17 +145,30 @@ airConditioningController.update = function(req, res) {
                     .exec(function(error, company) {
                         console.log(error);
                         console.log(company);
+                        var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0;
+                        for (var x of company.airConditioning) {
+                            totalHCFC = totalHCFC + parseFloat(x.totalHCFC); totalR22 = totalR22 + parseFloat(x.totalR22); 
+                            totalCO2 = totalCO2 + parseFloat(x.totalCO2); totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
+                        }
                         if (error) {
                             res.render("../views/airConditioning/AllAirConditioning", {
                                 message: "error",
                                 airConditionings: company.airConditioning,
                                 company: company._id,
+                                totalHCFC:totalHCFC,
+                                totalR22: totalR22,
+                                totalCO2: totalCO2,
+                                totalCO2R22: totalCO2R22,
                             });
                         } else {
                             res.render("../views/airConditioning/AllAirConditioning", {
                                 message: "success",
                                 airConditionings: company.airConditioning,
                                 company: company._id,
+                                totalHCFC:totalHCFC,
+                                totalR22: totalR22,
+                                totalCO2: totalCO2,
+                                totalCO2R22: totalCO2R22,
                             });
                         }
                     });
@@ -149,5 +177,61 @@ airConditioningController.update = function(req, res) {
     );
 };
 
+airConditioningController.delete = function (req, res) {
+    Company.updateOne({ "_id": req.params.comp }, {
+        $pull: { "airConditioning": req.params.id }
+    }).exec(function (err, airConditioning) {
+        if (airConditioning) {
+            AirConditioning.deleteOne({ _id: req.params.id }, function (err) {
+                if (err) {
+
+                            if (error) {
+                               // verifyStatus(res.statusCode);
+                                res.render("../views/airConditioning/AllAirConditioning", {
+                                    company: company,
+                                    airConditionings: company.airConditioning,
+                                    
+                                });
+                            }
+                        
+                } else {
+                    Company.findOne({ _id: req.params.comp })
+                        .populate("airConditioning")
+                        .exec(function (error, company) {
+                            var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0;
+                            for (var x of company.airConditioning) {
+                                totalHCFC = totalHCFC + parseFloat(x.totalHCFC); totalR22 = totalR22 + parseFloat(x.totalR22); 
+                                totalCO2 = totalCO2 + parseFloat(x.totalCO2); totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
+                            }
+                            if (error) {
+                                //verifyStatus(res.statusCode);
+                                res.render("../views/airConditioning/AllAirConditioning", {
+                                    company: company,
+                                    airConditionings: company.airConditioning,
+                                    totalHCFC:totalHCFC,
+                                    totalR22: totalR22,
+                                    totalCO2: totalCO2,
+                                    totalCO2R22: totalCO2R22,
+                                    
+                                });
+                            } else {
+                                //    return res.json("fuels and oil deleted!"); 
+                                //verifyStatus(res.statusCode);
+                                res.render("../views/airConditioning/AllAirConditioning", {
+                                    company: company,
+                                    airConditionings: company.airConditioning,
+                                    totalHCFC:totalHCFC,
+                                    totalR22: totalR22,
+                                    totalCO2: totalCO2,
+                                    totalCO2R22: totalCO2R22,
+                                    
+                                });
+                            }
+                        });
+                }
+            });
+        }
+    });
+};
 
 module.exports = airConditioningController;

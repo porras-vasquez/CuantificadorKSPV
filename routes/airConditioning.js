@@ -13,4 +13,5 @@ router.get('/searchAirConditioning/:id', isAuthenticated, AirConditioningControl
 
 router.post('/updateAirConditioning/:id', isAuthenticated, AirConditioningController.update);
 router.post('/saveAirConditioning/:id', isAuthenticated, AirConditioningController.save);
+router.post('/deleteAirConditioning/:id/:comp',/**/ isAuthenticated, AirConditioningController.delete);
 module.exports = router; 
