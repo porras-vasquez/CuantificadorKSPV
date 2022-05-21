@@ -23,6 +23,7 @@ const GasesShema = new Schema({
     emision: String,
     gei: String,
     pcg: String,
+    factor: String,
     company: {
         type: Schema.Types.ObjectId,
         ref: 'Company'

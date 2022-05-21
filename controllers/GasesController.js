@@ -148,7 +148,8 @@ gasesController.update = function (req, res) {
                 observacion: req.body.observacion,
                 emision: req.body.emision,
                 gei: req.body.gei,
-                pcg: req.body.pcg
+                pcg: req.body.pcg,
+                factor: req.body.factor
             },
         },
         { new: true },
