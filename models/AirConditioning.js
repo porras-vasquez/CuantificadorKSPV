@@ -19,6 +19,27 @@ const AirConditioningShema = new Schema({
     totalR22: String,//fugatotal/1000
     totalCO2: String,//potencialDeCalentamiento*totalhfc
     totalCO2R22: String,//potencialDeCalentamiento*totalr22
+    totalHFC134a: String,
+    totalHFC134aCo2: String,
+    totalHFC152a: String,
+    totalHFC152aCo2: String,
+    totalR402a: String,
+    totalR402aCo2: String,
+    totalR402b: String,
+    totalR402bCo2: String,
+    totalR404a: String,
+    totalR404aCo2: String,
+    totalR404B: String,
+    totalR404BCo2: String,
+    totalR407c: String,
+    totalR407cCo2: String,
+    totalR410a: String,
+    totalR410aCo2: String,
+    totalR507: String,
+    totalR507Co2: String,
+    total508B: String,
+    totalR508BCo2: String,
+
     /*
     enero: String,
     febrero: String,

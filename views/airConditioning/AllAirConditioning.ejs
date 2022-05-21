@@ -43,13 +43,30 @@
                         <th scope="col text-whitex"> Capacidad de confinamieto</th>
                         <th scope="col text-whitex"> Aplicación</th>
                         <th scope="col text-whitex"> Tasa anual de fuga</th>
-
                         <th scope="col text-whitex"> Fuga Total(kg)</th>
                         <th scope="col text-whitex"> Potencial calentamineto 100 años</th>
-                        <th scope="col text-whitex"> Total R410a HCFC (ton)2</th>
-                        <th scope="col text-whitex"> Total R22 HCFC (ton)</th>
-                        <th scope="col text-whitex"> Total CO2 e (Ton) R410 HFC</th>
+
+                        <%if(totalR22!=0 ){ %>
+                        <th scope="col text-whitex"> Total R22 HCFC (ton)</th>                        
                         <th scope="col text-whitex"> Total CO2 e (Ton) R22 HCFC</th>
+                        <%}%>
+                        <%if(totalHCFC!=0 ){ %>
+                        <th scope="col text-whitex"> Total R410a HCFC (ton)2</th>
+                        <th scope="col text-whitex"> Total CO2 e (Ton) R410 HFC</th>
+                        <%}%>
+                        <%if(totalHFC134a!=0 ){ %>
+                            <th scope="col text-whitex"> Total HFC 134a (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2 e (Ton) HFC 134a</th>
+                        <%}%>
+                        <%if(totalHFC152a!=0 ){ %>
+                            <th scope="col text-whitex"> Total HFC 152a (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2 e (Ton) HFC 152a</th>
+                        <%}%>
+                        <%if(totalR402a!=0 ){ %>
+                            <th scope="col text-whitex"> Total R402a (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2 e (Ton) R402a</th>
+                        <%}%>
+
 
                         <th scope="col text-whitex"> Acción</th>
                     </tr>
@@ -124,11 +141,8 @@
                                     <%=airConditioning.potencialCalentamineto%>
                                 </div>
                             </td> 
-                            <td>
-                                <div>
-                                    <%=airConditioning.totalHCFC%>
-                                </div>
-                            </td> 
+
+                            <%if(totalR22!=0 ){ %>                               
                             <td>
                                 <div>
                                     <%=airConditioning.totalR22%>
@@ -136,14 +150,58 @@
                             </td> 
                             <td>
                                 <div>
-                                    <%=airConditioning.totalCO2%>
+                                    <%=airConditioning.totalCO2R22%>
+                                </div>
+                            </td> 
+                            <%}%>
+                            <%if(totalHCFC!=0 ){ %>
+                            <td>
+                                <div>
+                                    <%=airConditioning.totalHCFC%>
                                 </div>
                             </td> 
                             <td>
                                 <div>
-                                    <%=airConditioning.totalCO2R22%>
+                                    <%=airConditioning.totalCO2%>
                                 </div>
-                            </td>                            
+                            </td> 
+                            <%}%>
+                            <%if(totalHFC134a!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalHFC134a%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalHFC134aCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
+                            <%if(totalHFC152a!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalHFC152a%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalHFC152aCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
+                            <%if(totalR402a!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR402a%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR402aCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
                             <td>
                                 <div id="contenedor">
                                     <div id="boton">
@@ -173,15 +231,34 @@
                         <td class="text-center"></td>
                         <td class="text-center"></td>
                         <td class="text-center"></td>
-                        <td class="text-center"><%=totalHCFC%></td>
+
+                        <%if(totalR22!=0 ){ %>
                         <td class="text-center"><%=totalR22%></td>
-                        <td class="text-center"><%=totalCO2%></td>
                         <td class="text-center"><%=totalCO2R22%></td>
+                        <%}%>
+                        <%if(totalHCFC!=0 ){ %>
+                        <td class="text-center"><%=totalHCFC%></td>
+                        <td class="text-center"><%=totalCO2%></td>
+                        <%}%>
+                        <%if(totalHFC134a!=0 ){ %>
+                        <td class="text-center"><%=totalHFC134a%></td>
+                        <td class="text-center"><%=totalHFC134aCo2%></td>
+                        <%}%>
+                        <%if(totalHFC152a!=0 ){ %>
+                        <td class="text-center"><%=totalHFC152a%></td>
+                        <td class="text-center"><%=totalHFC152aCo2%></td>
+                        <%}%>
+                        <%if(totalR402a!=0 ){ %>
+                        <td class="text-center"><%=totalR402a%></td>
+                        <td class="text-center"><%=totalR402aCo2%></td>
+                        <%}%>
+
                         <td class="text-center"></td>
                 </tbody>
             </table>
         </div>
     </div>
+    
 </body>
 
 </html>

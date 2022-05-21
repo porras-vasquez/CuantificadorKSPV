@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const mongoURL = "mongodb+srv://Emilio:cuantificadorkspv2021@cluster0.l4ovd.mongodb.net/porras&vasquez_db?retryWrites=true&w=majority";
+const mongoURL = "mongodb+srv://Karina:cuantificadorkspv2021@cluster0.l4ovd.mongodb.net/porras&vasquez_db?retryWrites=true&w=majority";
 
 mongoose.connect(mongoURL || 'mongodb://localhost/porras&vasquez_db', {
     useNewUrlParser: true,
