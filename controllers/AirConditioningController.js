@@ -312,10 +312,6 @@ function calc(req) {
         req.body.total508B=(parseFloat(req.body.fugaTotal) / 1000);
         req.body.totalR508BCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.total508B));
     }
-    
-    
-
-
 };
 
 
@@ -484,6 +480,26 @@ airConditioningController.update = function(req, res) {
                 totalR22: req.body.totalR22,
                 totalCO2: req.body.totalCO2,
                 totalCO2R22: req.body.totalCO2R22,
+                totalHFC134a: req.body.totalHFC134a,
+                totalHFC134aCo2: req.body.totalHFC134aCo2,
+                totalHFC152a: req.body.totalHFC152a,
+                totalHFC152aCo2: req.body.totalHFC152aCo2,
+                totalR402a: req.body.totalR402a,
+                totalR402aCo2: req.body.totalR402aCo2,
+                totalR402b: req.body.totalR402b,
+                totalR402bCo2: req.body.totalR402bCo2,
+                totalR404a: req.body.totalR404a,
+                totalR404aCo2: req.body.totalR404aCo2,
+                totalR404B: req.body.totalR404B,
+                totalR404BCo2: req.body.totalR404BCo2,
+                totalR407c: req.body.totalR407c,
+                totalR407cCo2: req.body.totalR407cCo2,
+                totalR410a: req.body.totalR410a,
+                totalR410aCo2: req.body.totalR410aCo2,
+                totalR507: req.body.totalR507,
+                totalR507Co2: req.body.totalR507Co2,
+                total508B: req.body.total508B,
+                totalR508BCo2: req.body.totalR508BCo2,
             },
         }, { new: true },
         function(err, airConditionings) {
@@ -514,10 +530,36 @@ airConditioningController.update = function(req, res) {
                     .exec(function(error, company) {
                         console.log(error);
                         console.log(company);
-                        var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0;
+                        var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0,
+                        totalHFC134a=0,totalHFC134aCo2=0,totalHFC152a=0,totalHFC152aCo2=0,totalR402a=0,
+                        totalR402aCo2=0,totalR402b=0,totalR402bCo2=0,totalR404a=0,totalR404aCo2=0,totalR404B=0,
+                        totalR404BCo2=0,totalR407c=0,totalR407cCo2=0,totalR410a=0,totalR410aCo2=0,totalR507=0,totalR507Co2=0,total508B=0,totalR508BCo2=0;
                         for (var x of company.airConditioning) {
-                            totalHCFC = totalHCFC + parseFloat(x.totalHCFC); totalR22 = totalR22 + parseFloat(x.totalR22); 
-                            totalCO2 = totalCO2 + parseFloat(x.totalCO2); totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
+                            totalHCFC = totalHCFC + parseFloat(x.totalHCFC); 
+                            totalR22 = totalR22 + parseFloat(x.totalR22); 
+                            totalCO2 = totalCO2 + parseFloat(x.totalCO2); 
+                            totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
+                            totalHFC134a = totalHFC134a + parseFloat(x.totalHFC134a);
+                            totalHFC134aCo2 = totalHFC134aCo2 + parseFloat(x.totalHFC134aCo2);
+                            totalHFC152a = totalHFC152a + parseFloat(x.totalHFC152a);
+                            totalHFC152aCo2 = totalHFC152aCo2 + parseFloat(x.totalHFC152aCo2);
+                            totalR402a = totalR402a + parseFloat(x.totalR402a);
+                            totalR402aCo2 = totalR402aCo2 + parseFloat(x.totalR402aCo2);
+                            totalR402b = totalR402b + parseFloat(x.totalR402b);
+                            totalR402bCo2 = totalR402bCo2 + parseFloat(x.totalR402bCo2);
+                            totalR404a = totalR404a + parseFloat(x.totalR404a);
+                            totalR404aCo2 = totalR404aCo2 + parseFloat(x.totalR404aCo2);
+                            totalR404B = totalR404B + parseFloat(x.totalR404B);
+                            totalR404BCo2 = totalR404BCo2 + parseFloat(x.totalR404BCo2);
+                            totalR407c = totalR407c + parseFloat(x.totalR407c);
+                            totalR407cCo2 = totalR407cCo2 + parseFloat(x.totalR407cCo2);
+                            totalR410a = totalR410a + parseFloat(x.totalR410a);
+                            totalR410aCo2 = totalR410aCo2 + parseFloat(x.totalR410aCo2);
+                            totalR507 = totalR507 + parseFloat(x.totalR507);
+                            totalR507Co2 = totalR507Co2 + parseFloat(x.totalR507Co2);
+                            total508B = total508B + parseFloat(x.total508B);
+                            totalR508BCo2 = totalR508BCo2 + parseFloat(x.totalR508BCo2);
+                            
                         }
                         if (error) {
                             res.render("../views/airConditioning/AllAirConditioning", {
@@ -528,6 +570,26 @@ airConditioningController.update = function(req, res) {
                                 totalR22: totalR22,
                                 totalCO2: totalCO2,
                                 totalCO2R22: totalCO2R22,
+                                totalHFC134a: totalHFC134a,
+                                totalHFC134aCo2: totalHFC134aCo2,
+                                totalHFC152a: totalHFC152a,
+                                totalHFC152aCo2: totalHFC152aCo2,
+                                totalR402a: totalR402a,
+                                totalR402aCo2: totalR402aCo2,
+                                totalR402b: totalR402b,
+                                totalR402bCo2: totalR402bCo2,
+                                totalR404a: totalR404a,
+                                totalR404aCo2: totalR404aCo2,
+                                totalR404B: totalR404B,
+                                totalR404BCo2: totalR404BCo2,
+                                totalR407c: totalR407c,
+                                totalR407cCo2: totalR407cCo2,
+                                totalR410a: totalR410a,
+                                totalR410aCo2: totalR410aCo2,
+                                totalR507: totalR507,
+                                totalR507Co2: totalR507Co2,
+                                total508B: total508B,
+                                totalR508BCo2: totalR508BCo2,
                             });
                         } else {
                             res.render("../views/airConditioning/AllAirConditioning", {
@@ -538,6 +600,26 @@ airConditioningController.update = function(req, res) {
                                 totalR22: totalR22,
                                 totalCO2: totalCO2,
                                 totalCO2R22: totalCO2R22,
+                                totalHFC134a: totalHFC134a,
+                                totalHFC134aCo2: totalHFC134aCo2,
+                                totalHFC152a: totalHFC152a,
+                                totalHFC152aCo2: totalHFC152aCo2,
+                                totalR402a: totalR402a,
+                                totalR402aCo2: totalR402aCo2,
+                                totalR402b: totalR402b,
+                                totalR402bCo2: totalR402bCo2,
+                                totalR404a: totalR404a,
+                                totalR404aCo2: totalR404aCo2,
+                                totalR404B: totalR404B,
+                                totalR404BCo2: totalR404BCo2,
+                                totalR407c: totalR407c,
+                                totalR407cCo2: totalR407cCo2,
+                                totalR410a: totalR410a,
+                                totalR410aCo2: totalR410aCo2,
+                                totalR507: totalR507,
+                                totalR507Co2: totalR507Co2,
+                                total508B: total508B,
+                                totalR508BCo2: totalR508BCo2,
                             });
                         }
                     });
@@ -567,10 +649,36 @@ airConditioningController.delete = function (req, res) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("airConditioning")
                         .exec(function (error, company) {
-                            var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0;
+                            var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0,
+                            totalHFC134a=0,totalHFC134aCo2=0,totalHFC152a=0,totalHFC152aCo2=0,totalR402a=0,
+                            totalR402aCo2=0,totalR402b=0,totalR402bCo2=0,totalR404a=0,totalR404aCo2=0,totalR404B=0,
+                            totalR404BCo2=0,totalR407c=0,totalR407cCo2=0,totalR410a=0,totalR410aCo2=0,totalR507=0,totalR507Co2=0,total508B=0,totalR508BCo2=0;
                             for (var x of company.airConditioning) {
-                                totalHCFC = totalHCFC + parseFloat(x.totalHCFC); totalR22 = totalR22 + parseFloat(x.totalR22); 
-                                totalCO2 = totalCO2 + parseFloat(x.totalCO2); totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
+                                totalHCFC = totalHCFC + parseFloat(x.totalHCFC); 
+                                totalR22 = totalR22 + parseFloat(x.totalR22); 
+                                totalCO2 = totalCO2 + parseFloat(x.totalCO2); 
+                                totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
+                                totalHFC134a = totalHFC134a + parseFloat(x.totalHFC134a);
+                                totalHFC134aCo2 = totalHFC134aCo2 + parseFloat(x.totalHFC134aCo2);
+                                totalHFC152a = totalHFC152a + parseFloat(x.totalHFC152a);
+                                totalHFC152aCo2 = totalHFC152aCo2 + parseFloat(x.totalHFC152aCo2);
+                                totalR402a = totalR402a + parseFloat(x.totalR402a);
+                                totalR402aCo2 = totalR402aCo2 + parseFloat(x.totalR402aCo2);
+                                totalR402b = totalR402b + parseFloat(x.totalR402b);
+                                totalR402bCo2 = totalR402bCo2 + parseFloat(x.totalR402bCo2);
+                                totalR404a = totalR404a + parseFloat(x.totalR404a);
+                                totalR404aCo2 = totalR404aCo2 + parseFloat(x.totalR404aCo2);
+                                totalR404B = totalR404B + parseFloat(x.totalR404B);
+                                totalR404BCo2 = totalR404BCo2 + parseFloat(x.totalR404BCo2);
+                                totalR407c = totalR407c + parseFloat(x.totalR407c);
+                                totalR407cCo2 = totalR407cCo2 + parseFloat(x.totalR407cCo2);
+                                totalR410a = totalR410a + parseFloat(x.totalR410a);
+                                totalR410aCo2 = totalR410aCo2 + parseFloat(x.totalR410aCo2);
+                                totalR507 = totalR507 + parseFloat(x.totalR507);
+                                totalR507Co2 = totalR507Co2 + parseFloat(x.totalR507Co2);
+                                total508B = total508B + parseFloat(x.total508B);
+                                totalR508BCo2 = totalR508BCo2 + parseFloat(x.totalR508BCo2);
+                                
                             }
                             if (error) {
                                 //verifyStatus(res.statusCode);
@@ -581,7 +689,26 @@ airConditioningController.delete = function (req, res) {
                                     totalR22: totalR22,
                                     totalCO2: totalCO2,
                                     totalCO2R22: totalCO2R22,
-                                    
+                                    totalHFC134a: totalHFC134a,
+                                    totalHFC134aCo2: totalHFC134aCo2,
+                                    totalHFC152a: totalHFC152a,
+                                    totalHFC152aCo2: totalHFC152aCo2,
+                                    totalR402a: totalR402a,
+                                    totalR402aCo2: totalR402aCo2,
+                                    totalR402b: totalR402b,
+                                    totalR402bCo2: totalR402bCo2,
+                                    totalR404a: totalR404a,
+                                    totalR404aCo2: totalR404aCo2,
+                                    totalR404B: totalR404B,
+                                    totalR404BCo2: totalR404BCo2,
+                                    totalR407c: totalR407c,
+                                    totalR407cCo2: totalR407cCo2,
+                                    totalR410a: totalR410a,
+                                    totalR410aCo2: totalR410aCo2,
+                                    totalR507: totalR507,
+                                    totalR507Co2: totalR507Co2,
+                                    total508B: total508B,
+                                    totalR508BCo2: totalR508BCo2,
                                 });
                             } else {
                                 //    return res.json("fuels and oil deleted!"); 
@@ -593,7 +720,26 @@ airConditioningController.delete = function (req, res) {
                                     totalR22: totalR22,
                                     totalCO2: totalCO2,
                                     totalCO2R22: totalCO2R22,
-                                    
+                                    totalHFC134a: totalHFC134a,
+                                    totalHFC134aCo2: totalHFC134aCo2,
+                                    totalHFC152a: totalHFC152a,
+                                    totalHFC152aCo2: totalHFC152aCo2,
+                                    totalR402a: totalR402a,
+                                    totalR402aCo2: totalR402aCo2,
+                                    totalR402b: totalR402b,
+                                    totalR402bCo2: totalR402bCo2,
+                                    totalR404a: totalR404a,
+                                    totalR404aCo2: totalR404aCo2,
+                                    totalR404B: totalR404B,
+                                    totalR404BCo2: totalR404BCo2,
+                                    totalR407c: totalR407c,
+                                    totalR407cCo2: totalR407cCo2,
+                                    totalR410a: totalR410a,
+                                    totalR410aCo2: totalR410aCo2,
+                                    totalR507: totalR507,
+                                    totalR507Co2: totalR507Co2,
+                                    total508B: total508B,
+                                    totalR508BCo2: totalR508BCo2,
                                 });
                             }
                         });

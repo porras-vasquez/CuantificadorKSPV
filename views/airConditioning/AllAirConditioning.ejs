@@ -15,7 +15,7 @@
             <div class="flex-menu">
                 <ul class="list-unstyled chat-list  mb-0">
                     <ul class="list-group list-group-flush button flex-color">
-                        <a onclick="window.location. href='/airConditioning/airConditioningSearchcompany<%=company._id%>'" type="button"
+                        <a onclick="window.location. href='/airConditioning/airConditioningSearchcompany/<%=company._id%>'" type="button"
                             class="btn btn primary ">Agregar emisión</a>
                     </ul>
                     <ul class="list-group list-group-flush button flex-color">
@@ -48,24 +48,53 @@
 
                         <%if(totalR22!=0 ){ %>
                         <th scope="col text-whitex"> Total R22 HCFC (ton)</th>                        
-                        <th scope="col text-whitex"> Total CO2 e (Ton) R22 HCFC</th>
+                        <th scope="col text-whitex"> Total CO2e (Ton) R22 HCFC</th>
                         <%}%>
                         <%if(totalHCFC!=0 ){ %>
                         <th scope="col text-whitex"> Total R410a HCFC (ton)2</th>
-                        <th scope="col text-whitex"> Total CO2 e (Ton) R410 HFC</th>
+                        <th scope="col text-whitex"> Total CO2e (Ton) R410 HFC</th>
                         <%}%>
                         <%if(totalHFC134a!=0 ){ %>
                             <th scope="col text-whitex"> Total HFC 134a (ton)2</th>
-                            <th scope="col text-whitex"> Total CO2 e (Ton) HFC 134a</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) HFC 134a</th>
                         <%}%>
                         <%if(totalHFC152a!=0 ){ %>
                             <th scope="col text-whitex"> Total HFC 152a (ton)2</th>
-                            <th scope="col text-whitex"> Total CO2 e (Ton) HFC 152a</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) HFC 152a</th>
                         <%}%>
                         <%if(totalR402a!=0 ){ %>
                             <th scope="col text-whitex"> Total R402a (ton)2</th>
-                            <th scope="col text-whitex"> Total CO2 e (Ton) R402a</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) R402a</th>
                         <%}%>
+                        <%if(totalR402b!=0 ){ %>
+                            <th scope="col text-whitex"> Total R402b (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) R402b</th>
+                        <%}%>
+                        <%if(totalR404a!=0 ){ %>
+                            <th scope="col text-whitex"> Total R404a (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) R404a</th>
+                        <%}%>
+                        <%if(totalR404B!=0 ){ %>
+                            <th scope="col text-whitex"> Total R404B (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) R404B</th>
+                        <%}%>
+                        <%if(totalR407c!=0 ){ %>
+                            <th scope="col text-whitex"> Total R407c (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) R407c</th>
+                        <%}%>
+                        <%if(totalR410a!=0 ){ %>
+                            <th scope="col text-whitex"> Total R410a (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) R410a</th>
+                        <%}%>
+                        <%if(totalR507!=0 ){ %>
+                            <th scope="col text-whitex"> Total R507 (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) R507</th>
+                        <%}%>
+                        <%if(total508B!=0 ){ %>
+                            <th scope="col text-whitex"> Total R508B (ton)2</th>
+                            <th scope="col text-whitex"> Total CO2e (Ton) R508B</th>
+                        <%}%>
+
 
 
                         <th scope="col text-whitex"> Acción</th>
@@ -202,6 +231,90 @@
                                     </div>
                                 </td> 
                             <%}%>
+                            <%if(totalR402b!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR402b%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR402bCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
+                            <%if(totalR404a!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR404a%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR404aCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
+                            <%if(totalR404B!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR404B%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR404BCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
+                            <%if(totalR407c!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR407c%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR407cCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
+                            <%if(totalR410a!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR410a%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR410aCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
+                            <%if(totalR507!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR507%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR507Co2%>
+                                    </div>
+                                </td> 
+                            <%}%>
+                            <%if(total508B!=0 ){ %>
+                                <td>
+                                    <div>
+                                        <%=airConditioning.total508B%>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <div>
+                                        <%=airConditioning.totalR508BCo2%>
+                                    </div>
+                                </td> 
+                            <%}%>
                             <td>
                                 <div id="contenedor">
                                     <div id="boton">
@@ -251,6 +364,34 @@
                         <%if(totalR402a!=0 ){ %>
                         <td class="text-center"><%=totalR402a%></td>
                         <td class="text-center"><%=totalR402aCo2%></td>
+                        <%}%>
+                        <%if(totalR402b!=0 ){ %>
+                        <td class="text-center"><%=totalR402b%></td>
+                        <td class="text-center"><%=totalR402bCo2%></td>
+                        <%}%>
+                        <%if(totalR404a!=0 ){ %>
+                            <td class="text-center"><%=totalR404a%></td>
+                            <td class="text-center"><%=totalR404aCo2%></td>
+                        <%}%>
+                        <%if(totalR404B!=0 ){ %>
+                            <td class="text-center"><%=totalR404B%></td>
+                            <td class="text-center"><%=totalR404BCo2%></td>
+                        <%}%>
+                        <%if(totalR407c!=0 ){ %>
+                            <td class="text-center"><%=totalR407c%></td>
+                            <td class="text-center"><%=totalR407cCo2%></td>
+                        <%}%>
+                        <%if(totalR410a!=0 ){ %>
+                            <td class="text-center"><%=totalR410a%></td>
+                            <td class="text-center"><%=totalR410aCo2%></td>
+                        <%}%>
+                        <%if(totalR507!=0 ){ %>
+                            <td class="text-center"><%=totalR507%></td>
+                            <td class="text-center"><%=totalR507Co2%></td>
+                        <%}%>
+                        <%if(total508B!=0 ){ %>
+                            <td class="text-center"><%=total508B%></td>
+                            <td class="text-center"><%=totalR508BCo2%></td>
                         <%}%>
 
                         <td class="text-center"></td>
