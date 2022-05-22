@@ -22,6 +22,7 @@ const FuelsAndOilSchema = new Schema({
     noviembre: String,
     diciembre: String,
     emision: String,
+    factor: String,
     gei: String,
     pcg: String,
 });

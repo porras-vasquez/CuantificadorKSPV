@@ -159,6 +159,7 @@ FuelsAndOilController.update = function (req, res) {
                 noviembre: req.body.noviembre,
                 diciembre: req.body.diciembre,
                 emision: req.body.emision,
+                factor: req.body.factor,
                 gei: req.body.gei,
                 pcg: req.body.pcg
             },
