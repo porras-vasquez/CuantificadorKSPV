@@ -170,7 +170,8 @@ electricityController.update = function (req, res) {
                     .populate("electricidad")
                     .exec(function (error, company) {
                         Electricity.findOne({ _id: req.params.id }).exec(function (err, elec) {
-                            var cant = elec.total;
+                            sum(elec);
+                            var cant = sumatoria;
                             var ton = elec.factor_emision;
                             var pcg = elec.pcg;
                             var co2 = cant * ton * pcg;
@@ -180,15 +181,14 @@ electricityController.update = function (req, res) {
                                     co2: co2,
                                 },
                             }).exec(function (err, ems) {
-                                console.log(err);
-                                console.log(ems);
                             });
                         });
                         res.render("../views/electricity/AllElectricities", {
                             message: message,
                             electricities: company.electricidad,
                             company: company._id,
-                            status: status
+                            status: status,
+                            sumatoria: sumatoria
                         });
                     });
             }
@@ -206,6 +206,7 @@ electricityController.delete = function (req, res) {
                 Company.findOne({ _id: req.params.comp })
                 .populate("electricidad")
                 .exec(function (error, company) {
+                    Emission.deleteOne({ electricity: req.params.id }).exec(function (err, electricity) {});
                     var total = 0; 
                     for (var x of company.electricidad) {
                         total = total + parseFloat(x.total); 
@@ -299,8 +300,6 @@ electricityController.addMeter = function (req, res) {
                                         co2: co2,
                                     },
                                 }).exec(function (err, ems) {
-                                    console.log(err);
-                                    console.log(ems);
                                 });
                             });
                             res.render("../views/electricity/NewMeter", {
