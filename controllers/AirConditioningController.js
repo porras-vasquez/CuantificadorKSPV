@@ -3,7 +3,29 @@ require('../connection');
 const Company = require("../models/Company");
 const AirConditioning = require('../models/AirConditioning');
 var airConditioningController = {};
-
+var status = 0;
+var message = "";
+function verifyStatus(statusCode) {
+    if (statusCode == 200) {//Satisfactorio
+        status = 200;
+        message = "¡Realizado exitosamente!";
+    } else if (statusCode == 400) {//Solicitud incorrecta
+        status = 400;
+        message = "¡Error, solicitud incorrecta!";
+    } else if (statusCode == 401) {//No autenticado
+        status = 401;
+        message = "¡Error, usuario no autenticado!";
+    } else if (statusCode == 404) {//No encontrado
+        status = 404;
+        message = "¡Ocurrió un problema con la ruta de acceso!";
+    } else if (statusCode == 500) {//Error del servidor
+        status = 500;
+        message = "¡Lo sentimos, ocurrió un problema con el servidor!";
+    } else if (statusCode == 503) {//Mantenimiento
+        status = 503;
+        message = "¡Lo sentimos, el servidor se encuentra en mantenimiento!";
+    }
+}
 
 function calc(req) {
 
@@ -315,8 +337,10 @@ function calc(req) {
 };
 
 
+
 airConditioningController.save = async function(req, res) {
     calc(req);
+    verifyStatus(res.statusCode);
     var airConditioning = new AirConditioning(req.body);
     var comp = await Company.findById(req.params.id);
     airConditioning.company = comp;
@@ -324,19 +348,21 @@ airConditioningController.save = async function(req, res) {
     await airConditioning.save(function(err, airConditionings) {
         console.log(airConditionings);
         if (err) {
-            res.render('../views/airConditioning/NewAirConditioning', { message: "error", company: airConditionings.company._id });
+            verifyStatus(res.statusCode);
+            res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: airConditionings.company._id });
         } else {
             comp.airConditioning.push(airConditionings);
             comp.save(function(err, company) {
                 if (err) {
-                    res.render('../views/airConditioning/NewAirConditioning', { message: "error", company: company });
+                    res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: company });
                 } else {
-                    res.render('../views/airConditioning/NewAirConditioning', { message: "success", company: company });
+                    res.render('../views/airConditioning/NewAirConditioning', {status: status, message: message, company: company });
                 }
             });
         }
     });
 };
+
 
 airConditioningController.searchCompany = function(req, res) {
     Company.findOne({ _id: req.params.id }).exec(function(err, company) {
