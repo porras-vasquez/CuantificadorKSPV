@@ -6,6 +6,8 @@ var Emission = require("../models/Emission");
 var electricityController = {};
 var status = 0;
 var message="";
+var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
+var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
 
 //Método para verificar el estatus de las transacciones 
 function verifyStatus(statusCode){
@@ -39,6 +41,18 @@ function calc(req) {
     );
 };
 
+function sum(electricity){
+    sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
+    julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
+    for (var x of electricity.medidor) {
+        sumatoria = sumatoria + parseFloat(x.total); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+        marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+        junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+        septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+        noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
+    }
+}
+
 //Método para guardar reportes de electricidad
 electricityController.save = async function (req, res) {
     req.body.total = 0;
@@ -46,8 +60,8 @@ electricityController.save = async function (req, res) {
     var comp = await Company.findById(req.params.comp);
     electricity.company = comp;
     await electricity.save(function (error, elec) {
+        verifyStatus(res.statusCode);
         if (error) {
-            verifyStatus(res.statusCode);
             res.render("../views/electricity/NewElectricity", {
                 status: status,
                 company: elec.company._id,
@@ -67,9 +81,8 @@ electricityController.save = async function (req, res) {
                 co2: "",
                 ch4: "",
                 n2o: "",
-                totalTon: "",
-                totalFuente: "",
-                company: elec.company._id
+                company: elec.company._id,
+                electricity: elec._id
             };
             var emission = new Emission(body);
             emission.save();
@@ -77,8 +90,6 @@ electricityController.save = async function (req, res) {
             comp.electricidad.push(electricity);
             comp.emission.push(emission);
             comp.save();
-
-            verifyStatus(res.statusCode);
             res.render("../views/electricity/NewElectricity", {
                 status: status,
                 company: elec.company._id,
@@ -104,36 +115,25 @@ electricityController.renderPageAllElectricites = function (req, res) {
     Company.findOne({ _id: req.params.comp })
         .populate("electricidad")
         .exec(function (err, company) {
-            if (err) {
-                res.render("../views/electricity/AllElectricities", {
-                    electricities: company.electricidad,
-                    company: company._id,
-                });
-            } else {
-                //return res.status(200).json("all electricities sent");
-                res.render("../views/electricity/AllElectricities", {
-                    electricities: company.electricidad,
-                    company: company._id,
-                });
+            var total = 0; 
+            for (var x of company.electricidad) {
+                total = total + parseFloat(x.total); 
             }
+            res.render("../views/electricity/AllElectricities", {
+                electricities: company.electricidad,
+                company: company._id,
+                sumatoria: total
+            });
         });
 };
 
 //Método que renderiza el objeto electricidad a la vista de EditElectricity
 electricityController.renderPageEditElectricity = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
-        if (err) {
-            res.render("../views/electricity/EditElectricity", {
-                electricity: electricity,
-                company: electricity.company,
-            });
-        } else {
-            //return res.json("Electricity 623690133929f43a5ce4a1d8 found");
-            res.render("../views/electricity/EditElectricity", {
-                electricity: electricity,
-                company: electricity.company,
-            });
-        }
+        res.render("../views/electricity/EditElectricity", {
+            electricity: electricity,
+            company: electricity.company,
+        });
     });
 };
 
@@ -153,49 +153,43 @@ electricityController.update = function (req, res) {
         },
         { new: true },
         function (err, electricity) {
+            verifyStatus(res.statusCode);
             if (err) {
                 Company.findOne({ _id: electricity.company })
                     .populate("electricidad")
                     .exec(function (error, company) {
-                        if (error) {
-                            verifyStatus(res.statusCode);
-                            res.render("../views/electricity/AllElectricities", {
-                                message: message,
-                                electricities: company.electricidad,
-                                company: company._id,
-                                status: status
-                            });
-                        } else {
-                            verifyStatus(res.statusCode);
-                            res.render("../views/electricity/AllElectricities", {
-                                message: message,
-                                electricities: company.electricidad,
-                                company: company._id,
-                                status: status
-                            });
-                        }
+                        res.render("../views/electricity/AllElectricities", {
+                            message: message,
+                            electricities: company.electricidad,
+                            company: company._id,
+                            status: status
+                        });
                     });
             } else {
                 Company.findOne({ _id: electricity.company })
                     .populate("electricidad")
                     .exec(function (error, company) {
-                        if (error) {
-                            verifyStatus(res.statusCode);
-                            res.render("../views/electricity/AllElectricities", {
-                                message: message,
-                                electricities: company.electricidad,
-                                company: company._id,
-                                status: status
+                        Electricity.findOne({ _id: req.params.id }).exec(function (err, elec) {
+                            var cant = elec.total;
+                            var ton = elec.factor_emision;
+                            var pcg = elec.pcg;
+                            var co2 = cant * ton * pcg;
+                            Emission.updateOne({ electricity: req.params._id }, {
+                                $set: {
+                                    cantidad: cant,
+                                    co2: co2,
+                                },
+                            }).exec(function (err, ems) {
+                                console.log(err);
+                                console.log(ems);
                             });
-                        } else {
-                            verifyStatus(res.statusCode);
-                            res.render("../views/electricity/AllElectricities", {
-                                message: message,
-                                electricities: company.electricidad,
-                                company: company._id,
-                                status: status
-                            });
-                        }
+                        });
+                        res.render("../views/electricity/AllElectricities", {
+                            message: message,
+                            electricities: company.electricidad,
+                            company: company._id,
+                            status: status
+                        });
                     });
             }
         }
@@ -208,52 +202,22 @@ electricityController.delete = function (req, res) {
     }).exec(function (err, electricity) {
         if (electricity) {
             Electricity.deleteOne({ _id: req.params.id }, function (err) {
-                if (err) {
-                    Company.findOne({ _id: req.params.comp })
-                        .populate("electricidad")
-                        .exec(function (error, company) {
-                            if (error) {
-                                verifyStatus(res.statusCode);
-                                res.render("../views/electricity/AllElectricities", {
-                                    company: company,
-                                    message: message,
-                                    electricities: company.electricidad,
-                                    status: status
-                                });
-                            } else {
-                                verifyStatus(res.statusCode);
-                                res.render("../views/electricity/AllElectricities", {
-                                    company: company,
-                                    message: message,
-                                    electricities: company.electricidad,
-                                    status: status
-                                });
-                            }
-                        });
-                } else {
-                    Company.findOne({ _id: req.params.comp })
-                        .populate("electricidad")
-                        .exec(function (error, company) {
-                            if (error) {
-                                verifyStatus(res.statusCode);
-                                res.render("../views/electricity/AllElectricities", {
-                                    company: company,
-                                    message: message,
-                                    electricities: company.electricidad,
-                                    status: status
-                                });
-                            } else {
-                                //return res.json("Electricity deleted!");
-                                verifyStatus(res.statusCode);
-                                res.render("../views/electricity/AllElectricities", {
-                                    company: company,
-                                    message: message,
-                                    electricities: company.electricidad,
-                                    status: status
-                                });
-                            }
-                        });
-                }
+                verifyStatus(res.statusCode);
+                Company.findOne({ _id: req.params.comp })
+                .populate("electricidad")
+                .exec(function (error, company) {
+                    var total = 0; 
+                    for (var x of company.electricidad) {
+                        total = total + parseFloat(x.total); 
+                    }
+                    res.render("../views/electricity/AllElectricities", {
+                        company: company,
+                        message: message,
+                        electricities: company.electricidad,
+                        status: status,
+                        sumatoria: total
+                    });
+                });
             });
         }
     });
@@ -264,17 +228,15 @@ electricityController.delete = function (req, res) {
 //Método que renderiza el objeto electricidad a la vista de NewMeter
 electricityController.renderPageNewMeter = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
-        if (err) {
-            res.render("../views/electricity/NewMeter", {
-                company: electricity.company,
-                electricity: electricity,
-            });
-        } else {
-            res.render("../views/electricity/NewMeter", {
-                company: electricity.company,
-                electricity: electricity,
-            });
-        }
+        var emission;
+        Company.findOne({_id: req.params.comp}).exec(function (err, comp) {
+            emission = comp.emission
+        });
+        res.render("../views/electricity/NewMeter", {
+            company: electricity.company,
+            electricity: electricity,
+            emission: emission
+        });
     });
 };
 
@@ -305,48 +267,51 @@ electricityController.addMeter = function (req, res) {
             },
         },
         (error, elec) => {
+            verifyStatus(res.statusCode);
             if (error) {
                 Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
-                    if (err) {
-                        verifyStatus(res.statusCode);
-                        res.render("../views/electricity/NewMeter", {
-                            company: electricity.company,
-                            electricity: electricity,
-                            message: message,
-                            status: status
-                        });
-                    } else {
-                        verifyStatus(res.statusCode);
-                        res.render("../views/electricity/NewMeter", {
-                            company: electricity.company,
-                            electricity: electricity,
-                            message: message,
-                            status: status
-                        });
-                    }
+                    res.render("../views/electricity/NewMeter", {
+                        company: electricity.company,
+                        electricity: electricity,
+                        message: message,
+                        status: status
+                    });
                 });
             } else {
-                calcTotal(req.params._id);
                 Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
-                    if (err) {
-                        verifyStatus(res.statusCode);
-                        res.render("../views/electricity/NewMeter", {
-                            company: electricity.company,
-                            electricity: electricity,
-                            message: message,
-                            status: status
-                        });
-                    } else {
-                        verifyStatus(res.statusCode);
-                        //return res.status(200).json('Meter created');
-                        res.render("../views/electricity/NewMeter", {
-                            company: electricity.company,
-                            electricity: electricity,
-                            message: message,
-                            status: status
-                        });
-                    }
-                });
+                    sum(electricity)
+                    Electricity.updateOne(
+                        {_id: req.params._id},
+                        {
+                            $set: {
+                                total: sumatoria
+                            },
+                        },
+                        function (err, elect) {
+                            Electricity.findOne({ _id: req.params._id }).exec(function (err, elec) {
+                                var cant = sumatoria;
+                                var ton = elec.factor_emision;
+                                var pcg = elec.pcg;
+                                var co2 = cant * ton * pcg;
+                                Emission.updateOne({ electricity: req.params._id }, {
+                                    $set: {
+                                        cantidad: sumatoria,
+                                        co2: co2,
+                                    },
+                                }).exec(function (err, ems) {
+                                    console.log(err);
+                                    console.log(ems);
+                                });
+                            });
+                            res.render("../views/electricity/NewMeter", {
+                                company: electricity.company,
+                                electricity: electricity,
+                                message: message,
+                                status: status
+                            });
+                        }
+                    )
+                })
             }
         }
     );
@@ -406,93 +371,113 @@ electricityController.updateMeter = function (req, res) {
             },
         },
         { new: true },
-        function (err, electricity) {
-            if(electricity){
-                calcTotal(req.params.elec);
-                Electricity.findOne({ _id: req.params.elec }).exec(function (
-                    err,
-                    electric
-                ) {
-                    if (electric) {
-                        var m;
-                        for (var x of electric.medidor) {
-                            if (req.params.meter == x._id) {
-                                m = x;
-                            }
+        function (error, electricity) {
+            verifyStatus(res.statusCode);
+            Electricity.findOne({ _id: req.params.elec }).exec(function (
+                err,
+                electric
+            ) {
+                if(error || err){
+                    res.render("../views/electricity/AllMeters", {
+                        message: message,
+                        electricity: electric,
+                        company: electric.company,
+                        meter: req.body,
+                        status: status,
+                        sumatoria: sumatoria,
+                        enero: enero,
+                        febrero: febrero,
+                        marzo: marzo,
+                        abril: abril,
+                        mayo: mayo,
+                        junio: junio,
+                        julio: julio,
+                        agosto: agosto,
+                        septiembre: septiembre,
+                        octubre: octubre,
+                        noviembre: noviembre,
+                        diciembre: diciembre,
+                    });
+                }else{
+                    var m;
+                    for (var x of electric.medidor) {
+                        if (req.params.meter == x._id) {
+                            m = x;
                         }
-                        verifyStatus(res.statusCode);
-                        res.render("../views/electricity/AllMeters", {
-                            message: message,
-                            electricity: electric,
-                            company: electric.company,
-                            meter: m,
-                            status: status
-                        });
-                    } else {
-                        verifyStatus(res.statusCode);
-                        res.render("../views/electricity/AllMeters", {
-                            message: message,
-                            electricity: electric,
-                            company: electric.company,
-                            meter: req.body,
-                            status: status
-                        });
                     }
-                });
-            }
+                    sum(electric)
+                    Electricity.updateOne(
+                        {_id: req.params.elec},
+                        {
+                            $set: {
+                                total: sumatoria
+                            },
+                        },
+                        function (err, elect) {
+                            Electricity.findOne({ _id: req.params.elec }).exec(function (err, elec) {
+                                var cant = sumatoria;
+                                var ton = elec.factor_emision;
+                                var pcg = elec.pcg;
+                                var co2 = cant * ton * pcg;
+                                Emission.updateOne({ electricity: req.params.elec }, {
+                                    $set: {
+                                        cantidad: sumatoria,
+                                        co2: co2,
+                                    },
+                                }).exec(function (err, ems){
+
+                                });
+                            });
+                        }
+                    )
+                    res.render("../views/electricity/AllMeters", {
+                        message: message,
+                        electricity: electric,
+                        company: electric.company,
+                        meter: m,
+                        status: status,
+                        sumatoria: sumatoria,
+                        enero: enero,
+                        febrero: febrero,
+                        marzo: marzo,
+                        abril: abril,
+                        mayo: mayo,
+                        junio: junio,
+                        julio: julio,
+                        agosto: agosto,
+                        septiembre: septiembre,
+                        octubre: octubre,
+                        noviembre: noviembre,
+                        diciembre: diciembre,
+                    });
+                }
+            });
         }
     );
 };
 
 electricityController.renderPageAllMeters = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
-        var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-        var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
-        for (var x of electricity.medidor) {
-            sumatoria = sumatoria + parseFloat(x.total); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-            marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-            junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-            septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-            noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
+        if(!err){
+            sum(electricity);
         }
-        if (err) {
-            res.render("../views/electricity/AllMeters", {
-                electricity: electricity,
-                company: electricity.company,
-                sumatoria: sumatoria,
-                enero: enero,
-                febrero: febrero,
-                marzo: marzo,
-                abril: abril,
-                mayo: mayo,
-                junio: junio,
-                julio: julio,
-                agosto: agosto,
-                septiembre: septiembre,
-                octubre: octubre,
-                noviembre: noviembre,
-                diciembre: diciembre,
-            });
-        } else {
-            //return res.status(200).json("all meters sent");
-            res.render("../views/electricity/AllMeters", {
-                electricity: electricity,
-                company: electricity.company,
-                sumatoria: sumatoria,
-                enero: enero,
-                febrero: febrero,
-                marzo: marzo,
-                abril: abril,
-                mayo: mayo,
-                junio: junio,
-                julio: julio,
-                agosto: agosto,
-                septiembre: septiembre,
-                octubre: octubre,
-                noviembre: noviembre,
-                diciembre: diciembre,
-            });
-        }
+        res.render("../views/electricity/AllMeters", {
+            electricity: electricity,
+            company: electricity.company,
+            sumatoria: sumatoria,
+            enero: enero,
+            febrero: febrero,
+            marzo: marzo,
+            abril: abril,
+            mayo: mayo,
+            junio: junio,
+            julio: julio,
+            agosto: agosto,
+            septiembre: septiembre,
+            octubre: octubre,
+            noviembre: noviembre,
+            diciembre: diciembre,
+        });
     });
 };
 
@@ -503,49 +488,63 @@ electricityController.deleteMeter = function (req, res) {
                 "_id": req.params.meter
             }
         }
-    }, { multi: true }).exec(function (err, electricity) {
-        if (err) {
+    }, { multi: true }, (error, elect) => {
+        verifyStatus(res.statusCode);
+        if (error) {
             Electricity.findOne({ _id: req.params.elec }).exec(function (err, electricity) {
-                if (err) {
-                    verifyStatus(res.statusCode);
-                    res.render("../views/electricity/AllMeters", {
-                        message: message,
-                        electricity: electricity,
-                        company: electricity.company,
-                        status: status
-                    });
-                } else {
-                    verifyStatus(res.statusCode);
-                    res.render("../views/electricity/AllMeters", {
-                        message: message,
-                        electricity: electricity,
-                        company: electricity.company,
-                        status: status
-                    });
-                }
+                res.render("../views/electricity/AllMeters", {
+                    message: message,
+                    electricity: electricity,
+                    company: electricity.company,
+                    status: status
+                });
             });
         } else {
-            calcTotal(req.params.elec);
             Electricity.findOne({ _id: req.params.elec }).exec(function (err, electricity) {
-                if (err) {
-                    verifyStatus(res.statusCode);
-                    res.render("../views/electricity/AllMeters", {
-                        message: message,
-                        electricity: electricity,
-                        company: electricity.company,
-                        status: status
-                    });
-                } else {
-                    verifyStatus(res.statusCode);
-                    //return res.json("Meter deleted!");
-                    res.render("../views/electricity/AllMeters", {
-                        message: message,
-                        electricity: electricity,
-                        company: electricity.company,
-                        status: status
-                    });
-                }
-            });
+                sum(electricity)
+                Electricity.updateOne(
+                    {_id: req.params.elec},
+                    {
+                        $set: {
+                            total: sumatoria
+                        },
+                    },
+                    function (err, elect) {
+                        Electricity.findOne({ _id: req.params.elec }).exec(function (err, elec) {
+                            var cant = sumatoria;
+                            var ton = elec.factor_emision;
+                            var pcg = elec.pcg;
+                            var co2 = cant * ton * pcg;
+                            Emission.updateOne({ electricity: req.params.elec }, {
+                                $set: {
+                                    cantidad: sumatoria,
+                                    co2: co2,
+                                },
+                            }).exec(function (err, ems) {
+                            });
+                        });
+                        res.render("../views/electricity/AllMeters", {
+                            message: message,
+                            electricity: electricity,
+                            company: electricity.company,
+                            status: status,
+                            sumatoria: sumatoria,
+                            enero: enero,
+                            febrero: febrero,
+                            marzo: marzo,
+                            abril: abril,
+                            mayo: mayo,
+                            junio: junio,
+                            julio: julio,
+                            agosto: agosto,
+                            septiembre: septiembre,
+                            octubre: octubre,
+                            noviembre: noviembre,
+                            diciembre: diciembre,
+                        });
+                    }
+                )
+            })
         }
     });
 };

@@ -73,7 +73,7 @@
                                             <th scope="col text-whitex">Fuente de reporte</th>
                                             <th scope="col text-whitex">Unidad de medida</th>
                                             <th scope="col text-whitex">Última actualización</th>
-                                            <th scope="col text-whitex">Factir de emisión</th>
+                                            <th scope="col text-whitex">Factor de emisión</th>
                                             <th scope="col text-whitex">Total</th>
                                             <th scope="col text-whitex">Acción</th>
                                         </tr>
@@ -153,6 +153,18 @@
                                                 </td>
                                             </tr>
                                             <% }) %>
+                                            <% if(sumatoria!=0 ){ %>
+                                                <td class="text-center">Total</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <%=sumatoria%>
+                                                    </div>
+                                                </td>
+                                            <% } %>    
                                     </tbody>
                                     <!--Table body-->
                                 </table>

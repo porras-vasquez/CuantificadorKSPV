@@ -15,11 +15,13 @@ const EmissionSchema = new Schema({
     co2: String,
     ch4: String,
     n2o: String,
-    totalTon: String,
-    totalFuente: String,
     company: {
         type: Schema.Types.ObjectId,
         ref: 'Company'
+    },
+    electricity: {
+        type: Schema.Types.ObjectId,
+        ref: 'Electricity'
     },
 });
 

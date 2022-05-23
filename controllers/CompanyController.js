@@ -1,6 +1,7 @@
 'use strict'
 require('../connection');
 var Company = require("../models/Company");
+var Emission = require("../models/Emission");
 var companyController = {};
 var status = 0;
 var message = "";
@@ -125,5 +126,20 @@ companyController.delete = function (req, res) {
         }
     });
 
+};
+
+companyController.renderPageAllEmissions = function (req, res) {
+    Emission.findOne({ company: req.params.comp })
+        .populate("emission")
+        .exec(function (err, company) {
+            /*var total = 0; 
+            for (var x of company.emission) {
+                total = total + parseFloat(x.total); 
+            }*/
+            res.render("../views/emissions/Emissions", {
+                emissions: company.emissions,
+                company: company._id,
+            });
+        });
 };
 module.exports = companyController;
