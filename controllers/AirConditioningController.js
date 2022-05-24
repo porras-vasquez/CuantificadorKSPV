@@ -2,6 +2,7 @@
 require('../connection');
 const Company = require("../models/Company");
 const AirConditioning = require('../models/AirConditioning');
+var Emission = require("../models/Emission");
 var airConditioningController = {};
 var status = 0;
 var message = "";
@@ -346,10 +347,54 @@ airConditioningController.save = async function(req, res) {
     airConditioning.company = comp;
     //console.log(comp);
     await airConditioning.save(function(err, airConditionings) {
-        console.log(airConditionings);
         if (err) {
             res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: airConditionings.company._id });
         } else {
+            var ton = airConditionings.factor/1000;
+            var cant = airConditionings.emision;
+            cant = parseFloat(cant).toFixed(5);
+            var pcg = airConditionings.pcg;
+            var co2 = 0;
+            var ch4 = 0;
+            var n2o = 0;
+            var fuente;
+            /*if(fuels.combustible=="Gasolina"){
+                fuente = "Gasolina";
+            }else if(fuels.combustible=="Diésel"){
+                fuente = "Diésel";
+            }else{
+                fuente = "Aceite 2t/4t";
+            }*/
+
+            if(airConditionings.gei=="CO2"){
+                co2 = cant * ton * pcg;
+                co2 = parseFloat(co2).toFixed(5);
+            }else if(airConditionings.gei=="CH4"){
+                ch4 = cant * ton * pcg;
+                ch4 = parseFloat(ch4).toFixed(5);
+            }else{
+                n2o = cant * ton * pcg;
+                n2o = parseFloat(n2o).toFixed(5);
+            }
+            var body = {
+                alcance: "1",
+                fuente_generador: fuente,
+                cantidad: cant,
+                unidad: "",
+                kilogram: airConditionings.factor_emision,
+                ton: ton,
+                gei: airConditionings.gei,
+                pcg: pcg,
+                co2: co2,
+                ch4: ch4,
+                n2o: n2o,
+                company: airConditionings.company._id,
+                airConditioning: airConditionings._id
+            };
+            var emission = new Emission(body);
+            emission.save();
+
+            comp.emission.push(emission);
             comp.airConditioning.push(airConditionings);
             comp.save(function(err, company) {
                 if (err) {
@@ -554,6 +599,44 @@ airConditioningController.update = function(req, res) {
                         }
                     });
             } else {
+                AirConditioning.findOne({ _id: req.params.id }).exec(function (err, ac) {
+                    var ton = ac.factor_emision/1000;
+                    var cant = ac.emision;
+                    cant = parseFloat(cant).toFixed(5);
+                    var gei = ac.gei;
+                    var pcg = ac.pcg;
+                    var co2 = 0;
+                    var ch4 = 0;
+                    var n2o = 0;
+                    var kg = ac.factor;
+                    var fuente = ac.combustible;
+                    var unidad = ac.unidad;
+        
+                    if(ac.gei=="CO2"){
+                        co2 = cant * ton * pcg;
+                        co2 = parseFloat(co2).toFixed(5);
+                    }else if(ac.gei=="CH4"){
+                        ch4 = cant * ton * pcg;
+                        ch4 = parseFloat(ch4).toFixed(5);
+                    }else{
+                        n2o = cant * ton * pcg;
+                        n2o = parseFloat(n2o).toFixed(5);
+                    }
+                    Emission.updateOne({ airConditioning: req.params.id }, {
+                        $set: {
+                            cantidad: cant,
+                            co2: co2,
+                            ch4: ch4,
+                            n2o: n2o,
+                            kilogram: kg,
+                            pcg: pcg, 
+                            ton: ton,
+                            fuente_generador: fuente,
+                            gei: gei,
+                            unidad: unidad
+                        },
+                    }).exec(function (err, ems) {});
+                });
                 Company.findOne({ _id: airConditionings.company })
                     .populate("airConditioning")
                     .exec(function(error, company) {
@@ -660,12 +743,22 @@ airConditioningController.update = function(req, res) {
 };
 
 airConditioningController.delete = function (req, res) {
-    verifyStatus(res.statusCode);
+    var id;
+    Emission.findOne({ airConditioning: req.params.id }).exec(function (err, e) {
+        id = e._id;
+        Company.updateOne({ _id: req.params.comp }, {
+            $pull: { 
+                emission: id
+            }
+        }).exec(function (err, electricity) {
+        });
+    });
     Company.updateOne({ "_id": req.params.comp }, {
         $pull: { "airConditioning": req.params.id }
     }).exec(function (err, airConditioning) {
         if (airConditioning) {
             AirConditioning.deleteOne({ _id: req.params.id }, function (err) {
+                Emission.deleteOne({ airConditioning: req.params.id }).exec(function (err, electricity) {});               
                 if (err) {
 
                             if (error) {

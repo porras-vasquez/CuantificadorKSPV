@@ -89,7 +89,15 @@
                                             <label for="exampleInputEmail1" class="form-label">Consumo</label>
                                             <input type="text" name="consumo" class="form-control" />
                                         </div>
-
+                                        
+                                        <div class="btnContainer mb-4" style="margin-top: 1%">
+                                            <input type="submit" name="CompanyController" class="btn btn-success"
+                                                value="Guardar">
+                                            <button type="button" class="btn btn-danger">
+                                                <a href='/companies/showCompany'>Cancelar</a>
+                                            </button>
+    
+                                        </div>
                                     </div>
                                     <div class="col-3">
                                         <div>
@@ -109,6 +117,15 @@
                                                 <option value="R507">R507</option>
                                                 <option value="R508B">R508B</option>
                                               </select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="exampleInputEmail1" class="form-label">Datos emisión general</label>
+                                            <select name="gei" aria-placeholder="GEI" class="form-select" aria-label="Default select example">
+                                                <option value="" disabled selected>Seleccione el GEI</option>
+                                                <option value="CO2">CO2</option>
+                                                <option value="CH4">CH4</option>
+                                                <option value="N2O">N2O</option>
+                                            </select>
                                         </div>
                                         <div>
                                             <label for="exampleInputEmail1" class="form-label">Capacidad de confinamiento</label>
@@ -146,14 +163,6 @@
                                             <label for="exampleInputEmail1" class="form-label">Factor de emision</label>
                                             <input type="text" name="factor_emision" class="form-control" />
                                         </div>
-                                    </div>
-                                    <div class="btnContainer mb-4" style="margin-top: 1%">
-                                        <input type="submit" name="CompanyController" class="btn btn-success"
-                                            value="Guardar">
-                                        <button type="button" class="btn btn-danger">
-                                            <a href='/companies/showCompany'>Cancelar</a>
-                                        </button>
-
                                     </div>
                                 </form>
                             </div>

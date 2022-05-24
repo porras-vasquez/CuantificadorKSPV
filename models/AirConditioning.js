@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const AirConditioningShema = new Schema({
     ubicacion: String,
     serie: String,
+    gei: String,
     marca: String,
     modelo: String,
     capacidad: String,
