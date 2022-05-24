@@ -335,7 +335,7 @@ function calc(req) {
         req.body.totalR508BCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.total508B));
     }
 };
-
+ 
 
 
 airConditioningController.save = async function(req, res) {
@@ -348,7 +348,6 @@ airConditioningController.save = async function(req, res) {
     await airConditioning.save(function(err, airConditionings) {
         console.log(airConditionings);
         if (err) {
-            verifyStatus(res.statusCode);
             res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: airConditionings.company._id });
         } else {
             comp.airConditioning.push(airConditionings);
@@ -487,6 +486,7 @@ airConditioningController.search = function(req, res) {
 };
 airConditioningController.update = function(req, res) {
     calc(req);
+    verifyStatus(res.statusCode);
     AirConditioning.findByIdAndUpdate(
         req.params.id, {
             $set: {
@@ -526,6 +526,7 @@ airConditioningController.update = function(req, res) {
                 totalR507Co2: req.body.totalR507Co2,
                 total508B: req.body.total508B,
                 totalR508BCo2: req.body.totalR508BCo2,
+                factor_emision: req.body.factor_emision,
             },
         }, { new: true },
         function(err, airConditionings) {
@@ -538,13 +539,15 @@ airConditioningController.update = function(req, res) {
                     .exec(function(error, company) {
                         if (error) {
                             res.render("../views/airConditioning/AllAirConditioning", {
-                                message: "error",
+                                message: message,
+                                status: status,
                                 airConditionings: company.airConditioning,
                                 company: company._id,
                             });
                         } else {
                             res.render("../views/airConditioning/AllAirConditioning", {
-                                message: "success",
+                                message: message,
+                                status: status,
                                 airConditionings: company.airConditioning,
                                 company: company._id,
                             });
@@ -589,7 +592,8 @@ airConditioningController.update = function(req, res) {
                         }
                         if (error) {
                             res.render("../views/airConditioning/AllAirConditioning", {
-                                message: "error",
+                                message: message,
+                                status: status,
                                 airConditionings: company.airConditioning,
                                 company: company._id,
                                 totalHCFC:totalHCFC,
@@ -619,7 +623,8 @@ airConditioningController.update = function(req, res) {
                             });
                         } else {
                             res.render("../views/airConditioning/AllAirConditioning", {
-                                message: "success",
+                                message: message,
+                                status: status,
                                 airConditionings: company.airConditioning,
                                 company: company._id,
                                 totalHCFC:totalHCFC,
@@ -655,6 +660,7 @@ airConditioningController.update = function(req, res) {
 };
 
 airConditioningController.delete = function (req, res) {
+    verifyStatus(res.statusCode);
     Company.updateOne({ "_id": req.params.comp }, {
         $pull: { "airConditioning": req.params.id }
     }).exec(function (err, airConditioning) {

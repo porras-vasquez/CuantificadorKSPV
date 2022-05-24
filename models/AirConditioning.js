@@ -39,6 +39,7 @@ const AirConditioningShema = new Schema({
     totalR507Co2: String,
     total508B: String,
     totalR508BCo2: String,
+    factor_emision: String,
 
     /*
     enero: String,
