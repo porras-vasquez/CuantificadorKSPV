@@ -42,3 +42,10 @@ it('save all the information of fuils and oils.', done =>{
                             done();
                         });
 });
+it("delete fuils and oils", (done)=>{
+    request(app)
+    .post('/airConditioning/deleteAirConditioning/6243283648f81e299c2d5297/622c2682e592c22e5044c81b')
+        .set('Accept', 'application/html')
+            .expect('Content-Type', /html/)
+                .expect(200, done);
+});
