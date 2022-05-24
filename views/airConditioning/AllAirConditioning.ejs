@@ -6,6 +6,35 @@
 </header>
 
 <body style="background-color: #f4ffec; height: 100vh !important;">
+    <% if(typeof(status) !="undefined" ) { %>
+        <% if(status==200 ) { %>
+            <script>
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '<%-message%>',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    localStorage.setItem("message", 1);
+                }
+            </script>
+            <% }else if(status!=200 ){ %>
+                <script>
+                    if (!localStorage.getItem("message")) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: '<%-message%>',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        localStorage.setItem("message", 1);
+                    }                                
+                </script>
+                <% } %>
+                    <% } %>
     <div class="card mt-2 mb-2x"
         style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
         <div id="menu-container" class="menu-container">
