@@ -9,7 +9,7 @@ var status = 0;
 var message = "";
 var sumatoria = 0;
 sumatoria = sumatoria.toFixed(5);
- var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
+var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
 var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
 
 function verifyStatus(statusCode) {
@@ -73,7 +73,6 @@ gasesController.save = async function (req, res) {
         }
         else {
             var ton = gas.factor_emision/1000;
-            ton = parseFloat(ton).toFixed(5);
             var cant = gas.emision;
             cant = cant.toFixed(5);
             var pcg = gas.pcg;
@@ -237,6 +236,7 @@ gasesController.update = function (req, res) {
                 var pcg;
                 var kg;
                 Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gas) {
+                    var gei = gas.gei;
                     var ton = gas.factor/1000;
                     var co2=0;
                     var ch4=0;
@@ -259,7 +259,8 @@ gasesController.update = function (req, res) {
                             n2o: n2o,
                             kilogram: kg,
                             pcg: pcg, 
-                            ton: ton
+                            ton: ton,
+                            gei: gei
                         },
                     }).exec(function (err, ems) {});
                 });

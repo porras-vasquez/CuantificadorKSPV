@@ -25,6 +25,7 @@ const FuelsAndOilSchema = new Schema({
     factor: String,
     gei: String,
     pcg: String,
+    unidad: String
 });
 
 module.exports = mongoose.model('FuelsAndOil', FuelsAndOilSchema);

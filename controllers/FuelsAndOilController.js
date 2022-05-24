@@ -2,10 +2,16 @@
 require('../connection');
 const Company = require("../models/Company");
 const FuelsAndOil = require('../models/FuelsAndOil');
+var Emission = require("../models/Emission");
 const { clearCache } = require('ejs');
 var FuelsAndOilController = {};
 var status = 0;
 var message = "";
+var sumatoria = 0;
+sumatoria = sumatoria.toFixed(5);
+var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
+var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
+
 
 function verifyStatus(statusCode) {
     if (statusCode == 200) {//Satisfactorio
@@ -34,6 +40,20 @@ function calc(req) {
         parseFloat(req.body.mayo) + parseFloat(req.body.junio) + parseFloat(req.body.julio) + parseFloat(req.body.agosto) +
         parseFloat(req.body.septiembre) + parseFloat(req.body.octubre) + parseFloat(req.body.noviembre) + parseFloat(req.body.diciembre));
 };
+
+function sum(company){
+    sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
+    julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
+    for (var x of company.fuelsAndOil) {
+        sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+        marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+        junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+        septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+        noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
+    }
+    sumatoria = parseFloat(sumatoria).toFixed(5);
+}
+
 FuelsAndOilController.save = async function (req, res) {
     const { combustible, enero, febrero, marzo, abril, junio, julio, agosto, septiembre, octubre, noviembre, diciembre, emision, gei, pcg } = req.body; //
     calc(req);
@@ -47,6 +67,51 @@ FuelsAndOilController.save = async function (req, res) {
             res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: fuels.company._id, status: status });
         }
         else {
+            var ton = fuels.factor/1000;
+            var cant = fuels.emision;
+            cant = parseFloat(cant).toFixed(5);
+            var pcg = fuels.pcg;
+            var co2 = 0;
+            var ch4 = 0;
+            var n2o = 0;
+            var fuente;
+            if(fuels.combustible=="Gasolina"){
+                fuente = "Gasolina";
+            }else if(fuels.combustible=="Diésel"){
+                fuente = "Diésel";
+            }else{
+                fuente = "Aceite 2t/4t";
+            }
+
+            if(fuels.gei=="CO2"){
+                co2 = cant * ton * pcg;
+                co2 = parseFloat(co2).toFixed(5);
+            }else if(fuels.gei=="CH4"){
+                ch4 = cant * ton * pcg;
+                ch4 = parseFloat(ch4).toFixed(5);
+            }else{
+                n2o = cant * ton * pcg;
+                n2o = parseFloat(n2o).toFixed(5);
+            }
+            var body = {
+                alcance: "1",
+                fuente_generador: fuente,
+                cantidad: cant,
+                unidad: "Litro",
+                kilogram: fuels.factor,
+                ton: ton,
+                gei: fuels.gei,
+                pcg: pcg,
+                co2: co2,
+                ch4: ch4,
+                n2o: n2o,
+                company: fuels.company._id,
+                fuelsAndOil: fuels._id
+            };
+            var emission = new Emission(body);
+            emission.save();
+
+            comp.emission.push(emission);
             comp.fuelsAndOil.push(fuels);
             comp.save(function (err, company) {
                 if (err) {
@@ -73,15 +138,7 @@ FuelsAndOilController.list = function (req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("fuelsAndOil")
         .exec(function (err, company) {
-            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
-            for (var x of company.fuelsAndOil) {
-                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-            }
+            sum(company);
             if (err) {
                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                     fuelsAndOils: company.fuelsAndOil,
@@ -161,7 +218,7 @@ FuelsAndOilController.update = function (req, res) {
                 emision: req.body.emision,
                 factor: req.body.factor,
                 gei: req.body.gei,
-                pcg: req.body.pcg
+                pcg: req.body.pcg,
             },
         },
         { new: true },
@@ -171,15 +228,7 @@ FuelsAndOilController.update = function (req, res) {
                     .populate("fuelsAndOil")
                     .exec(function (error, company) {
                         verifyStatus(res.statusCode);
-                        var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-                        var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
-                        for (var x of company.fuelsAndOil) {
-                            sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                            marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                            junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                            septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                            noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-                        }
+                        sum(company);
                         if (error) {
                             verifyStatus(res.statusCode);
                             res.render("../views/fuelsAndOil/AllFuelsAndOil", {
@@ -225,19 +274,51 @@ FuelsAndOilController.update = function (req, res) {
                         }
                     });
             } else {
-                //  return res.json("all fuels and oil updated");
+                /*var cant;
+                var pcg;
+                var kg;*/
+                FuelsAndOil.findOne({ _id: req.params.id }).exec(function (err, fuel) {
+                    var ton = fuel.factor/1000;
+                    var cant = fuel.emision;
+                    cant = parseFloat(cant).toFixed(5);
+                    var gei = fuel.gei;
+                    var pcg = fuel.pcg;
+                    var co2 = 0;
+                    var ch4 = 0;
+                    var n2o = 0;
+                    var kg = fuel.factor;
+                    var fuente = fuel.combustible;
+                    var unidad = fuel.unidad;
+        
+                    if(fuel.gei=="CO2"){
+                        co2 = cant * ton * pcg;
+                        co2 = parseFloat(co2).toFixed(5);
+                    }else if(fuel.gei=="CH4"){
+                        ch4 = cant * ton * pcg;
+                        ch4 = parseFloat(ch4).toFixed(5);
+                    }else{
+                        n2o = cant * ton * pcg;
+                        n2o = parseFloat(n2o).toFixed(5);
+                    }
+                    Emission.updateOne({ fuelsAndOil: req.params.id }, {
+                        $set: {
+                            cantidad: cant,
+                            co2: co2,
+                            ch4: ch4,
+                            n2o: n2o,
+                            kilogram: kg,
+                            pcg: pcg, 
+                            ton: ton,
+                            fuente_generador: fuente,
+                            gei: gei,
+                            unidad: unidad
+                        },
+                    }).exec(function (err, ems) {});
+                });
                 Company.findOne({ _id: fuelsAndOils.company })
                     .populate("fuelsAndOil")
                     .exec(function (error, company) {
-                        var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-                        var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
-                        for (var x of company.fuelsAndOil) {
-                            sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                            marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                            junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                            septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                            noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-                        }
+                        sum(company);
                         if (error) {
                             verifyStatus(res.statusCode);
                             res.render("../views/fuelsAndOil/AllFuelsAndOil", {
@@ -288,24 +369,27 @@ FuelsAndOilController.update = function (req, res) {
 };
 
 FuelsAndOilController.delete = function (req, res) {
+    var id;
+    Emission.findOne({ fuelsAndOil: req.params.id }).exec(function (err, e) {
+        id = e._id;
+        Company.updateOne({ _id: req.params.comp }, {
+            $pull: { 
+                emission: id
+            }
+        }).exec(function (err, electricity) {
+        });
+    });
     Company.updateOne({ "_id": req.params.comp }, {
         $pull: { "fuelsAndOil": req.params.id }
     }).exec(function (err, fuelsAndOil) {
         if (fuelsAndOil) {
+            Emission.deleteOne({ fuelsAndOil: req.params.id }).exec(function (err, electricity) {});
             FuelsAndOil.deleteOne({ _id: req.params.id }, function (err) {
                 if (err) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("fuelsAndOil")
                         .exec(function (error, company) {
-                            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-                            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
-                            for (var x of company.fuelsAndOil) {
-                                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-                            }
+                            sum(company);
                             if (error) {
                                 verifyStatus(res.statusCode);
                                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
@@ -354,15 +438,7 @@ FuelsAndOilController.delete = function (req, res) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("fuelsAndOil")
                         .exec(function (error, company) {
-                            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-                            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
-                            for (var x of company.fuelsAndOil) {
-                                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-                            }
+                            sum(company);
                             if (error) {
                                 verifyStatus(res.statusCode);
                                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
