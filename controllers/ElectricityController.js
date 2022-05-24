@@ -39,6 +39,7 @@ function calc(req) {
         + parseFloat(req.body.julio) + parseFloat(req.body.agosto) + parseFloat(req.body.septiembre) 
         + parseFloat(req.body.octubre) + parseFloat(req.body.noviembre) + parseFloat(req.body.diciembre)
     );
+    req.body.total = parseFloat(req.body.total).toFixed(5);
 };
 
 function sum(electricity){
@@ -51,6 +52,7 @@ function sum(electricity){
         septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
         noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
     }
+    sumatoria = parseFloat(sumatoria).toFixed(5);
 }
 
 //Método para guardar reportes de electricidad
@@ -69,6 +71,7 @@ electricityController.save = async function (req, res) {
             });
         } else {
             var ton = electricity.factor_emision/1000;
+            ton = parseFloat(ton).toFixed(5);
             var body = {
                 alcance: "2",
                 fuente_generador:"Electricidad",
@@ -78,9 +81,9 @@ electricityController.save = async function (req, res) {
                 ton: ton,
                 gei: electricity.gei,
                 pcg: electricity.pcg,
-                co2: "0",
-                ch4: "0",
-                n2o: "0",
+                co2: 0,
+                ch4: 0,
+                n2o: 0,
                 company: elec.company._id,
                 electricity: elec._id
             };
@@ -174,8 +177,10 @@ electricityController.update = function (req, res) {
                 Electricity.findOne({ _id: req.params.id }).exec(function (err, elec) {
                     cant = elec.total;
                     ton = elec.factor_emision/1000;
+                    ton = parseFloat(ton).toFixed(5);
                     pcg = elec.pcg;
                     co2 = cant * ton * pcg;
+                    co2 = parseFloat(co2).toFixed(5);
                     kg = elec.factor_emision;
                     Emission.updateOne({ electricity: req.params.id }, {
                         $set: {

@@ -2,10 +2,16 @@
 require('../connection');
 const Gaseslp = require('../models/Gaseslp');
 const Company = require("../models/Company");
+var Emission = require("../models/Emission");
 const { clearCache } = require('ejs');
 var gasesController = {};
 var status = 0;
 var message = "";
+var sumatoria = 0;
+sumatoria = sumatoria.toFixed(5);
+ var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
+var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
+
 function verifyStatus(statusCode) {
     if (statusCode == 200) {//Satisfactorio
         status = 200;
@@ -29,15 +35,30 @@ function verifyStatus(statusCode) {
 }
 function calc(req) {
     if (parseFloat(req.body.densidad) > 0) {
-        req.body.emision = (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
-                            parseFloat(req.body.mayo)+parseFloat(req.body.junio)+parseFloat(req.body.julio)+parseFloat(req.body.agosto)+ 
-                            parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre))/parseFloat(req.body.densidad);
+        req.body.emision= (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
+        parseFloat(req.body.mayo)+parseFloat(req.body.junio)+parseFloat(req.body.julio)+parseFloat(req.body.agosto)+ 
+        parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre))/parseFloat(req.body.densidad);
     } else {
         req.body.emision = (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
-                            parseFloat(req.body.mayo)+parseFloat(req.body.junio)+parseFloat(req.body.julio)+parseFloat(req.body.agosto)+ 
-                            parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre));
+        parseFloat(req.body.mayo)+parseFloat(req.body.junio)+parseFloat(req.body.julio)+parseFloat(req.body.agosto)+ 
+        parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre));
     }
+    req.body.total = parseFloat(req.body.total).toFixed(5);
 };
+
+function sum(company){
+    sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
+    julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
+    for (var x of company.gaslp) {
+        sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
+        marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
+        junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
+        septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
+        noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
+    }
+    sumatoria = parseFloat(sumatoria).toFixed(5);
+}
+
 //Guardar un gas
 gasesController.save = async function (req, res) {
     //const {unidad,uso, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre ,diciembre, densidad, observacion, emision, gei, pcg,}= req.body; 
@@ -51,7 +72,44 @@ gasesController.save = async function (req, res) {
             res.render('../views/gaseslp/NewGas', { message: message, company: gas.company._id, status: status });
         }
         else {
+            var ton = gas.factor_emision/1000;
+            ton = parseFloat(ton).toFixed(5);
+            var cant = gas.emision;
+            cant = cant.toFixed(5);
+            var pcg = gas.pcg;
+            var co2=0;
+            var ch4=0;
+            var n2o=0;
+            if(gas.gei=="CO2"){
+                co2 = cant * ton * pcg;
+                co2 = parseFloat(co2).toFixed(5);
+            }else if(gas.gei=="CH4"){
+                ch4 = cant * ton * pcg;
+                ch4 = parseFloat(ch4).toFixed(5);
+            }else{
+                n2o = cant * ton * pcg;
+                n2o = parseFloat(n2o).toFixed(5);
+            }
+            var body = {
+                alcance: "1",
+                fuente_generador:"Gas Lpg",
+                cantidad: cant,
+                unidad: "Litro",
+                kilogram: gas.factor,
+                ton: ton,
+                gei: gas.gei,
+                pcg: pcg,
+                co2: co2,
+                ch4: ch4,
+                n2o: n2o,
+                company: gas.company._id,
+                gaslp: gas._id
+            };
+            var emission = new Emission(body);
+            emission.save();
+
             comp.gaslp.push(gases);
+            comp.emission.push(emission);
             comp.save(function (err, company) {
                 if (err) {
                     verifyStatus(res.statusCode);
@@ -77,15 +135,7 @@ gasesController.list = function (req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("gaslp")
         .exec(function (err, company) {
-            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
-            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
-            for (var x of company.gaslp) {
-                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-            }
+            sum(company);
             if (err) {
                 res.render("../views/gaseslp/AllGas", {
                     gases: company.gaslp,
@@ -154,22 +204,13 @@ gasesController.update = function (req, res) {
         },
         { new: true },
         function (err, gases) {
+            verifyStatus(res.statusCode);
             if (err) {
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
-                        verifyStatus(res.statusCode);
-                        var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
-                        var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
-                        for (var x of company.gaslp) {
-                            sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                            marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                            junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                            septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                            noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-                        }
+                        sum(company);
                         if (error) {
-                            verifyStatus(res.statusCode);
                             res.render("../views/gaseslp/AllGas", {
                                 message: message,
                                 gases: company.gaslp,
@@ -180,7 +221,6 @@ gasesController.update = function (req, res) {
                                 octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                             });
                         } else {
-                            verifyStatus(res.statusCode);
                             res.render("../views/gaseslp/AllGas", {
                                 message: message,
                                 gases: company.gaslp,
@@ -193,21 +233,42 @@ gasesController.update = function (req, res) {
                         }
                     });
             } else {
+                var cant;
+                var pcg;
+                var kg;
+                Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gas) {
+                    var ton = gas.factor/1000;
+                    var co2=0;
+                    var ch4=0;
+                    var n2o=0;
+                    cant = gas.emision;
+                    pcg = gas.pcg;
+                    kg = gas.factor;
+                    if(gas.gei=="CO2"){
+                        co2 = cant * ton * pcg;
+                    }else if(gas.gei=="CH4"){
+                        ch4 = cant * ton * pcg;
+                    }else{
+                        n2o = cant * ton * pcg;
+                    }
+                    Emission.updateOne({ gaslp: req.params.id }, {
+                        $set: {
+                            cantidad: cant,
+                            co2: co2,
+                            ch4: ch4,
+                            n2o: n2o,
+                            kilogram: kg,
+                            pcg: pcg, 
+                            ton: ton
+                        },
+                    }).exec(function (err, ems) {});
+                });
               //  return res.json("all gases updated"); 
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {
-                        var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
-                        var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
-                        for (var x of company.gaslp) {
-                            sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                            marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                            junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                            septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                            noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-                        }
+                        sum(company);
                         if (error) {
-                            verifyStatus(res.statusCode);
                             res.render("../views/gaseslp/AllGas", {
                                 message: message,
                                 gases: company.gaslp,
@@ -218,7 +279,6 @@ gasesController.update = function (req, res) {
                                 octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                             });
                         } else {
-                            verifyStatus(res.statusCode);
                             res.render("../views/gaseslp/AllGas", {
                                 message: message,
                                 gases: company.gaslp,
@@ -237,27 +297,30 @@ gasesController.update = function (req, res) {
 
 
 gasesController.delete = function (req, res) {
+    var id;
+    Emission.findOne({ gaslp: req.params.id }).exec(function (err, e) {
+        id = e._id;
+        Company.updateOne({ _id: req.params.comp }, {
+            $pull: { 
+                emission: id
+            }
+        }).exec(function (err, electricity) {
+        });
+    });
     Company.updateOne({ "_id": req.params.comp }, {
         $pull: { "gaslp": req.params.id }
     }).exec(function (err, objGases) {
        
         if (objGases) {
+            Emission.deleteOne({ gaslp: req.params.id }).exec(function (err, electricity) {});
             Gaseslp.deleteOne({ _id: req.params.id }, function (err) {
+                verifyStatus(res.statusCode);
                 if (err) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("gaslp")
                         .exec(function (error, company) {
-                            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
-                            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
-                            for (var x of company.gaslp) {
-                                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-                            }
+                            sum(company);
                             if (error) {
-                                verifyStatus(res.statusCode);
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
                                     message: message,
@@ -268,7 +331,6 @@ gasesController.delete = function (req, res) {
                                     octubre: octubre, noviembre: noviembre, diciembre: diciembre,status: status
                                 });
                             } else {
-                                verifyStatus(res.statusCode);
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
                                     message: message,
@@ -284,17 +346,8 @@ gasesController.delete = function (req, res) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("gaslp")
                         .exec(function (error, company) {
-                            var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0;var junio = 0;
-                            var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0;var noviembre = 0; var diciembre = 0;
-                            for (var x of company.gaslp) {
-                                sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-                                marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-                                junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-                                septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-                                noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
-                            }
+                            sum(company);
                             if (error) {
-                                verifyStatus(res.statusCode);
                                 res.render("../views/gaseslp/AllGas", {
                                     company: company,
                                     message: message,

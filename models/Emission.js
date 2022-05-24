@@ -23,6 +23,18 @@ const EmissionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Electricity'
     },
+    gaslp: {
+        type: Schema.Types.ObjectId,
+        ref: 'Gaseslp'
+    },
+    fuelsAndOil: {
+        type: Schema.Types.ObjectId,
+        ref: 'FuelsAndOil'
+    },
+    airConditioning: {
+        type: Schema.Types.ObjectId,
+        ref: 'AirConditioning'
+    },
 });
 
 module.exports = mongoose.model('Emission', EmissionSchema);

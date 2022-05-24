@@ -2,6 +2,10 @@
 require('../connection');
 var Company = require("../models/Company");
 var Emission = require("../models/Emission");
+var Electricity = require("../models/Electricity");
+var FuelsAndOil = require("../models/FuelsAndOil");
+var Gaseslp = require("../models/Gaseslp");
+var AirConditioning = require("../models/AirConditioning");
 var companyController = {};
 var status = 0;
 var message = "";
@@ -103,6 +107,11 @@ companyController.update = function (req, res) {
 };
 //Eliminar
 companyController.delete = function (req, res) {
+    Emission.deleteMany({company: req.params.id}).exec(function (err, ele){});
+    Electricity.deleteMany({company: req.params.id}).exec(function (err, ele){});
+    FuelsAndOil.deleteMany({company: req.params.id}).exec(function (err, ele){});
+    Gaseslp.deleteMany({company: req.params.id}).exec(function (err, ele){});
+    AirConditioning.deleteMany({company: req.params.id}).exec(function (err, ele){});
     Company.deleteOne({ _id: req.params.id }, function (err) {
         if (err) {
             verifyStatus(res.statusCode);
@@ -133,8 +142,8 @@ companyController.renderPageAllEmissions = function (req, res) {
         .populate("emission")
         .exec(function (err, company) {
             for (var x of company.emission) {
-                x.co2 = parseFloat(x.co2).toFixed(2);
-                
+                x.co2 = parseFloat(x.co2).toFixed(5);
+
             }
 
             res.render("../views/emissions/Emissions", {
