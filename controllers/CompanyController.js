@@ -129,16 +129,18 @@ companyController.delete = function (req, res) {
 };
 
 companyController.renderPageAllEmissions = function (req, res) {
-    Emission.findOne({ company: req.params.comp })
+    Company.findOne({ _id: req.params.comp })
         .populate("emission")
         .exec(function (err, company) {
-            /*var total = 0; 
             for (var x of company.emission) {
-                total = total + parseFloat(x.total); 
-            }*/
+                x.co2 = parseFloat(x.co2).toFixed(2);
+                
+            }
+
             res.render("../views/emissions/Emissions", {
-                emissions: company.emissions,
+                emissions: company.emission,
                 company: company._id,
+                sumatoria: 0
             });
         });
 };

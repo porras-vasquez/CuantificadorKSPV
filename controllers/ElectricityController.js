@@ -78,9 +78,9 @@ electricityController.save = async function (req, res) {
                 ton: ton,
                 gei: electricity.gei,
                 pcg: electricity.pcg,
-                co2: "",
-                ch4: "",
-                n2o: "",
+                co2: "0",
+                ch4: "0",
+                n2o: "0",
                 company: elec.company._id,
                 electricity: elec._id
             };
@@ -166,39 +166,57 @@ electricityController.update = function (req, res) {
                         });
                     });
             } else {
+                var cant;
+                var ton;
+                var pcg;
+                var co2;
+                var kg;
+                Electricity.findOne({ _id: req.params.id }).exec(function (err, elec) {
+                    cant = elec.total;
+                    ton = elec.factor_emision/1000;
+                    pcg = elec.pcg;
+                    co2 = cant * ton * pcg;
+                    kg = elec.factor_emision;
+                    Emission.updateOne({ electricity: req.params.id }, {
+                        $set: {
+                            co2: co2,
+                            kilogram: kg,
+                            pcg: pcg, 
+                            ton: ton
+                        },
+                    }).exec(function (err, ems) {});
+                });
                 Company.findOne({ _id: electricity.company })
                     .populate("electricidad")
-                    .exec(function (error, company) {
-                        Electricity.findOne({ _id: req.params.id }).exec(function (err, elec) {
-                            sum(elec);
-                            var cant = sumatoria;
-                            var ton = elec.factor_emision;
-                            var pcg = elec.pcg;
-                            var co2 = cant * ton * pcg;
-                            Emission.updateOne({ electricity: req.params._id }, {
-                                $set: {
-                                    cantidad: cant,
-                                    co2: co2,
-                                },
-                            }).exec(function (err, ems) {
-                            });
-                        });
-                        res.render("../views/electricity/AllElectricities", {
-                            message: message,
-                            electricities: company.electricidad,
-                            company: company._id,
-                            status: status,
-                            sumatoria: sumatoria
-                        });
+                    .exec(function (error, company) {    
+                    res.render("../views/electricity/AllElectricities", {
+                        message: message,
+                        electricities: company.electricidad,
+                        company: company._id,
+                        status: status,
+                        sumatoria: sumatoria
                     });
+                });                
             }
         }
     );
 };
 
 electricityController.delete = function (req, res) {
-    Company.updateOne({ "_id": req.params.comp }, {
-        $pull: { "electricidad": req.params.id }
+    var id;
+    Emission.findOne({ electricity: req.params.id }).exec(function (err, e) {
+        id = e._id;
+        Company.updateOne({ _id: req.params.comp }, {
+            $pull: { 
+                emission: id
+            }
+        }).exec(function (err, electricity) {
+        });
+    });
+    Company.updateOne({ _id: req.params.comp }, {
+        $pull: { 
+            electricidad: req.params.id
+        }
     }).exec(function (err, electricity) {
         if (electricity) {
             Electricity.deleteOne({ _id: req.params.id }, function (err) {
@@ -220,6 +238,18 @@ electricityController.delete = function (req, res) {
                     });
                 });
             });
+        }else{
+            Company.findOne({ _id: req.params.comp })
+            .populate("electricidad")
+            .exec(function (error, company) {
+                res.render("../views/electricity/AllElectricities", {
+                    company: company,
+                    message: message,
+                    electricities: company.electricidad,
+                    status: status,
+                    sumatoria: total
+                });
+            })
         }
     });
 };
@@ -290,14 +320,9 @@ electricityController.addMeter = function (req, res) {
                         },
                         function (err, elect) {
                             Electricity.findOne({ _id: req.params._id }).exec(function (err, elec) {
-                                var cant = sumatoria;
-                                var ton = elec.factor_emision;
-                                var pcg = elec.pcg;
-                                var co2 = cant * ton * pcg;
                                 Emission.updateOne({ electricity: req.params._id }, {
                                     $set: {
                                         cantidad: sumatoria,
-                                        co2: co2,
                                     },
                                 }).exec(function (err, ems) {
                                 });
@@ -414,14 +439,9 @@ electricityController.updateMeter = function (req, res) {
                         },
                         function (err, elect) {
                             Electricity.findOne({ _id: req.params.elec }).exec(function (err, elec) {
-                                var cant = sumatoria;
-                                var ton = elec.factor_emision;
-                                var pcg = elec.pcg;
-                                var co2 = cant * ton * pcg;
                                 Emission.updateOne({ electricity: req.params.elec }, {
                                     $set: {
                                         cantidad: sumatoria,
-                                        co2: co2,
                                     },
                                 }).exec(function (err, ems){
 
@@ -511,7 +531,7 @@ electricityController.deleteMeter = function (req, res) {
                     function (err, elect) {
                         Electricity.findOne({ _id: req.params.elec }).exec(function (err, elec) {
                             var cant = sumatoria;
-                            var ton = elec.factor_emision;
+                            var ton = elec.factor_emision/1000;
                             var pcg = elec.pcg;
                             var co2 = cant * ton * pcg;
                             Emission.updateOne({ electricity: req.params.elec }, {

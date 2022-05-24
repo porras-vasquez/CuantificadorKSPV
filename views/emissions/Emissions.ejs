@@ -25,7 +25,7 @@
                 }
             </script>
             <% }else if(status!=200 ){ %>
-                <script>
+                <script>Fuente
                     if (!localStorage.getItem("message")) {
                         Swal.fire({
                             position: 'center',
@@ -76,97 +76,82 @@
                                             <th scope="col text-whitex">CO2</th>
                                             <th scope="col text-whitex">CH4</th>
                                             <th scope="col text-whitex">N2O</th>
-                                            <th scope="col text-whitex">Total (Ton CO2 e)</th>
-                                            <th scope="col text-whitex">Total/Fuente</th>
                                         </tr>
                                     </thead>
                                     <!--Table head-->
                                     <!--Table body-->
                                     <tbody>
-                                        <% electricities.forEach((electricity)=>{ %>
+                                        <% emissions.forEach((emission)=>{ %>
                                             <tr class="text-center tr">
                                                 <td>
                                                     <div>
-                                                        <%=electricity.titulo%>
+                                                        <%=emission.alcance%>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <%=electricity.fuente_reporte%>
+                                                        <%=emission.fuente_generador%>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <%=electricity.unidad_medida%>
+                                                        <%=emission.cantidad%>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <%=electricity.ultima_update%>
+                                                        <%=emission.unidad%>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <%=electricity.factor_emision%>
+                                                        <%=emission.kilogram%>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <%=electricity.total%>
+                                                        <%=emission.ton%>
                                                     </div>
                                                 </td>
-                                                <td id="container"
-                                                    style="width: 300px; padding-left: 2%; padding-right: 2%;">
-                                                    <div id="boton">
-                                                        <div class="btn-electricity">
-                                                            <form style="font-size: 18px;"
-                                                                action="/electricities/deleteElectricity/<%=electricity._id%>/<%=electricity.company%>"
-                                                                method="post">
-                                                                <button type="danger" onclick="removeMessage()" class="btn btn-danger">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="btn-electricity">
-                                                            <button type="link" class="btn btn-success"
-                                                                onclick="window.location. href='/electricities/editElectricity/<%=electricity._id%>'">
-                                                                <i class="material-icons">edit</i>
-                                                            </button>
-                                                        </div>
-                                                        <div class="btn-electricity">
-                                                            <button type="link" class="btn btn-warning edit"
-                                                                title="Agregar medidor">
-                                                                <a class="material-icons"
-                                                                    onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=electricity.company%>'">
-                                                                    speed
-                                                                </a>
-                                                            </button>
-                                                        </div>
-                                                        <div class="btn-electricity">
-                                                            <button type="link" class="btn btn-warning"
-                                                                title="Ver medidores">
-                                                                <a class="material-icons"
-                                                                    onclick="window.location. href='/electricities/meters/<%=electricity._id%>'">
-                                                                    view_module
-                                                                </a>
-                                                            </button>
-                                                        </div>
+                                                <td>
+                                                    <div>
+                                                        <%=emission.gei%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <%=emission.pcg%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <% if(emission.co2 != 0) { %>
+                                                            <%=emission.co2%>
+                                                        <% }else { %>  
+                                                            
+                                                        <% } %> 
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <% if(emission.ch4 != 0) { %>
+                                                            <%=emission.ch4%>
+                                                        <% }else { %>  
+                                                            
+                                                        <% } %> 
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <% if(emission.n20 != 0) { %>
+                                                            <%=emission.n20%>
+                                                        <% }else { %>  
+                                                            
+                                                        <% } %> 
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <% }) %>
-                                            <% if(sumatoria!=0 ){ %>
-                                                <td class="text-center">Total</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="text-center">
-                                                        <%=sumatoria%>
-                                                    </div>
-                                                </td>
-                                            <% } %>    
+                                            <% }) %> 
                                     </tbody>
                                     <!--Table body-->
                                 </table>
