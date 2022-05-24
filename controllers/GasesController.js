@@ -74,7 +74,7 @@ gasesController.save = async function (req, res) {
         else {
             var ton = gas.factor_emision/1000;
             var cant = gas.emision;
-            cant = cant.toFixed(5);
+            cant = parseFloat(cant).toFixed(5);
             var pcg = gas.pcg;
             var co2=0;
             var ch4=0;
