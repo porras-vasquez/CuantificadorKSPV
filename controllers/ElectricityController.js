@@ -325,7 +325,19 @@ electricityController.addMeter = function (req, res) {
                             },
                         },
                         function (err, elect) {
+                            var cant;
+                            var ton;
+                            var pcg;
+                            var co2;
+                            var kg;
                             Electricity.findOne({ _id: req.params._id }).exec(function (err, elec) {
+                                cant = elec.total;
+                                ton = elec.factor_emision/1000;
+                                ton = parseFloat(ton).toFixed(5);
+                                pcg = elec.pcg;
+                                co2 = cant * ton * pcg;
+                                co2 = parseFloat(co2).toFixed(5);
+                                kg = elec.factor_emision;
                                 Emission.updateOne({ electricity: req.params._id }, {
                                     $set: {
                                         cantidad: sumatoria,

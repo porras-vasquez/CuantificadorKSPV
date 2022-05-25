@@ -350,7 +350,7 @@ airConditioningController.save = async function(req, res) {
         if (err) {
             res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: airConditionings.company._id });
         } else {
-            var ton = airConditionings.factor/1000;
+            var ton = airConditionings.factor_emision/1000;
             var cant = airConditionings.emision;
             cant = parseFloat(cant).toFixed(5);
             var pcg = airConditionings.pcg;

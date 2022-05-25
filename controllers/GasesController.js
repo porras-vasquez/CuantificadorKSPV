@@ -72,7 +72,7 @@ gasesController.save = async function (req, res) {
             res.render('../views/gaseslp/NewGas', { message: message, company: gas.company._id, status: status });
         }
         else {
-            var ton = gas.factor_emision/1000;
+            var ton = gas.factor/1000;
             var cant = gas.emision;
             cant = parseFloat(cant).toFixed(5);
             var pcg = gas.pcg;
