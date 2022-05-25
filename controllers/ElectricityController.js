@@ -70,17 +70,17 @@ electricityController.save = async function (req, res) {
                 message: message
             });
         } else {
-            var ton = electricity.factor_emision/1000;
+            var ton = elec.factor_emision/1000;
             ton = parseFloat(ton).toFixed(5);
             var body = {
                 alcance: "2",
                 fuente_generador:"Electricidad",
                 cantidad: "",
                 unidad: "Kilowatts/hora",
-                kilogram: electricity.factor_emision,
+                kilogram: elec.factor_emision,
                 ton: ton,
-                gei: electricity.gei,
-                pcg: electricity.pcg,
+                gei: elec.gei,
+                pcg: elec.pcg,
                 co2: 0,
                 ch4: 0,
                 n2o: 0,
@@ -316,6 +316,7 @@ electricityController.addMeter = function (req, res) {
             } else {
                 Electricity.findOne({ _id: req.params._id }).exec(function (err, electricity) {
                     sum(electricity)
+                    
                     Electricity.updateOne(
                         {_id: req.params._id},
                         {
@@ -328,6 +329,10 @@ electricityController.addMeter = function (req, res) {
                                 Emission.updateOne({ electricity: req.params._id }, {
                                     $set: {
                                         cantidad: sumatoria,
+                                        co2: co2,
+                                        kilogram: kg,
+                                        pcg: pcg, 
+                                        ton: ton
                                     },
                                 }).exec(function (err, ems) {
                                 });
