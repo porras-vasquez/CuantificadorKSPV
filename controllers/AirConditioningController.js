@@ -304,8 +304,8 @@ airConditioningController.save = async function(req, res) {
             res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: airConditionings.company._id });
         } else {
             var ton = airConditionings.factor_emision/1000;
-            var cant = airConditionings.emision;
-            cant = parseFloat(cant).toFixed(5);
+            var cant;
+            cant = 0;//parseFloat(cant).toFixed(5);
             var pcg = airConditionings.pcg;
             var hfc = 0;
             var hcfc = 0;
@@ -317,10 +317,9 @@ airConditioningController.save = async function(req, res) {
             }else{
                 fuente = "Aceite 2t/4t";
             }*/
-            if(airConditionings.tipoRefrigerante=="410-A"){
-                
-            }else if(airConditionings.tipoRefrigerante=="R22"){
 
+            if(airConditionings.tipoRefrigerante=="R22"){
+                
             }else if(airConditionings.tipoRefrigerante=="HFC134a"){
 
             }else if(airConditionings.tipoRefrigerante=="HFC152a"){
@@ -334,8 +333,6 @@ airConditioningController.save = async function(req, res) {
             }else if(airConditionings.tipoRefrigerante=="R404B"){
 
             }else if(airConditionings.tipoRefrigerante=="R407c"){
-
-            }else if(airConditionings.tipoRefrigerante=="R410a"){
 
             }else if(airConditionings.tipoRefrigerante=="R407c"){
 
@@ -376,6 +373,22 @@ airConditioningController.save = async function(req, res) {
                 if (err) {
                     res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: company });
                 } else {
+                    Company.findOne({ _id: company._id })
+                    .populate("airConditioning")
+                    .exec(function(err, comp) {
+                        for(var x of comp.airConditioning){
+                            if(x.tipoRefrigerante=="410-A"){
+                                cant = cant + parseFloat(x.totalR410a);
+                            }
+                        }
+                        Emission.updateOne(
+                            {airConditioning: airConditionings._id}, {
+                                $set: {
+                                    cantidad: cant
+                                },
+                            }, { new: true },
+                            function(err, air) {});
+                    })
                     res.render('../views/airConditioning/NewAirConditioning', {status: status, message: message, company: company });
                 }
             });
