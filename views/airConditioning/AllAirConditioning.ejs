@@ -79,10 +79,6 @@
                         <th scope="col text-whitex"> Total R22 HCFC (ton)</th>                        
                         <th scope="col text-whitex"> Total CO2e (Ton) R22 HCFC</th>
                         <%}%>
-                        <%if(totalHCFC!=0 ){ %>
-                        <th scope="col text-whitex"> Total R410a HCFC (ton)2</th>
-                        <th scope="col text-whitex"> Total CO2e (Ton) R410 HFC</th>
-                        <%}%>
                         <%if(totalHFC134a!=0 ){ %>
                             <th scope="col text-whitex"> Total HFC 134a (ton)2</th>
                             <th scope="col text-whitex"> Total CO2e (Ton) HFC 134a</th>
@@ -209,18 +205,6 @@
                             <td>
                                 <div>
                                     <%=airConditioning.totalCO2R22%>
-                                </div>
-                            </td> 
-                            <%}%>
-                            <%if(totalHCFC!=0 ){ %>
-                            <td>
-                                <div>
-                                    <%=airConditioning.totalHCFC%>
-                                </div>
-                            </td> 
-                            <td>
-                                <div>
-                                    <%=airConditioning.totalCO2%>
                                 </div>
                             </td> 
                             <%}%>
@@ -377,10 +361,6 @@
                         <%if(totalR22!=0 ){ %>
                         <td class="text-center"><%=totalR22%></td>
                         <td class="text-center"><%=totalCO2R22%></td>
-                        <%}%>
-                        <%if(totalHCFC!=0 ){ %>
-                        <td class="text-center"><%=totalHCFC%></td>
-                        <td class="text-center"><%=totalCO2%></td>
                         <%}%>
                         <%if(totalHFC134a!=0 ){ %>
                         <td class="text-center"><%=totalHFC134a%></td>

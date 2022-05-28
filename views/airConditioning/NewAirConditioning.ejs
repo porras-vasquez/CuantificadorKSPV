@@ -4,7 +4,11 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+    <script>
+        function removeMessage(){
+            localStorage.removeItem("message");
+        }
+    </script>
 <body style="background-color: #f4ffec; height: 100vh !important">
     <% if(typeof(status) !="undefined" ) { %>
         <% if(status==200) { %>
@@ -113,7 +117,6 @@
                                                 <option value="R404a">R404a</option>
                                                 <option value="R404B">R404B</option>
                                                 <option value="R407c">R407c</option>
-                                                <option value="R410a">R410a</option>
                                                 <option value="R507">R507</option>
                                                 <option value="R508B">R508B</option>
                                               </select>
