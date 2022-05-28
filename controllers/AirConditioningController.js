@@ -366,29 +366,29 @@ airConditioningController.save = async function(req, res) {
             }*/
             if(airConditionings.tipoRefrigerante=="410-A"){
                 
-            }else if(airCondiotinings.tipoRefrigerante=="R22"){
+            }else if(airConditionings.tipoRefrigerante=="R22"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="HFC134a"){
+            }else if(airConditionings.tipoRefrigerante=="HFC134a"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="HFC152a"){
+            }else if(airConditionings.tipoRefrigerante=="HFC152a"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R402a"){
+            }else if(airConditionings.tipoRefrigerante=="R402a"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R402b"){
+            }else if(airConditionings.tipoRefrigerante=="R402b"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R404a"){
+            }else if(airConditionings.tipoRefrigerante=="R404a"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R404B"){
+            }else if(airConditionings.tipoRefrigerante=="R404B"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R407c"){
+            }else if(airConditionings.tipoRefrigerante=="R407c"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R410a"){
+            }else if(airConditionings.tipoRefrigerante=="R410a"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R407c"){
+            }else if(airConditionings.tipoRefrigerante=="R407c"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R507"){
+            }else if(airConditionings.tipoRefrigerante=="R507"){
 
-            }else if(airCondiotinings.tipoRefrigerante=="R508B"){
+            }else if(airConditionings.tipoRefrigerante=="R508B"){
 
             }
 
