@@ -25,7 +25,10 @@ const FuelsAndOilSchema = new Schema({
     factor: String,
     gei: String,
     pcg: String,
-    unidad: String
+    unidad: String,
+    /*tonCO2: String,
+    tonCH4: String,
+    tonN2O: String*/
 });
 
 module.exports = mongoose.model('FuelsAndOil', FuelsAndOilSchema);

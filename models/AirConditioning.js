@@ -16,9 +16,9 @@ const AirConditioningShema = new Schema({
     tasaAnualFuga: String,
     fugaTotal: String, // capacidadconfinamiento * tasaanualfuga /100
     potencialCalentamineto: String,
-    totalHCFC: String, //fugatotal/1000
-    totalR22: String,//fugatotal/1000
-    totalCO2: String,//potencialDeCalentamiento*totalhfc
+    totalHCFC: String, //fugatotal/1000 410
+    totalR22: String,//fugatotal/1000 
+    totalCO2: String,//potencialDeCalentamiento*totalhfc 410
     totalCO2R22: String,//potencialDeCalentamiento*totalr22
     totalHFC134a: String,
     totalHFC134aCo2: String,
@@ -41,7 +41,8 @@ const AirConditioningShema = new Schema({
     total508B: String,
     totalR508BCo2: String,
     factor_emision: String,
-
+    /*tonHFC: String,
+    tonHCFC: String,*/
     /*
     enero: String,
     febrero: String,

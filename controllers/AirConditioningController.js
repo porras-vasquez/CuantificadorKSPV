@@ -354,9 +354,8 @@ airConditioningController.save = async function(req, res) {
             var cant = airConditionings.emision;
             cant = parseFloat(cant).toFixed(5);
             var pcg = airConditionings.pcg;
-            var co2 = 0;
-            var ch4 = 0;
-            var n2o = 0;
+            var hfc = 0;
+            var hcfc = 0;
             var fuente;
             /*if(fuels.combustible=="Gasolina"){
                 fuente = "Gasolina";
@@ -366,15 +365,12 @@ airConditioningController.save = async function(req, res) {
                 fuente = "Aceite 2t/4t";
             }*/
 
-            if(airConditionings.gei=="CO2"){
-                co2 = cant * ton * pcg;
-                co2 = parseFloat(co2).toFixed(5);
-            }else if(airConditionings.gei=="CH4"){
-                ch4 = cant * ton * pcg;
-                ch4 = parseFloat(ch4).toFixed(5);
-            }else{
-                n2o = cant * ton * pcg;
-                n2o = parseFloat(n2o).toFixed(5);
+            if(airConditionings.gei=="HFC"){
+                hfc = cant * ton * pcg;
+                hfc = parseFloat(hfc).toFixed(5);
+            }else if(airConditionings.gei=="HCFC"){
+                hcfc = cant * ton * pcg;
+                hcfc = parseFloat(hcfc).toFixed(5);
             }
             var body = {
                 alcance: "1",

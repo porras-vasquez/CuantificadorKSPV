@@ -24,6 +24,9 @@ const GasesShema = new Schema({
     gei: String,
     pcg: String,
     factor: String,
+    /*tonCO2: String,
+    tonCH4: String,
+    tonN2O: String */
     company: {
         type: Schema.Types.ObjectId,
         ref: 'Company'
