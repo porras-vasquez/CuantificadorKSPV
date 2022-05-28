@@ -33,16 +33,14 @@ function calc(req) {
     req.body.fugaTotal = ((parseFloat(req.body.capacidadConfinamiento) * parseFloat(req.body.tasaAnualFuga)) / 100);
 
     if(req.body.tipoRefrigerante=='410-A'){
-        req.body.totalHCFC = (parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalCO2 = (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalHCFC));
-        req.body.totalR22 =0;
+        req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHFC134a=0;
-        req.body.totalHFC134aCo2=0;
+        req.body.totalHFC134a= 0;
+        req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
-        req.body.totalHFC152aCo2=0;
-        req.body.totalR402a=0;
-        req.body.totalR402aCo2=0;
+        req.body.totalHFC152aCo2= 0;
+        req.body.totalR402a= 0;
+        req.body.totalR402aCo2= 0;
         req.body.totalR402b=0;
         req.body.totalR402bCo2=0;
         req.body.totalR404a=0;
@@ -51,8 +49,8 @@ function calc(req) {
         req.body.totalR404BCo2=0;
         req.body.totalR407c=0;
         req.body.totalR407cCo2=0;
-        req.body.totalR410a=0
-        req.body.totalR410aCo2=0;
+        req.body.totalR410a=(parseFloat(req.body.fugaTotal) / 1000);
+        req.body.totalR410aCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR410a));
         req.body.totalR507=0;
         req.body.totalR507Co2=0;
         req.body.total508B=0;
@@ -61,8 +59,6 @@ function calc(req) {
     } else if(req.body.tipoRefrigerante=='R22'){
         req.body.totalR22 = (parseFloat(req.body.fugaTotal) / 1000);
         req.body.totalCO2R22 = (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR22));
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a=0;
         req.body.totalHFC134aCo2=0;
         req.body.totalHFC152a=0;
@@ -87,8 +83,6 @@ function calc(req) {
 
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= (parseFloat(req.body.fugaTotal) / 1000);
         req.body.totalHFC134aCo2= (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalHFC134a));
         req.body.totalHFC152a=0;
@@ -112,8 +106,6 @@ function calc(req) {
     }else if(req.body.tipoRefrigerante=='HFC152a'){
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=(parseFloat(req.body.fugaTotal) / 1000);;
@@ -137,8 +129,6 @@ function calc(req) {
     }else if(req.body.tipoRefrigerante=='R402a'){
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
@@ -162,8 +152,6 @@ function calc(req) {
     }else if(req.body.tipoRefrigerante=='R402b'){
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
@@ -187,8 +175,6 @@ function calc(req) {
     }else if(req.body.tipoRefrigerante=='R404a'){
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
@@ -212,8 +198,6 @@ function calc(req) {
     }else if(req.body.tipoRefrigerante=='R407c'){
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
@@ -237,8 +221,6 @@ function calc(req) {
     }else if(req.body.tipoRefrigerante=='R404B'){
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
@@ -259,36 +241,9 @@ function calc(req) {
         req.body.totalR507Co2=0;
         req.body.total508B=0;
         req.body.totalR508BCo2=0;
-    }else if(req.body.tipoRefrigerante=='R410a'){
-        req.body.totalR22 = 0;
-        req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
-        req.body.totalHFC134a= 0;
-        req.body.totalHFC134aCo2= 0;
-        req.body.totalHFC152a=0;
-        req.body.totalHFC152aCo2= 0;
-        req.body.totalR402a= 0;
-        req.body.totalR402aCo2= 0;
-        req.body.totalR402b=0;
-        req.body.totalR402bCo2=0;
-        req.body.totalR404a=0;
-        req.body.totalR404aCo2=0;
-        req.body.totalR404B=0;
-        req.body.totalR404BCo2=0;
-        req.body.totalR407c=0;
-        req.body.totalR407cCo2=0;
-        req.body.totalR410a=(parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR410aCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR410a));
-        req.body.totalR507=0;
-        req.body.totalR507Co2=0;
-        req.body.total508B=0;
-        req.body.totalR508BCo2=0;
     }else if(req.body.tipoRefrigerante=='R507'){
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
@@ -312,8 +267,6 @@ function calc(req) {
     }else if(req.body.tipoRefrigerante=='R508B'){
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHCFC = 0;
-        req.body.totalCO2 =0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
@@ -442,14 +395,12 @@ airConditioningController.list = function(req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("airConditioning")
         .exec(function(err, company) {
-            var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0,
+            var totalR22=0, totalCO2=0, totalCO2R22=0,
             totalHFC134a=0,totalHFC134aCo2=0,totalHFC152a=0,totalHFC152aCo2=0,totalR402a=0,
             totalR402aCo2=0,totalR402b=0,totalR402bCo2=0,totalR404a=0,totalR404aCo2=0,totalR404B=0,
             totalR404BCo2=0,totalR407c=0,totalR407cCo2=0,totalR410a=0,totalR410aCo2=0,totalR507=0,totalR507Co2=0,total508B=0,totalR508BCo2=0;
             for (var x of company.airConditioning) {
-                totalHCFC = totalHCFC + parseFloat(x.totalHCFC); 
                 totalR22 = totalR22 + parseFloat(x.totalR22); 
-                totalCO2 = totalCO2 + parseFloat(x.totalCO2); 
                 totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
                 totalHFC134a = totalHFC134a + parseFloat(x.totalHFC134a);
                 totalHFC134aCo2 = totalHFC134aCo2 + parseFloat(x.totalHFC134aCo2);
@@ -477,7 +428,6 @@ airConditioningController.list = function(req, res) {
                 res.render("../views/airConditioning/AllAirConditioning", {
                     airConditionings: company.airConditioning,
                     company: company._id,
-                    totalHCFC:totalHCFC,
                     totalR22: totalR22,
                     totalCO2: totalCO2,
                     totalCO2R22: totalCO2R22,
@@ -507,7 +457,6 @@ airConditioningController.list = function(req, res) {
                 res.render("../views/airConditioning/AllAirConditioning", {
                     airConditionings: company.airConditioning,
                     company: company._id,
-                    totalHCFC:totalHCFC,
                     totalR22: totalR22,
                     totalCO2: totalCO2,
                     totalCO2R22: totalCO2R22,
@@ -570,7 +519,6 @@ airConditioningController.update = function(req, res) {
                 tasaAnualFuga: req.body.tasaAnualFuga,
                 fugaTotal: req.body.fugaTotal,
                 potencialCalentamineto: req.body.potencialCalentamineto,
-                totalHCFC: req.body.totalHCFC,
                 totalR22: req.body.totalR22,
                 totalCO2: req.body.totalCO2,
                 totalCO2R22: req.body.totalCO2R22,
@@ -665,14 +613,12 @@ airConditioningController.update = function(req, res) {
                     .exec(function(error, company) {
                         console.log(error);
                         console.log(company);
-                        var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0,
+                        var totalR22=0, totalCO2=0, totalCO2R22=0,
                         totalHFC134a=0,totalHFC134aCo2=0,totalHFC152a=0,totalHFC152aCo2=0,totalR402a=0,
                         totalR402aCo2=0,totalR402b=0,totalR402bCo2=0,totalR404a=0,totalR404aCo2=0,totalR404B=0,
                         totalR404BCo2=0,totalR407c=0,totalR407cCo2=0,totalR410a=0,totalR410aCo2=0,totalR507=0,totalR507Co2=0,total508B=0,totalR508BCo2=0;
                         for (var x of company.airConditioning) {
-                            totalHCFC = totalHCFC + parseFloat(x.totalHCFC); 
                             totalR22 = totalR22 + parseFloat(x.totalR22); 
-                            totalCO2 = totalCO2 + parseFloat(x.totalCO2); 
                             totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
                             totalHFC134a = totalHFC134a + parseFloat(x.totalHFC134a);
                             totalHFC134aCo2 = totalHFC134aCo2 + parseFloat(x.totalHFC134aCo2);
@@ -702,7 +648,6 @@ airConditioningController.update = function(req, res) {
                                 status: status,
                                 airConditionings: company.airConditioning,
                                 company: company._id,
-                                totalHCFC:totalHCFC,
                                 totalR22: totalR22,
                                 totalCO2: totalCO2,
                                 totalCO2R22: totalCO2R22,
@@ -733,7 +678,6 @@ airConditioningController.update = function(req, res) {
                                 status: status,
                                 airConditionings: company.airConditioning,
                                 company: company._id,
-                                totalHCFC:totalHCFC,
                                 totalR22: totalR22,
                                 totalCO2: totalCO2,
                                 totalCO2R22: totalCO2R22,
@@ -797,14 +741,12 @@ airConditioningController.delete = function (req, res) {
                     Company.findOne({ _id: req.params.comp })
                         .populate("airConditioning")
                         .exec(function (error, company) {
-                            var  totalHCFC = 0,totalR22=0, totalCO2=0, totalCO2R22=0,
+                            var totalR22=0, totalCO2=0, totalCO2R22=0,
                             totalHFC134a=0,totalHFC134aCo2=0,totalHFC152a=0,totalHFC152aCo2=0,totalR402a=0,
                             totalR402aCo2=0,totalR402b=0,totalR402bCo2=0,totalR404a=0,totalR404aCo2=0,totalR404B=0,
                             totalR404BCo2=0,totalR407c=0,totalR407cCo2=0,totalR410a=0,totalR410aCo2=0,totalR507=0,totalR507Co2=0,total508B=0,totalR508BCo2=0;
                             for (var x of company.airConditioning) {
-                                totalHCFC = totalHCFC + parseFloat(x.totalHCFC); 
-                                totalR22 = totalR22 + parseFloat(x.totalR22); 
-                                totalCO2 = totalCO2 + parseFloat(x.totalCO2); 
+                                totalR22 = totalR22 + parseFloat(x.totalR22);  
                                 totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
                                 totalHFC134a = totalHFC134a + parseFloat(x.totalHFC134a);
                                 totalHFC134aCo2 = totalHFC134aCo2 + parseFloat(x.totalHFC134aCo2);
@@ -833,7 +775,6 @@ airConditioningController.delete = function (req, res) {
                                 res.render("../views/airConditioning/AllAirConditioning", {
                                     company: company,
                                     airConditionings: company.airConditioning,
-                                    totalHCFC:totalHCFC,
                                     totalR22: totalR22,
                                     totalCO2: totalCO2,
                                     totalCO2R22: totalCO2R22,
@@ -864,7 +805,6 @@ airConditioningController.delete = function (req, res) {
                                 res.render("../views/airConditioning/AllAirConditioning", {
                                     company: company,
                                     airConditionings: company.airConditioning,
-                                    totalHCFC:totalHCFC,
                                     totalR22: totalR22,
                                     totalCO2: totalCO2,
                                     totalCO2R22: totalCO2R22,
