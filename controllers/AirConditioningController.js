@@ -364,6 +364,33 @@ airConditioningController.save = async function(req, res) {
             }else{
                 fuente = "Aceite 2t/4t";
             }*/
+            if(airConditionings.tipoRefrigerante=="410-A"){
+                
+            }else if(airCondiotinings.tipoRefrigerante=="R22"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="HFC134a"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="HFC152a"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R402a"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R402b"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R404a"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R404B"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R407c"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R410a"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R407c"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R507"){
+
+            }else if(airCondiotinings.tipoRefrigerante=="R508B"){
+
+            }
 
             if(airConditionings.gei=="HFC"){
                 hfc = cant * ton * pcg;
@@ -374,16 +401,16 @@ airConditioningController.save = async function(req, res) {
             }
             var body = {
                 alcance: "1",
-                fuente_generador: fuente,
+                fuente_generador: "Gas refrigerante A/C",
                 cantidad: cant,
-                unidad: "",
+                unidad: airConditionings.tipoRefrigerante,
                 kilogram: airConditionings.factor_emision,
                 ton: ton,
                 gei: airConditionings.gei,
                 pcg: pcg,
-                co2: co2,
-                ch4: ch4,
-                n2o: n2o,
+                co2: "",
+                ch4: "",
+                n2o: "",
                 company: airConditionings.company._id,
                 airConditioning: airConditionings._id
             };
