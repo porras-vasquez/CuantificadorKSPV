@@ -5,12 +5,13 @@
     <%- include('../navbar'); -%>
 </header>
 <script>
-    function removeMessage(){
+    function removeMessage() {
         localStorage.removeItem("message");
     }
 </script>
+
 <body style="background-color: #f4ffec;">
-    <div class="card mt-2 mb-2x"
+    <div class="card mt-2"
         style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
         <div id="menu-container" class="menu-container">
             <div id="menu" class="menu">
@@ -27,8 +28,8 @@
                             compañía</a>
                     </ul>
                     <ul class="list-group list-group-flush button flex-color">
-                        <a onclick="window.location. href='/gaseslp/gasesshow/<%=company._id%>'"
-                            type="button" class="btn btn primary ">Mostrar emisiones</a>
+                        <a onclick="window.location. href='/gaseslp/gasesshow/<%=company._id%>'" type="button"
+                            class="btn btn primary ">Mostrar emisiones</a>
                     </ul>
                     <ul class="list-group list-group-flush button flex-color">
                         <a href="/companies/showCompany" type="button" class="btn btn primary ">Atrás</a>
@@ -37,153 +38,153 @@
             </div>
         </div>
         <div class="row text-dark table-container"
-            style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-            <form action="/gaseslp/updateGases/<%=gaslp._id%>" method="post" class="newGas row ">
-                <h3>Módulo de Gases LP: Editar</h3>
-                <div class="col-3">
-                    <div class="mb-2">
-                        <label for="exampleInputEmail1" class="form-label">Unidad de medida</label>
-                        <select value="" name="unidad" class="form-select" aria-label="Default select example">
-                            <option selected><%=gaslp.unidad%></option>
-                            <option value="Kilogramo">Kilogramo</option>
-                            <option value="Litro">Litro</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <label for="exampleInputEmail1" class="form-label">Uso</label>
-                        <input type="text" value="<%=gaslp.uso%>" name="uso" class="form-control" />
-                    </div>
-                    <div class="mb-2">
-                        <label for="exampleInputEmail1" class="form-label">Observación</label>
-                        <input type="text" value="<%=gaslp.observacion%>" name="observacion" class="form-control" />
-                    </div>
-                    <div class="mb-2">
-                        <label for="exampleInputEmail1" class="form-label">Densidad</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=gaslp.densidad%>" name="densidad" class="form-control"
-                            required />
-                    </div>
-                    <div class="mb-2">
-                        <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=gaslp.factor%>" name="factor" class="form-control"
-                            required />
-                    </div>
-                    <div class="mb-2">
-                        <label for="exampleInputEmail1" class="form-label">Datos emisión general</label>
-                        <select name="gei" aria-placeholder="GEI" class="form-select"
-                            aria-label="Default select example">
-                            <option selected><%=gaslp.gei%></option>
-                            <option value="CO2">CO2</option>
-                            <option value="CH4">CH4</option>
-                            <option value="N2O">N2O</option>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=gaslp.pcg%>" placeholder="PCG" name="pcg"
-                            class="form-control" required />
-                    </div>
-                </div>
-                <div class=" col-4 row text-dark" style="background-color: #ffffff; margin-left: 6%;">
-                    <h3 class="mt-2">
-                        Consumo de litros por mes
-                    </h3>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label text">Enero</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=gaslp.enero%>" name="enero"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Febrero</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=gaslp.febrero%>" name="febrero"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Marzo</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="marzo" value="<%=gaslp.marzo%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Abril</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="abril" value="<%=gaslp.abril%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Mayo</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="mayo" value="<%=gaslp.mayo%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Junio</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="junio" value="<%=gaslp.junio%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Julio</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="julio" value="<%=gaslp.julio%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Agosto</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="agosto" value="<%=gaslp.agosto%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Septiembre</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="septiembre" value="<%=gaslp.septiembre%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Octubre</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="octubre" value="<%=gaslp.octubre%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Noviembre</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="noviembre" value="<%=gaslp.noviembre%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="col-md-3 mb-1 text-center">
-                        <label for="exampleInputEmail1" class="form-label">Diciembre</label>
-                        <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                            oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="diciembre" value="<%=gaslp.diciembre%>"
-                            class="textarea form-control" required />
-                    </div>
-                    <div class="btnContainer mb-4">
-                        <input onclick="removeMessage()" type="submit" class="btn btn-success" value="Actualizar">
-                        <button type="button" class="btn btn-danger">
-                            <a href='/companies/showCompany'>Cancelar</a>
-                        </button>
+            style="margin-left: 14%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+            <form action="/gaseslp/updateGases/<%=gaslp._id%>" method="post" class="row form">
+                <h2 class="h2" style="margin-bottom: 1%;">Módulo de Gases LP: Editar</h2>
+                <div style="display: flex;">
+                    <div class="col-2">
+                        <p class="p" type="Uso:"><input class="input" placeholder="Escriba el título" name="uso"
+                                value="<%=gaslp.uso%>" required /></p>
+                        <p class="p" type="Observación:"><input class="input" placeholder="Escriba el título"
+                                name="observacion" value="<%=gaslp.observacion%>" required /></p>
+                        <p class="p" type="Densidad:"><input class="input" placeholder="Escriba el título"
+                                name="densidad" value="<%=gaslp.densidad%>" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" required /></p>
+                        <p class="p" type="PCG:"><input class="input" placeholder="Escriba el título" name="pcg"
+                                value="<%=gaslp.pcg%>" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" required /></p>
+                        <p class="p" type="Factor de emisión:"><input class="input" placeholder="Escriba el factor"
+                                name="factor" pattern="^[0-9]+\.?[0-9]*$" value="<%=gaslp.factor%>"
+                                oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" required /></p>
+
 
                     </div>
+                    <div class="col-2">
+                        <p class="p" type="Datos emisión general">
+                            <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="gei"
+                                aria-placeholder="GEI" aria-label="Default select example">
+                                <option selected>
+                                    <%=gaslp.gei%>
+                                </option>
+                                <option value="Kilogramo">Kilogramo</option>
+                                <option value="Litro">Litro</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </p>
+                        <p class="p" type="Unidad de medida:">
+                            <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="unidad"
+                                aria-placeholder="Unidad de medida" aria-label="Default select example">
+                                <option selected>
+                                    <%=gaslp.unidad%>
+                                </option>
+                                <option value="Kilogramo">Kilogramo</option>
+                                <option value="Litro">Litro</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class=" col-4 row" style="margin-left: 6%;">
+                        <h3 class="mt-2">
+                            Consumo de litros por mes
+                        </h3>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label text p2">Enero</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" value="<%=gaslp.enero%>"
+                                name="enero" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Febrero</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" value="<%=gaslp.febrero%>"
+                                name="febrero" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Marzo</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="marzo"
+                                value="<%=gaslp.marzo%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Abril</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="abril"
+                                value="<%=gaslp.abril%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Mayo</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="mayo"
+                                value="<%=gaslp.mayo%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Junio</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="junio"
+                                value="<%=gaslp.junio%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Julio</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="julio"
+                                value="<%=gaslp.julio%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Agosto</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="agosto"
+                                value="<%=gaslp.agosto%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Setiembre</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="septiembre"
+                                value="<%=gaslp.septiembre%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Octubre</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="octubre"
+                                value="<%=gaslp.octubre%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Noviembre</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="noviembre"
+                                value="<%=gaslp.noviembre%>" class="textarea form-control" required />
+                        </div>
+                        <div class="col-md-3 mb-1 text-center">
+                            <label for="exampleInputEmail1" class="form-label p2">Diciembre</label>
+                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" name="diciembre"
+                                value="<%=gaslp.diciembre%>" class="textarea form-control" required />
+                        </div>
+                        <div class="btnContainer mb-4">
+                            <input onclick="removeMessage()" type="submit" class="btn btn-success" value="Actualizar">
+                            <button type="button" class="btn btn-danger">
+                                <a href='/companies/showCompany'>Cancelar</a>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+
+
             </form>
         </div>
 

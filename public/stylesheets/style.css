@@ -340,7 +340,7 @@ a:hover{
     min-height: auto;
     max-height: 50%;
     min-width: auto;
-    max-width: 45%;
+    max-width: 70%;
     background:#e6e6e6;
     border-radius:8px;
     box-shadow:0 0 40px -10px #000;
@@ -387,8 +387,12 @@ select {
 .p:before{
     content:attr(type);
     display:block;
-    margin:28px 0 0;
     font-size:14px;
+    color:#5a5a5a
+}
+.p2{
+    display:block;
+    font-size:12px;
     color:#5a5a5a
 }
 .btnForm{
