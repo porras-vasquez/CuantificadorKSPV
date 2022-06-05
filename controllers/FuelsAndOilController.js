@@ -369,12 +369,10 @@ FuelsAndOilController.update = function (req, res) {
 };
 
 FuelsAndOilController.delete = function (req, res) {
-    var id;
     Emission.findOne({ fuelsAndOil: req.params.id }).exec(function (err, e) {
-        id = e._id;
         Company.updateOne({ _id: req.params.comp }, {
             $pull: { 
-                emission: id
+                emission: e._id
             }
         }).exec(function (err, electricity) {
         });
