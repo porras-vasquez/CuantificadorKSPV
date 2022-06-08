@@ -1,5 +1,6 @@
 'use strict'
 require('../connection');
+var ObjectID = require('mongodb').ObjectID;
 const Company = require("../models/Company");
 const AirConditioning = require('../models/AirConditioning');
 const Emission = require("../models/Emission");
@@ -300,16 +301,20 @@ airConditioningController.save = async function(req, res) {
     airConditioning.company = comp;
     //console.log(comp);
     await airConditioning.save(function(err, airConditionings) {
+        console.log("0");
         if (err) {
             res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: airConditionings.company._id });
         } else {
             var ton = airConditionings.factor_emision/1000;
-            var cant;
-            cant = 0;//parseFloat(cant).toFixed(5);
+            var cant = 0;
+            var gei = airConditionings.gei;
             var pcg = airConditionings.pcg;
+            var co2 = 0;
+            var ch4 = 0;
+            var n2o = 0;
+            var kg = airConditionings.factor;
             var hfc = 0;
             var hcfc = 0;
-            var fuente;
 
             if(airConditionings.gei=="HFC"){
                 hfc = cant * ton * pcg;
@@ -334,104 +339,112 @@ airConditioningController.save = async function(req, res) {
                 airConditioning: airConditionings._id
             };
 
-            /*if(fuels.combustible=="Gasolina"){
-                fuente = "Gasolina";
-            }else if(fuels.combustible=="Diésel"){
-                fuente = "Diésel";
-            }else{
-                fuente = "Aceite 2t/4t";
-            }*/
-            var validar = false;
+            var totalR410a = 0;
+            var totalR22 = 0;
+            var validar410A = false;
+            var validarR22 = false;
+            var validarHFC134a = false;
+            var validarHFC152a = false;
+            var validarR402a = false;
+            var validarR402b = false;
+            var validarR404a = false;
+            var validarR404B = false;
+            var validarR407c = false;
+            var validarR507 = false;
+            var validarR508B = false;
+
             Company.findOne({ _id: req.params.id })
             .populate("emission")
             .exec(function(err, company) {
+                console.log("1");
                 for(var x of company.emission){
                     console.log(x.unidad);
-                   if(x.unidad=="410-A"){
-                       validar = true;
-                   }
+                    if(x.unidad=="410-A" && airConditionings.tipoRefrigerante=="410-A"){
+                        validar410A = true;
+                    }else if(x.unidad=="R22" && airConditionings.tipoRefrigerante=="R22"){
+                        validarR22 = true;
+                    }else if(x.unidad=="HFC134a" && airConditionings.tipoRefrigerante=="HFC134a"){
+                        validarHFC134a = true;
+                    }else if(x.unidad=="HFC152a" && airConditionings.tipoRefrigerante=="HFC152a"){
+                        validarHFC152a = true;
+                    }else if(x.unidad=="R402a" && airConditionings.tipoRefrigerante=="R402a"){
+                        validarR402a = true;
+                    }else if(x.unidad=="R402b" && airConditionings.tipoRefrigerante=="R402b"){
+                        validarR402b = true;
+                    }else if(x.unidad=="R404a" && airConditionings.tipoRefrigerante=="R404a"){
+                        validarR404a = true;
+                    }else if(x.unidad=="R404B" && airConditionings.tipoRefrigerante=="R404B"){
+                        validarR404B = true;
+                    }else if(x.unidad=="R407c" && airConditionings.tipoRefrigerante=="R407c"){
+                        validarR407c = true;
+                    }else if(x.unidad=="R507" && airConditionings.tipoRefrigerante=="R507"){
+                        validarR507 = true;
+                    }else if(x.unidad=="R508B" && airConditionings.tipoRefrigerante=="R508B"){
+                        validarR508B = true;
+                    }
                 }
-                if(airConditionings.tipoRefrigerante=="410-A"&&validar==true){
+                console.log(validar410A);
+                console.log(validarR22);
+
+                if(validar410A==true || validarR22==true || validarHFC134a==true || validarHFC152a==true || 
+                    validarR402a==true || validarR402b==true || validarR404a==true || validarR404B==true || 
+                    validarR407c==true || validarR507==true || validarR508B==true){
+
                     comp.airConditioning.push(airConditionings);
-                    comp.save(function(err, company) {
-                        var totalR410a=0;
+                    comp.save(function(error, comp){
                         Company.findOne({ _id: req.params.id })
                         .populate("airConditioning")
                         .exec(function(err, company) {
                             for (var x of company.airConditioning) {
-                                totalR410a = totalR410a + parseFloat(x.totalR410a);
-                            }
-    
-                            console.log(totalR410a);
-    
-                            AirConditioning.findOne({ company: req.params.id }).exec(function (err, ac) {
-                        
-                                var ton = ac.factor_emision/1000;
-                               // var cant = ac.emision;
-                                //cant = parseFloat(cant).toFixed(5);
-                                var gei = ac.gei;
-                                var pcg = ac.pcg;
-                                var co2 = 0;
-                                var ch4 = 0;
-                                var n2o = 0;
-                                var kg = ac.factor;
-                                var fuente = ac.combustible;
-                                var unidad = ac.unidad;
-                    
-                                if(ac.gei=="CO2"){
-                                    co2 = cant * ton * pcg;
-                                    co2 = parseFloat(co2).toFixed(5);
-                                }else if(ac.gei=="CH4"){
-                                    ch4 = cant * ton * pcg;
-                                    ch4 = parseFloat(ch4).toFixed(5);
-                                }else{
-                                    n2o = cant * ton * pcg;
-                                    n2o = parseFloat(n2o).toFixed(5);
+                                if(validar410A==true){
+                                    totalR410a = parseFloat(totalR410a) + parseFloat(x.totalR410a);
+                                    cant = totalR410a;
+                                }else if(validarR22==true){
+                                    totalR22 = parseFloat(totalR22) + parseFloat(x.totalR22);
+                                    cant = totalR22;
                                 }
-                                Emission.updateOne({ airConditioning: req.params.id }, {
-                                    $set: {
-                                        cantidad: 1250,
-                                        co2: co2,
-                                        ch4: ch4,
-                                        n2o: n2o,
-                                        kilogram: kg,
-                                        pcg: pcg, 
-                                        ton: ton,
-                                        fuente_generador: fuente,
-                                        gei: gei,
-                                        unidad: unidad
-                                    },
-                                }).exec(function (error, ems) {
-                                    console.log(ems);
-                                    verifyStatus(res.statusCode);
-                                    Company.findOne({ _id: req.params.id })
-                                    .exec(function(err, company) {
-                                        if (error) {
-                                            res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: company });
-                                        } else {
-                                            res.render('../views/airConditioning/NewAirConditioning', {status: status, message: message, company: company });
-                                        }
-                                    })
-                                });
+                            }
+                            console.log("2");
+                            console.log(cant);
+                            console.log(airConditionings.tipoRefrigerante);
+    
+                            Emission.updateOne({ unidad: airConditionings.tipoRefrigerante}, {
+                                $set: {
+                                    cantidad: cant,
+                                    co2: co2,
+                                    ch4: ch4,
+                                    n2o: n2o,
+                                    kilogram: kg,
+                                    pcg: pcg, 
+                                    ton: ton,
+                                    gei: gei,
+                                },
+                            }).exec(function (error, ems) {
+                                console.log("3");
+                                res.render('../views/airConditioning/NewAirConditioning', {status: status, message: message, company: company });
                             });
                         });
                     });
-                }else if(validar==false){
+                }else {
                     var emission = new Emission(body);
                     emission.save();
-                    comp.airConditioning.push(airConditionings);
                     comp.emission.push(emission);
+                    comp.airConditioning.push(airConditionings);
                     comp.save(function(err, company) {
+                        console.log("4");
                         verifyStatus(res.statusCode);
-                        if (err) {
-                            res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: company });
-                        } else {
-                            res.render('../views/airConditioning/NewAirConditioning', {status: status, message: message, company: company });
-                        }
+                        res.render('../views/airConditioning/NewAirConditioning', {status: status, message: message, company: company });
                     });
                 } 
+
             })
             //console.log("VERDADERO VALOR DE VALIDAR: " + validar);
+
+            if(airConditionings.tipoRefrigerante=="R22"){
+
+            }else{
+
+            } 
 
             if(airConditionings.tipoRefrigerante=="HFC134a"){
 
@@ -464,12 +477,6 @@ airConditioningController.save = async function(req, res) {
             }
 
             if(airConditionings.tipoRefrigerante=="R404B"){
-
-            }else{
-
-            } 
-
-            if(airConditionings.tipoRefrigerante=="R407c"){
 
             }else{
 
@@ -823,16 +830,15 @@ airConditioningController.update = function(req, res) {
 };
 
 airConditioningController.delete = function (req, res) {
-    var id;
-    console.log(req.params.id);
     Emission.findOne({ airConditioning: req.params.id }).exec(function (err, e) {
-        //id = e._id;
-        Company.updateOne({ _id: req.params.comp }, {
-            $pull: { 
-                emission: e._id
-            }
-        }).exec(function (err, e) {
-        });
+        if(e!=null){
+            Company.updateOne({ _id: req.params.comp }, {
+                $pull: { 
+                    emission: e._id
+                }
+            }).exec(function (err, e) {
+            });
+        }
     });
     Company.updateOne({ "_id": req.params.comp }, {
         $pull: { "airConditioning": req.params.id }
