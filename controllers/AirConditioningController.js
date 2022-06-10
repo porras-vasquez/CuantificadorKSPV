@@ -318,24 +318,34 @@ airConditioningController.save = async function(req, res) {
                     c2 = parseFloat(airConditionings.totalR410aCo2);
                 }else if(airConditionings.tipoRefrigerante=="R22"){
                     c = parseFloat(airConditionings.totalR22);
+                    c2 = parseFloat(airConditionings.totalCO2R22);
                 }else if(airConditionings.tipoRefrigerante=="HFC134a"){
                     c = parseFloat(airConditionings.totalHFC134a);
+                    c2 = parseFloat(airConditionings.totalHFC134aCo2);
                 }else if(airConditionings.tipoRefrigerante=="HFC152a"){
                     c = parseFloat(airConditionings.totalHFC152a);
+                    c2 = parseFloat(airConditionings.totalHFC152aCo2);
                 }else if(airConditionings.tipoRefrigerante=="R402a"){
                     c = parseFloat(airConditionings.totalR402a);
+                    c2 = parseFloat(airConditionings.totalR402aCo2);
                 }else if(airConditionings.tipoRefrigerante=="R402b"){
                     c = parseFloat(airConditionings.totalR402b);
+                    c2 = parseFloat(airConditionings.totalR402bCo2);
                 }else if(airConditionings.tipoRefrigerante=="R404a"){
                     c = parseFloat(airConditionings.totalR404a);
+                    c2 = parseFloat(airConditionings.totalR404aCo2);
                 }else if(airConditionings.tipoRefrigerante=="R404B"){
                     c = parseFloat(airConditionings.totalR404B);
+                    c2 = parseFloat(airConditionings.totalR404BCo2);
                 }else if(airConditionings.tipoRefrigerante=="R407c"){
                     c = parseFloat(airConditionings.totalR407c);
+                    c2 = parseFloat(airConditionings.totalR407cCo2);
                 }else if(airConditionings.tipoRefrigerante=="R507"){
                     c = parseFloat(airConditionings.totalR507);
+                    c2 = parseFloat(airConditionings.totalR507Co2);
                 }else if(airConditionings.tipoRefrigerante=="R508B"){
                     c = parseFloat(airConditionings.totalR508B);
+                    c2 = parseFloat(airConditionings.totalR508BCo2);
                 }
                 let body = {
                     alcance: "1",
@@ -346,11 +356,12 @@ airConditioningController.save = async function(req, res) {
                     ton: ton,
                     gei: airConditionings.gei,
                     pcg: pcg,
-                    totalR410aCo2: c2,
+                    totalCo2: c2,
+                    totalFuente: c2,
                     company: airConditionings.company._id,
                     airConditioning: airConditionings._id
                 };
-                let totalR410a = 0, totalR410aCo2 = 0, totalR22 = 0, totalHFC134a = 0,  totalHFC152a = 0, totalR402a = 0,
+                let totalR410a = 0, totalCo2 = 0, totalR22 = 0, totalHFC134a = 0,  totalHFC152a = 0, totalR402a = 0,
                 totalR402b = 0, totalR404a = 0, totalR404B = 0, totalR407c = 0, totalR507 = 0, totalR508B = 0;
     
                 let validar410A = false, validarR22 = false, validarHFC134a = false, validarHFC152a = false,
@@ -401,55 +412,74 @@ airConditioningController.save = async function(req, res) {
                                 for (let x of company.airConditioning) {
                                     if(validar410A==true){//410-A
                                         totalR410a = parseFloat(totalR410a) + parseFloat(x.totalR410a);
-                                        totalR410aCo2 = parseFloat(totalR410aCo2) + parseFloat(x.totalR410aCo2);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR410aCo2);
+                                        cant2 = totalCo2;
                                         cant = totalR410a;
-                                        cant2 = totalR410aCo2;
                                     }else if(validarR22==true){//R22
                                         totalR22 = parseFloat(totalR22) + parseFloat(x.totalR22);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalCO2R22);
+                                        cant2 = totalCo2;
                                         cant = totalR22;
                                     }else if(validarHFC134a==true){//HFC134a
                                         totalHFC134a = parseFloat(totalHFC134a) + parseFloat(x.totalHFC134a);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalHFC134aCo2);
+                                        cant2 = totalCo2;
                                         cant = totalHFC134a;
                                     }else if(validarHFC152a==true){//HFC152a
                                         totalHFC152a = parseFloat(totalHFC152a) + parseFloat(x.totalHFC152a);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalHFC152aCo2);
+                                        cant2 = totalCo2;
                                         cant = totalHFC152a;
                                     }else if(validarR402a==true){//R402a
                                         totalR402a = parseFloat(totalR402a) + parseFloat(x.totalR402a);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR402aCo2);
+                                        cant2 = totalCo2;
                                         cant = totalR402a;
                                     }else if(validarR402b==true){//R402b
                                         totalR402b = parseFloat(totalR402b) + parseFloat(x.totalR402b);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR402bCo2);
+                                        cant2 = totalCo2;
                                         cant = totalR402b;
                                     }else if(validarR404a==true){//R404a
                                         totalR404a = parseFloat(totalR404a) + parseFloat(x.totalR404a);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR404aCo2);
+                                        cant2 = totalCo2;
                                         cant = totalR404a;
                                     }else if(validarR404B==true){//R404B
                                         totalR404B = parseFloat(totalR404B) + parseFloat(x.totalR404B);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR404BCo2);
+                                        cant2 = totalCo2;
                                         cant = totalR404B;
                                     }else if(validarR407c==true){//R407c
                                         totalR407c = parseFloat(totalR407c) + parseFloat(x.totalR407c);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR407cCo2);
+                                        cant2 = totalCo2;
                                         cant = totalR407c;
                                     }else if(validarR507==true){//R507
                                         totalR507 = parseFloat(totalR507) + parseFloat(x.totalR507);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR507Co2);
+                                        cant2 = totalCo2;
                                         cant = totalR507;
                                     }else if(validarR508B==true){//R508B
                                         totalR508B = parseFloat(totalR508B) + parseFloat(x.totalR508B);
+                                        totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR508BCo2);
+                                        cant2 = totalCo2;
                                         cant = totalR508B;
                                     }
                                 }
                                 console.log("2");
                                 cant = parseFloat(cant).toFixed(5);
                                 cant2 = parseFloat(cant2).toFixed(5);
-                                console.log(cant);
+                                let cant3 = cant2;
+                                console.log("CANT "+cant);
+                                console.log("CANT2 "+cant3);
                                 console.log(airConditionings.tipoRefrigerante);
         
                                 Emission.updateOne({ unidad: airConditionings.tipoRefrigerante}, {
                                     $set: {
                                         cantidad: cant,
-                                        kilogram: kg,
-                                        pcg: pcg, 
-                                        ton: ton,
-                                        totalR410aCo2: totalR410aCo2,
-                                        gei: airConditionings.gei,
+                                        totalCo2: cant2,
+                                        totalFuente: cant3
                                     },
                                 }).exec(function (error, ems) {
                                     console.log("3");

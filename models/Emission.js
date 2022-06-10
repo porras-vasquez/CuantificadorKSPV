@@ -12,7 +12,8 @@ const EmissionSchema = new Schema({
     ton: String,
     gei: String,
     pcg: String,
-    totalR410aCo2: String,
+    totalCo2: String,
+    totalFuente: String,
     company: {
         type: Schema.Types.ObjectId,
         ref: 'Company'
