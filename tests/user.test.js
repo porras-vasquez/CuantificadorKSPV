@@ -20,12 +20,12 @@ it("respond with html containing a single user", (done)=>{
 });
 /** test para guardar informacion */
 it('save all the information of user', done =>{
-
+/**
     const data = {
         username: 'test',
         password: 'ufuewgfuwefu837489784772ybd',
         email: 'test@test'
-    }
+    }*/
     request(app)
     .post('/users/save')
         .send(data)
