@@ -1,10 +1,10 @@
 'use strict'
 require('../connection');
-var User = require("../models/User");
-var userController = {};
+const User = require("../models/User");
+let userController = {};
 const passport = require('passport');
-var status = 0;
-var message="";
+let status = 0;
+let message="";
 
 function verifyStatus(statusCode){
     if(statusCode==200){//Satisfactorio
@@ -30,7 +30,7 @@ function verifyStatus(statusCode){
 
 userController.save = async function(req, res) {
    // const {username, password, email}= req.body;
-    var user = new User(req.body);
+    let user = new User(req.body);
     user.password = await user.encryptPassword(req.body.password);
     console.log(user.password);
    await user.save(function(err) {

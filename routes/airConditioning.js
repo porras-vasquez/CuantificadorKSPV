@@ -1,6 +1,6 @@
 'use strict' 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const AirConditioningController = require('../controllers/AirConditioningController');
 const isAuthenticated= require('../helpers/auth');
 /* GET gases listing. */

@@ -2,15 +2,15 @@
 require('../connection');
 const Company = require("../models/Company");
 const FuelsAndOil = require('../models/FuelsAndOil');
-var Emission = require("../models/Emission");
+const Emission = require("../models/Emission");
 const { clearCache } = require('ejs');
-var FuelsAndOilController = {};
-var status = 0;
-var message = "";
-var sumatoria = 0;
+let FuelsAndOilController = {};
+let status = 0;
+let message = "";
+let sumatoria = 0;
 sumatoria = sumatoria.toFixed(5);
-var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
+let enero = 0; let febrero = 0; let marzo = 0; let abril = 0; let mayo = 0; let junio = 0;
+let julio = 0; let agosto = 0; let septiembre = 0; let octubre = 0; let noviembre = 0; let diciembre = 0;
 
 
 function verifyStatus(statusCode) {
@@ -44,7 +44,7 @@ function calc(req) {
 function sum(company){
     sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
     julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
-    for (var x of company.fuelsAndOil) {
+    for (let x of company.fuelsAndOil) {
         sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
         marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
         junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
@@ -57,8 +57,8 @@ function sum(company){
 FuelsAndOilController.save = async function (req, res) {
     const { combustible, enero, febrero, marzo, abril, junio, julio, agosto, septiembre, octubre, noviembre, diciembre, emision, gei, pcg } = req.body; //
     calc(req);
-    var fuelsAndOil = new FuelsAndOil(req.body);
-    var comp = await Company.findById(req.params.id);
+    let fuelsAndOil = new FuelsAndOil(req.body);
+    let comp = await Company.findById(req.params.id);
     fuelsAndOil.company = comp;
     console.log(req.body.total);
     await fuelsAndOil.save(function (err, fuels) {
@@ -67,14 +67,14 @@ FuelsAndOilController.save = async function (req, res) {
             res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: fuels.company._id, status: status });
         }
         else {
-            var ton = fuels.factor/1000;
-            var cant = fuels.emision;
+            let ton = fuels.factor/1000;
+            let cant = fuels.emision;
             cant = parseFloat(cant).toFixed(5);
-            var pcg = fuels.pcg;
-            var co2 = 0;
-            var ch4 = 0;
-            var n2o = 0;
-            var fuente;
+            let pcg = fuels.pcg;
+            let co2 = 0;
+            let ch4 = 0;
+            let n2o = 0;
+            let fuente;
             if(fuels.combustible=="Gasolina"){
                 fuente = "Gasolina";
             }else if(fuels.combustible=="Diésel"){
@@ -93,7 +93,7 @@ FuelsAndOilController.save = async function (req, res) {
                 n2o = cant * ton * pcg;
                 n2o = parseFloat(n2o).toFixed(5);
             }
-            var body = {
+            let body = {
                 alcance: "1",
                 fuente_generador: fuente,
                 cantidad: cant,
@@ -108,7 +108,7 @@ FuelsAndOilController.save = async function (req, res) {
                 company: fuels.company._id,
                 fuelsAndOil: fuels._id
             };
-            var emission = new Emission(body);
+            let emission = new Emission(body);
             emission.save();
 
             comp.emission.push(emission);
@@ -278,17 +278,17 @@ FuelsAndOilController.update = function (req, res) {
                 var pcg;
                 var kg;*/
                 FuelsAndOil.findOne({ _id: req.params.id }).exec(function (err, fuel) {
-                    var ton = fuel.factor/1000;
-                    var cant = fuel.emision;
+                    let ton = fuel.factor/1000;
+                    let cant = fuel.emision;
                     cant = parseFloat(cant).toFixed(5);
-                    var gei = fuel.gei;
-                    var pcg = fuel.pcg;
-                    var co2 = 0;
-                    var ch4 = 0;
-                    var n2o = 0;
-                    var kg = fuel.factor;
-                    var fuente = fuel.combustible;
-                    var unidad = fuel.unidad;
+                    let gei = fuel.gei;
+                    let pcg = fuel.pcg;
+                    let co2 = 0;
+                    let ch4 = 0;
+                    let n2o = 0;
+                    let kg = fuel.factor;
+                    let fuente = fuel.combustible;
+                    let unidad = fuel.unidad;
         
                     if(fuel.gei=="CO2"){
                         co2 = cant * ton * pcg;

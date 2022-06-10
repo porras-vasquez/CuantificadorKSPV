@@ -1,6 +1,6 @@
 'use strict'
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const electricityController = require('../controllers/ElectricityController');
 const passport = require('passport');
 const isAuthenticated= require('../helpers/auth');

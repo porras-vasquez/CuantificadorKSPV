@@ -23,7 +23,7 @@ it('save all the information of user', done =>{
 
     const data = {
         username: 'test',
-        password: '1234',
+        password: 'ufuewgfuwefu837489784772ybd',
         email: 'test@test'
     }
     request(app)
