@@ -39,6 +39,7 @@ const AirConditioningShema = new Schema({
     total508B: String,
     totalR508BCo2: String,
     factor_emision: String,
+    pcg: String,
     /*tonHFC: String,
     tonHCFC: String,*/
     /*

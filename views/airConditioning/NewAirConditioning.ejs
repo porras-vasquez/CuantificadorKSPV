@@ -149,6 +149,10 @@
                                             <label for="exampleInputEmail1" class="form-label">Potencial calentamiento (100 años)</label>
                                             <input type="text" name="potencialCalentamineto" class="form-control" />
                                         </div>
+                                        <div class="mb-2">
+                                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                            oninput="this.setCustomValidity('')" autocomplete="off" placeholder="PCG" name="pcg" class="form-control" required="true"/>
+                                        </div>
                                        <!-- <div>
                                             <label for="exampleInputEmail1" class="form-label">Total R410a HCFC (ton)2</label>
                                             <input type="text" name="totalHCFC" class="form-control" />

@@ -76,6 +76,8 @@
                                             <th scope="col text-whitex">CO2</th>
                                             <th scope="col text-whitex">CH4</th>
                                             <th scope="col text-whitex">N2O</th>
+                                            <th scope="col text-whitex">Total (Ton CO2 e)</th>
+                                            <th scope="col text-whitex">Total/Fuente</th>
                                         </tr>
                                     </thead>
                                     <!--Table head-->
@@ -125,29 +127,27 @@
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <% if(emission.co2 != 0) { %>
-                                                            <%=emission.co2%>
-                                                        <% }else { %>  
-                                                            
-                                                        <% } %> 
+
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <% if(emission.ch4 != 0) { %>
-                                                            <%=emission.ch4%>
-                                                        <% }else { %>  
-                                                            
-                                                        <% } %> 
+
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <% if(emission.n2o != 0) { %>
-                                                            <%=emission.n2o%>
-                                                        <% }else { %>  
-                                                            
-                                                        <% } %> 
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <%=emission.totalR410aCo2%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+
                                                     </div>
                                                 </td>
                                             </tr>
