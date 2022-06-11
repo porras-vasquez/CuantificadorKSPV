@@ -141,6 +141,7 @@ FuelsAndOilController.list = function (req, res) {
                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                     fuelsAndOils: company.fuelsAndOil,
                     company: company._id,
+                    comp: company.nombre,
                     sumatoria: sumatoria,
                     enero: enero,
                     febrero: febrero,
@@ -159,6 +160,7 @@ FuelsAndOilController.list = function (req, res) {
                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                     fuelsAndOils: company.fuelsAndOil,
                     company: company._id,
+                    comp: company.nombre,
                     sumatoria: sumatoria,
                     enero: enero,
                     febrero: febrero,
