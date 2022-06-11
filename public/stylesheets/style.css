@@ -153,7 +153,7 @@ a:hover{
 }
 
 .flex-color{
-    background-color: #f4ffec;
+    background-color: #fcfffb;
 }
 
 
@@ -186,7 +186,7 @@ a:hover{
     float:right;
     z-index: 3;
     justify-self: end;
-    background-color: #F4FFEC;
+    background-color: #fcfffb;
 }
 
 @keyframes slidein {

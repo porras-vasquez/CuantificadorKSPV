@@ -1,0 +1,24 @@
+/*
+    Estilo del content color verde donde dentro va el form
+*/
+.style1{
+    margin-top: 2%;
+    background-color: #c5dfbe;
+    min-height: 86.5% !important;
+    scrollbar-width: none !important;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+body{
+    background-color: #c5dfbe;
+    height: 100vh !important;
+}
+
+.letterTittleMounth{
+    color:#78788c;
+}
+
+.footer{
+    background: rgb(1, 167, 152);
+    background: linear-gradient(90deg, rgba(1, 167, 152, 1) 0%, rgba(136, 198, 63, 1) 71%);
+}
