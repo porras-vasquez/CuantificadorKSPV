@@ -694,64 +694,11 @@ airConditioningController.update = function(req, res) {
                     });
             } else {
                 AirConditioning.findOne({ _id: req.params.id }).exec(function (err, airConditionings) {
-                    /*let ton = ac.factor_emision/1000;
-                    let cant = ac.emision;
-                    cant = parseFloat(cant).toFixed(5);
-                    let gei = ac.gei;
-                    let pcg = ac.pcg;
-                    let kg = ac.factor;
-                    let fuente = ac.combustible;
-                    let unidad = ac.unidad;
-                    Emission.updateOne({ airConditioning: req.params.id }, {
-                        $set: {
-                            cantidad: cant,
-                            kilogram: kg,
-                            pcg: pcg, 
-                            ton: ton,
-                            fuente_generador: fuente,
-                            gei: gei,
-                            unidad: unidad
-                        },
-                    }).exec(function (err, ems) {});*/
                     let c = 0, c2 = 0;
                     let ton = airConditionings.factor_emision/1000;
                     let cant = 0, cant2 = 0;
                     let pcg = airConditionings.pcg;
                     
-                    /*if(airConditionings.tipoRefrigerante=="410-A"){
-                        c = parseFloat(airConditionings.totalR410a);
-                        c2 = parseFloat(airConditionings.totalR410aCo2);
-                    }else if(airConditionings.tipoRefrigerante=="R22"){
-                        c = parseFloat(airConditionings.totalR22);
-                        c2 = parseFloat(airConditionings.totalCO2R22);
-                    }else if(airConditionings.tipoRefrigerante=="HFC134a"){
-                        c = parseFloat(airConditionings.totalHFC134a);
-                        c2 = parseFloat(airConditionings.totalHFC134aCo2);
-                    }else if(airConditionings.tipoRefrigerante=="HFC152a"){
-                        c = parseFloat(airConditionings.totalHFC152a);
-                        c2 = parseFloat(airConditionings.totalHFC152aCo2);
-                    }else if(airConditionings.tipoRefrigerante=="R402a"){
-                        c = parseFloat(airConditionings.totalR402a);
-                        c2 = parseFloat(airConditionings.totalR402aCo2);
-                    }else if(airConditionings.tipoRefrigerante=="R402b"){
-                        c = parseFloat(airConditionings.totalR402b);
-                        c2 = parseFloat(airConditionings.totalR402bCo2);
-                    }else if(airConditionings.tipoRefrigerante=="R404a"){
-                        c = parseFloat(airConditionings.totalR404a);
-                        c2 = parseFloat(airConditionings.totalR404aCo2);
-                    }else if(airConditionings.tipoRefrigerante=="R404B"){
-                        c = parseFloat(airConditionings.totalR404B);
-                        c2 = parseFloat(airConditionings.totalR404BCo2);
-                    }else if(airConditionings.tipoRefrigerante=="R407c"){
-                        c = parseFloat(airConditionings.totalR407c);
-                        c2 = parseFloat(airConditionings.totalR407cCo2);
-                    }else if(airConditionings.tipoRefrigerante=="R507"){
-                        c = parseFloat(airConditionings.totalR507);
-                        c2 = parseFloat(airConditionings.totalR507Co2);
-                    }else if(airConditionings.tipoRefrigerante=="R508B"){
-                        c = parseFloat(airConditionings.totalR508B);
-                        c2 = parseFloat(airConditionings.totalR508BCo2);
-                    }*/
                     let totalR410a = 0, totalCo2 = 0, totalR22 = 0, totalHFC134a = 0,  totalHFC152a = 0, totalR402a = 0,
                     totalR402b = 0, totalR404a = 0, totalR404B = 0, totalR407c = 0, totalR507 = 0, totalR508B = 0;
         
