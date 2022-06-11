@@ -625,6 +625,7 @@ airConditioningController.search = function(req, res) {
 
 airConditioningController.update = function(req, res) {
     calc(req);
+    console.log(req.body);
     verifyStatus(res.statusCode);
     AirConditioning.findByIdAndUpdate(
         req.params.id, {
@@ -670,7 +671,7 @@ airConditioningController.update = function(req, res) {
         function(err, airConditionings) {
             if (err) {
                 console.log("Error: ", err);
-                Company.findOne({ _id: airConditionings.company })
+                Company.findOne({ airConditioning: req.params.id })
                     .populate("airConditioning")
                     .exec(function(error, company) {
                         res.render("../views/airConditioning/AllAirConditioning", {
