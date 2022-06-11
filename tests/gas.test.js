@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../app')
 const gas = require('../controllers/GasesController')
-/*SHOW test que muestra todos los datos*/
+
 it('respond with html containing a list of all gases', () =>{
     request(app)
     .get('/gaseslp/gasesshow/62412386c29e4f41a8fb1dee')
@@ -9,15 +9,13 @@ it('respond with html containing a list of all gases', () =>{
             .expect('Content-Type', /html/)
                 .expect(200);
 });
-/* Test para realizar una busqueda*/
 it("respond with html containing a single gas", (done)=>{
     request(app)
     .get('/gaseslp/editGases/62412386c29e4f41a8fb1dee')
         .set('Accept', 'application/html')
             .expect('Content-Type', /html/)
                 .expect(200, done);
-});
-//test para guardar informacion 
+}); 
 it('save all the information of gas ', done =>{
     const data = {
         unidad: 'Kilogramo',
@@ -51,7 +49,6 @@ it('save all the information of gas ', done =>{
                             done();
                         });
 });
-// test para actualizar 
 it('update all the information of gas', (done) =>{
     const data = {
         unidad: 'Kilogramo',
@@ -81,7 +78,6 @@ it('update all the information of gas', (done) =>{
                 .expect('Content-Type', /html/)
                     .expect(200, done);
 });
-//test para eliminar
 it("delete gas", (done)=>{
     request(app)
     .post('/gaseslp/deleteGases/62469d061a123d299066684d/6234bde44d54cf47a0b734c1')

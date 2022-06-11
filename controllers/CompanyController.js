@@ -1,14 +1,14 @@
 'use strict'
 require('../connection');
-var Company = require("../models/Company");
-var Emission = require("../models/Emission");
-var Electricity = require("../models/Electricity");
-var FuelsAndOil = require("../models/FuelsAndOil");
-var Gaseslp = require("../models/Gaseslp");
-var AirConditioning = require("../models/AirConditioning");
-var companyController = {};
-var status = 0;
-var message = "";
+const Company = require("../models/Company");
+const Emission = require("../models/Emission");
+const Electricity = require("../models/Electricity");
+const FuelsAndOil = require("../models/FuelsAndOil");
+const Gaseslp = require("../models/Gaseslp");
+const AirConditioning = require("../models/AirConditioning");
+let companyController = {};
+let status = 0;
+let message = "";
 
 function verifyStatus(statusCode){
     if(statusCode==200){//Satisfactorio
@@ -31,10 +31,8 @@ function verifyStatus(statusCode){
         message="¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
 }
-
-//Guardar
 companyController.save = async function (req, res) {
-    var company = new Company(req.body);
+    let company = new Company(req.body);
     await company.save(function (err, comp) {
         if (err) {
             verifyStatus(res.statusCode);
@@ -47,31 +45,26 @@ companyController.save = async function (req, res) {
 
     });
 };
-//Listar todos
 companyController.list = function (req, res) {
     Company.find({}).exec(function (err, companies) {
         if (err) {
             res.render('../views/company/AllCompanies', { companies: companies });
         }else{
-            //return res.status(200).json("all companies sent");
             res.render('../views/company/AllCompanies', { companies: companies });
         }
     });
 };
 
-//Buscar
 companyController.search = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) {
             res.render('../views/company/search', { company: company });
         }else{
-            //return res.json("Company 622c2682e592c22e5044c81b found");
             res.render('../views/company/search', { company: company });
         }    
     });
 };
 
-//Actualizar
 companyController.update = function (req, res) {
     Company.findByIdAndUpdate(req.params.id, {
         $set: {
@@ -105,7 +98,7 @@ companyController.update = function (req, res) {
             }
         });
 };
-//Eliminar
+
 companyController.delete = function (req, res) {
     Emission.deleteMany({company: req.params.id}).exec(function (err, ele){});
     Electricity.deleteMany({company: req.params.id}).exec(function (err, ele){});
@@ -128,7 +121,6 @@ companyController.delete = function (req, res) {
                 if (err) { 
                     res.render('../views/company/AllCompanies', { companies: companies, status: status, message: message });
                 }else{
-                    //return res.json("Company deleted!");
                     res.render('../views/company/AllCompanies', { companies: companies, status: status, message: message });
                 }
             });
@@ -141,7 +133,7 @@ companyController.renderPageAllEmissions = function (req, res) {
     Company.findOne({ _id: req.params.comp })
         .populate("emission")
         .exec(function (err, company) {
-            for (var x of company.emission) {
+            for (let x of company.emission) {
                 x.co2 = parseFloat(x.co2).toFixed(5);
 
             }

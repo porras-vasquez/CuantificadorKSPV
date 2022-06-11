@@ -2,33 +2,33 @@
 require('../connection');
 const Gaseslp = require('../models/Gaseslp');
 const Company = require("../models/Company");
-var Emission = require("../models/Emission");
+const Emission = require("../models/Emission");
 const { clearCache } = require('ejs');
-var gasesController = {};
-var status = 0;
-var message = "";
-var sumatoria = 0;
+let gasesController = {};
+let status = 0;
+let message = "";
+let sumatoria = 0;
 sumatoria = sumatoria.toFixed(5);
-var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
+let enero = 0; let febrero = 0; let marzo = 0; let abril = 0; let mayo = 0; let junio = 0;
+let julio = 0; let agosto = 0; let septiembre = 0; let octubre = 0; let noviembre = 0; let diciembre = 0;
 
 function verifyStatus(statusCode) {
-    if (statusCode == 200) {//Satisfactorio
+    if (statusCode == 200) { 
         status = 200;
         message = "¡Realizado exitosamente!";
-    } else if (statusCode == 400) {//Solicitud incorrecta
+    } else if (statusCode == 400) { 
         status = 400;
         message = "¡Error, solicitud incorrecta!";
-    } else if (statusCode == 401) {//No autenticado
+    } else if (statusCode == 401) { 
         status = 401;
         message = "¡Error, usuario no autenticado!";
-    } else if (statusCode == 404) {//No encontrado
+    } else if (statusCode == 404) { 
         status = 404;
         message = "¡Ocurrió un problema con la ruta de acceso!";
-    } else if (statusCode == 500) {//Error del servidor
+    } else if (statusCode == 500) { 
         status = 500;
         message = "¡Lo sentimos, ocurrió un problema con el servidor!";
-    } else if (statusCode == 503) {//Mantenimiento
+    } else if (statusCode == 503) { 
         status = 503;
         message = "¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
@@ -49,7 +49,7 @@ function calc(req) {
 function sum(company){
     sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
     julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
-    for (var x of company.gaslp) {
+    for (let x of company.gaslp) {
         sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
         marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
         junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
@@ -59,12 +59,10 @@ function sum(company){
     sumatoria = parseFloat(sumatoria).toFixed(5);
 }
 
-//Guardar un gas
 gasesController.save = async function (req, res) {
-    //const {unidad,uso, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre ,diciembre, densidad, observacion, emision, gei, pcg,}= req.body; 
     calc(req);
-    var gases = new Gaseslp(req.body);
-    var comp = await Company.findById(req.params.id);
+    let gases = new Gaseslp(req.body);
+    let comp = await Company.findById(req.params.id);
     gases.company = comp;
     await gases.save(function (err, gas) {
         if (err) {
@@ -72,13 +70,13 @@ gasesController.save = async function (req, res) {
             res.render('../views/gaseslp/NewGas', { message: message, company: gas.company._id, status: status });
         }
         else {
-            var ton = gas.factor/1000;
-            var cant = gas.emision;
+            let ton = gas.factor/1000;
+            let cant = gas.emision;
             cant = parseFloat(cant).toFixed(5);
-            var pcg = gas.pcg;
-            var co2=0;
-            var ch4=0;
-            var n2o=0;
+            let pcg = gas.pcg;
+            let co2=0;
+            let ch4=0;
+            let n2o=0;
             if(gas.gei=="CO2"){
                 co2 = cant * ton * pcg;
                 co2 = parseFloat(co2).toFixed(5);
@@ -89,7 +87,7 @@ gasesController.save = async function (req, res) {
                 n2o = cant * ton * pcg;
                 n2o = parseFloat(n2o).toFixed(5);
             }
-            var body = {
+            let body = {
                 alcance: "1",
                 fuente_generador:"Gas Lpg",
                 cantidad: cant,
@@ -104,7 +102,7 @@ gasesController.save = async function (req, res) {
                 company: gas.company._id,
                 gaslp: gas._id
             };
-            var emission = new Emission(body);
+            let emission = new Emission(body);
             emission.save();
 
             comp.gaslp.push(gases);
@@ -122,14 +120,14 @@ gasesController.save = async function (req, res) {
         }
     });
 };
-//Buscar la compañía del gas
+
 gasesController.searchCompany = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) { console.log('Error: ', err); return; }
         res.render('../views/gaseslp/NewGas', { company: company._id });
     });
 };
-//Listar todos los gases
+
 gasesController.list = function (req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("gaslp")
@@ -156,7 +154,7 @@ gasesController.list = function (req, res) {
             }
         });
 };
-//Buscar un gas
+
 gasesController.search = function (req, res) {
     Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gaslp) {
         if (err) {
@@ -172,7 +170,7 @@ gasesController.search = function (req, res) {
         }
     });
 };
-//Actualizar un gas
+
 gasesController.update = function (req, res) {
     calc(req);
     Gaseslp.findByIdAndUpdate(
@@ -232,15 +230,15 @@ gasesController.update = function (req, res) {
                         }
                     });
             } else {
-                var cant;
-                var pcg;
-                var kg;
+                let cant;
+                let pcg;
+                let kg;
                 Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gas) {
-                    var gei = gas.gei;
-                    var ton = gas.factor/1000;
-                    var co2=0;
-                    var ch4=0;
-                    var n2o=0;
+                    let gei = gas.gei;
+                    let ton = gas.factor/1000;
+                    let co2=0;
+                    let ch4=0;
+                    let n2o=0;
                     cant = gas.emision;
                     pcg = gas.pcg;
                     kg = gas.factor;
@@ -264,7 +262,6 @@ gasesController.update = function (req, res) {
                         },
                     }).exec(function (err, ems) {});
                 });
-              //  return res.json("all gases updated"); 
                 Company.findOne({ _id: gases.company })
                     .populate("gaslp")
                     .exec(function (error, company) {

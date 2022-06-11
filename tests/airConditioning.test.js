@@ -1,6 +1,6 @@
 const request = require('supertest')
 const app = require('../app')
-/*SHOW test que muestra todos los datos*/
+
 it('respond with html containing a list of all fuels and oil', () =>{
     request(app)
     .get('/airConditioning/airConditioningShow/628c7c376f74231af00cbb25')
@@ -8,7 +8,6 @@ it('respond with html containing a list of all fuels and oil', () =>{
             .expect('Content-Type', /html/)
                 .expect(200);
 });
-/* Test para realizar una busqueda*/
 it("respond with html containing a single fuils and oils", (done)=>{
     request(app)
     .get('/airConditioning/searchAirConditioning/627f090d7a694826b85c609e')

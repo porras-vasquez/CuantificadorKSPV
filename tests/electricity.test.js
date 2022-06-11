@@ -2,7 +2,6 @@ const request = require('supertest');
 const { set } = require('../app');
 const app = require('../app')
 
-/*SHOW test que muestra todos los datos*/
 it('respond with html containing a list of all electricities', (done) =>{
     request(app)
     .get('/electricities/electricities/622c2682e592c22e5044c81b')
@@ -10,7 +9,7 @@ it('respond with html containing a list of all electricities', (done) =>{
             .expect('Content-Type', /html/)
                 .expect(200, done);
 });
-/* Test para realizar una busqueda*/
+
 it("respond with html containing a single electricity", (done)=>{
     request(app)
     .get('/electricities/editElectricity/6236c45870128e323c51b049')
@@ -18,7 +17,6 @@ it("respond with html containing a single electricity", (done)=>{
             .expect('Content-Type', /html/)
                 .expect(200, done);
 });
-/** test para guardar informacion */
 it('save all the information of electricity', done =>{
 
     const data = {
@@ -42,7 +40,6 @@ it('save all the information of electricity', done =>{
                             done();
                         });
 });
-/** test para eliminar */
 it("delete electricity", (done)=>{
     request(app)
     .post('/electricities/deleteElectricity/62412898a07d560154b42b74/622c2682e592c22e5044c81b')

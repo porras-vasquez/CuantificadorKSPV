@@ -1,6 +1,5 @@
 const request = require('supertest')
 const app = require('../app')
-/*SHOW test que muestra todos los datos*/
 it('respond with html containing a list of all fuels and oil', () =>{
     request(app)
     .get('/fuelsAndOil/fuelsAndOilShow/6234f480878e1521c0e5e3b2')
@@ -8,7 +7,6 @@ it('respond with html containing a list of all fuels and oil', () =>{
             .expect('Content-Type', /html/)
                 .expect(200);
 });
-/* Test para realizar una busqueda*/
 it("respond with html containing a single fuils and oils", (done)=>{
     request(app)
     .get('/fuelsAndOil/searchFuelsAndOil/6234f480878e1521c0e5e3b2')
@@ -16,7 +14,6 @@ it("respond with html containing a single fuils and oils", (done)=>{
             .expect('Content-Type', /html/)
                 .expect(200, done);
 });
-/** test para guardar informacion */
 it('save all the information of fuils and oils.', done =>{
     const data = {
         combustible: 'Diesel',
@@ -47,7 +44,6 @@ it('save all the information of fuils and oils.', done =>{
                             done();
                         });
 });
-/** test para actualizar */
 it('update all the information of fuils and oils', (done) =>{
     const data = {
         combustible: 'Diesel',
@@ -74,7 +70,6 @@ it('update all the information of fuils and oils', (done) =>{
                 .expect('Content-Type', /html/)
                     .expect(200, done);
 });
-/* test para eliminar */
 it("delete fuils and oils", (done)=>{
     request(app)
     .post('/fuelsAndOil/deleteFuelsAndOil/6243283648f81e299c2d5297/622c2682e592c22e5044c81b')

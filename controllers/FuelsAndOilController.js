@@ -14,22 +14,22 @@ let julio = 0; let agosto = 0; let septiembre = 0; let octubre = 0; let noviembr
 
 
 function verifyStatus(statusCode) {
-    if (statusCode == 200) {//Satisfactorio
+    if (statusCode == 200) {
         status = 200;
         message = "¡Realizado exitosamente!";
-    } else if (statusCode == 400) {//Solicitud incorrecta
+    } else if (statusCode == 400) {
         status = 400;
         message = "¡Error, solicitud incorrecta!";
-    } else if (statusCode == 401) {//No autenticado
+    } else if (statusCode == 401) {
         status = 401;
         message = "¡Error, usuario no autenticado!";
-    } else if (statusCode == 404) {//No encontrado
+    } else if (statusCode == 404) {
         status = 404;
         message = "¡Ocurrió un problema con la ruta de acceso!";
-    } else if (statusCode == 500) {//Error del servidor
+    } else if (statusCode == 500) {
         status = 500;
         message = "¡Lo sentimos, ocurrió un problema con el servidor!";
-    } else if (statusCode == 503) {//Mantenimiento
+    } else if (statusCode == 503) {
         status = 503;
         message = "¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
@@ -82,7 +82,6 @@ FuelsAndOilController.save = async function (req, res) {
             }else{
                 fuente = "Aceite 2t/4t";
             }
-
             if(fuels.gei=="CO2"){
                 co2 = cant * ton * pcg;
                 co2 = parseFloat(co2).toFixed(5);
@@ -120,7 +119,6 @@ FuelsAndOilController.save = async function (req, res) {
                 }
                 else {
                     verifyStatus(res.statusCode);
-                    //    return res.status(200).json('fuels and oil created'); 
                     res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: company, status: status });
                 }
             });
@@ -453,7 +451,6 @@ FuelsAndOilController.delete = function (req, res) {
                                     status: status
                                 });
                             } else {
-                                //    return res.json("fuels and oil deleted!"); 
                                 verifyStatus(res.statusCode);
                                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                     company: company,

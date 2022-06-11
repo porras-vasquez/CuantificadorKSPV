@@ -7,22 +7,22 @@ let status = 0;
 let message = "";
 
 function verifyStatus(statusCode) {
-    if (statusCode == 200) {//Satisfactorio
+    if (statusCode == 200) {
         status = 200;
         message = "¡Realizado exitosamente!";
-    } else if (statusCode == 400) {//Solicitud incorrecta
+    } else if (statusCode == 400) {
         status = 400;
         message = "¡Error, solicitud incorrecta!";
-    } else if (statusCode == 401) {//No autenticado
+    } else if (statusCode == 401) {
         status = 401;
         message = "¡Error, usuario no autenticado!";
-    } else if (statusCode == 404) {//No encontrado
+    } else if (statusCode == 404) {
         status = 404;
         message = "¡Ocurrió un problema con la ruta de acceso!";
-    } else if (statusCode == 500) {//Error del servidor
+    } else if (statusCode == 500) {
         status = 500;
         message = "¡Lo sentimos, ocurrió un problema con el servidor!";
-    } else if (statusCode == 503) {//Mantenimiento
+    } else if (statusCode == 503) {
         status = 503;
         message = "¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }

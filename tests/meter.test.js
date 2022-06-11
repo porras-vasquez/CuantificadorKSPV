@@ -1,8 +1,6 @@
 const request = require('supertest');
 const { set } = require('../app');
 const app = require('../app')
-
-/*SHOW test que muestra todos los datos*/
 it('respond with html containing a list of all meters', (done) =>{
     request(app)
     .get('/electricities/meters/6236c45870128e323c51b049')
@@ -10,7 +8,6 @@ it('respond with html containing a list of all meters', (done) =>{
             .expect('Content-Type', /html/)
                 .expect(200, done);
 });
-/* Test para realizar una busqueda*/
 it("respond with html containing a single meter", (done)=>{
     request(app)
     .get('/electricities/editMeter/6236c45870128e323c51b049/625de31ac5fb6e0ab83df5aa')
@@ -18,7 +15,6 @@ it("respond with html containing a single meter", (done)=>{
             .expect('Content-Type', /html/)
                 .expect(200, done);
 });
-/** test para guardar informacion */
 it('save all the information of meter', done =>{
 
     const data = {
@@ -50,7 +46,6 @@ it('save all the information of meter', done =>{
                             done();
                         });
 });
-/** test para eliminar */
 it("delete meter", (done)=>{
     request(app)
     .post('/electricities/deleteMeter/6236c45870128e323c51b049/6236c47570128e323c51b05c')

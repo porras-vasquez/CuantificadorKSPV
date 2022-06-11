@@ -1,8 +1,6 @@
 const request = require('supertest');
 const { set } = require('../app');
 const app = require('../app')
-
-/*SHOW test que muestra todos los datos*/
 it('respond with html containing a list of all users', (done) =>{
     request(app)
     .get('/users/show')
@@ -10,7 +8,6 @@ it('respond with html containing a list of all users', (done) =>{
             .expect('Content-Type', /html/)
                 .expect(200, done);
 });
-/* Test para realizar una busqueda*/
 it("respond with html containing a single user", (done)=>{
     request(app)
     .get('/users/search/62203979f485525b84be6132')
@@ -18,7 +15,6 @@ it("respond with html containing a single user", (done)=>{
             .expect('Content-Type', /html/)
                 .expect(200, done);
 });
-/** test para guardar informacion */
 it('save all the information of user', done =>{
 /**
     const data = {
@@ -37,8 +33,6 @@ it('save all the information of user', done =>{
                             done();
                         });
 });
-
-/** test para actualizar */
 it('update all the information of user', (done) =>{
     const data = {
         username: 'testUpdated',
@@ -51,8 +45,6 @@ it('update all the information of user', (done) =>{
                 .expect('Content-Type', /html/)
                     .expect(200, done);
 });
-
-/** test para eliminar */
 it("delete user", (done)=>{
   request(app)
   .post('/users/delete/624010a65d14130d90adb256')

@@ -2,31 +2,30 @@
 require("../connection");
 const Electricity = require("../models/Electricity");
 const Company = require("../models/Company");
-var Emission = require("../models/Emission");
-var electricityController = {};
-var status = 0;
-var message="";
-var sumatoria = 0; var enero = 0; var febrero = 0; var marzo = 0; var abril = 0; var mayo = 0; var junio = 0;
-var julio = 0; var agosto = 0; var septiembre = 0; var octubre = 0; var noviembre = 0; var diciembre = 0;
+const Emission = require("../models/Emission");
+let electricityController = {};
+let status = 0;
+let message="";
+let sumatoria = 0; let enero = 0; let febrero = 0; let marzo = 0; let abril = 0; let mayo = 0; let junio = 0;
+let julio = 0; let agosto = 0; let septiembre = 0; let octubre = 0; let noviembre = 0; let diciembre = 0;
 
-//Método para verificar el estatus de las transacciones 
 function verifyStatus(statusCode){
-    if(statusCode==200){//Satisfactorio
+    if(statusCode==200){
         status=200;
         message="¡Realizado exitosamente!";
-    }else if(statusCode==400){//Solicitud incorrecta
+    }else if(statusCode==400){
         status=400;
         message="¡Error, solicitud incorrecta!";
-    }else if(statusCode==401){//No autenticado
+    }else if(statusCode==401){
         status=401;
         message="¡Error, usuario no autenticado!";
-    }else if(statusCode==404){//No encontrado
+    }else if(statusCode==404){
         status=404;
         message="¡Ocurrió un problema con la ruta de acceso!";
-    }else if(statusCode==500){//Error del servidor
+    }else if(statusCode==500){
         status=500;
         message="¡Lo sentimos, ocurrió un problema con el servidor!";
-    }else if(statusCode==503){//Mantenimiento
+    }else if(statusCode==503){
         status=503;
         message="¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
@@ -45,7 +44,7 @@ function calc(req) {
 function sum(electricity){
     sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
     julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
-    for (var x of electricity.medidor) {
+    for (let x of electricity.medidor) {
         sumatoria = sumatoria + parseFloat(x.total); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
         marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
         junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
@@ -55,11 +54,10 @@ function sum(electricity){
     sumatoria = parseFloat(sumatoria).toFixed(5);
 }
 
-//Método para guardar reportes de electricidad
 electricityController.save = async function (req, res) {
     req.body.total = 0;
-    var electricity = new Electricity(req.body);
-    var comp = await Company.findById(req.params.comp);
+    let electricity = new Electricity(req.body);
+    let comp = await Company.findById(req.params.comp);
     electricity.company = comp;
     await electricity.save(function (error, elec) {
         verifyStatus(res.statusCode);
@@ -70,9 +68,9 @@ electricityController.save = async function (req, res) {
                 message: message
             });
         } else {
-            var ton = elec.factor_emision/1000;
+            let ton = elec.factor_emision/1000;
             ton = parseFloat(ton).toFixed(5);
-            var body = {
+            let body = {
                 alcance: "2",
                 fuente_generador:"Electricidad",
                 cantidad: "",
@@ -87,7 +85,7 @@ electricityController.save = async function (req, res) {
                 company: elec.company._id,
                 electricity: elec._id
             };
-            var emission = new Emission(body);
+            let emission = new Emission(body);
             emission.save();
 
             comp.electricidad.push(electricity);
@@ -102,7 +100,6 @@ electricityController.save = async function (req, res) {
     });
 };
 
-//Método que renderiza el objeto compañía a la vista de NewElectricity
 electricityController.renderPageNewElectricity = function (req, res) {
     Company.findOne({ _id: req.params.comp }).exec(function (err, company) {
         if (err) {
@@ -113,13 +110,12 @@ electricityController.renderPageNewElectricity = function (req, res) {
     });
 };
 
-//Método que renderiza el objeto compañía a la vista de AllElectricities
 electricityController.renderPageAllElectricites = function (req, res) {
     Company.findOne({ _id: req.params.comp })
         .populate("electricidad")
         .exec(function (err, company) {
-            var total = 0; 
-            for (var x of company.electricidad) {
+            let total = 0; 
+            for (let x of company.electricidad) {
                 total = total + parseFloat(x.total); 
             }
             res.render("../views/electricity/AllElectricities", {
@@ -130,7 +126,6 @@ electricityController.renderPageAllElectricites = function (req, res) {
         });
 };
 
-//Método que renderiza el objeto electricidad a la vista de EditElectricity
 electricityController.renderPageEditElectricity = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
         res.render("../views/electricity/EditElectricity", {
@@ -169,11 +164,11 @@ electricityController.update = function (req, res) {
                         });
                     });
             } else {
-                var cant;
-                var ton;
-                var pcg;
-                var co2;
-                var kg;
+                let cant;
+                let ton;
+                let pcg;
+                let co2;
+                let kg;
                 Electricity.findOne({ _id: req.params.id }).exec(function (err, elec) {
                     cant = elec.total;
                     ton = elec.factor_emision/1000;
@@ -228,8 +223,8 @@ electricityController.delete = function (req, res) {
                 .populate("electricidad")
                 .exec(function (error, company) {
                     Emission.deleteOne({ electricity: req.params.id }).exec(function (err, electricity) {});
-                    var total = 0; 
-                    for (var x of company.electricidad) {
+                    let total = 0; 
+                    for (let x of company.electricidad) {
                         total = total + parseFloat(x.total); 
                     }
                     res.render("../views/electricity/AllElectricities", {
@@ -259,10 +254,9 @@ electricityController.delete = function (req, res) {
 
 //--------------------------------------------------METER FUNCTIONS--------------------------------------------
 
-//Método que renderiza el objeto electricidad a la vista de NewMeter
 electricityController.renderPageNewMeter = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
-        var emission;
+        let emission;
         Company.findOne({_id: req.params.comp}).exec(function (err, comp) {
             emission = comp.emission
         });
@@ -323,11 +317,11 @@ electricityController.addMeter = function (req, res) {
                             },
                         },
                         function (err, elect) {
-                            var cant;
-                            var ton;
-                            var pcg;
-                            var co2;
-                            var kg;
+                            let cant;
+                            let ton;
+                            let pcg;
+                            let co2;
+                            let kg;
                             Electricity.findOne({ _id: req.params._id }).exec(function (err, elec) {
                                 cant = elec.total;
                                 ton = elec.factor_emision/1000;
@@ -361,7 +355,7 @@ electricityController.addMeter = function (req, res) {
     );
 };
 
-//Método que renderiza el medidor a la vista de EditMeter
+
 electricityController.renderPageEditMeter = function (req, res) {
     Electricity.findOne({ _id: req.params.elec }).exec(function (
         err,
@@ -374,13 +368,12 @@ electricityController.renderPageEditMeter = function (req, res) {
                 meter: electricity.medidor,
             });
         } else {
-            var m;
-            for (var x of electricity.medidor) {
+            let m;
+            for (let x of electricity.medidor) {
                 if (req.params.meter == x._id) {
                     m = x;
                 }
             }
-            //return res.json("Meter 6236c47570128e323c51b05c found");
             res.render("../views/electricity/EditMeter", {
                 electricity: electricity,
                 company: electricity.company,
@@ -443,8 +436,8 @@ electricityController.updateMeter = function (req, res) {
                         diciembre: diciembre,
                     });
                 }else{
-                    var m;
-                    for (var x of electric.medidor) {
+                    let m;
+                    for (let x of electric.medidor) {
                         if (req.params.meter == x._id) {
                             m = x;
                         }
@@ -550,10 +543,10 @@ electricityController.deleteMeter = function (req, res) {
                     },
                     function (err, elect) {
                         Electricity.findOne({ _id: req.params.elec }).exec(function (err, elec) {
-                            var cant = sumatoria;
-                            var ton = elec.factor_emision/1000;
-                            var pcg = elec.pcg;
-                            var co2 = cant * ton * pcg;
+                            let cant = sumatoria;
+                            let ton = elec.factor_emision/1000;
+                            let pcg = elec.pcg;
+                            let co2 = cant * ton * pcg;
                             Emission.updateOne({ electricity: req.params.elec }, {
                                 $set: {
                                     cantidad: sumatoria,
