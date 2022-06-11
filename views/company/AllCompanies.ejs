@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="/stylesheets/dropdownCompanyMain.css" />
 </header>
 <script>
-    function removeMessage(){
+    function removeMessage() {
         localStorage.removeItem("message");
     }
 </script>
@@ -30,7 +30,7 @@
 
 <body id="companies-body" class="companies-body" style="scrollbar-width: none !important; background-color: #f4ffec;">
     <!--Mensajes de all company-->
-    <% if(typeof(status) != "undefined" ) { %>
+    <% if(typeof(status) !="undefined" ) { %>
         <% if(status==200 ) { %>
             <script>
                 if (!localStorage.getItem("message")) {
@@ -46,170 +46,199 @@
             </script>
             <% }else if(status!=200 ){ %>
                 <script>
-                if (!localStorage.getItem("message")) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: '<%-message%>',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    localStorage.setItem("message", 1);
-                }  
+                    if (!localStorage.getItem("message")) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: '<%-message%>',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        localStorage.setItem("message", 1);
+                    }  
                 </script>
                 <% } %>
                     <% } %>
-                            <div class="card mt-2 mb-2x" style=" margin-left: 2%; margin-right: 2%; scrollbar-width: none !important; background-color: #c5dfbe;">
-                                        <div id="menu-container" class="menu-container">
-                                            <div id="menu" class="menu">
-                                                <i id="expand" class="material-icons"
-                                                    style="font-size: 35px">menu_open</i>
-                                            </div>
-                                            <div class="flex-menu">
-                                                <ul class="list-unstyled chat-list mb-0">
-                                                    <ul class="list-group list-group-flush button flex-color">
-                                                        <a href="/companies/createCompany" type="button"
-                                                            class="btn btn primary ">Agregar
-                                                            compañía</a>
-                                                    </ul>
-                                                    <ul class="list-group list-group-flush button flex-color">
-                                                        <a href="/" type="button" class="btn btn primary ">Atrás</a>
-                                                    </ul>
-                                                </ul>
-                                            </div>
+                        <div class="card mt-2 mb-2x"
+                            style=" margin-left: 2%; margin-right: 2%; scrollbar-width: none !important; background-color: #c5dfbe;">
+                            <div id="menu-container" class="menu-container">
+                                <div id="menu" class="menu">
+                                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+                                </div>
+                                <div class="flex-menu">
+                                    <ul class="list-unstyled chat-list mb-0">
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a href="/companies/createCompany" type="button"
+                                                class="btn btn primary ">Agregar
+                                                compañía</a>
+                                        </ul>
+                                        <ul class="list-group list-group-flush button flex-color">
+                                            <a href="/" type="button" class="btn btn primary ">Atrás</a>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="cards-container" style=" scrollbar-width: none !important;">
+                                <% companies.forEach((company)=>{ %>
+                                    <div class="card-container">
+                                        <div class="card-header text-white">
+                                            <strong>
+                                                <%=company.nombre%>
+                                            </strong>
                                         </div>
-                                        <div class="cards-container" style=" scrollbar-width: none !important;">
-                                            <% companies.forEach((company)=>{ %>
-                                                <div class="card-container">
-                                                    <div class="card-header text-white">
-                                                        <strong>
-                                                            <%=company.nombre%>
-                                                        </strong>
+                                        <div class="card-body" style="font-size: 18px;">
+                                            <h5>
+                                                <b>
+                                                    Tipo:
+                                                </b>
+                                            </h5>
+                                            <h5 class="card-title">
+                                                <%=company.tipo%>
+                                            </h5>
+                                            <h5>
+                                                <b>
+                                                    Numero de documento:
+                                                </b>
+                                            </h5>
+                                            <h5>
+                                                <%=company.numero_documento%>
+                                            </h5>
+                                            <h5>
+                                                <b>
+                                                    Aprobado por:
+                                                </b>
+                                            </h5>
+                                            <h5>
+                                                <%=company.aprobado_por%>
+                                            </h5>
+                                            <h5>
+                                                <b>
+                                                    Fecha de inicio:
+                                                </b>
+                                            </h5>
+                                            <h5>
+                                                <%=company.fecha_inicio%>
+                                            </h5>
+                                            <h5>
+                                                <b>
+                                                    Descripción:
+                                                </b>
+                                            </h5>
+                                            <h5 class="card-textx" style="scrollbar-width: none !important;">
+                                                <%=company.descripcion%>
+                                            </h5>
+                                            <div class="card-menu">
+                                                <div id="options" class="options">
+                                                    <i id="expand" class="material-icons">expand_more</i>
+                                                </div>
+                                                <div class="button-container" id="button-container"
+                                                    style="font-size: 18px;">
+                                                    <script>
+                                                        function deleteC() {
+
+                                                            Swal.fire({
+                                                                title: '¿Seguro que desea eliminar este registro?',
+                                                                text: "¡Esta acción no se puede revertir!",
+                                                                icon: 'warning',
+                                                                showCancelButton: true,
+                                                                confirmButtonColor: '#3085d6',
+                                                                cancelButtonColor: '#d33',
+                                                                confirmButtonText: '¡Sí, eliminar!'
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+
+                                                                    Swal.fire({
+                                                                        position: 'center',
+                                                                        icon: 'success',
+                                                                        title: 'Eliminado correctamente.',
+                                                                        showConfirmButton: false,
+                                                                        timer: 1000
+                                                                    });
+                                                                    setTimeout("window.location.href = '/companies/deleteCompany/<%=company._id%>'",500);
+                                                                    
+                                                                }
+                                                            })
+                                                        }
+                                                    </script>
+                                                    <form style="font-size: 18px;"
+                                                        action="/companies/deleteCompany/<%=company._id%>" method="post"
+                                                        name="formulario1">
+                                                    </form>
+                                                    <button onclick="javascript:return deleteC();" type="danger "
+                                                        class="btn btn-danger"><i class="material-icons"
+                                                            title="Eliminar">delete</i></button>
+
+                                                    <div class="btn-company">
+                                                        <button type="link" class="btn btn-success"
+                                                            title="Editar compañía"
+                                                            onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
+                                                                class="material-icons">edit</i></button>
                                                     </div>
-                                                    <div class="card-body" style="font-size: 18px;">
-                                                        <h5>
-                                                            <b>
-                                                                Tipo: 
-                                                            </b>
-                                                        </h5>
-                                                        <h5 class="card-title">
-                                                            <%=company.tipo%>
-                                                        </h5>
-                                                        <h5>
-                                                            <b>
-                                                                Numero de documento: 
-                                                            </b>
-                                                        </h5>
-                                                        <h5>
-                                                            <%=company.numero_documento%>
-                                                        </h5>
-                                                        <h5>
-                                                            <b>
-                                                                Aprobado por: 
-                                                            </b>
-                                                        </h5>
-                                                        <h5>
-                                                            <%=company.aprobado_por%>
-                                                        </h5>
-                                                        <h5>
-                                                            <b>
-                                                                Fecha de inicio: 
-                                                            </b>
-                                                        </h5>
-                                                        <h5>
-                                                            <%=company.fecha_inicio%>
-                                                        </h5>
-                                                        <h5>
-                                                            <b>
-                                                                Descripción: 
-                                                            </b>
-                                                        </h5>
-                                                        <h5 class="card-textx" style="scrollbar-width: none !important;">
-                                                            <%=company.descripcion%>
-                                                        </h5>
-                                                        <div class="card-menu">
-                                                            <div id="options" class="options">
-                                                                <i id="expand" class="material-icons">expand_more</i>
-                                                            </div>
-                                                            <div class="button-container" id="button-container"
-                                                                style="font-size: 18px;">
-                                                                <form style="font-size: 18px;"
-                                                                    action="/companies/deleteCompany/<%=company._id%>"
-                                                                    method="post" class="btn-company"><button onclick="removeMessage()"
-                                                                        type="danger " class="btn btn-danger"><i
-                                                                            class="material-icons"
-                                                                            title="Eliminar">delete</i></button>
-                                                                </form>
-                                                                <div class="btn-company">
-                                                                    <button type="link" class="btn btn-success"
-                                                                        title="Editar compañía"
-                                                                        onclick="window.location. href='/companies/searchCompany/<%=company._id%>'"><i
-                                                                            class="material-icons">edit</i></button>
-                                                                </div>
-                                                                <div class="dropdown btn-company">
-                                                                    <a href="#" class="btn btn-primary material-icons"
-                                                                        title="Menú de emisiones"
-                                                                        data-toggle="dropdown">folder_copy
-                                                                        <span class="caret"></span></a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li>
-                                                                            <a
-                                                                                class="trigger right-caret text-black">Electricidad</a>
-                                                                            <ul class="dropdown-menu sub-menu">
-                                                                                <li><a class="dropdown-item"
-                                                                                        href='/electricities/electricity/<%=company._id%>'>Agregar</a>
-                                                                                </li>
-                                                                                <li> <a class="dropdown-item"
-                                                                                        href='/electricities/electricities/<%=company._id%>'>Mostrar</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="trigger right-caret text-black">Gases
-                                                                                LP</a>
-                                                                            <ul class="dropdown-menu sub-menu">
-                                                                                <li><a class="dropdown-item"
-                                                                                        href='/gaseslp/gasessearchcompany/<%=company._id%>'>Agregar</a>
-                                                                                </li>
-                                                                                <li> <a class="dropdown-item"
-                                                                                        href='/gaseslp/gasesshow/<%=company._id%>'>Mostrar</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="trigger right-caret text-black">Combustibles y lubricantes</a>
-                                                                            <ul class="dropdown-menu sub-menu">
-                                                                                <li><a class="dropdown-item"
-                                                                                        href='/fuelsAndOil/fuelsAndOilsearchcompany/<%=company._id%>'>Agregar</a>
-                                                                                </li>
-                                                                                <li> <a class="dropdown-item"
-                                                                                        href='/fuelsAndOil/fuelsAndOilShow/<%=company._id%>'>Mostrar</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="trigger right-caret text-black">Aires acondicionados</a>
-                                                                            <ul class="dropdown-menu sub-menu">
-                                                                                <li><a class="dropdown-item"
-                                                                                        href='/airConditioning/airConditioningSearchcompany/<%=company._id%>'>Agregar</a>
-                                                                                </li>
-                                                                                <li> <a class="dropdown-item"
-                                                                                        href='/airConditioning/airConditioningShow/<%=company._id%>'>Mostrar</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li><a class="trigger right-caret text-black"
-                                                                            href='/companies/emissions/<%=company._id%>'>Emisiones</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="dropdown btn-company">
+                                                        <a href="#" class="btn btn-primary material-icons"
+                                                            title="Menú de emisiones" data-toggle="dropdown">folder_copy
+                                                            <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a
+                                                                    class="trigger right-caret text-black">Electricidad</a>
+                                                                <ul class="dropdown-menu sub-menu">
+                                                                    <li><a class="dropdown-item"
+                                                                            href='/electricities/electricity/<%=company._id%>'>Agregar</a>
+                                                                    </li>
+                                                                    <li> <a class="dropdown-item"
+                                                                            href='/electricities/electricities/<%=company._id%>'>Mostrar</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a class="trigger right-caret text-black">Gases
+                                                                    LP</a>
+                                                                <ul class="dropdown-menu sub-menu">
+                                                                    <li><a class="dropdown-item"
+                                                                            href='/gaseslp/gasessearchcompany/<%=company._id%>'>Agregar</a>
+                                                                    </li>
+                                                                    <li> <a class="dropdown-item"
+                                                                            href='/gaseslp/gasesshow/<%=company._id%>'>Mostrar</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a class="trigger right-caret text-black">Combustibles y
+                                                                    lubricantes</a>
+                                                                <ul class="dropdown-menu sub-menu">
+                                                                    <li><a class="dropdown-item"
+                                                                            href='/fuelsAndOil/fuelsAndOilsearchcompany/<%=company._id%>'>Agregar</a>
+                                                                    </li>
+                                                                    <li> <a class="dropdown-item"
+                                                                            href='/fuelsAndOil/fuelsAndOilShow/<%=company._id%>'>Mostrar</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a class="trigger right-caret text-black">Aires
+                                                                    acondicionados</a>
+                                                                <ul class="dropdown-menu sub-menu">
+                                                                    <li><a class="dropdown-item"
+                                                                            href='/airConditioning/airConditioningSearchcompany/<%=company._id%>'>Agregar</a>
+                                                                    </li>
+                                                                    <li> <a class="dropdown-item"
+                                                                            href='/airConditioning/airConditioningShow/<%=company._id%>'>Mostrar</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a class="trigger right-caret text-black"
+                                                                    href='/companies/emissions/<%=company._id%>'>Emisiones</a>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
-                                            <% }) %>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <% }) %>
                             </div>
+                        </div>
 </body>
 
 </html>

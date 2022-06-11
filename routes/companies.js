@@ -15,6 +15,6 @@ router.get('/emissions/:comp',isAuthenticated, companyController.renderPageAllEm
 //router.get('/showCompany2',isAuthenticated, companyController.list2);
 
 router.post('/saveCompany', /**/isAuthenticated, companyController.save);
-router.post('/deleteCompany/:id', /**/isAuthenticated, companyController.delete);
+router.get('/deleteCompany/:id', /**/isAuthenticated, companyController.delete);
 router.post('/updateCompany/:id', /**/isAuthenticated, companyController.update);
 module.exports = router;
