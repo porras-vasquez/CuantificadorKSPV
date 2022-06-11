@@ -5,7 +5,6 @@ const userController = require('../controllers/UserController');
 const passport = require('passport');
 const isAuthenticated= require('../helpers/auth');
 
-/* GET users listing. */
 router.get('/create', isAuthenticated,isAuthenticated,(req, res) =>{
     res.render('../views/users/NewUser');
 });
@@ -19,5 +18,4 @@ router.get('/show', userController.list);
 router.post('/save', userController.save);
 router.post('/delete/:id', userController.delete);
 router.post('/update/:id', userController.update);
-/** Para realizar los test es necesario quitar 'isAuthenticated' para poder acceder a los metodos */
 module.exports = router;

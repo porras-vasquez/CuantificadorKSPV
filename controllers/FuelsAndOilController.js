@@ -158,7 +158,6 @@ FuelsAndOilController.list = function (req, res) {
                     diciembre: diciembre,
                 });
             } else {
-                //    return res.json("all fuels and oil updated");
                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                     fuelsAndOils: company.fuelsAndOil,
                     company: company._id,
@@ -182,13 +181,11 @@ FuelsAndOilController.list = function (req, res) {
 FuelsAndOilController.search = function (req, res) {
     FuelsAndOil.findOne({ _id: req.params.id }).exec(function (err, fuelsAndOil) {
         if (err) {
-            //    return res.status(404).json("Fuel and oil not found"); 
             res.render("../views/fuelsAndOil/EditFuelsAndOil", {
                 fuelsAndOil: fuelsAndOil,
                 company: fuelsAndOil.company,
             });
         } else {
-            //    return res.json("FuelsAndOil 62203979f485525b84be6132 found"); 
             res.render("../views/fuelsAndOil/EditFuelsAndOil", {
                 fuelsAndOil: fuelsAndOil,
                 company: fuelsAndOil.company,
@@ -274,9 +271,6 @@ FuelsAndOilController.update = function (req, res) {
                         }
                     });
             } else {
-                /*var cant;
-                var pcg;
-                var kg;*/
                 FuelsAndOil.findOne({ _id: req.params.id }).exec(function (err, fuel) {
                     let ton = fuel.factor/1000;
                     let cant = fuel.emision;
