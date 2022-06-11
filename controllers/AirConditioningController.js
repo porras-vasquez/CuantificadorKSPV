@@ -3,7 +3,7 @@ require('../connection');
 const Company = require("../models/Company");
 const AirConditioning = require('../models/AirConditioning');
 const Emission = require("../models/Emission");
-const airConditioningController = {};
+let airConditioningController = {};
 
 let status = 0;
 let message = "";
@@ -635,7 +635,6 @@ airConditioningController.update = function(req, res) {
                 modelo: req.body.modelo,
                 capacidad: req.body.capacidad,
                 consumo: req.body.consumo,
-                tipoRefrigerante: req.body.tipoRefrigerante,
                 capacidadConfinamiento: req.body.capacidadConfinamiento,
                 aplicacion: req.body.aplicacion,
                 tasaAnualFuga: req.body.tasaAnualFuga,
@@ -669,35 +668,25 @@ airConditioningController.update = function(req, res) {
             },
         }, { new: true },
         function(err, airConditionings) {
-            console.log(airConditionings);
-            console.log(airConditionings.company);
             if (err) {
                 console.log("Error: ", err);
                 Company.findOne({ _id: airConditionings.company })
                     .populate("airConditioning")
                     .exec(function(error, company) {
-                        if (error) {
-                            res.render("../views/airConditioning/AllAirConditioning", {
-                                message: message,
-                                status: status,
-                                airConditionings: company.airConditioning,
-                                company: company._id,
-                            });
-                        } else {
-                            res.render("../views/airConditioning/AllAirConditioning", {
-                                message: message,
-                                status: status,
-                                airConditionings: company.airConditioning,
-                                company: company._id,
-                            });
-                        }
+                        res.render("../views/airConditioning/AllAirConditioning", {
+                            message: message,
+                            status: status,
+                            airConditionings: company.airConditioning,
+                            company: company._id,
+                        });
                     });
             } else {
                 AirConditioning.findOne({ _id: req.params.id }).exec(function (err, airConditionings) {
-                    let c = 0, c2 = 0;
                     let ton = airConditionings.factor_emision/1000;
+                    let kg = airConditionings.factor_emision;
                     let cant = 0, cant2 = 0;
                     let pcg = airConditionings.pcg;
+                    let gei = airConditionings.gei;
                     
                     let totalR410a = 0, totalCo2 = 0, totalR22 = 0, totalHFC134a = 0,  totalHFC152a = 0, totalR402a = 0,
                     totalR402b = 0, totalR404a = 0, totalR404B = 0, totalR407c = 0, totalR507 = 0, totalR508B = 0;
@@ -811,13 +800,17 @@ airConditioningController.update = function(req, res) {
                                     Emission.updateOne({ unidad: airConditionings.tipoRefrigerante}, {
                                         $set: {
                                             cantidad: cant,
+                                            kg: kg,
+                                            ton: ton,
+                                            pcg: pcg,
+                                            gei: gei,
                                             totalCo2: cant2,
                                             totalFuente: cant2
                                         },
                                     }).exec(function (error, ems) {
                                         console.log("3");
                                         console.log(ems);
-                                        Company.findOne({ _id: airConditionings.company })
+                                        Company.findOne({ _id: company._id })
                                         .populate("airConditioning")
                                         .exec(function(error, company) {
                                             console.log(error);
@@ -851,67 +844,35 @@ airConditioningController.update = function(req, res) {
                                                 totalR508BCo2 = totalR508BCo2 + parseFloat(x.totalR508BCo2);
                                                 
                                             }
-                                            if (error) {
-                                                res.render("../views/airConditioning/AllAirConditioning", {
-                                                    message: message,
-                                                    status: status,
-                                                    airConditionings: company.airConditioning,
-                                                    company: company._id,
-                                                    totalR22: totalR22,
-                                                    totalCO2: totalCO2,
-                                                    totalCO2R22: totalCO2R22,
-                                                    totalHFC134a: totalHFC134a,
-                                                    totalHFC134aCo2: totalHFC134aCo2,
-                                                    totalHFC152a: totalHFC152a,
-                                                    totalHFC152aCo2: totalHFC152aCo2,
-                                                    totalR402a: totalR402a,
-                                                    totalR402aCo2: totalR402aCo2,
-                                                    totalR402b: totalR402b,
-                                                    totalR402bCo2: totalR402bCo2,
-                                                    totalR404a: totalR404a,
-                                                    totalR404aCo2: totalR404aCo2,
-                                                    totalR404B: totalR404B,
-                                                    totalR404BCo2: totalR404BCo2,
-                                                    totalR407c: totalR407c,
-                                                    totalR407cCo2: totalR407cCo2,
-                                                    totalR410a: totalR410a,
-                                                    totalR410aCo2: totalR410aCo2,
-                                                    totalR507: totalR507,
-                                                    totalR507Co2: totalR507Co2,
-                                                    total508B: total508B,
-                                                    totalR508BCo2: totalR508BCo2,
-                                                });
-                                            } else {
-                                                res.render("../views/airConditioning/AllAirConditioning", {
-                                                    message: message,
-                                                    status: status,
-                                                    airConditionings: company.airConditioning,
-                                                    company: company._id,
-                                                    totalR22: totalR22,
-                                                    totalCO2: totalCO2,
-                                                    totalCO2R22: totalCO2R22,
-                                                    totalHFC134a: totalHFC134a,
-                                                    totalHFC134aCo2: totalHFC134aCo2,
-                                                    totalHFC152a: totalHFC152a,
-                                                    totalHFC152aCo2: totalHFC152aCo2,
-                                                    totalR402a: totalR402a,
-                                                    totalR402aCo2: totalR402aCo2,
-                                                    totalR402b: totalR402b,
-                                                    totalR402bCo2: totalR402bCo2,
-                                                    totalR404a: totalR404a,
-                                                    totalR404aCo2: totalR404aCo2,
-                                                    totalR404B: totalR404B,
-                                                    totalR404BCo2: totalR404BCo2,
-                                                    totalR407c: totalR407c,
-                                                    totalR407cCo2: totalR407cCo2,
-                                                    totalR410a: totalR410a,
-                                                    totalR410aCo2: totalR410aCo2,
-                                                    totalR507: totalR507,
-                                                    totalR507Co2: totalR507Co2,
-                                                    total508B: total508B,
-                                                    totalR508BCo2: totalR508BCo2,
-                                                });
-                                            }
+                                            res.render("../views/airConditioning/AllAirConditioning", {
+                                                message: message,
+                                                status: status,
+                                                airConditionings: company.airConditioning,
+                                                company: company._id,
+                                                totalR22: totalR22,
+                                                totalCO2: totalCO2,
+                                                totalCO2R22: totalCO2R22,
+                                                totalHFC134a: totalHFC134a,
+                                                totalHFC134aCo2: totalHFC134aCo2,
+                                                totalHFC152a: totalHFC152a,
+                                                totalHFC152aCo2: totalHFC152aCo2,
+                                                totalR402a: totalR402a,
+                                                totalR402aCo2: totalR402aCo2,
+                                                totalR402b: totalR402b,
+                                                totalR402bCo2: totalR402bCo2,
+                                                totalR404a: totalR404a,
+                                                totalR404aCo2: totalR404aCo2,
+                                                totalR404B: totalR404B,
+                                                totalR404BCo2: totalR404BCo2,
+                                                totalR407c: totalR407c,
+                                                totalR407cCo2: totalR407cCo2,
+                                                totalR410a: totalR410a,
+                                                totalR410aCo2: totalR410aCo2,
+                                                totalR507: totalR507,
+                                                totalR507Co2: totalR507Co2,
+                                                total508B: total508B,
+                                                totalR508BCo2: totalR508BCo2,
+                                            });
                                         });
                                     });
                                 });
@@ -1006,196 +967,66 @@ airConditioningController.delete = function (req, res) {
                 }).exec(function (err, airConditioning) {
                     if (airConditioning) {
                         AirConditioning.deleteOne({ _id: req.params.id }, function (err, air) {             
-                            if (err) {
-                                Company.findOne({ _id: req.params.comp })
-                                    .populate("airConditioning")
-                                    .exec(function (error, company) {
-                                        let totalR22=0, totalCO2=0, totalCO2R22=0,
-                                        totalHFC134a=0,totalHFC134aCo2=0,totalHFC152a=0,totalHFC152aCo2=0,totalR402a=0,
-                                        totalR402aCo2=0,totalR402b=0,totalR402bCo2=0,totalR404a=0,totalR404aCo2=0,totalR404B=0,
-                                        totalR404BCo2=0,totalR407c=0,totalR407cCo2=0,totalR410a=0,totalR410aCo2=0,totalR507=0,totalR507Co2=0,total508B=0,totalR508BCo2=0;
-                                        for (let x of company.airConditioning) {
-                                            totalR22 = totalR22 + parseFloat(x.totalR22);  
-                                            totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
-                                            totalHFC134a = totalHFC134a + parseFloat(x.totalHFC134a);
-                                            totalHFC134aCo2 = totalHFC134aCo2 + parseFloat(x.totalHFC134aCo2);
-                                            totalHFC152a = totalHFC152a + parseFloat(x.totalHFC152a);
-                                            totalHFC152aCo2 = totalHFC152aCo2 + parseFloat(x.totalHFC152aCo2);
-                                            totalR402a = totalR402a + parseFloat(x.totalR402a);
-                                            totalR402aCo2 = totalR402aCo2 + parseFloat(x.totalR402aCo2);
-                                            totalR402b = totalR402b + parseFloat(x.totalR402b);
-                                            totalR402bCo2 = totalR402bCo2 + parseFloat(x.totalR402bCo2);
-                                            totalR404a = totalR404a + parseFloat(x.totalR404a);
-                                            totalR404aCo2 = totalR404aCo2 + parseFloat(x.totalR404aCo2);
-                                            totalR404B = totalR404B + parseFloat(x.totalR404B);
-                                            totalR404BCo2 = totalR404BCo2 + parseFloat(x.totalR404BCo2);
-                                            totalR407c = totalR407c + parseFloat(x.totalR407c);
-                                            totalR407cCo2 = totalR407cCo2 + parseFloat(x.totalR407cCo2);
-                                            totalR410a = totalR410a + parseFloat(x.totalR410a);
-                                            totalR410aCo2 = totalR410aCo2 + parseFloat(x.totalR410aCo2);
-                                            totalR507 = totalR507 + parseFloat(x.totalR507);
-                                            totalR507Co2 = totalR507Co2 + parseFloat(x.totalR507Co2);
-                                            total508B = total508B + parseFloat(x.total508B);
-                                            totalR508BCo2 = totalR508BCo2 + parseFloat(x.totalR508BCo2);
-                                            
-                                        }
-                                        if (error) {
-                                            //verifyStatus(res.statusCode);
-                                            res.render("../views/airConditioning/AllAirConditioning", {
-                                                company: company,
-                                                airConditionings: company.airConditioning,
-                                                totalR22: totalR22,
-                                                totalCO2: totalCO2,
-                                                totalCO2R22: totalCO2R22,
-                                                totalHFC134a: totalHFC134a,
-                                                totalHFC134aCo2: totalHFC134aCo2,
-                                                totalHFC152a: totalHFC152a,
-                                                totalHFC152aCo2: totalHFC152aCo2,
-                                                totalR402a: totalR402a,
-                                                totalR402aCo2: totalR402aCo2,
-                                                totalR402b: totalR402b,
-                                                totalR402bCo2: totalR402bCo2,
-                                                totalR404a: totalR404a,
-                                                totalR404aCo2: totalR404aCo2,
-                                                totalR404B: totalR404B,
-                                                totalR404BCo2: totalR404BCo2,
-                                                totalR407c: totalR407c,
-                                                totalR407cCo2: totalR407cCo2,
-                                                totalR410a: totalR410a,
-                                                totalR410aCo2: totalR410aCo2,
-                                                totalR507: totalR507,
-                                                totalR507Co2: totalR507Co2,
-                                                total508B: total508B,
-                                                totalR508BCo2: totalR508BCo2,
-                                            });
-                                        } else {
-                                            //    return res.json("fuels and oil deleted!"); 
-                                            //verifyStatus(res.statusCode);
-                                            res.render("../views/airConditioning/AllAirConditioning", {
-                                                company: company,
-                                                airConditionings: company.airConditioning,
-                                                totalR22: totalR22,
-                                                totalCO2: totalCO2,
-                                                totalCO2R22: totalCO2R22,
-                                                totalHFC134a: totalHFC134a,
-                                                totalHFC134aCo2: totalHFC134aCo2,
-                                                totalHFC152a: totalHFC152a,
-                                                totalHFC152aCo2: totalHFC152aCo2,
-                                                totalR402a: totalR402a,
-                                                totalR402aCo2: totalR402aCo2,
-                                                totalR402b: totalR402b,
-                                                totalR402bCo2: totalR402bCo2,
-                                                totalR404a: totalR404a,
-                                                totalR404aCo2: totalR404aCo2,
-                                                totalR404B: totalR404B,
-                                                totalR404BCo2: totalR404BCo2,
-                                                totalR407c: totalR407c,
-                                                totalR407cCo2: totalR407cCo2,
-                                                totalR410a: totalR410a,
-                                                totalR410aCo2: totalR410aCo2,
-                                                totalR507: totalR507,
-                                                totalR507Co2: totalR507Co2,
-                                                total508B: total508B,
-                                                totalR508BCo2: totalR508BCo2,
-                                            });
-                                        }
-                                    });    
+                            Company.findOne({ _id: req.params.comp })
+                            .populate("airConditioning")
+                            .exec(function (error, company) {
+                                let totalR22=0, totalCO2=0, totalCO2R22=0,
+                                totalHFC134a=0,totalHFC134aCo2=0,totalHFC152a=0,totalHFC152aCo2=0,totalR402a=0,
+                                totalR402aCo2=0,totalR402b=0,totalR402bCo2=0,totalR404a=0,totalR404aCo2=0,totalR404B=0,
+                                totalR404BCo2=0,totalR407c=0,totalR407cCo2=0,totalR410a=0,totalR410aCo2=0,totalR507=0,totalR507Co2=0,total508B=0,totalR508BCo2=0;
+                                for (let x of company.airConditioning) {
+                                    totalR22 = totalR22 + parseFloat(x.totalR22);  
+                                    totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
+                                    totalHFC134a = totalHFC134a + parseFloat(x.totalHFC134a);
+                                    totalHFC134aCo2 = totalHFC134aCo2 + parseFloat(x.totalHFC134aCo2);
+                                    totalHFC152a = totalHFC152a + parseFloat(x.totalHFC152a);
+                                    totalHFC152aCo2 = totalHFC152aCo2 + parseFloat(x.totalHFC152aCo2);
+                                    totalR402a = totalR402a + parseFloat(x.totalR402a);
+                                    totalR402aCo2 = totalR402aCo2 + parseFloat(x.totalR402aCo2);
+                                    totalR402b = totalR402b + parseFloat(x.totalR402b);
+                                    totalR402bCo2 = totalR402bCo2 + parseFloat(x.totalR402bCo2);
+                                    totalR404a = totalR404a + parseFloat(x.totalR404a);
+                                    totalR404aCo2 = totalR404aCo2 + parseFloat(x.totalR404aCo2);
+                                    totalR404B = totalR404B + parseFloat(x.totalR404B);
+                                    totalR404BCo2 = totalR404BCo2 + parseFloat(x.totalR404BCo2);
+                                    totalR407c = totalR407c + parseFloat(x.totalR407c);
+                                    totalR407cCo2 = totalR407cCo2 + parseFloat(x.totalR407cCo2);
+                                    totalR410a = totalR410a + parseFloat(x.totalR410a);
+                                    totalR410aCo2 = totalR410aCo2 + parseFloat(x.totalR410aCo2);
+                                    totalR507 = totalR507 + parseFloat(x.totalR507);
+                                    totalR507Co2 = totalR507Co2 + parseFloat(x.totalR507Co2);
+                                    total508B = total508B + parseFloat(x.total508B);
+                                    totalR508BCo2 = totalR508BCo2 + parseFloat(x.totalR508BCo2);
                                     
-                            } else {
-                                Company.findOne({ _id: req.params.comp })
-                                    .populate("airConditioning")
-                                    .exec(function (error, company) {
-                                        let totalR22=0, totalCO2=0, totalCO2R22=0,
-                                        totalHFC134a=0,totalHFC134aCo2=0,totalHFC152a=0,totalHFC152aCo2=0,totalR402a=0,
-                                        totalR402aCo2=0,totalR402b=0,totalR402bCo2=0,totalR404a=0,totalR404aCo2=0,totalR404B=0,
-                                        totalR404BCo2=0,totalR407c=0,totalR407cCo2=0,totalR410a=0,totalR410aCo2=0,totalR507=0,totalR507Co2=0,total508B=0,totalR508BCo2=0;
-                                        for (let x of company.airConditioning) {
-                                            totalR22 = totalR22 + parseFloat(x.totalR22);  
-                                            totalCO2R22 = totalCO2R22 + parseFloat(x.totalCO2R22);
-                                            totalHFC134a = totalHFC134a + parseFloat(x.totalHFC134a);
-                                            totalHFC134aCo2 = totalHFC134aCo2 + parseFloat(x.totalHFC134aCo2);
-                                            totalHFC152a = totalHFC152a + parseFloat(x.totalHFC152a);
-                                            totalHFC152aCo2 = totalHFC152aCo2 + parseFloat(x.totalHFC152aCo2);
-                                            totalR402a = totalR402a + parseFloat(x.totalR402a);
-                                            totalR402aCo2 = totalR402aCo2 + parseFloat(x.totalR402aCo2);
-                                            totalR402b = totalR402b + parseFloat(x.totalR402b);
-                                            totalR402bCo2 = totalR402bCo2 + parseFloat(x.totalR402bCo2);
-                                            totalR404a = totalR404a + parseFloat(x.totalR404a);
-                                            totalR404aCo2 = totalR404aCo2 + parseFloat(x.totalR404aCo2);
-                                            totalR404B = totalR404B + parseFloat(x.totalR404B);
-                                            totalR404BCo2 = totalR404BCo2 + parseFloat(x.totalR404BCo2);
-                                            totalR407c = totalR407c + parseFloat(x.totalR407c);
-                                            totalR407cCo2 = totalR407cCo2 + parseFloat(x.totalR407cCo2);
-                                            totalR410a = totalR410a + parseFloat(x.totalR410a);
-                                            totalR410aCo2 = totalR410aCo2 + parseFloat(x.totalR410aCo2);
-                                            totalR507 = totalR507 + parseFloat(x.totalR507);
-                                            totalR507Co2 = totalR507Co2 + parseFloat(x.totalR507Co2);
-                                            total508B = total508B + parseFloat(x.total508B);
-                                            totalR508BCo2 = totalR508BCo2 + parseFloat(x.totalR508BCo2);
-                                            
-                                        }
-                                        if (error) {
-                                            //verifyStatus(res.statusCode);
-                                            res.render("../views/airConditioning/AllAirConditioning", {
-                                                company: company,
-                                                airConditionings: company.airConditioning,
-                                                totalR22: totalR22,
-                                                totalCO2: totalCO2,
-                                                totalCO2R22: totalCO2R22,
-                                                totalHFC134a: totalHFC134a,
-                                                totalHFC134aCo2: totalHFC134aCo2,
-                                                totalHFC152a: totalHFC152a,
-                                                totalHFC152aCo2: totalHFC152aCo2,
-                                                totalR402a: totalR402a,
-                                                totalR402aCo2: totalR402aCo2,
-                                                totalR402b: totalR402b,
-                                                totalR402bCo2: totalR402bCo2,
-                                                totalR404a: totalR404a,
-                                                totalR404aCo2: totalR404aCo2,
-                                                totalR404B: totalR404B,
-                                                totalR404BCo2: totalR404BCo2,
-                                                totalR407c: totalR407c,
-                                                totalR407cCo2: totalR407cCo2,
-                                                totalR410a: totalR410a,
-                                                totalR410aCo2: totalR410aCo2,
-                                                totalR507: totalR507,
-                                                totalR507Co2: totalR507Co2,
-                                                total508B: total508B,
-                                                totalR508BCo2: totalR508BCo2,
-                                            });
-                                        } else {
-                                            //    return res.json("fuels and oil deleted!"); 
-                                            //verifyStatus(res.statusCode);
-                                            res.render("../views/airConditioning/AllAirConditioning", {
-                                                company: company,
-                                                airConditionings: company.airConditioning,
-                                                totalR22: totalR22,
-                                                totalCO2: totalCO2,
-                                                totalCO2R22: totalCO2R22,
-                                                totalHFC134a: totalHFC134a,
-                                                totalHFC134aCo2: totalHFC134aCo2,
-                                                totalHFC152a: totalHFC152a,
-                                                totalHFC152aCo2: totalHFC152aCo2,
-                                                totalR402a: totalR402a,
-                                                totalR402aCo2: totalR402aCo2,
-                                                totalR402b: totalR402b,
-                                                totalR402bCo2: totalR402bCo2,
-                                                totalR404a: totalR404a,
-                                                totalR404aCo2: totalR404aCo2,
-                                                totalR404B: totalR404B,
-                                                totalR404BCo2: totalR404BCo2,
-                                                totalR407c: totalR407c,
-                                                totalR407cCo2: totalR407cCo2,
-                                                totalR410a: totalR410a,
-                                                totalR410aCo2: totalR410aCo2,
-                                                totalR507: totalR507,
-                                                totalR507Co2: totalR507Co2,
-                                                total508B: total508B,
-                                                totalR508BCo2: totalR508BCo2,
-                                            });
-                                        }
-                                    });
-                            }
+                                }
+                                res.render("../views/airConditioning/AllAirConditioning", {
+                                    company: company,
+                                    airConditionings: company.airConditioning,
+                                    totalR22: totalR22,
+                                    totalCO2: totalCO2,
+                                    totalCO2R22: totalCO2R22,
+                                    totalHFC134a: totalHFC134a,
+                                    totalHFC134aCo2: totalHFC134aCo2,
+                                    totalHFC152a: totalHFC152a,
+                                    totalHFC152aCo2: totalHFC152aCo2,
+                                    totalR402a: totalR402a,
+                                    totalR402aCo2: totalR402aCo2,
+                                    totalR402b: totalR402b,
+                                    totalR402bCo2: totalR402bCo2,
+                                    totalR404a: totalR404a,
+                                    totalR404aCo2: totalR404aCo2,
+                                    totalR404B: totalR404B,
+                                    totalR404BCo2: totalR404BCo2,
+                                    totalR407c: totalR407c,
+                                    totalR407cCo2: totalR407cCo2,
+                                    totalR410a: totalR410a,
+                                    totalR410aCo2: totalR410aCo2,
+                                    totalR507: totalR507,
+                                    totalR507Co2: totalR507Co2,
+                                    total508B: total508B,
+                                    totalR508BCo2: totalR508BCo2,
+                                });
+                            });  
                         });
                     }else {
                         Company.findOne({ _id: req.params.comp })
@@ -1230,66 +1061,33 @@ airConditioningController.delete = function (req, res) {
                                     totalR508BCo2 = totalR508BCo2 + parseFloat(x.totalR508BCo2);
                                     
                                 }
-                                if (error) {
-                                    //verifyStatus(res.statusCode);
-                                    res.render("../views/airConditioning/AllAirConditioning", {
-                                        company: company,
-                                        airConditionings: company.airConditioning,
-                                        totalR22: totalR22,
-                                        totalCO2: totalCO2,
-                                        totalCO2R22: totalCO2R22,
-                                        totalHFC134a: totalHFC134a,
-                                        totalHFC134aCo2: totalHFC134aCo2,
-                                        totalHFC152a: totalHFC152a,
-                                        totalHFC152aCo2: totalHFC152aCo2,
-                                        totalR402a: totalR402a,
-                                        totalR402aCo2: totalR402aCo2,
-                                        totalR402b: totalR402b,
-                                        totalR402bCo2: totalR402bCo2,
-                                        totalR404a: totalR404a,
-                                        totalR404aCo2: totalR404aCo2,
-                                        totalR404B: totalR404B,
-                                        totalR404BCo2: totalR404BCo2,
-                                        totalR407c: totalR407c,
-                                        totalR407cCo2: totalR407cCo2,
-                                        totalR410a: totalR410a,
-                                        totalR410aCo2: totalR410aCo2,
-                                        totalR507: totalR507,
-                                        totalR507Co2: totalR507Co2,
-                                        total508B: total508B,
-                                        totalR508BCo2: totalR508BCo2,
-                                    });
-                                } else {
-                                    //    return res.json("fuels and oil deleted!"); 
-                                    //verifyStatus(res.statusCode);
-                                    res.render("../views/airConditioning/AllAirConditioning", {
-                                        company: company,
-                                        airConditionings: company.airConditioning,
-                                        totalR22: totalR22,
-                                        totalCO2: totalCO2,
-                                        totalCO2R22: totalCO2R22,
-                                        totalHFC134a: totalHFC134a,
-                                        totalHFC134aCo2: totalHFC134aCo2,
-                                        totalHFC152a: totalHFC152a,
-                                        totalHFC152aCo2: totalHFC152aCo2,
-                                        totalR402a: totalR402a,
-                                        totalR402aCo2: totalR402aCo2,
-                                        totalR402b: totalR402b,
-                                        totalR402bCo2: totalR402bCo2,
-                                        totalR404a: totalR404a,
-                                        totalR404aCo2: totalR404aCo2,
-                                        totalR404B: totalR404B,
-                                        totalR404BCo2: totalR404BCo2,
-                                        totalR407c: totalR407c,
-                                        totalR407cCo2: totalR407cCo2,
-                                        totalR410a: totalR410a,
-                                        totalR410aCo2: totalR410aCo2,
-                                        totalR507: totalR507,
-                                        totalR507Co2: totalR507Co2,
-                                        total508B: total508B,
-                                        totalR508BCo2: totalR508BCo2,
-                                    });
-                                }
+                                res.render("../views/airConditioning/AllAirConditioning", {
+                                    company: company,
+                                    airConditionings: company.airConditioning,
+                                    totalR22: totalR22,
+                                    totalCO2: totalCO2,
+                                    totalCO2R22: totalCO2R22,
+                                    totalHFC134a: totalHFC134a,
+                                    totalHFC134aCo2: totalHFC134aCo2,
+                                    totalHFC152a: totalHFC152a,
+                                    totalHFC152aCo2: totalHFC152aCo2,
+                                    totalR402a: totalR402a,
+                                    totalR402aCo2: totalR402aCo2,
+                                    totalR402b: totalR402b,
+                                    totalR402bCo2: totalR402bCo2,
+                                    totalR404a: totalR404a,
+                                    totalR404aCo2: totalR404aCo2,
+                                    totalR404B: totalR404B,
+                                    totalR404BCo2: totalR404BCo2,
+                                    totalR407c: totalR407c,
+                                    totalR407cCo2: totalR407cCo2,
+                                    totalR410a: totalR410a,
+                                    totalR410aCo2: totalR410aCo2,
+                                    totalR507: totalR507,
+                                    totalR507Co2: totalR507Co2,
+                                    total508B: total508B,
+                                    totalR508BCo2: totalR508BCo2,
+                                }); 
                             });
                     }
                 });

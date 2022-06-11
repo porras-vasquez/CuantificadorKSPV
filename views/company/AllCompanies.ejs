@@ -134,7 +134,7 @@
                                                 <div class="button-container" id="button-container"
                                                     style="font-size: 18px;">
                                                     <script>
-                                                        function deleteC() {
+                                                        function deleteC(company) {
 
                                                             Swal.fire({
                                                                 title: '¿Seguro que desea eliminar este registro?',
@@ -154,7 +154,7 @@
                                                                         showConfirmButton: false,
                                                                         timer: 1000
                                                                     });
-                                                                    setTimeout("window.location.href = '/companies/deleteCompany/<%=company._id%>'",500);
+                                                                    setTimeout("window.location.href = '/companies/deleteCompany/"+company+"'",350);
                                                                     
                                                                 }
                                                             })
@@ -162,7 +162,7 @@
                                                     </script>
                                                     <div class="btn-company">
                                                     
-                                                        <button onclick="javascript:return deleteC();" type="danger " class="btn btn-danger"><i class="material-icons"
+                                                        <button onclick="javascript:return deleteC('<%=company._id%>');" type="danger " class="btn btn-danger"><i class="material-icons"
                                                                 title="Eliminar">delete</i></button>
                                                     </div>
 
