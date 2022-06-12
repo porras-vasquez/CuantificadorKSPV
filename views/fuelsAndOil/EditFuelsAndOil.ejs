@@ -10,9 +10,11 @@
     }
 </script>
 
-<body style="background-color: #f4ffec; height: 100vh !important">
-    <div class="card mt-2"
-        style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+<body class="row">
+    <div class="col-1"></div>
+    <div class="col-10 card mt-3"
+        style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
+        <!-- Menu desplegable con animacion -->
         <div id="menu-container" class="menu-container">
             <div id="menu" class="menu">
                 <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
@@ -34,146 +36,163 @@
                 </ul>
             </div>
         </div>
-        <div class="row table-container"
-            style="margin-left: 3.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-            <form action="/fuelsAndOil/updateFuelsAndOil/<%=fuelsAndOil._id%>" method="post" class="form row "
-                style="margin-left: 12%;">
-                <h2 class="h2">Módulo de Combustibles y Lubricantes: Editar</h2>
-                <div style="display: flex;">
-                    <div class="col-2">
-                        <p class="p" type="Combustible/Lubricante:">
-                            <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;"
-                                name="combustible" aria-placeholder="Combustible" aria-label="Default select example">
-                                <option selected>
-                                    <%=fuelsAndOil.combustible%>
-                                </option>
-                                <option value="Gasolina">Gasolina</option>
-                                <option value="Diésel">Diésel</option>
-                                <option value="Aceite 2t/4t">Aceite 2t/4t</option>
-                            </select>
-                        </p>
-                        <p class="p" type="Datos emisión general:">
-                            <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="gei"
-                                aria-placeholder="GEI" aria-label="Default select example">
-                                <option selected>
-                                    <%=fuelsAndOil.gei%>
-                                </option>
-                                <option value="CO2">CO2</option>
-                                <option value="CH4">CH4</option>
-                                <option value="N2O">N2O</option>
-                            </select>
-                        </p>
-                        <p class="p" type="pcg:"><input class="input" placeholder="Escriba el pcg" name="pcg"
-                                pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" value="<%=fuelsAndOil.pcg%>"
-                                required="true" />
-                        </p>
-                        <p class="p" type="Factor de emisión:"><input class="input" placeholder="Escriba el factor"
-                                name="factor" pattern="^[0-9]+\.?[0-9]*$" value="<%=fuelsAndOil.factor%>"
-                                oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" required />
-                        </p>
-                    </div>
-                    <div class=" col-4 row" style="margin-left: 6%;">
-                        <h2 class="mt-2">
+        <!-- Content of form-->
+        <div class="row table-container" style="margin-left: 5%;">
+            <form action="/fuelsAndOil/updateFuelsAndOil/<%=fuelsAndOil._id%>" method="post" class="row "
+                style="display: flex;">
+                <div class="col-12">
+                    <h2 class="h2" style="margin-bottom: 1%;">Módulo Combustibles y lubricantes:
+                        Editar
+                    </h2>
+                </div>
+                <div style="margin-left: 1%;" class="col-3">
+                    <p class="p" type="PCG:"><input class="input" placeholder="Escriba el pcg" name="pcg"
+                            pattern="^[0-9]+\.?[0-9]*$"
+                            oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=fuelsAndOil.pcg%>"
+                            required="true" />
+                    </p>
+                    <p class="p" type="Factor de emisión:"><input class="input" placeholder="Escriba el factor"
+                            name="factor" pattern="^[0-9]+\.?[0-9]*$" value="<%=fuelsAndOil.factor%>"
+                            oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                            oninput="this.setCustomValidity('')" autocomplete="off" required />
+                    </p>
+                    <p class="p" type="Combustible/Lubricante:">
+                        <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="combustible"
+                            aria-placeholder="Combustible" aria-label="Default select example">
+                            <option selected>
+                                <%=fuelsAndOil.combustible%>
+                            </option>
+                            <option value="Gasolina">Gasolina</option>
+                            <option value="Diésel">Diésel</option>
+                            <option value="Aceite 2t/4t">Aceite 2t/4t</option>
+                        </select>
+                    </p>
+                    <p class="p" type="Datos emisión general:">
+                        <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="gei"
+                            aria-placeholder="GEI" aria-label="Default select example">
+                            <option selected>
+                                <%=fuelsAndOil.gei%>
+                            </option>
+                            <option value="CO2">CO2</option>
+                            <option value="CH4">CH4</option>
+                            <option value="N2O">N2O</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="col-8" style="margin-left: 4%;">
+                    <div class="row">
+                        <h2 class="mt-2 letterTittleMounth">
                             Consumo de litros por mes
                         </h2>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label text p2">Enero</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="enero"
-                                class="textarea form-control" value="<%=fuelsAndOil.enero%>" required />
+                        <div class="col-2">
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label text p2">ENE</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="enero"
+                                    class="textarea form-control" value="<%=fuelsAndOil.enero%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">FEB</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="febrero"
+                                    class="textarea form-control" value="<%=fuelsAndOil.febrero%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">MAR</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="marzo"
+                                    class="textarea form-control" value="<%=fuelsAndOil.marzo%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">ABR</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="abril"
+                                    class="textarea form-control" value="<%=fuelsAndOil.abril%>" required />
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Febrero</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="febrero"
-                                class="textarea form-control" value="<%=fuelsAndOil.febrero%>" required />
+                        <div class="col-2">
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">MAY</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="mayo"
+                                    class="textarea form-control" value="<%=fuelsAndOil.mayo%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">JUN</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="junio"
+                                    class="textarea form-control" value="<%=fuelsAndOil.junio%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">JUL</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="julio"
+                                    class="textarea form-control" value="<%=fuelsAndOil.julio%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">AGO</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="agosto"
+                                    class="textarea form-control" value="<%=fuelsAndOil.agosto%>" required />
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Marzo</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="marzo"
-                                class="textarea form-control" value="<%=fuelsAndOil.marzo%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Abril</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="abril"
-                                class="textarea form-control" value="<%=fuelsAndOil.abril%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Mayo</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="mayo"
-                                class="textarea form-control" value="<%=fuelsAndOil.mayo%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Junio</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="junio"
-                                class="textarea form-control" value="<%=fuelsAndOil.junio%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Julio</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="julio"
-                                class="textarea form-control" value="<%=fuelsAndOil.julio%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Agosto</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="agosto"
-                                class="textarea form-control" value="<%=fuelsAndOil.agosto%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Setiembre</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="septiembre"
-                                class="textarea form-control" value="<%=fuelsAndOil.septiembre%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Octubre</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="octubre"
-                                class="textarea form-control" value="<%=fuelsAndOil.octubre%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Noviembre</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="noviembre"
-                                class="textarea form-control" value="<%=fuelsAndOil.noviembre%>" required />
-                        </div>
-                        <div class="col-md-3 mb-1 text-center">
-                            <label for="exampleInputEmail1" class="form-label p2">Diciembre</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$"
-                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
-                                oninput="this.setCustomValidity('')" autocomplete="off" name="diciembre"
-                                class="textarea form-control" value="<%=fuelsAndOil.diciembre%>" required />
-                        </div>
-                        <div class="btnContainer mb-4" style="margin-left: 1.7%;">
-                            <input onclick="removeMessage()" type="submit" class="btn btn-success" value="Actualizar">
-                            <button type="button" class="btn btn-danger">
-                                <a href='/fuelsAndOil/fuelsAndOilShow/<%=company._id%>'>Cancelar</a>
-                            </button>
-
+                        <div class="col-2">
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">SET</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="septiembre"
+                                    class="textarea form-control" value="<%=fuelsAndOil.septiembre%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">OCT</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="octubre"
+                                    class="textarea form-control" value="<%=fuelsAndOil.octubre%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">NOV</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="noviembre"
+                                    class="textarea form-control" value="<%=fuelsAndOil.noviembre%>" required />
+                            </div>
+                            <div class="mb-1 text-center">
+                                <label for="exampleInputEmail1" class="form-label p2">DIC</label>
+                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                    oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras.')"
+                                    oninput="this.setCustomValidity('')" autocomplete="off" name="diciembre"
+                                    class="textarea form-control" value="<%=fuelsAndOil.diciembre%>" required />
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="btnContainer mb-4" style="margin-left: 1.7%;">
+                    <input onclick="removeMessage()" type="submit" class="btn btn-success" value="Actualizar">
+                    <button type="button" class="btn btn-danger">
+                        <a href='/fuelsAndOil/fuelsAndOilShow/<%=company._id%>'>Cancelar</a>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 </body>
+<footer class="bg-light text-center text-lg-start footer" style="margin-top: 3.5%;">
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(9, 8, 8, 0.2);">
+        © 2022 Copyright: Porras & Vásquez
+    </div>
+    <!-- Copyright -->
+</footer>
 
 </html>

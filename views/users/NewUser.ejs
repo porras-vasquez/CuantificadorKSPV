@@ -2,19 +2,20 @@
 <html>
 <header>
     <!--ZONA DEL NAVBAR-->
-    <%- include('../navbar'); -%> 
+    <%- include('../navbar'); -%>
 </header>
 <script>
-    function removeMessage(){
+    function removeMessage() {
         localStorage.removeItem("message");
     }
 </script>
-<body style="background-color: #f4ffec;">
+
+<body style="background-color: #c5dfbe;">
     <div class="container mt-5">
         <div class="row clearfix">
             <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #c5dfbe;">
-                    <div class="people-list ">
+                <div class="card chat-app" style="background-color: #e6e6e6;">
+                    <div class="people-list">
                         <div class="col-12 row mt-5">
                             <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
                         </div>
@@ -28,8 +29,8 @@
                             <div class="col-12 mb-5"></div>
                         </ul>
                     </div>
-                    <% if(typeof(status) != "undefined") { %>
-                        <% if(status == 200) { %>
+                    <% if(typeof(status) !="undefined" ) { %>
+                        <% if(status==200) { %>
                             <script>
                                 if (!localStorage.getItem("message")) {
                                     Swal.fire({
@@ -42,58 +43,73 @@
                                     localStorage.setItem("message", 1);
                                 }  
                             </script>
-                        <% }else if(status != 200){ %>
-                            <script>
-                                if (!localStorage.getItem("message")) {
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'error',
-                                        title: '<%-message%>',
-                                        showConfirmButton: false,
-                                        timer: 2500
-                                    });
-                                    localStorage.setItem("message", 1);
-                                }  
-                            </script>
-                        <% } %>
-                    <% } %>
-                    <div class="chat">
-                        <div style="background-color: #c5dfbe; margin-top: 4%; margin-bottom: 4%;">
-                            <div class="container" >
-                                <p></p>
-                                <h1 class="title">Información Personal</h1>
-                                <form action="/users/save" method="post"  class="newUser">
-                                    <div class="col-6">
-                    
-                                        <div class="mb-2">
-                                            <label for="exampleInputEmail1" class="form-label">Nombre de usuario</label>
-                                            <input onchange="enable()" id="username" type="text" name="username" class="form-control"
-                                                pattern="^[a-zA-Z]{2,8}[\d]{2,8}$" minlength="4" maxlength="16" placeholder="Ingrese el nombre de usuario" required />
+                            <% }else if(status !=200){ %>
+                                <script>
+                                    if (!localStorage.getItem("message")) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'error',
+                                            title: '<%-message%>',
+                                            showConfirmButton: false,
+                                            timer: 2500
+                                        });
+                                        localStorage.setItem("message", 1);
+                                    }  
+                                </script>
+                                <% } %>
+                                    <% } %>
+                                        <div class="chat">
+                                            <div style="background-color: #e6e6e6; margin-top: 4%; margin-bottom: 4%;">
+                                                <div class="container">
+                                                    <p></p>
+                                                    <h1 class="title">Información Personal</h1>
+                                                    <form action="/users/save" method="post" class="newUser">
+                                                        <div class="col-6">
+
+                                                            <div class="mb-2">
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label">Nombre de usuario</label>
+                                                                <input onchange="enable()" id="username" type="text"
+                                                                    name="username" class="form-control"
+                                                                    pattern="^[a-zA-Z]{2,8}[\d]{2,8}$" minlength="4"
+                                                                    maxlength="16"
+                                                                    placeholder="Ingrese el nombre de usuario"
+                                                                    required />
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="inputPassword"
+                                                                    class="form-label">Contraseña</label>
+                                                                <input onchange="enable()" id="password" type="password"
+                                                                    name="password" class="form-control"
+                                                                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$"
+                                                                    minlength="8" maxlength="16"
+                                                                    placeholder="Ingrese una contraseña valida"
+                                                                    required />
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label">Email</label>
+                                                                <input onchange="enable()" id="email" type="text"
+                                                                    name="email" class="form-control"
+                                                                    pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+                                                                    placeholder="Ingrese un correo valido" required />
+                                                            </div>
+                                                            <div class="btnContainer mb-4" style="padding-bottom: 3%;">
+
+                                                                <button onclick="removeMessage()" disabled id="submit"
+                                                                    type="submit" name="UserController"
+                                                                    class="btn btn-success">
+                                                                    Guardar
+                                                                </button>
+                                                                <button type="button" class="btn btn-danger">
+                                                                    <a href="/users/show" type="button">Cancelar</a>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="mb-2">
-                                            <label for="inputPassword" class="form-label">Contraseña</label>
-                                            <input onchange="enable()" id="password" type="password" name="password" class="form-control"
-                                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$" minlength="8" maxlength="16" placeholder="Ingrese una contraseña valida" required />
-                                        </div>
-                                        <div class="mb-2">
-                                            <label for="exampleInputEmail1" class="form-label">Email</label>
-                                            <input onchange="enable()" id="email" type="text" name="email" class="form-control"
-                                                pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" placeholder="Ingrese un correo valido" required />
-                                        </div>
-                                        <div class="btnContainer mb-4" style="padding-bottom: 3%;">
-                    
-                                            <button onclick="removeMessage()" disabled id="submit" type="submit" name="UserController" class="btn btn-success">
-                                                Guardar
-                                            </button>
-                                            <button type="button" class="btn btn-danger">
-                                                <a href="/users/show" type="button" >Cancelar</a>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -106,15 +122,22 @@
         let password = document.querySelector("#password");
         let email = document.querySelector("#email");
 
-        function enable(){
-            if(document.getElementById('username').value=="" && document.getElementById('password').value=="" &&
-            document.getElementById('email').value==""){
-                document.getElementById('submit').disabled=true;
-            }else{
-                document.getElementById('submit').disabled=false;
+        function enable() {
+            if (document.getElementById('username').value == "" && document.getElementById('password').value == "" &&
+                document.getElementById('email').value == "") {
+                document.getElementById('submit').disabled = true;
+            } else {
+                document.getElementById('submit').disabled = false;
             }
         }
     </script>
 </body>
+<footer class="bg-light text-center text-lg-start footer" style="margin-top: 11%;">
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(9, 8, 8, 0.2);">
+        © 2022 Copyright: Porras & Vásquez
+    </div>
+    <!-- Copyright -->
+</footer>
 
 </html>
