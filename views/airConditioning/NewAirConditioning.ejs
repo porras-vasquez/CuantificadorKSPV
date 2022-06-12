@@ -4,12 +4,13 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-    <script>
-        function removeMessage(){
-            localStorage.removeItem("message");
-        }
-    </script>
-<body style="background-color: #f4ffec; height: 100vh !important">
+<script>
+    function removeMessage() {
+        localStorage.removeItem("message");
+    }
+</script>
+
+<body class="row">
     <% if(typeof(status) !="undefined" ) { %>
         <% if(status==200) { %>
             <script>
@@ -24,7 +25,7 @@
                     localStorage.setItem("message", 1);
                 }  
             </script>
-        <% }else if(status!=200){ %>
+            <% }else if(status!=200){ %>
                 <script>
                     if (!localStorage.getItem("message")) {
                         Swal.fire({
@@ -37,16 +38,18 @@
                         localStorage.setItem("message", 1);
                     }  
                 </script>
-        <% } %>
-    <% } %>
-                        <div class="card mt-2"
-                            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+                <% } %>
+                    <% } %>
+                        <div class="col-1"></div>
+                        <div class="col-10 card mt-1"
+                            style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
+                            <!-- Menu desplegable con animacion -->
                             <div id="menu-container" class="menu-container">
                                 <div id="menu" class="menu">
                                     <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
                                 </div>
                                 <div class="flex-menu">
-                                    <ul class="list-unstyled chat-list  mb-0">
+                                    <ul class="list-unstyled chat-list">
                                         <ul class="list-group list-group-flush button flex-color">
                                             <a onclick="window.location. href='/airConditioning/airConditioningShow/<%=company._id%>'"
                                                 type="button" class="btn btn primary ">Mostrar emisión</a>
@@ -63,50 +66,38 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="row text-dark table-container"
-                                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                                <form action="/airConditioning/saveAirConditioning/<%=company._id%>" method="post" class="newGas row "
-                                    style="margin-left: 5%;">
-                                    <h2 style="margin-bottom: 1%;">Módulo Aires Acondicionados: Agregar</h2>
-                                    <div class="col-3">
-                                        <div >
-                                            <label for="exampleInputEmail1" class="form-label">Ubicacion</label>
-                                            <input  type="text" name="ubicacion" class="form-control" />
-                                        </div>
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Numero de serie</label>
-                                            <input type="text" name="serie" class="form-control" />
-                                        </div>
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Marca</label>
-                                            <input type="text" name="marca" class="form-control" />
-                                        </div>
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Modelo</label>
-                                            <input type="text" name="modelo" class="form-control" />
-                                        </div>
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Capacidad</label>
-                                            <input type="text" name="capacidad" class="form-control" />
-                                        </div>
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Consumo</label>
-                                            <input type="text" name="consumo" class="form-control" />
-                                        </div>
-                                        
-                                        <div class="btnContainer mb-4" style="margin-top: 1%">
-                                            <input type="submit" name="CompanyController" class="btn btn-success"
-                                                value="Guardar">
-                                            <button type="button" class="btn btn-danger">
-                                                <a href='/companies/showCompany'>Cancelar</a>
-                                            </button>
-    
-                                        </div>
+                            <!-- Content of form-->
+                            <div class="row table-container">
+                                <form action="/airConditioning/saveAirConditioning/<%=company._id%>" method="post"
+                                    class="row" style="display: flex;">
+                                    <div class="col-12">
+                                        <h2 class="h2" style="margin-bottom: 1%;">Módulo Aires Acondicionados:
+                                            Agregar</h2>
                                     </div>
-                                    <div class="col-3">
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Refrigerante</label>
-                                            <select name="tipoRefrigerante" aria-placeholder="tipoRefrigerante" class="form-select" aria-label="Default select example">
+                                    <div style="margin-left: 1%; margin-right: 3%;" class="col-3">
+                                        <p class="p" type="Ubicación: ">
+                                            <input class="input" type="text" name="ubicacion" />
+                                        </p>
+                                        <p class="p" type="Número de serie: ">
+                                            <input class="input" type="text" name="serie" />
+                                        </p>
+                                        <p class="p" type="Marca: ">
+                                            <input class="input" type="text" name="marca" />
+                                        </p>
+                                        <p class="p" type="Modelo: ">
+                                            <input class="input" type="text" name="modelo" />
+                                        </p>
+                                        <p class="p" type="Capacidad: ">
+                                            <input class="input" type="text" name="capacidad" />
+                                        </p>
+                                    </div>
+                                    <div class="col-3" style="margin-left: 1%;">
+                                        <p class="p" type="Consumo: ">
+                                            <input class="input" type="text" name="consumo" />
+                                        </p>
+                                        <p class="p" type="Refrigerante: ">
+                                            <select name="tipoRefrigerante" aria-placeholder="tipoRefrigerante"
+                                                aria-label="Default select example">
                                                 <option selected>Tipo de Refrigerante</option>
                                                 <option value="410-A">410-A</option>
                                                 <option value="R22">R22</option>
@@ -119,41 +110,45 @@
                                                 <option value="R407c">R407c</option>
                                                 <option value="R507">R507</option>
                                                 <option value="R508B">R508B</option>
-                                              </select>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label for="exampleInputEmail1" class="form-label">Datos emisión general</label>
-                                            <select name="gei" aria-placeholder="GEI" class="form-select" aria-label="Default select example">
+                                            </select>
+                                        </p>
+                                        <p class="p" type="Datos de emisión:">
+                                            <select style="padding-left: 3px; padding-bottom: 3px; margin-top: 10px;"
+                                                name="gei" aria-placeholder="GEI" aria-label="Default select example">
                                                 <option value="" disabled selected>Seleccione el GEI</option>
                                                 <option value="HFC">HFC</option>
                                                 <option value="HCFC">HCFC</option>
                                             </select>
-                                        </div>
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Capacidad de confinamiento</label>
-                                            <input type="text" name="capacidadConfinamiento" class="form-control" />
-                                        </div>
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Aplicacion</label>
-                                            <input type="text" name="aplicacion" class="form-control" />
-                                        </div>
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Tasa anual de fuga</label>
-                                            <input type="text" name="tasaAnualFuga" class="form-control" />
-                                        </div>
+                                        </p>
+                                        <p class="p" type="Capacidad de confinamiento:">
+                                            <input class="input" type="text" name="capacidadConfinamiento"
+                                                class="form-control" />
+                                        </p>
                                         <!--<div>
                                             <label for="exampleInputEmail1" class="form-label">Fuga total (Kg)</label>
                                             <input type="text" name="fugaTotal" class="form-control" />
                                         </div>-->
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Potencial calentamiento (100 años)</label>
-                                            <input type="text" name="potencialCalentamineto" class="form-control" />
-                                        </div>
-                                        <div class="mb-2">
-                                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                            oninput="this.setCustomValidity('')" autocomplete="off" placeholder="PCG" name="pcg" class="form-control" required="true"/>
-                                        </div>
-                                       <!-- <div>
+                                        <p class="p" type="Potencial calentamiento
+                                        (100 años):">
+                                            <input class="input" type="text" name="potencialCalentamineto"
+                                                class="form-control" />
+                                        </p>
+                                    </div>
+                                    <div class="col-3" style="margin-left: 1%;">
+                                        <p class="p" type="Aplicación:">
+                                            <input class="input" type="text" name="aplicacion" class="form-control" />
+                                        </p>
+                                        <p class="p" type="Tasa anual de fuga:">
+                                            <input class="input" type="text" name="tasaAnualFuga"
+                                                class="form-control p2" />
+                                        </p>
+                                        <p class="p" type="PCG:">
+                                            <input class="input" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                oninput="this.setCustomValidity('')" autocomplete="off"
+                                                placeholder="PCG" name="pcg" class="form-control" required="true" />
+                                        </p>
+                                        <!-- <div>
                                             <label for="exampleInputEmail1" class="form-label">Total R410a HCFC (ton)2</label>
                                             <input type="text" name="totalHCFC" class="form-control" />
                                         </div>
@@ -165,10 +160,18 @@
                                             <label for="exampleInputEmail1" class="form-label">Total CO2 e (Ton) R410 HFC</label>
                                             <input type="text" name="totalCO2" class="form-control" />
                                         </div>-->
-                                        <div>
-                                            <label for="exampleInputEmail1" class="form-label">Factor de emision</label>
-                                            <input type="text" name="factor_emision" class="form-control" />
-                                        </div>
+                                        <p class="p" type="Factor emision:">
+                                            <input type="text" class="input" placeholder="Factor emision..."
+                                                name="factor_emision" required>
+                                        </p>
+                                    </div>
+                                    <div class="btnContainer" style="margin-bottom: 0.5%;">
+                                        <input type="submit" name="CompanyController" class="btn btn-success"
+                                            value="Guardar">
+                                        <button type="button" class="btn btn-danger">
+                                            <a href='/companies/showCompany'>Cancelar</a>
+                                        </button>
+
                                     </div>
                                 </form>
                             </div>
@@ -176,5 +179,12 @@
                         </div>
                         </div>
 </body>
+<footer class="bg-light text-center text-lg-start footer" style="margin-top: 0.3%;">
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(9, 8, 8, 0.2);">
+        © 2022 Copyright: Porras & Vásquez
+    </div>
+    <!-- Copyright -->
+</footer>
 
 </html>
