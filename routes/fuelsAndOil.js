@@ -16,5 +16,5 @@ router.get('/searchFuelsAndOil/:id',/**/ isAuthenticated, fuelsAndOilController.
 
 router.post('/saveFuelsAndOil/:id',/**/isAuthenticated, fuelsAndOilController.save);
 router.post('/updateFuelsAndOil/:id',/**/ isAuthenticated, fuelsAndOilController.update);
-router.post('/deleteFuelsAndOil/:id/:comp',/**/ isAuthenticated, fuelsAndOilController.delete);
+router.post('/deleteFuelsAndOil/:id/:comp/:fue',/**/ isAuthenticated, fuelsAndOilController.delete);
 module.exports = router;

@@ -473,7 +473,6 @@ airConditioningController.save = async function(req, res) {
                                 console.log("CANT "+cant);
                                 console.log("CANT2 "+cant2);
                                 console.log(airConditionings.tipoRefrigerante);
-        
                                 Emission.updateOne({ unidad: airConditionings.tipoRefrigerante}, {
                                     $set: {
                                         cantidad: cant,
@@ -896,8 +895,6 @@ airConditioningController.delete = function (req, res) {
                     for(let x of company.emission){
                         if(airConditionings.tipoRefrigerante == x.unidad){
                             cant = parseFloat(x.cantidad);
-                        }
-                        if(x.unidad=="410-A"){
                             cant2 = parseFloat(x.totalCo2);
                         }
                     }
@@ -948,7 +945,7 @@ airConditioningController.delete = function (req, res) {
                                 emission: e._id
                             }
                         }).exec(function (err, e) { 
-                            Emission.deleteOne({ airConditioning: req.params.id }).exec(function (err, emission) {}); 
+                            Emission.deleteOne({ unidad: airConditionings.tipoRefrigerante }).exec(function (err, emission) {}); 
                         });
                     }else{
                         console.log("Total: " + total);

@@ -60,66 +60,100 @@ FuelsAndOilController.save = async function (req, res) {
     let fuelsAndOil = new FuelsAndOil(req.body);
     let comp = await Company.findById(req.params.id);
     fuelsAndOil.company = comp;
-    console.log(req.body.total);
+    //console.log(req.body.total);
     await fuelsAndOil.save(function (err, fuels) {
         if (err) {
             verifyStatus(res.statusCode);
             res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: fuels.company._id, status: status });
         }
         else {
-            let ton = fuels.factor/1000;
-            let cant = fuels.emision;
-            cant = parseFloat(cant).toFixed(5);
-            let pcg = fuels.pcg;
-            let co2 = 0;
-            let ch4 = 0;
-            let n2o = 0;
-            let fuente;
-            if(fuels.combustible=="Gasolina"){
-                fuente = "Gasolina";
-            }else if(fuels.combustible=="Diésel"){
-                fuente = "Diésel";
-            }else{
-                fuente = "Aceite 2t/4t";
-            }
-            if(fuels.gei=="CO2"){
-                co2 = cant * ton * pcg;
-                co2 = parseFloat(co2).toFixed(5);
-            }else if(fuels.gei=="CH4"){
-                ch4 = cant * ton * pcg;
-                ch4 = parseFloat(ch4).toFixed(5);
-            }else{
-                n2o = cant * ton * pcg;
-                n2o = parseFloat(n2o).toFixed(5);
-            }
-            let body = {
-                alcance: "1",
-                fuente_generador: fuente,
-                cantidad: cant,
-                unidad: "Litro",
-                kilogram: fuels.factor,
-                ton: ton,
-                gei: fuels.gei,
-                pcg: pcg,
-                co2: co2,
-                ch4: ch4,
-                n2o: n2o,
-                company: fuels.company._id,
-                fuelsAndOil: fuels._id
-            };
-            let emission = new Emission(body);
-            emission.save();
-
-            comp.emission.push(emission);
-            comp.fuelsAndOil.push(fuels);
-            comp.save(function (err, company) {
-                if (err) {
-                    verifyStatus(res.statusCode);
-                    res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: company, status: status });
+            Company.findOne({ _id: fuels.company })
+            .populate("fuelsAndOil")
+            .exec(function (err, company) {
+                let validar = false;
+                for (let x of company.fuelsAndOil) {
+                    if(x.combustible == fuels.combustible && fuels.combustible == "Aceite 2t/4t"){
+                        validar = true;
+                    }
                 }
-                else {
-                    verifyStatus(res.statusCode);
-                    res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: company, status: status });
+                let ton = parseFloat(fuels.factor)/1000;
+                let cant = parseFloat(fuels.emision);
+                cant = cant.toFixed(5);
+                let pcg = parseFloat(fuels.pcg);
+                let co2 = 0;
+                let ch4 = 0;
+                let n2o = 0;
+                let fuente;
+                if(fuels.combustible=="Gasolina"){
+                    fuente = "Gasolina";
+                }else if(fuels.combustible=="Diésel"){
+                    fuente = "Diésel";
+                }else{
+                    fuente = "Aceite 2t/4t";
+                }
+
+                if(fuels.gei=="CO2"){
+                    co2 = cant * ton * pcg;
+                    co2 = parseFloat(co2).toFixed(5);
+                }else if(fuels.gei=="CH4"){
+                    ch4 = cant * ton * pcg;
+                    ch4 = parseFloat(ch4).toFixed(5);
+                }else{
+                    n2o = cant * ton * pcg;
+                    n2o = parseFloat(n2o).toFixed(5);
+                }
+
+                let cant2 = n2o + ch4 + co2;
+                cant2 = cant2.toFixed(5);
+                if(validar == true){
+                    comp.fuelsAndOil.push(fuels);
+                    comp.save(function (err, comp) {
+                        Company.findOne({ _id: req.params.id })
+                        .populate("fuelsAndOil")
+                        .exec(function(err, company) { 
+                            sum(company);
+                            Emission.updateOne({ fuente_generador: fuente}, {
+                                $set: {
+                                    cantidad: sumatoria,
+                                    co2: co2,
+                                    ch4: ch4,
+                                    n2o: n2o,
+                                    totalCo2: cant2,
+                                    totalFuente: cant2
+                                },
+                            }).exec(function (error, ems) {
+                                console.log("3");
+                                console.log(ems);
+                                res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: company, status: status });
+                            });
+                        })
+                    });
+                }else{
+                    let body = {
+                        alcance: "1",
+                        fuente_generador: fuente,
+                        cantidad: cant,
+                        unidad: "Litro",
+                        kilogram: fuels.factor,
+                        ton: ton,
+                        gei: fuels.gei,
+                        pcg: pcg,
+                        co2: co2,
+                        ch4: ch4,
+                        n2o: n2o,
+                        totalCo2: cant2,
+                        totalFuente: cant2,
+                        company: fuels.company._id,
+                        fuelsAndOil: fuels._id
+                    };
+                    let emission = new Emission(body);
+                    emission.save();
+                    comp.emission.push(emission);
+                    comp.fuelsAndOil.push(fuels);
+                    comp.save(function (err, company) {
+                        verifyStatus(res.statusCode);
+                        res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: company, status: status });
+                    });
                 }
             });
         }
@@ -232,6 +266,7 @@ FuelsAndOilController.update = function (req, res) {
                                 message: message,
                                 fuelsAndOils: company.fuelsAndOil,
                                 company: company._id,
+                                comp: company.nombre,
                                 sumatoria: sumatoria,
                                 enero: enero,
                                 febrero: febrero,
@@ -253,6 +288,7 @@ FuelsAndOilController.update = function (req, res) {
                                 message: message,
                                 fuelsAndOils: company.fuelsAndOil,
                                 company: company._id,
+                                comp: company.nombre,
                                 sumatoria: sumatoria,
                                 enero: enero,
                                 febrero: febrero,
@@ -319,6 +355,7 @@ FuelsAndOilController.update = function (req, res) {
                                 message: message,
                                 fuelsAndOils: company.fuelsAndOil,
                                 company: company._id,
+                                comp: company.nombre,
                                 sumatoria: sumatoria,
                                 enero: enero,
                                 febrero: febrero,
@@ -340,6 +377,7 @@ FuelsAndOilController.update = function (req, res) {
                                 message: message,
                                 fuelsAndOils: company.fuelsAndOil,
                                 company: company._id,
+                                comp: company.nombre,
                                 sumatoria: sumatoria,
                                 enero: enero,
                                 febrero: febrero,
@@ -363,19 +401,69 @@ FuelsAndOilController.update = function (req, res) {
 };
 
 FuelsAndOilController.delete = function (req, res) {
-    Emission.findOne({ fuelsAndOil: req.params.id }).exec(function (err, e) {
-        Company.updateOne({ _id: req.params.comp }, {
-            $pull: { 
-                emission: e._id
-            }
-        }).exec(function (err, electricity) {
+    Emission.findOne({ fuente_generador: req.params.fue }).exec(function (err, e) {
+        FuelsAndOil.findOne({ _id: req.params.id }).exec(function(err, fuels) {
+            Company.findOne({ _id: req.params.comp })
+            .exec(function (error, company) {
+                let cant = 0, restar = 0, total = 0, restar2 = 0, total2 = 0, cant2 = 0;
+                for(let x of company.emission){
+                    if(fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t/4t"){
+                        cant = parseFloat(x.cantidad);
+                        cant2 = parseFloat(x.totalCo2);
+                    }
+                }
+                if(fuels.combustible == "Aceite 2t/4t"){
+                    sum(company);
+                    restar = parseFloat(sumatoria);
+                    if(fuels.gei=="CO2"){
+                        restar2 = parseFloat(fuels.emision) * parseFloat(fuels.pcg) * parseFloat(fuels.ton);
+                    }else if(fuels.gei=="CH4"){
+                        restar2 = parseFloat(fuels.emision) * parseFloat(fuels.pcg) * parseFloat(fuels.ton);
+                    }else{
+                        restar2 = parseFloat(fuels.emision) * parseFloat(fuels.pcg) * parseFloat(fuels.ton);
+                    }
+                }else{
+                    Company.updateOne({ _id: req.params.comp }, {
+                        $pull: { 
+                            emission: e._id
+                        }
+                    }).exec(function (err, e) { 
+                        Emission.deleteOne({ fuelsAndOil: req.params.id }).exec(function (err, emission) {}); 
+                    });
+                }
+                restar = parseFloat(restar).toFixed(5);
+                restar2 = parseFloat(restar2).toFixed(5);
+                total = cant - restar;
+                total2 = cant2 - restar2;
+                total = parseFloat(total).toFixed(5);
+                total2 = parseFloat(total2).toFixed(5);
+                if(total == 0 && total2 == 0){
+                    Company.updateOne({ _id: req.params.comp }, {
+                        $pull: { 
+                            emission: e._id
+                        }
+                    }).exec(function (err, e) { 
+                        Emission.deleteOne({ fuelsAndOil: req.params.id }).exec(function (err, emission) {}); 
+                    });
+                }else{
+                    Emission.updateOne({ fuente_generador: fuelsAndOils.combustible }, {
+                        $set: {
+                            cantidad: total,
+                            totalCo2: total2,
+                            totalFuente: total2
+                        },
+                    }).exec(function (err, ems) {
+                        console.log(ems);
+                    });
+                }
+            });
         });
     });
     Company.updateOne({ "_id": req.params.comp }, {
         $pull: { "fuelsAndOil": req.params.id }
     }).exec(function (err, fuelsAndOil) {
         if (fuelsAndOil) {
-            Emission.deleteOne({ fuelsAndOil: req.params.id }).exec(function (err, electricity) {});
+    
             FuelsAndOil.deleteOne({ _id: req.params.id }, function (err) {
                 if (err) {
                     Company.findOne({ _id: req.params.comp })
@@ -386,6 +474,7 @@ FuelsAndOilController.delete = function (req, res) {
                                 verifyStatus(res.statusCode);
                                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                     company: company,
+                                    comp: company.nombre,
                                     message: message,
                                     fuelsAndOils: company.fuelsAndOil,
                                     sumatoria: sumatoria,
@@ -407,6 +496,7 @@ FuelsAndOilController.delete = function (req, res) {
                                 verifyStatus(res.statusCode);
                                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                     company: company,
+                                    comp: company.nombre,
                                     message: message,
                                     fuelsAndOils: company.fuelsAndOil,
                                     sumatoria: sumatoria,
@@ -435,6 +525,7 @@ FuelsAndOilController.delete = function (req, res) {
                                 verifyStatus(res.statusCode);
                                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                     company: company,
+                                    comp: company.nombre,
                                     message: message,
                                     fuelsAndOils: company.fuelsAndOil,
                                     sumatoria: sumatoria,
@@ -456,6 +547,7 @@ FuelsAndOilController.delete = function (req, res) {
                                 verifyStatus(res.statusCode);
                                 res.render("../views/fuelsAndOil/AllFuelsAndOil", {
                                     company: company,
+                                    comp: company.nombre,
                                     message: message,
                                     fuelsAndOils: company.fuelsAndOil,
                                     sumatoria: sumatoria,
