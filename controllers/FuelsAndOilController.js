@@ -72,7 +72,7 @@ FuelsAndOilController.save = async function (req, res) {
             .exec(function (err, company) {
                 let validar = false;
                 for (let x of company.fuelsAndOil) {
-                    if(x.combustible == fuels.combustible && fuels.combustible == "Aceite 2t/4t"){
+                    if(x.combustible == fuels.combustible && fuels.combustible == "Aceite 2t-4t"){
                         validar = true;
                     }
                 }
@@ -89,7 +89,7 @@ FuelsAndOilController.save = async function (req, res) {
                 }else if(fuels.combustible=="Diésel"){
                     fuente = "Diésel";
                 }else{
-                    fuente = "Aceite 2t/4t";
+                    fuente = "Aceite 2t-4t";
                 }
 
                 if(fuels.gei=="CO2"){
@@ -104,7 +104,8 @@ FuelsAndOilController.save = async function (req, res) {
                 }
 
                 let cant2 = n2o + ch4 + co2;
-                cant2 = cant2.toFixed(5);
+                cant2 = parseFloat(cant2).toFixed(5);
+                console.log(validar);
                 if(validar == true){
                     comp.fuelsAndOil.push(fuels);
                     comp.save(function (err, comp) {
@@ -151,6 +152,8 @@ FuelsAndOilController.save = async function (req, res) {
                     comp.emission.push(emission);
                     comp.fuelsAndOil.push(fuels);
                     comp.save(function (err, company) {
+                        console.log(err);
+                        console.log(company);
                         verifyStatus(res.statusCode);
                         res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: company, status: status });
                     });
@@ -407,12 +410,12 @@ FuelsAndOilController.delete = function (req, res) {
             .exec(function (error, company) {
                 let cant = 0, restar = 0, total = 0, restar2 = 0, total2 = 0, cant2 = 0;
                 for(let x of company.emission){
-                    if(fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t/4t"){
+                    if(fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t-4t"){
                         cant = parseFloat(x.cantidad);
                         cant2 = parseFloat(x.totalCo2);
                     }
                 }
-                if(fuels.combustible == "Aceite 2t/4t"){
+                if(fuels.combustible == "Aceite 2t-4t"){
                     sum(company);
                     restar = parseFloat(sumatoria);
                     if(fuels.gei=="CO2"){
