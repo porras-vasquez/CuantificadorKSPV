@@ -347,20 +347,6 @@ airConditioningController.save = async function(req, res) {
                     c = parseFloat(airConditionings.totalR508B);
                     c2 = parseFloat(airConditionings.totalR508BCo2);
                 }
-                let body = {
-                    alcance: "1",
-                    fuente_generador: "Gas refrigerante A/C",
-                    cantidad: c,
-                    unidad: airConditionings.tipoRefrigerante,
-                    kilogram: airConditionings.factor_emision,
-                    ton: ton,
-                    gei: airConditionings.gei,
-                    pcg: pcg,
-                    totalCo2: c2,
-                    totalFuente: c2,
-                    company: airConditionings.company._id,
-                    airConditioning: airConditionings._id
-                };
                 let totalR410a = 0, totalCo2 = 0, totalR22 = 0, totalHFC134a = 0,  totalHFC152a = 0, totalR402a = 0,
                 totalR402b = 0, totalR404a = 0, totalR404B = 0, totalR407c = 0, totalR507 = 0, totalR508B = 0;
     
@@ -487,7 +473,23 @@ airConditioningController.save = async function(req, res) {
                             });
                         });
                     }else {
-                        console.log("TOTAL " + c);
+                        let body = {
+                            alcance: "1",
+                            fuente_generador: "Gas refrigerante A/C",
+                            cantidad: c,
+                            unidad: airConditionings.tipoRefrigerante,
+                            kilogram: airConditionings.factor_emision,
+                            ton: ton,
+                            co2: 0,
+                            ch4: 0,
+                            n2o: 0,
+                            gei: airConditionings.gei,
+                            pcg: pcg,
+                            totalCo2: c2,
+                            totalFuente: c2,
+                            company: airConditionings.company._id,
+                            airConditioning: airConditionings._id
+                        };
                         let emission = new Emission(body);
                         emission.save();
                         comp.emission.push(emission);
