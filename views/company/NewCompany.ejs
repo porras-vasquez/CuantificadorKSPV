@@ -5,12 +5,13 @@
     <%- include('../navbar'); -%>
 </header>
 <script>
-    function removeMessage(){
+    function removeMessage() {
         localStorage.removeItem("message");
     }
 </script>
-<body style="background-color: #f4ffec; height: 100vh !important;">
-    <% if(typeof(status) != "undefined" ) { %>
+
+<body class="row">
+    <% if(typeof(status) !="undefined" ) { %>
         <% if(status==200 ) { %>
             <script>
                 if (!localStorage.getItem("message")) {
@@ -26,21 +27,22 @@
             </script>
             <% }else if(status!=200 ){ %>
                 <script>
-                if (!localStorage.getItem("message")) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: '<%-message%>',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    localStorage.setItem("message", 1);
-                }  
+                    if (!localStorage.getItem("message")) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: '<%-message%>',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        localStorage.setItem("message", 1);
+                    }  
                 </script>
                 <% } %>
                     <% } %>
-                        <div class="card mt-2"
-                            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+                        <div class="col-1"></div>
+                        <div class="col-10 card mt-1"
+                            style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
                             <div id="menu-container" class="menu-container">
                                 <div id="menu" class="menu">
                                     <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
@@ -59,12 +61,14 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="row text-dark table-responsive table-container"
-                                    style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                                    <form action="/companies/saveCompany" method="post" class="newUser"
-                                        style="margin-left: 5%;">
-                                        <h2 style="margin-bottom: 1%;">Módulo Compañías: Agregar</h2>
-                                        <div class="col-6">
+                                <div class="row table-container">
+                                    <form action="/companies/saveCompany" method="post" class="row"
+                                        style="display: flex;">
+                                        <div class="col-12">
+                                            <h2 class="h2" style="margin-bottom: 1%;">Módulo Compañías: Agregar
+                                            </h2>
+                                        </div>
+                                        <div style="margin-left: 1%; margin-right: 3%;" class="col-8">
                                             <div class="mb-2">
                                                 <label for="exampleInputEmail1" class="form-label">No.
                                                     Documento</label>
@@ -108,8 +112,8 @@
                                             </div>
                                             <div class="btnContainer mb-4">
 
-                                                <input type="submit" onclick="removeMessage()" name="CompanyController" class="btn btn-success"
-                                                    value="Guardar">
+                                                <input type="submit" onclick="removeMessage()" name="CompanyController"
+                                                    class="btn btn-success" value="Guardar">
                                                 <button type="button" class="btn btn-danger">
                                                     <a href="/companies/showCompany" type="button">Cancelar</a>
                                                 </button>
