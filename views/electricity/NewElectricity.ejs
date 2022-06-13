@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <header>
-        <!--ZONA DEL NAVBAR-->
-        <%- include('../navbar'); -%> 
-    </header>
-    <script>
-        function removeMessage(){
-            localStorage.removeItem("message");
-        }
-    </script>
-    <body style="background-color: #f4ffec; height: 100vh !important;">
-        <% if(typeof(status) !="undefined" ) { %>
-            <% if(status==200) { %>
+<header>
+    <!--ZONA DEL NAVBAR-->
+    <%- include('../navbar'); -%>
+</header>
+<script>
+    function removeMessage() {
+        localStorage.removeItem("message");
+    }
+</script>
+
+<body class="row">
+    <% if(typeof(status) !="undefined" ) { %>
+        <% if(status==200) { %>
+            <script>
+                if (!localStorage.getItem("message")) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '<%-message%>',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    localStorage.setItem("message", 1);
+                }  
+            </script>
+            <% }else if(status!=200){ %>
                 <script>
                     if (!localStorage.getItem("message")) {
                         Swal.fire({
                             position: 'center',
-                            icon: 'success',
+                            icon: 'error',
                             title: '<%-message%>',
                             showConfirmButton: false,
                             timer: 1500
@@ -24,89 +38,109 @@
                         localStorage.setItem("message", 1);
                     }  
                 </script>
-            <% }else if(status!=200){ %>
-                    <script>
-                        if (!localStorage.getItem("message")) {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: '<%-message%>',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                            localStorage.setItem("message", 1);
-                        }  
-                    </script>
-            <% } %>
-        <% } %>
-        <div class="card mt-2"
-            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
-            <div id="menu-container" class="menu-container">
-                <div id="menu" class="menu">
-                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
-                </div>
-                <div class="flex-menu">
-                    <ul class="list-unstyled chat-list  mb-0">
-                        <ul class="list-group list-group-flush button">
-                            <a href="/electricities/electricities/<%=company._id%>" type="button" class="btn btn primary ">Vista de reportes</a>
-                        </ul>
-                        <ul class="list-group list-group-flush button">
-                            <a href="/companies/showCompany" type="button" class="btn btn primary ">Atras</a>
-                        </ul>
-                    </ul>
-                </div>
-            </div>
-            <div class="row text-dark table-container"
-                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                <form action="/electricities/saveElectricity/<%=company._id%>" method="post" class="newElectricity row" style="margin-left: 5%;">
-                    <h2 style="margin-bottom: 1%;">Módulo Electricidad: Agregar</h2>
-                    <div class="col-3">
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Titulo</label>
-                            <input type="text" name="titulo" class="form-control" required />
+                <% } %>
+                    <% } %>
+                        <div class="col-1"></div>
+                        <div class="col-10 card mt-3"
+                            style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
+                            <!-- Menu desplegable con animacion -->
+                            <div id="menu-container" class="menu-container">
+                                <div id="menu" class="menu">
+                                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+                                </div>
+                                <div class="flex-menu">
+                                    <ul class="list-unstyled chat-list  mb-0">
+                                        <ul class="list-group list-group-flush button">
+                                            <a href="/electricities/electricities/<%=company._id%>" type="button"
+                                                class="btn btn primary ">Vista de reportes</a>
+                                        </ul>
+                                        <ul class="list-group list-group-flush button">
+                                            <a href="/companies/showCompany" type="button"
+                                                class="btn btn primary ">Atras</a>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Content of form-->
+                            <div class="row table-container">
+                                <form action="/electricities/saveElectricity/<%=company._id%>" method="post"
+                                    class="newElectricity row" style="margin-left: 5%;">
+                                    <div class="col-12">
+                                        <h2 class="h2" style="margin-bottom: 1%;">Módulo Electricidad: Agregar</h2>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="mb-2">
+                                                <label for="exampleInputEmail1" class="form-label">Titulo</label>
+                                                <input type="text" name="titulo" class="form-control" required />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="exampleInputEmail1" class="form-label">Fuente
+                                                    Reporte</label>
+                                                <input type="text" name="fuente_reporte" class="form-control"
+                                                    required />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="exampleInputEmail1" class="form-label">Unidad de
+                                                    medida</label>
+                                                <select name="unidad_medida" class="form-select"
+                                                    aria-label="Default select example">
+                                                    <option disabled selected value="">Seleccione</option>
+                                                    <option value="Kilowatts/hora">Kilowatts/hora</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="exampleInputEmail1" class="form-label">Ultima
+                                                    actualización</label>
+                                                <input type="date" id="start" name="ultima_update" value="yyyy-mm-dd"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+
+                                            <div class="mb-2">
+                                                <label for="exampleInputEmail1" class="form-label">Factor de
+                                                    emisión</label>
+                                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off"
+                                                    name="factor_emision" class="form-control" required="true" />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="exampleInputEmail1" class="form-label">Datos emisión
+                                                    general</label>
+                                                <select name="gei" aria-placeholder="GEI" class="form-select"
+                                                    aria-label="Default select example">
+                                                    <option value="" disabled selected>Seleccione el GEI</option>
+                                                    <option value="CO2">CO2</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-2">
+                                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off"
+                                                    placeholder="PCG" name="pcg" class="form-control" required="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btnContainer mb-4" style="margin-top: 5%;">
+                                        <input type="submit" onclick="removeMessage()" name="CompanyController"
+                                            class="btn btn-success" value="Guardar">
+                                        <button type="button" class="btn btn-danger">
+                                            <a href="/electricities/electricities/<%=company._id%>"
+                                                type="button">Cancelar</a>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Fuente Reporte</label>
-                            <input type="text" name="fuente_reporte" class="form-control" required />
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Unidad de medida</label>
-                            <select name="unidad_medida" class="form-select" aria-label="Default select example">
-                                <option disabled selected value="">Seleccione</option>
-                                <option value="Kilowatts/hora">Kilowatts/hora</option>
-                            </select>
-                        </div>
-                        <div class="btnContainer mb-4" style="margin-top: 5%;">
-                            <input type="submit" onclick="removeMessage()" name="CompanyController" class="btn btn-success" value="Guardar">
-                            <button type="button" class="btn btn-danger">
-                                <a href="/electricities/electricities/<%=company._id%>" type="button">Cancelar</a>
-                            </button>
-                        </div>
-                    </div> 
-                    <div class="col-3">
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Ultima actualización</label>
-                            <input type="date" id="start" name="ultima_update" value="yyyy-mm-dd" class="form-control" required/>
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Factor de emisión</label>
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" name="factor_emision" class="form-control" required="true" />
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Datos emisión general</label>
-                            <select name="gei" aria-placeholder="GEI" class="form-select" aria-label="Default select example">
-                                <option value="" disabled selected>Seleccione el GEI</option>
-                                <option value="CO2">CO2</option>
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <input type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" placeholder="PCG" name="pcg" class="form-control" required="true"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>   
-    </body>
+</body>
+<footer class="bg-light text-center text-lg-start footer" style="margin-top: 1.5%;">
+    <!-- Copyright -->
+    <div class="text-center p-4">
+        © 2022 Copyright: Porras & Vásquez
+    </div>
+    <!-- Copyright -->
+</footer>
+
 </html>
