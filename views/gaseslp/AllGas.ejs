@@ -3,6 +3,7 @@
 <header>
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 </header>
 <script>
     function removeMessage(){
@@ -64,7 +65,8 @@
         <div class="row text-dark table-responsive table-container"
             style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
             <h3>Módulo Gases lp: Mostrar</h3>
-            <table class="table-bordered" style="background-color: white;">
+            <button onclick="ExportToExcel('xlsx')">Export table to excel</button>
+            <table id="tablax" class="table-bordered" style="background-color: white;">
                 <thead style="background-color: rgba(26,145,125,255);">
                     <tr class="text-center">
                         <th scope="col text-whitex"> Unidad/Medida</th>
@@ -246,6 +248,16 @@
             </table>
     </div>
     </div>
+    
+    <script>
+        function ExportToExcel(type, fn, dl) {
+            var elt = document.getElementById('tablax');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('Emisiones de la compañia.' + (type || 'xlsx')));
+        }
+    </script>
 </body>
 
 </html>
