@@ -70,69 +70,57 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Titulo</label>
-                                                <input type="text" name="titulo" class="form-control" required />
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Fuente
-                                                    Reporte</label>
-                                                <input type="text" name="fuente_reporte" class="form-control"
-                                                    required />
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Unidad de
-                                                    medida</label>
-                                                <select name="unidad_medida" class="form-select"
+                                            <p class="p" type="Título:">
+                                                <input type="text" name="titulo" class="input" required />
+                                            </p>
+                                            <p class="p" type="Fuente reporte:">
+                                                <input type="text" name="fuente_reporte" class="input" required />
+                                            </p>
+                                            <p class="p" type="Unidad de medida:">
+                                                <select class="p2" name="unidad_medida" class="form-select p2 input"
                                                     aria-label="Default select example">
                                                     <option disabled selected value="">Seleccione</option>
                                                     <option value="Kilowatts/hora">Kilowatts/hora</option>
                                                 </select>
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Ultima
-                                                    actualización</label>
+                                            </p>
+                                            <p class="p" type="Ultima actualización">
                                                 <input type="date" id="start" name="ultima_update" value="yyyy-mm-dd"
-                                                    class="form-control" required />
-                                            </div>
+                                                    class="input p2" required />
+                                            </p>
                                         </div>
                                         <div class="col-3">
-
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Factor de
-                                                    emisión</label>
+                                            <p class="p" type="Factor de emision:">
                                                 <input type="text" pattern="^[0-9]+\.?[0-9]*$"
                                                     oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
                                                     oninput="this.setCustomValidity('')" autocomplete="off"
-                                                    name="factor_emision" class="form-control" required="true" />
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Datos emisión
-                                                    general</label>
-                                                <select name="gei" aria-placeholder="GEI" class="form-select"
+                                                    name="factor_emision" class="input" required="true" />
+                                            <p class="p" type="Datos de emision general:">
+                                               <select class="p2" name="gei" aria-placeholder="GEI" class="form-select"
                                                     aria-label="Default select example">
                                                     <option value="" disabled selected>Seleccione el GEI</option>
                                                     <option value="CO2">CO2</option>
                                                 </select>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                            </p>
+                                            <p class="p" type="PCG">
+                                                <input class="input p2" type="text" pattern="^[0-9]+\.?[0-9]*$"
                                                     oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
                                                     oninput="this.setCustomValidity('')" autocomplete="off"
                                                     placeholder="PCG" name="pcg" class="form-control" required="true" />
-                                            </div>
+                                            </p>
                                         </div>
                                     </div>
-                                    <div class="btnContainer mb-4" style="margin-top: 5%;">
-                                        <input type="submit" onclick="removeMessage()" name="CompanyController"
-                                            class="btn btn-success" value="Guardar">
-                                        <button type="button" class="btn btn-danger">
-                                            <a href="/electricities/electricities/<%=company._id%>"
-                                                type="button">Cancelar</a>
-                                        </button>
-                                    </div>
-                                </form>
                             </div>
+                            <div class="btnContainer mb-4" style="margin-top: 4%;">
+                                <input type="submit" onclick="removeMessage()" name="CompanyController"
+                                    class="btn btn-success" value="Guardar">
+                                <button type="button" class="btn btn-danger">
+                                    <a href="/electricities/electricities/<%=company._id%>" type="button">Cancelar</a>
+                                </button>
+                            </div>
+                        </div>
+
+                        </form>
+                        </div>
                         </div>
 </body>
 <footer class="bg-light text-center text-lg-start footer" style="margin-top: 1.5%;">
