@@ -188,7 +188,6 @@ a:hover{
     justify-self: end;
     background-color: #fcfffb;
 }
-
 @keyframes slidein {
     from {
       margin-left: 100%;
@@ -349,7 +348,6 @@ a:hover{
     position:relative;
     padding-bottom: 15px;
 }
-
 select {
     background: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png') no-repeat right;
     outline: none;
@@ -369,7 +367,6 @@ select {
     color:#78788c;
     border-bottom:3px solid #78788c
 }
-
 .input{
     width: 100%;
     padding:10px;

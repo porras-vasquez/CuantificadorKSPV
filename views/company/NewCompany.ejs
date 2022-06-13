@@ -41,8 +41,9 @@
                 <% } %>
                     <% } %>
                         <div class="col-1"></div>
-                        <div class="col-10 card mt-1"
-                            style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
+                        <div class="col-10 card mt-3"
+                            style="scrollbar-width: none !important; margin-right: 2%; background-color: #e6e6e6;">
+                            <!-- Menu desplegable con animacion -->
                             <div id="menu-container" class="menu-container">
                                 <div id="menu" class="menu">
                                     <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
@@ -69,49 +70,38 @@
                                             </h2>
                                         </div>
                                         <div style="margin-left: 1%; margin-right: 3%;" class="col-8">
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">No.
-                                                    Documento</label>
-                                                <input type="text" name="numero_documento" class="form-control"
+                                            <p type="No. Documento">
+                                                <input type="text" name="numero_documento" class="input"
                                                     placeholder="Ingrese el numero de documento" required />
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                                                <input type="text" name="nombre" class="form-control"
+                                            </p>
+                                            <p type="Nombre:">
+                                                <input type="text" name="nombre" class="input"
                                                     placeholder="Ingrese el nombre" required />
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Tipo de
-                                                    compañía</label>
-                                                <input type="text" name="tipo" list="typecompany" class="form-control"
+                                            </p>
+                                            <p type="Tipo de compañía:">
+                                                <input type="text" name="tipo" list="typecompany" class="input"
                                                     placeholder="Ingrese el tipo de compañia">
-                                                <datalist id="typecompany">
-                                                    <option value="Industrial" class="form-control">
-                                                    <option value="Comercial" class="form-control">
-                                                    <option value="Hotelera" class="form-control">
-                                                    <option value="Agricola" class="form-control">
-                                                    <option value="Ganadera" class="form-control">
+                                                <datalist id="typecompany" class="input">
+                                                    <option value="Industrial" class="input">
+                                                    <option value="Comercial" class="input">
+                                                    <option value="Hotelera" class="input">
+                                                    <option value="Agricola" class="input">
+                                                    <option value="Ganadera" class="input">
                                                 </datalist>
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Aprobado
-                                                    por:</label>
-                                                <input type="text" name="aprobado_por" class="form-control"
+                                            </p>
+                                            <p type="Aprobado por:">
+                                                <input type="text" name="aprobado_por" class="input"
                                                     placeholder="Ingrese el nombre del aprobador" required />
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Fecha
-                                                    de inicio:</label>
+                                            </p>
+                                            <p type="Fecha de inicio:">
                                                 <input type="date" id="start" name="fecha_inicio" value="yyyy-mm-dd"
-                                                    class="form-control" required />
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="exampleInputEmail1" class="form-label">Descripción:</label>
-                                                <input type="text" name="descripcion" class="form-control"
+                                                    class="input" required />
+                                            </p>
+                                            <p type="Descripción">
+                                                <input type="text" name="descripcion" class="input"
                                                     placeholder="Ingrese una descripción" required />
-                                            </div>
+                                            </p>
                                             <div class="btnContainer mb-4">
-
                                                 <input type="submit" onclick="removeMessage()" name="CompanyController"
                                                     class="btn btn-success" value="Guardar">
                                                 <button type="button" class="btn btn-danger">
@@ -126,5 +116,12 @@
 
                         </div>
 </body>
+<footer class="bg-light text-center text-lg-start body mt-4 footer">
+    <!-- Copyright -->
+    <div class="text-center p-4">
+        © 2022 Copyright: Porras & Vásquez
+    </div>
+    <!-- Copyright -->
+</footer>
 
 </html>

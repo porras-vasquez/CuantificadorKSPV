@@ -13,12 +13,20 @@ body{
     background-color: #c5dfbe;
     height: 100vh !important;
 }
-
 .letterTittleMounth{
     color:#78788c;
 }
 
 .footer{
+    height: 14vh !important;
+    background-color: rgba(9, 8, 8, 0.2);
+    background: rgb(1, 167, 152);
+    background: linear-gradient(90deg, rgba(1, 167, 152, 1) 0%, rgba(136, 198, 63, 1) 71%);
+}
+.footer2{
+   
+    height: 18vh !important;
+    background-color: rgba(9, 8, 8, 0.2);
     background: rgb(1, 167, 152);
     background: linear-gradient(90deg, rgba(1, 167, 152, 1) 0%, rgba(136, 198, 63, 1) 71%);
 }

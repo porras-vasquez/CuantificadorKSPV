@@ -73,6 +73,7 @@ companyController.update = function (req, res) {
             tipo: req.body.tipo,
             aprobado_por: req.body.aprobado_por,
             fecha_inicio: req.body.fecha_inicio,
+            descripcion: req.body.descripcion,
             unidad: req.body.unidad,
         }
     }, { new: true },

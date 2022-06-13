@@ -10,66 +10,82 @@
     }
 </script>
 
-<body style="background-color: #f4ffec;">
-    <div class="card mt-2 mb-2x"
-        style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
-        <div class="row text-dark table-container"
-            style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-
-            <div class="container">
-                <h3>Modulo de compañía: Editar</h3>
-                <form action="/companies/updateCompany/<%=company._id%>" method="post">
-                    <div class="col-6">
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">No. Documento</label>
-                            <input type="text" name="numero_documento" class="form-control"
-                                value="<%=company.numero_documento%>" required />
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                            <input type="text" name="nombre" class="form-control" value="<%=company.nombre%>"
-                                required />
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Tipo de compañía</label>
-                            <input type="text" name="tipo" list="typecompany" class="form-control"
-                                value="<%=company.tipo%>">
-                            <datalist id="typecompany">
-                                <option value="Industrial" class="form-control">
-                                <option value="Comercial" class="form-control">
-                                <option value="Hotelera" class="form-control">
-                                <option value="Agricola" class="form-control">
-                                <option value="Ganadera" class="form-control">
-                            </datalist>
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Aprobado por:</label>
-                            <input type="text" name="aprobado_por" class="form-control"
-                                value="<%=company.aprobado_por%>" required />
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Fecha de Inicio:</label>
-                            <input type="date" id="start" name="fecha_inicio" value="<%=company.fecha_inicio%>"
-                                class="form-control" required />
-                        </div>
-                        <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Descripción:</label>
-                            <input type="text" name="descripcion" class="form-control" value="<%=company.descripcion%>"
-                                required />
-                        </div>
-                        <div class="btnContainer mb-4">
-                            <td colspan="2"><button class="btn btn-success" onclick="removeMessage()"
-                                    type="submit">Actualizar</button></td>
-                            <button type="button" class="btn btn-danger">
-                                <a href="/companies/showCompany" type="button">Cancelar</a>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+<body class="row">
+    <div class="col-1"></div>
+    <div class="col-10 card mb-3"
+        style="margin-top: 4.3%; scrollbar-width: none !important; margin-right: 2%; background-color: #e6e6e6;">
+        <!-- Menu desplegable con animacion -->
+        <div>
+            <div id="menu-container" class="menu-container">
+                <div id="menu" class="menu">
+                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+                </div>
+                <div class="flex-menu">
+                    <ul class="list-unstyled chat-list">
+                        <ul class="list-group list-group-flush button flex-color">
+                            <a href="/companies/showCompany" type="button" class="btn btn primary ">Mostrar
+                                compañía</a>
+                        </ul>
+                        <ul class="list-group list-group-flush button flex-color">
+                            <a href="/" type="button" class="btn btn primary ">Atrás</a>
+                        </ul>
+                    </ul>
+                </div>
             </div>
-
+            <form action="/companies/updateCompany/<%=company._id%>" method="post">
+                <div class="col-12">
+                    <h2 class="h2" style="margin-bottom: 1%;">Módulo de compañía: Editar
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <p type="No. Documento:" class="mb-2">
+                        <input type="text" name="numero_documento" class="input p2" value="<%=company.numero_documento%>"
+                            required />
+                    </p>
+                    <p type="Nombre:" class="mb-2">
+                        <input type="text" name="nombre" class="input p2" value="<%=company.nombre%>" required />
+                    </p>
+                    <p type="Tipo de compañía:" class="mb-2">
+                        <input type="text" name="tipo" list="typecompany" class="input p2" value="<%=company.tipo%>">
+                        <datalist id="typecompany">
+                            <option value="Industrial" class="input">
+                            <option value="Comercial" class="input">
+                            <option value="Hotelera" class="input">
+                            <option value="Agricola" class="input">
+                            <option value="Ganadera" class="input">
+                        </datalist>
+                    </p>
+                    <p type="Aprobado por:" class="mb-2">
+                        <input type="text" name="aprobado_por" class="input p2" value="<%=company.aprobado_por%>"
+                            required />
+                    </p>
+                    <p type="Fecha de inicio:" class="mb-2">
+                        <input type="date" id="start" name="fecha_inicio" value="<%=company.fecha_inicio%>"
+                            class="input p2" required />
+                    </p>
+                    <p type="descripción:" class="mb-2">
+                        <input type="text" name="descripcion" class="input p2" value="<%=company.descripcion%>" required />
+                    </p>
+                    <div class="btnContainer mb-4">
+                        <td colspan="2"><button class="btn btn-success" onclick="removeMessage()"
+                                type="submit">Actualizar</button></td>
+                        <button type="button" class="btn btn-danger">
+                            <a href="/companies/showCompany" type="button">Cancelar</a>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
+
+    </div>
     </div>
 </body>
+<footer class="bg-light text-center text-lg-start mt-5 footer2">
+    <!-- Copyright -->
+    <div class="text-center p-4">
+        © 2022 Copyright: Porras & Vásquez
+    </div>
+    <!-- Copyright -->
+</footer>
 
 </html>
