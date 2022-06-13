@@ -10,7 +10,7 @@
     }
 </script>
 
-<body class="row">
+<body class="row bodyMedia4">
     <% if(typeof(status) !="undefined" ) { %>
         <% if(status==200) { %>
             <script>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <!-- Content of form-->
-                            <div class="row table-container" >
+                            <div class="row table-container">
                                 <form action="/gaseslp/saveGas/<%=company._id%>" method="post" class="row"
                                     style="display: flex;">
                                     <div class="col-12">
@@ -76,13 +76,12 @@
                                     </div>
                                     <div style="margin-left: 1%; margin-right: 2%;" class="col-2">
                                         <p class="p" type="Uso:">
-                                            <input class="input" placeholder="Uso..."
-                                                name="uso" required />
-                                            </p>
+                                            <input class="input" placeholder="Uso..." name="uso" required />
+                                        </p>
                                         <p class="p" type="Observación:"><input class="input"
                                                 placeholder="Observación..." name="observacion" required />
                                         </p>
-                                        <p class="p" type="Densidad:"><input  class="input"
+                                        <p class="p" type="Densidad:"><input class="input"
                                                 placeholder="Escriba el densidad" name="densidad"
                                                 pattern="^[0-9]+\.?[0-9]*$"
                                                 oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
@@ -102,18 +101,20 @@
                                     </div>
                                     <div class="col-2" style="margin-left: 1%;">
                                         <p class="p" type="Datos emisión general">
-                                            <select style="padding-left: 3px; padding-bottom: 3px; margin-top: 10px;"
+                                            <select class="p2"
+                                                style="padding-left: 3px; padding-bottom: 3px; margin-top: 10px;"
                                                 name="gei" aria-placeholder="GEI" aria-label="Default select example">
                                                 <option selected>
                                                     Seleccione
                                                 </option>
-                                                <option value="Kilogramo">Kilogramo</option>
-                                                <option value="Litro">Litro</option>
-                                                <option value="Otro">Otro</option>
+                                                <option value="CO2">CO2</option>
+                                                <option value="CH4">CH4</option>
+                                                <option value="N2O">N2O</option>
                                             </select>
                                         </p>
                                         <p class="p" type="Unidad de medida:">
-                                            <select style="padding-left: 3px; padding-bottom: 3px; margin-top: 10px;"
+                                            <select class="p2"
+                                                style="padding-left: 3px; padding-bottom: 3px; margin-top: 10px;"
                                                 name="unidad" aria-placeholder="Unidad de medida"
                                                 aria-label="Default select example">
                                                 <option selected>
@@ -238,9 +239,9 @@
                         </div>
                         </div>
 </body>
-<footer class="bg-light text-center text-lg-start footer" style="margin-top: 0.5%;">
+<footer class="bg-light text-center text-lg-start footer mt-2">
     <!-- Copyright -->
-    <div class="text-center p-4" style="background-color: rgba(9, 8, 8, 0.2);">
+    <div class="text-center p-4">
         © 2022 Copyright: Porras & Vásquez
     </div>
     <!-- Copyright -->

@@ -1,61 +1,90 @@
 <!DOCTYPE html>
 <html>
-    <header>
-        <!--ZONA DEL NAVBAR-->
-        <%- include('../navbar'); -%>
-    </header>
-    <script>
-        function removeMessage(){
-            localStorage.removeItem("message");
-        }
-    </script>
-    <body style="background-color: #f4ffec; height: 100vh !important;">
-        <div class="card mt-2"
-            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
-            <div id="menu-container" class="menu-container">
-                <div id="menu" class="menu">
-                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
-                </div>
-                <div class="flex-menu">
-                    <ul class="list-unstyled chat-list  mb-0">
-                        <ul class="list-group list-group-flush button">
-                            <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar reporte</a>
-                        </ul>
-                        <ul class="list-group list-group-flush button">
-                            <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista de reportes</a>
-                        </ul>
-                    </ul>
-                </div>
+<header>
+    <!--ZONA DEL NAVBAR-->
+    <%- include('../navbar'); -%>
+</header>
+<script>
+    function removeMessage() {
+        localStorage.removeItem("message");
+    }
+</script>
+
+<body class="row">
+    <div class="col-1"></div>
+    <div class="col-10 card mt-3"
+        style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
+        <div id="menu-container" class="menu-container">
+            <div id="menu" class="menu">
+                <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
             </div>
-            <div class="row text-dark table-container"
-                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                <form action="/electricities/updateElectricity/<%=electricity._id%>" method="post" class="form" style="margin-left: 13%;">
-                    <h2 class="h2" style="margin-bottom: 1%;">Módulo Electricidad: Editar</h2>
-                    <div style="display: flex;">
-                        <div class="col-4">
-                            <p class="p" type="Título:"><input class="input" placeholder="Escriba el título" name="titulo" value="<%=electricity.titulo%>" required/></p>
-                            <p class="p" type="Fuente de reporte:"><input class="input" placeholder="Escriba la fuente de reporte" name="fuente_reporte" value="<%=electricity.fuente_reporte%>" required/></p>
-                            <p class="p" type="Unidad de medida:"><input class="input" placeholder="Escriba la unidad de medida" name="unidad_medida" value="<%=electricity.unidad_medida%>" required/></p>
-                            <p class="p" type="Ultima actualización:"><input type="date" class="input" placeholder="Escriba la fecha de actualización" name="ultima_update" value="<%=electricity.ultima_update%>" class="form-control" required/></p>
-                            <div class="btnContainer mb-4">
-                                <button class="button btnForm" onclick="removeMessage()" type="submit">Actualizar</button>
-                                <button class="button cancelar btnForm" type="button"><a href="/electricities/electricities/<%=electricity.company%>">Cancelar</a></button>
-                            </div>
-                        </div>
-                        <div class="col-4" style="margin-left:25px;">
-                            <p class="p" type="Factor de emisión:"><input class="input" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" type="text" name="factor_emision" value="<%=electricity.factor_emision%>" required/></p>
-                            <p class="p" type="GEI:">
-                                <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="gei" aria-placeholder="GEI" aria-label="Default select example">
-                                    <option value="<%=electricity.gei%>" selected><%=electricity.gei%></option>
-                                </select>
-                            </p>
-                            <p class="p" type="PCG:"><input class="input" type="text" pattern="^[0-9]+\.?[0-9]*$" oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
-                            oninput="this.setCustomValidity('')" autocomplete="off" value="<%=electricity.pcg%>" placeholder="PCG" name="pcg"/></p>
-                        </div>
-                    </div>
-                </form>
+            <div class="flex-menu">
+                <ul class="list-unstyled chat-list  mb-0">
+                    <ul class="list-group list-group-flush button">
+                        <a href="/electricities/electricity/<%=company%>" type="button" class="btn btn primary ">Agregar
+                            reporte</a>
+                    </ul>
+                    <ul class="list-group list-group-flush button">
+                        <a href="/electricities/electricities/<%=company%>" type="button" class="btn btn primary ">Vista
+                            de reportes</a>
+                    </ul>
+                </ul>
             </div>
         </div>
-    </body>
+        <div class="row table-container"
+            style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+            <form action="/electricities/updateElectricity/<%=electricity._id%>" method="post" class="row"
+                style="display: flex;">
+                <h2 class="h2" style="margin-bottom: 1%;">Módulo Electricidad: Editar</h2>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="p" type="Título:"><input class="input" placeholder="Escriba el título" name="titulo"
+                                value="<%=electricity.titulo%>" required /></p>
+                        <p class="p" type="Fuente de reporte:"><input class="input"
+                                placeholder="Escriba la fuente de reporte" name="fuente_reporte"
+                                value="<%=electricity.fuente_reporte%>" required /></p>
+                        <p class="p" type="Unidad de medida:"><input class="input"
+                                placeholder="Escriba la unidad de medida" name="unidad_medida"
+                                value="<%=electricity.unidad_medida%>" required /></p>
+                        <p class="p" type="Ultima actualización:"><input type="date" class="input"
+                                placeholder="Escriba la fecha de actualización" name="ultima_update"
+                                value="<%=electricity.ultima_update%>" class="form-control" required /></p>
+
+                        <div class="btnContainer mb-4">
+                            <button class="btn btn-success" onclick="removeMessage()" type="submit">Actualizar</button>
+                            <button class="btn btn-danger" type="button"><a
+                                    href="/electricities/electricities/<%=electricity.company%>">Cancelar</a></button>
+                        </div>
+                    </div>
+                    <div class="col-4" style="margin-left:25px;">
+                        <p class="p" type="Factor de emisión:"><input class="input" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" type="text"
+                                name="factor_emision" value="<%=electricity.factor_emision%>" required /></p>
+                        <p class="p" type="GEI:">
+                            <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="gei"
+                                aria-placeholder="GEI" aria-label="Default select example">
+                                <option value="<%=electricity.gei%>" selected>
+                                    <%=electricity.gei%>
+                                </option>
+                            </select>
+                        </p>
+                        <p class="p" type="PCG:"><input class="input" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                oninput="this.setCustomValidity('')" autocomplete="off" value="<%=electricity.pcg%>"
+                                placeholder="PCG" name="pcg" /></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<footer class="bg-light text-center text-lg-start footer" style="margin-top: 1.5%;">
+    <!-- Copyright -->
+    <div class="text-center p-4">
+        © 2022 Copyright: Porras & Vásquez
+    </div>
+    <!-- Copyright -->
+</footer>
+
 </html>
