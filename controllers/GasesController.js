@@ -12,9 +12,13 @@ sumatoria = sumatoria.toFixed(5);
 let enero = 0; let febrero = 0; let marzo = 0; let abril = 0; let mayo = 0; let junio = 0;
 let julio = 0; let agosto = 0; let septiembre = 0; let octubre = 0; let noviembre = 0; let diciembre = 0;
 /**
- * Formula para verificar el estado de las consultas y retorna un mensaje.
- * @function verifyStatus
- * @param {JSON} statusCode 
+ * @param {string} statusCode Codigo de estado devuelto por una funcion al ser ejecutada, se toma para lanzar un mensaje
+ * Status: 200 ¡Realizado exitosamente!
+ * Status: 400 ¡Error, solicitud incorrecta!
+ * Status: 401 ¡Error, usuario no autenticado!
+ * Status: 404 ¡Ocurrió un problema con la ruta de acceso!
+ * Status: 500 ¡Lo sentimos, ocurrió un problema con el servidor!
+ * Status: 503 ¡Lo sentimos, el servidor se encuentra en mantenimiento!
  */
 function verifyStatus(statusCode) {
     if (statusCode == 200) { 
@@ -37,11 +41,7 @@ function verifyStatus(statusCode) {
         message = "¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
 }
-/**
- * Fórmula para calcular las emisiones gas efecto invernadero en la vista.
- * @function calc
- * @param {JSON} req 
- */
+
 function calc(req) {
     if (parseFloat(req.body.densidad) > 0) {
         req.body.emision= (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
@@ -54,11 +54,7 @@ function calc(req) {
     }
     req.body.total = parseFloat(req.body.total).toFixed(5);
 };
-/**
- * Fórmula sumatoria para para gas efecto invernadero.
- * @function sum
- * @param {JSON} company 
- */
+
 function sum(company){
     sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
     julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
@@ -72,7 +68,7 @@ function sum(company){
     sumatoria = parseFloat(sumatoria).toFixed(5);
 }
 /**
- * Fórmula para guardar datos de la emisión de gases.
+ * Método para guardar datos de la emisión de gases.
  * @function save
  * @param {JSON} req 
  * @param {JSON} res 
@@ -139,7 +135,7 @@ gasesController.save = async function (req, res) {
     });
 };
 /**
- * Fórmula para buscar la compañía de una emisión de gases.
+ * Método para buscar la compañía de una emisión de gases.
  * @function searchCompany
  * @param {JSON} req 
  * @param {JSON} res 
@@ -151,7 +147,7 @@ gasesController.searchCompany = function (req, res) {
     });
 };
 /**
- * Fórmula para mostrar todas las emisiones de gases.
+ * Método para mostrar todas las emisiones de gases.
  * @function searchCompany
  * @param {JSON} req 
  * @param {JSON} res 
@@ -183,7 +179,7 @@ gasesController.list = function (req, res) {
         });
 };
 /**
- * Fórmula para buscar una emisión de gas.
+ * Método para buscar una emisión de gas.
  * @function search
  * @param {JSON} req 
  * @param {JSON} res 
@@ -204,7 +200,7 @@ gasesController.search = function (req, res) {
     });
 };
 /**
- * Fórmula para actualizar una emisión de gas.
+ * Método para actualizar una emisión de gas.
  * @function update
  * @param {JSON} req 
  * @param {JSON} res 
@@ -331,7 +327,7 @@ gasesController.update = function (req, res) {
     );
 };
 /**
- * Fórmula para eliminar una emisión de gas.
+ * Método para eliminar una emisión de gas.
  * @function delete
  * @param {JSON} req 
  * @param {JSON} res 

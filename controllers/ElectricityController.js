@@ -8,7 +8,15 @@ let status = 0;
 let message="";
 let sumatoria = 0; let enero = 0; let febrero = 0; let marzo = 0; let abril = 0; let mayo = 0; let junio = 0;
 let julio = 0; let agosto = 0; let septiembre = 0; let octubre = 0; let noviembre = 0; let diciembre = 0;
-
+/**
+ * @param {string} statusCode Codigo de estado devuelto por una funcion al ser ejecutada, se toma para lanzar un mensaje
+ * Status: 200 ¡Realizado exitosamente!
+ * Status: 400 ¡Error, solicitud incorrecta!
+ * Status: 401 ¡Error, usuario no autenticado!
+ * Status: 404 ¡Ocurrió un problema con la ruta de acceso!
+ * Status: 500 ¡Lo sentimos, ocurrió un problema con el servidor!
+ * Status: 503 ¡Lo sentimos, el servidor se encuentra en mantenimiento!
+ */
 function verifyStatus(statusCode){
     if(statusCode==200){
         status=200;
@@ -53,7 +61,12 @@ function sum(electricity){
     }
     sumatoria = parseFloat(sumatoria).toFixed(5);
 }
-
+/**
+ * Método para guardar una emisión de electricidad en una colección.
+ * @function save
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.save = async function (req, res) {
     req.body.total = 0;
     let electricity = new Electricity(req.body);
@@ -99,7 +112,12 @@ electricityController.save = async function (req, res) {
         }
     });
 };
-
+/**
+ * Método para buscar una emisión de electricidad en una compañía.
+ * @function renderPageNewElectricity
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.renderPageNewElectricity = function (req, res) {
     Company.findOne({ _id: req.params.comp }).exec(function (err, company) {
         if (err) {
@@ -109,7 +127,12 @@ electricityController.renderPageNewElectricity = function (req, res) {
         }
     });
 };
-
+/**
+ * Método para mostrar emisiones en una colección.
+ * @function renderPageAllElectricites
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.renderPageAllElectricites = function (req, res) {
     Company.findOne({ _id: req.params.comp })
         .populate("electricidad")
@@ -125,7 +148,12 @@ electricityController.renderPageAllElectricites = function (req, res) {
             });
         });
 };
-
+/**
+ * Método para buscar una emisión de electricidad en una colección.
+ * @function renderPageEditElectricity
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.renderPageEditElectricity = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
         res.render("../views/electricity/EditElectricity", {
@@ -134,7 +162,12 @@ electricityController.renderPageEditElectricity = function (req, res) {
         });
     });
 };
-
+/**
+ * Método para editar una emisión de electricidad en una colección.
+ * @function update
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.update = function (req, res) {
     Electricity.findByIdAndUpdate(
         req.params.id,
@@ -201,7 +234,12 @@ electricityController.update = function (req, res) {
         }
     );
 };
-
+/**
+ * Método para eliminar una emisión de electricidad en una colección.
+ * @function delete
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.delete = function (req, res) {
     Emission.findOne({ electricity: req.params.id }).exec(function (err, e) {
         Company.updateOne({ _id: req.params.comp }, {
@@ -253,7 +291,12 @@ electricityController.delete = function (req, res) {
 };
 
 //--------------------------------------------------METER FUNCTIONS--------------------------------------------
-
+/**
+ * Método para buscar un medidor de electricidad en una colección.
+ * @function renderPageNewMeter
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.renderPageNewMeter = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
         let emission;
@@ -267,7 +310,12 @@ electricityController.renderPageNewMeter = function (req, res) {
         });
     });
 };
-
+/**
+ * Método para añadir un medidor de electricidad en una colección.
+ * @function addMeter
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.addMeter = function (req, res) {
     calc(req);
     Electricity.updateOne(
@@ -355,7 +403,12 @@ electricityController.addMeter = function (req, res) {
     );
 };
 
-
+/**
+ * Método para buscar un medidor de electricidad en una colección.
+ * @function renderPageEditMeter
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.renderPageEditMeter = function (req, res) {
     Electricity.findOne({ _id: req.params.elec }).exec(function (
         err,
@@ -382,7 +435,12 @@ electricityController.renderPageEditMeter = function (req, res) {
         }
     });
 };
-
+/**
+ * Método para actualizar un medidor de electricidad en una colección.
+ * @function updateMeter
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.updateMeter = function (req, res) {
     calc(req);
     Electricity.updateOne(
@@ -487,7 +545,12 @@ electricityController.updateMeter = function (req, res) {
         }
     );
 };
-
+/**
+ * Método para mostrar todos los medidores de una electricidad en una colección.
+ * @function renderPageAllMeters
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.renderPageAllMeters = function (req, res) {
     Electricity.findOne({ _id: req.params.id }).exec(function (err, electricity) {
         if(!err){
@@ -512,7 +575,12 @@ electricityController.renderPageAllMeters = function (req, res) {
         });
     });
 };
-
+/**
+ * Método para eliminar un medidor de electricidad en una colección.
+ * @function deleteMeter
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 electricityController.deleteMeter = function (req, res) {
     Electricity.updateOne({ "_id": req.params.elec }, {
         "$pull": {
