@@ -1,4 +1,32 @@
-'use strict'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/FuelsAndOilController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/FuelsAndOilController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
 require('../connection');
 const Company = require("../models/Company");
 const FuelsAndOil = require('../models/FuelsAndOil');
@@ -91,7 +119,7 @@ FuelsAndOilController.save = async function (req, res) {
             .exec(function (err, e) {
                 let validar = false;
                 if(e!=null){
-                    if(e.fuente_generador == fuels.combustible && fuels.combustible == "Aceite 2t-4t" && fuels._id == e.airConditioning){
+                    if(e.fuente_generador == fuels.combustible &amp;&amp; fuels.combustible == "Aceite 2t-4t" &amp;&amp; fuels._id == e.airConditioning){
                         validar = true;
                     }
                 }
@@ -346,10 +374,10 @@ FuelsAndOilController.update = function (req, res) {
                         let emi = null, emi2 = null;
                         let id;
                         for (let x of company.emission) {
-                            if(emi2==null && fuel.combustible == x.fuente_generador && fuel.combustible == "Aceite 2t-4t"){
+                            if(emi2==null &amp;&amp; fuel.combustible == x.fuente_generador &amp;&amp; fuel.combustible == "Aceite 2t-4t"){
                                 emi = x;
                                 id = emi._id;
-                            }else if(emi==null && fuel.combustible == x.fuente_generador && x._id == fuel._id){
+                            }else if(emi==null &amp;&amp; fuel.combustible == x.fuente_generador &amp;&amp; x._id == fuel._id){
                                 emi2 = x;
                                 id = emi2._id
                             }
@@ -358,9 +386,9 @@ FuelsAndOilController.update = function (req, res) {
                         .populate("fuelsAndOil")
                         .exec(function(err, company) {
                             for(let x of company.fuelsAndOil){
-                                if(x.combustible == "Aceite 2t-4t" && x.combustible == fuel.combustible){
+                                if(x.combustible == "Aceite 2t-4t" &amp;&amp; x.combustible == fuel.combustible){
                                     cant = cant + parseFloat(x.emision);
-                                }else if(x.combustible != "Aceite 2t-4t" && x._id == fuel._id){
+                                }else if(x.combustible != "Aceite 2t-4t" &amp;&amp; x._id == fuel._id){
                                     cant = x.emision;
                                 }
                             }
@@ -458,11 +486,11 @@ FuelsAndOilController.delete = function (req, res) {
             let emi2 = null;
             for(let x of company.emission){
                 console.log(x);
-                if(emi==null && fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t-4t"){
+                if(emi==null &amp;&amp; fuels.combustible == x.fuente_generador &amp;&amp; fuels.combustible == "Aceite 2t-4t"){
                     cant = parseFloat(x.cantidad);
                     cant2 = parseFloat(x.totalCo2);
                     emi = x;
-                }else if(emi2==null && fuels.combustible == x.fuente_generador && x._id == fuels._id){
+                }else if(emi2==null &amp;&amp; fuels.combustible == x.fuente_generador &amp;&amp; x._id == fuels._id){
                     emi2 = x;
                 }
             }
@@ -473,13 +501,13 @@ FuelsAndOilController.delete = function (req, res) {
                 restar = parseFloat(fuels.emision);
                 restar = parseFloat(restar).toFixed(5);
                 //restar2 = parseFloat(restar2).toFixed(5);
-                if(restar <= cant){
+                if(restar &lt;= cant){
                     total = cant - restar;
                 }else{
                     total = restar - cant;
                 }
 
-                if(restar2 <= cant2){
+                if(restar2 &lt;= cant2){
                     total2 = cant2 - restar2;
                 }else{
                     total2 = restar2 - cant2;
@@ -490,7 +518,7 @@ FuelsAndOilController.delete = function (req, res) {
                 console.log("RESTAR2  "+restar2);
                 console.log("TOTAL2  "+total2);
                 console.log();
-                if(total == 0 && total2 == 0){
+                if(total == 0 &amp;&amp; total2 == 0){
                     Company.updateOne({ _id: req.params.comp }, {
                         $pull: { 
                             emission: emi._id
@@ -557,4 +585,26 @@ FuelsAndOilController.delete = function (req, res) {
     });
 };
 
-module.exports = FuelsAndOilController;
+module.exports = FuelsAndOilController;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addMeter">addMeter</a></li><li><a href="global.html#calc">calc</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteMeter">deleteMeter</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#list">list</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#renderPageAllElectricites">renderPageAllElectricites</a></li><li><a href="global.html#renderPageAllMeters">renderPageAllMeters</a></li><li><a href="global.html#renderPageEditElectricity">renderPageEditElectricity</a></li><li><a href="global.html#renderPageEditMeter">renderPageEditMeter</a></li><li><a href="global.html#renderPageNewElectricity">renderPageNewElectricity</a></li><li><a href="global.html#renderPageNewMeter">renderPageNewMeter</a></li><li><a href="global.html#save">save</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchCompany">searchCompany</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateMeter">updateMeter</a></li><li><a href="global.html#verifyStatus">verifyStatus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Jun 14 2022 00:40:46 GMT-0600 (hora estándar central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
