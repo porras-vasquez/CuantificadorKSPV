@@ -528,10 +528,10 @@ electricityController.updateMeter = function (req, res) {
                         },
                         function (err, elect) {
                             Electricity.findOne({ _id: req.params.elec }).exec(function (err, elec) {
-                                cant =parseFloat(elec.total);
-                                ton = parseFloat(elec.factor_emision)/1000;
-                                pcg = parseFloat(elec.pcg);
-                                co2 = cant * ton * pcg;
+                                let cant =parseFloat(elec.total);
+                                let ton = parseFloat(elec.factor_emision)/1000;
+                                let pcg = parseFloat(elec.pcg);
+                                let co2 = cant * ton * pcg;
                                 co2 = parseFloat(co2).toFixed(5)
                                 Emission.updateOne({ electricity: req.params.elec }, {
                                     $set: {
