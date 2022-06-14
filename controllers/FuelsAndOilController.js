@@ -74,7 +74,6 @@ FuelsAndOilController.save = async function (req, res) {
                     if(e.fuente_generador == fuels.combustible && fuels.combustible == "Aceite 2t-4t" && fuels._id == e.airConditioning){
                         validar = true;
                     }
-                    console.log(e.airConditioning);
                 }
                 let ton = parseFloat(fuels.factor)/1000;
                 let cant = parseFloat(fuels.emision);
