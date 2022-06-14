@@ -155,7 +155,7 @@ gasesController.searchCompany = function (req, res) {
 };
 /**
  * Método para mostrar todas las emisiones de gases.
- * @function searchCompany
+ * @function list
  * @param {JSON} req 
  * @param {JSON} res 
  */
