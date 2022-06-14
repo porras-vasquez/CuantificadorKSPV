@@ -40,224 +40,228 @@
                 </script>
                 <% } %>
                     <% } %>
-                        <div class="card mt-4"
-                            style="min-height: 66.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
-                            <div id="menu-container" class="menu-container">
-                                <div id="menu" class="menu">
-                                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
-                                </div>
-                                <div class="flex-menu">
-                                    <ul class="list-unstyled chat-list  mb-0">
-                                        <ul class="list-group list-group-flush button">
-                                            <a onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=company%>'"
-                                                type="button" class="btn btn primary ">Agregar
-                                                medidor</a>
-                                        </ul>
-                                        <ul class="list-group list-group-flush button">
-                                            <a onclick="window.location. href='/electricities/electricity/<%=company%>'"
-                                                type="button" class="btn btn primary ">Agregar
-                                                reporte</a>
-                                        </ul>
-                                        <ul class="list-group list-group-flush button">
-                                            <a href="/companies/showCompany" type="button"
-                                                class="btn btn primary ">Vista de
-                                                compañía</a>
-                                        </ul>
-                                        <ul class="list-group list-group-flush button">
-                                            <a href="/electricities/electricities/<%=company%>" type="button"
-                                                class="btn btn primary ">Atrás</a>
-                                        </ul>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="row text-dark table-responsive table-container"
-                                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                                <table class="table-bordered" style="background-color: white;">
-                                    <div class="col-3">
-                                        <h3 class="h2">Módulo medidores: Mostrar</h3>
+                        <div>
+                            <div class="card mt-3"
+                                style="min-height: 66.5%  !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
+                                <div id="menu-container" class="menu-container">
+                                    <div id="menu" class="menu">
+                                        <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
                                     </div>
-                                    <!--Table head-->
-                                    <thead style="background-color: rgba(26,145,125,255);">
-                                        <tr class="text-center">
-                                            <th scope="col text-whitex">Medidor</th>
-                                            <th scope="col text-whitex">NISE</th>
-                                            <th scope="col text-whitex">Ubicación</th>
-                                            <th scope="col text-whitex"> Enero</th>
-                                            <th scope="col text-whitex"> Febrero</th>
-                                            <th scope="col text-whitex"> Marzo</th>
-                                            <th scope="col text-whitex"> Abril</th>
-                                            <th scope="col text-whitex"> Mayo</th>
-                                            <th scope="col text-whitex"> Junio</th>
-                                            <th scope="col text-whitex"> Julio</th>
-                                            <th scope="col text-whitex"> Agosto</th>
-                                            <th scope="col text-whitex"> Septiembre</th>
-                                            <th scope="col text-whitex"> Octubre</th>
-                                            <th scope="col text-whitex"> Noviembre</th>
-                                            <th scope="col text-whitex"> Diciembre</th>
-                                            <th scope="col text-whitex"> Total</th>
-                                            <th scope="col text-whitex">Acción</th>
-                                        </tr>
-                                    </thead>
-                                    <!--Table head-->
-                                    <!--Table body-->
-                                    <tbody>
-                                        <% electricity.medidor.forEach((meter)=>{ %>
-                                            <tr class="text-center tr">
-                                                <td>
-                                                    <div>
-                                                        <%=meter.numero%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.nise%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.ubicacion%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.enero%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.febrero%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.marzo%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.abril%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.mayo%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.junio%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.julio%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.agosto%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.septiembre%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.octubre%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.noviembre%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.diciembre%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <%=meter.total%>
-                                                    </div>
-                                                </td>
-                                                <td id="container"
-                                                    style="width: 300px; padding-left: 2%; padding-right: 2%;">
-                                                    <div id="boton">
-                                                        <div class="btn-electricity">
-                                                            <form
-                                                                style="background-color: rgb(243, 235, 224); font-size: 18px;"
-                                                                action="/electricities/deleteMeter/<%=electricity._id%>/<%=meter._id%>"
-                                                                method="post">
-                                                                <button type="danger" onclick="removeMessage()"
-                                                                    class="btn btn-danger"><i
-                                                                        class="material-icons">delete</i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="btn-electricity">
-                                                            <button type="link" class="btn btn-success edit btn"
-                                                                onclick="window.location. href='/electricities/editMeter/<%=electricity._id%>/<%=meter._id%>'"><i
-                                                                    class="material-icons">menu</i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                    <div class="flex-menu">
+                                        <ul class="list-unstyled chat-list  mb-0">
+                                            <ul class="list-group list-group-flush button">
+                                                <a onclick="window.location. href='/electricities/newMeter/<%=electricity._id%>/<%=company%>'"
+                                                    type="button" class="btn btn primary ">Agregar
+                                                    medidor</a>
+                                            </ul>
+                                            <ul class="list-group list-group-flush button">
+                                                <a onclick="window.location. href='/electricities/electricity/<%=company%>'"
+                                                    type="button" class="btn btn primary ">Agregar
+                                                    reporte</a>
+                                            </ul>
+                                            <ul class="list-group list-group-flush button">
+                                                <a href="/companies/showCompany" type="button"
+                                                    class="btn btn primary ">Vista de
+                                                    compañía</a>
+                                            </ul>
+                                            <ul class="list-group list-group-flush button">
+                                                <a href="/electricities/electricities/<%=company%>" type="button"
+                                                    class="btn btn primary ">Atrás</a>
+                                            </ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row text-dark table-responsive table-container"
+                                    style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+                                    <div class=" col-3" style="margin-left: 2.5%;">
+                                        <h3 class="h2">Módulo medidores: Mostrar</h3>
+                                </div>
+                                <!--Table head-->
+                                <div class="table_wrapper mb-4" style="margin-left: 2.5%;">
+                                    <table id="tablax" class="table-bordered" style="background-color: white;">
+                                        <thead style="background-color: rgba(26,145,125,255);">
+                                            <tr class="text-center">
+                                                <th scope="col text-whitex">Medidor</th>
+                                                <th scope="col text-whitex">NISE</th>
+                                                <th scope="col text-whitex">Ubicación</th>
+                                                <th scope="col text-whitex"> Enero</th>
+                                                <th scope="col text-whitex"> Febrero</th>
+                                                <th scope="col text-whitex"> Marzo</th>
+                                                <th scope="col text-whitex"> Abril</th>
+                                                <th scope="col text-whitex"> Mayo</th>
+                                                <th scope="col text-whitex"> Junio</th>
+                                                <th scope="col text-whitex"> Julio</th>
+                                                <th scope="col text-whitex"> Agosto</th>
+                                                <th scope="col text-whitex"> Septiembre</th>
+                                                <th scope="col text-whitex"> Octubre</th>
+                                                <th scope="col text-whitex"> Noviembre</th>
+                                                <th scope="col text-whitex"> Diciembre</th>
+                                                <th scope="col text-whitex"> Total</th>
+                                                <th scope="col text-whitex">Acción</th>
                                             </tr>
-                                            <% }) %>
-                                                <td class="text-center">Total</td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center">
-                                                    <%=enero%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=febrero%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=marzo%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=abril%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=mayo%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=junio%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=julio%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=agosto%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=septiembre%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=octubre%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=noviembre%>
-                                                </td>
-                                                <td class="text-center">
-                                                    <%=diciembre%>
-                                                </td>
-                                                <td>
-                                                    <div class="text-center">
-                                                        <%=sumatoria%>
-                                                    </div>
-                                                </td>
-                                    </tbody>
-                                    <!--Table body-->
-                                </table>
+                                        </thead>
+                                        <!--Table head-->
+                                        <!--Table body-->
+                                        <tbody>
+                                            <% electricity.medidor.forEach((meter)=>{ %>
+                                                <tr class="text-center tr">
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.numero%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.nise%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.ubicacion%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.enero%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.febrero%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.marzo%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.abril%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.mayo%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.junio%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.julio%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.agosto%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.septiembre%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.octubre%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.noviembre%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.diciembre%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%=meter.total%>
+                                                        </div>
+                                                    </td>
+                                                    <td id="container"
+                                                        style="width: 300px; padding-left: 2%; padding-right: 2%;">
+                                                        <div id="boton">
+                                                            <div class="btn-electricity">
+                                                                <form
+                                                                    style="background-color: rgb(243, 235, 224); font-size: 18px;"
+                                                                    action="/electricities/deleteMeter/<%=electricity._id%>/<%=meter._id%>"
+                                                                    method="post">
+                                                                    <button type="danger" onclick="removeMessage()"
+                                                                        class="btn btn-danger"><i
+                                                                            class="material-icons">delete</i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                            <div class="btn-electricity">
+                                                                <button type="link" class="btn btn-success edit btn"
+                                                                    onclick="window.location. href='/electricities/editMeter/<%=electricity._id%>/<%=meter._id%>'"><i
+                                                                        class="material-icons">menu</i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                                    <td class="text-center">Total</td>
+                                                    <td class="text-center"></td>
+                                                    <td class="text-center"></td>
+                                                    <td class="text-center">
+                                                        <%=enero%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=febrero%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=marzo%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=abril%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=mayo%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=junio%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=julio%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=agosto%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=septiembre%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=octubre%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=noviembre%>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%=diciembre%>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <%=sumatoria%>
+                                                        </div>
+                                                    </td>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+                        </div>
+
 </body>
-<footer class="bg-light text-center text-lg-start body mt-1 footer" style="margin-top: 3.5% !important;">
+<footer class="bg-light text-center text-lg-start body footer" style="margin-top: 5.5% !important;">
     <!-- Copyright -->
     <div class="text-center p-4">
         © 2022 Copyright: Porras & Vásquez
