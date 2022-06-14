@@ -8,7 +8,6 @@ let gasesController = {};
 let status = 0;
 let message = "";
 let sumatoria = 0;
-sumatoria = sumatoria.toFixed(5);
 let enero = 0; let febrero = 0; let marzo = 0; let abril = 0; let mayo = 0; let junio = 0;
 let julio = 0; let agosto = 0; let septiembre = 0; let octubre = 0; let noviembre = 0; let diciembre = 0;
 /**
@@ -47,13 +46,13 @@ function verifyStatus(statusCode) {
  */
 function calc(req) {
     if (parseFloat(req.body.densidad) > 0) {
-        req.body.emision= (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
+        req.body.emision= ((parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
         parseFloat(req.body.mayo)+parseFloat(req.body.junio)+parseFloat(req.body.julio)+parseFloat(req.body.agosto)+ 
-        parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre))/parseFloat(req.body.densidad);
+        parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre))/parseFloat(req.body.densidad)).toFixed(5);
     } else {
-        req.body.emision = (parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
+        req.body.emision = ((parseFloat(req.body.enero)+parseFloat(req.body.febrero)+parseFloat(req.body.marzo)+parseFloat(req.body.abril)+ 
         parseFloat(req.body.mayo)+parseFloat(req.body.junio)+parseFloat(req.body.julio)+parseFloat(req.body.agosto)+ 
-        parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre));
+        parseFloat(req.body.septiembre)+parseFloat(req.body.octubre)+parseFloat(req.body.noviembre)+parseFloat(req.body.diciembre))).toFixed(5);
     }
     req.body.total = parseFloat(req.body.total).toFixed(5);
 };
@@ -65,11 +64,19 @@ function sum(company){
     sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
     julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
     for (let x of company.gaslp) {
-        sumatoria = sumatoria + parseFloat(x.emision); enero = enero + parseFloat(x.enero); febrero = febrero + parseFloat(x.febrero);
-        marzo = marzo + parseFloat(x.marzo); abril = abril + parseFloat(x.abril); mayo = mayo + parseFloat(x.mayo);
-        junio = junio + parseFloat(x.junio); julio = julio + parseFloat(x.julio); agosto = agosto + parseFloat(x.agosto);
-        septiembre = septiembre + parseFloat(x.septiembre); octubre = octubre + parseFloat(x.octubre);
-        noviembre = noviembre + parseFloat(x.noviembre); diciembre = diciembre + parseFloat(x.diciembre);
+        sumatoria = (sumatoria + parseFloat(x.emision)).toFixed(5); 
+        enero = (enero + parseFloat(x.enero)).toFixed(5); 
+        febrero = (febrero + parseFloat(x.febrero)).toFixed(5);
+        marzo = (marzo + parseFloat(x.marzo)).toFixed(5);
+        abril = (abril + parseFloat(x.abril)).toFixed(5);
+        mayo = (mayo + parseFloat(x.mayo)).toFixed(5);
+        junio = (junio + parseFloat(x.junio)).toFixed(5);
+        julio = (julio + parseFloat(x.julio)).toFixed(5);
+        agosto = (agosto + parseFloat(x.agosto)).toFixed(5);
+        septiembre = (septiembre + parseFloat(x.septiembre)).toFixed(5);
+        octubre = (octubre + parseFloat(x.octubre)).toFixed(5);
+        noviembre = (noviembre + parseFloat(x.noviembre)).toFixed(5); 
+        diciembre = (diciembre + parseFloat(x.diciembre)).toFixed(5);
     }
     sumatoria = parseFloat(sumatoria).toFixed(5);
 }

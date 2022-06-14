@@ -62,16 +62,16 @@ function calc(req) {
         req.body.totalR404BCo2=0;
         req.body.totalR407c=0;
         req.body.totalR407cCo2=0;
-        req.body.totalR410a=(parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR410aCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR410a));
+        req.body.totalR410a=(parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalR410aCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR410a)).toFixed(5);
         req.body.totalR507=0;
         req.body.totalR507Co2=0;
         req.body.total508B=0;
         req.body.totalR508BCo2=0;
         
     } else if(req.body.tipoRefrigerante=='R22'){
-        req.body.totalR22 = (parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalCO2R22 = (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR22));
+        req.body.totalR22 = (parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalCO2R22 = (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR22)).toFixed(5);
         req.body.totalHFC134a=0;
         req.body.totalHFC134aCo2=0;
         req.body.totalHFC152a=0;
@@ -96,8 +96,8 @@ function calc(req) {
 
         req.body.totalR22 = 0;
         req.body.totalCO2R22 = 0;
-        req.body.totalHFC134a= (parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalHFC134aCo2= (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalHFC134a));
+        req.body.totalHFC134a= (parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalHFC134aCo2= (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalHFC134a)).toFixed(5);
         req.body.totalHFC152a=0;
         req.body.totalHFC152aCo2=0;
         req.body.totalR402a=0;
@@ -121,8 +121,8 @@ function calc(req) {
         req.body.totalCO2R22 = 0;
         req.body.totalHFC134a= 0;
         req.body.totalHFC134aCo2= 0;
-        req.body.totalHFC152a=(parseFloat(req.body.fugaTotal) / 1000);;
-        req.body.totalHFC152aCo2= (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalHFC152a));
+        req.body.totalHFC152a=(parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalHFC152aCo2= (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalHFC152a)).toFixed(5);
         req.body.totalR402a=0;
         req.body.totalR402aCo2=0;
         req.body.totalR402b=0;
@@ -146,8 +146,8 @@ function calc(req) {
         req.body.totalHFC134aCo2= 0;
         req.body.totalHFC152a=0;
         req.body.totalHFC152aCo2= 0;
-        req.body.totalR402a= (parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR402aCo2= (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR402a));
+        req.body.totalR402a= (parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalR402aCo2= (parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR402a)).toFixed(5);
         req.body.totalR402b=0;
         req.body.totalR402bCo2=0;
         req.body.totalR404a=0;
@@ -171,8 +171,8 @@ function calc(req) {
         req.body.totalHFC152aCo2= 0;
         req.body.totalR402a= 0;
         req.body.totalR402aCo2= 0;
-        req.body.totalR402b=(parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR402bCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR402b));
+        req.body.totalR402b=(parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalR402bCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR402b)).toFixed(5);
         req.body.totalR404a=0;
         req.body.totalR404aCo2=0;
         req.body.totalR404B=0;
@@ -196,8 +196,8 @@ function calc(req) {
         req.body.totalR402aCo2= 0;
         req.body.totalR402b=0;
         req.body.totalR402bCo2=0;
-        req.body.totalR404a=(parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR404aCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR404a));
+        req.body.totalR404a=(parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalR404aCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR404a)).toFixed(5);
         req.body.totalR404B=0;
         req.body.totalR404BCo2=0;
         req.body.totalR407c=0;
@@ -223,8 +223,8 @@ function calc(req) {
         req.body.totalR404aCo2=0;
         req.body.totalR404B=0;
         req.body.totalR404BCo2=0;
-        req.body.totalR407c=(parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR407cCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR407c));
+        req.body.totalR407c=(parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalR407cCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR407c)).toFixed(5);
         req.body.totalR410a=0
         req.body.totalR410aCo2=0;
         req.body.totalR507=0;
@@ -244,8 +244,8 @@ function calc(req) {
         req.body.totalR402bCo2=0;
         req.body.totalR404a=0;
         req.body.totalR404aCo2=0;
-        req.body.totalR404B=(parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR404BCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR404B));
+        req.body.totalR404B=(parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalR404BCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR404B)).toFixed(5);
         req.body.totalR407c=0;
         req.body.totalR407cCo2=0;
         req.body.totalR410a=0
@@ -273,8 +273,8 @@ function calc(req) {
         req.body.totalR407cCo2=0;
         req.body.totalR410a=0;
         req.body.totalR410aCo2=0;
-        req.body.totalR507=(parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR507Co2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR507));
+        req.body.totalR507=(parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalR507Co2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.totalR507)).toFixed(5);
         req.body.total508B=0;
         req.body.totalR508BCo2=0;
     }else if(req.body.tipoRefrigerante=='R508B'){
@@ -298,8 +298,8 @@ function calc(req) {
         req.body.totalR410aCo2=0;
         req.body.totalR507=0;
         req.body.totalR507Co2=0;
-        req.body.total508B=(parseFloat(req.body.fugaTotal) / 1000);
-        req.body.totalR508BCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.total508B));
+        req.body.total508B=(parseFloat(req.body.fugaTotal) / 1000).toFixed(5);
+        req.body.totalR508BCo2=(parseFloat(req.body.potencialCalentamineto) * parseFloat(req.body.total508B)).toFixed(5);
     }
 };
  
