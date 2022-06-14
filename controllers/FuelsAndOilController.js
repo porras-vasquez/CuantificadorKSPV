@@ -79,7 +79,6 @@ FuelsAndOilController.save = async function (req, res) {
     let fuelsAndOil = new FuelsAndOil(req.body);
     let comp = await Company.findById(req.params.id);
     fuelsAndOil.company = comp;
-    //console.log(req.body.total);
     await fuelsAndOil.save(function (err, fuels) {
         verifyStatus(res.statusCode);
         if (err) {
@@ -139,9 +138,6 @@ FuelsAndOilController.save = async function (req, res) {
                             Emission.findOne({ fuente_generador: fuente })
                             .exec(function(err, em) {
                                 let tot = parseFloat(em.totalCo2) + parseFloat(cant2);
-                                console.log(em.totalCo2);
-                                console.log(cant2);
-                                console.log(tot);
                                 sum(company);
                                 Emission.updateOne({ fuente_generador: fuente }, {
                                     $set: {
@@ -150,8 +146,6 @@ FuelsAndOilController.save = async function (req, res) {
                                         totalFuente: tot
                                     },
                                 }).exec(function (error, ems) {
-                                    console.log("3");
-                                    console.log(ems);
                                     res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: company, status: status });
                                 });
                              })
@@ -200,7 +194,6 @@ FuelsAndOilController.save = async function (req, res) {
 };
 FuelsAndOilController.searchCompany = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
-        if (err) { console.log('Error: ', err); return; }
         res.render('../views/fuelsAndOil/NewfuelsAndOil', { company: company._id });
     });
 };
@@ -364,9 +357,6 @@ FuelsAndOilController.update = function (req, res) {
                                     cant = x.emision;
                                 }
                             }
-                            console.log(emi);
-                            console.log(emi2);
-                            console.log(cant);
                             let ton = parseFloat(fuel.factor)/1000;
                             cant = parseFloat(cant).toFixed(5);
                             let gei = fuel.gei;
@@ -449,7 +439,6 @@ FuelsAndOilController.update = function (req, res) {
  */
 FuelsAndOilController.delete = function (req, res) {
     FuelsAndOil.findOne({ _id: req.params.id }).exec(function(err, fuels) {
-        console.log(fuels);
         Company.findOne({ _id: req.params.comp })
         .populate("emission")
         .exec(function (error, company) {
@@ -457,7 +446,6 @@ FuelsAndOilController.delete = function (req, res) {
             let emi = null;
             let emi2 = null;
             for(let x of company.emission){
-                console.log(x);
                 if(emi==null && fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t-4t"){
                     cant = parseFloat(x.cantidad);
                     cant2 = parseFloat(x.totalCo2);
@@ -466,8 +454,6 @@ FuelsAndOilController.delete = function (req, res) {
                     emi2 = x;
                 }
             }
-            console.log("EMI ---- "+emi);
-            console.log("EMI2 ---- "+emi2);
             if(emi!=null){
                 restar2 = parseFloat(fuels.emision) * parseFloat(fuels.pcg) * (parseFloat(fuels.factor)/1000);
                 restar = parseFloat(fuels.emision);
@@ -486,10 +472,6 @@ FuelsAndOilController.delete = function (req, res) {
                 }
                 total = parseFloat(total).toFixed(5);
                 total2 = parseFloat(total2).toFixed(5);
-                console.log("CANT2  "+cant2);
-                console.log("RESTAR2  "+restar2);
-                console.log("TOTAL2  "+total2);
-                console.log();
                 if(total == 0 && total2 == 0){
                     Company.updateOne({ _id: req.params.comp }, {
                         $pull: { 
@@ -497,7 +479,6 @@ FuelsAndOilController.delete = function (req, res) {
                         }
                     }).exec(function (err, e) { 
                         Emission.deleteOne({ _id: emi._id }).exec(function (err, emission) {
-                            console.log("ENTONCES TOTAL ES 0  "+emission);
                         }); 
                     });
                 }else{
@@ -508,7 +489,6 @@ FuelsAndOilController.delete = function (req, res) {
                             totalFuente: total2
                         },
                     }).exec(function (err, ems) {
-                        console.log("TOTAL NO ES 0  "+ems);
                     });
                 }
             }else if(emi2!=null){
