@@ -3,7 +3,6 @@
  * @param {JSON} req 
  * @param {JSON} res 
  * @param {JSON} next 
- * @returns
  */
 const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
