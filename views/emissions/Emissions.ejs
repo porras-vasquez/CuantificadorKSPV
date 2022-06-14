@@ -3,6 +3,7 @@
 <header>
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 </header>
 <script>
     function removeMessage() {
@@ -62,8 +63,13 @@
                             <div class="row text-dark table-responsive table-container"
                                 style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
                                 <h3 class="h2">Módulo general de emisiones</h3>
+                                <div class="col-2 btn" style="height: 10%; width: 9%;">
+                                    <button onclick="ExportToExcel('xlsx')" type="button" class="btn"> <img
+                                            style="border-radius: 15%; height: 60%; width: 60%; background: rgb(6,136,121);"
+                                            src="/images/xlsexport.png" alt="Card image cap"></button>
+                                </div>
                                 <!--Table-->
-                                <table class="table-bordered" style="background-color: white;">
+                                <table id="tablax" class="table-bordered" style="background-color: white;">
                                     <!--Table head-->
                                     <thead style="background-color: rgba(26,145,125,255);">
                                         <tr class="text-center">
@@ -160,6 +166,15 @@
                                 <!--Table-->
                             </div>
                         </div>
+                        <script>
+                            function ExportToExcel(type, fn, dl) {
+                                var elt = document.getElementById('tablax');
+                                var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+                                return dl ?
+                                    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                                    XLSX.writeFile(wb, fn || ('Emisiones de la compañia.' + (type || 'xlsx')));
+                            }
+                        </script>
 </body>
 <footer class="bg-light text-center text-lg-start footer" style="margin-top: 2%;">
     <!-- Copyright -->
