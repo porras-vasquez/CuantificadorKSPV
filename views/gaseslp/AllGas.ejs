@@ -41,8 +41,8 @@
                 </script>
                 <% } %>
                     <% } %>
-                        <div class="card mt-5 mbContent"
-                            style="min-height: 66.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
+                        <div class="card mt-3"
+                            style="min-height: 70.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
                             <div id="menu-container" class="menu-container">
                                 <div id="menu" class="menu">
                                     <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
@@ -67,210 +67,216 @@
                             </div>
                             <div class="row table-responsive table-container"
                                 style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
-                                <div class="row">
-                                    <h3 class="h2">Módulo Gases lp: Mostrar</h3>
-                                    <div class="col-1"
-                                        style="height: 10%; width: 10%;">
+                                <div class="row" style="margin-left: 1.5%;">
+                                    <div class="col-3">
+                                        <h3 class="h2">Módulo Gases lp: Mostrar</h3>
+                                    </div>
+                                    <div class="col-2 btn" style="height: 10%; width: 9%;">
                                         <button onclick="ExportToExcel('xlsx')" type="button" class="btn"> <img
-                                                style="border-radius: 15%; height: 50%; width: 50%; background: rgb(6,136,121);"
+                                                style="border-radius: 15%; height: 60%; width: 60%; background: rgb(6,136,121);"
                                                 src="/images/xlsexport.png" alt="Card image cap"></button>
                                     </div>
                                 </div>
                             </div>
-                            <table id="tablax" class="table-bordered" style="background-color: white;">
-                                <thead style="background-color: rgba(26,145,125,255);">
-                                    <tr class="text-center">
-                                        <th scope="col text-whitex"> Unidad/Medida</th>
-                                        <th scope="col text-whitex"> Uso</th>
-                                        <th scope="col text-whitex"> Observación</th>
-                                        <th scope="col text-whitex"> Densidad</th>
-                                        <th scope="col text-whitex"> Enero</th>
-                                        <th scope="col text-whitex"> Febrero</th>
-                                        <th scope="col text-whitex"> Marzo</th>
-                                        <th scope="col text-whitex"> Abril</th>
-                                        <th scope="col text-whitex"> Mayo</th>
-                                        <th scope="col text-whitex"> Junio</th>
-                                        <th scope="col text-whitex"> Julio</th>
-                                        <th scope="col text-whitex"> Agosto</th>
-                                        <th scope="col text-whitex"> Septiembre</th>
-                                        <th scope="col text-whitex"> Octubre</th>
-                                        <th scope="col text-whitex"> Noviembre</th>
-                                        <th scope="col text-whitex"> Diciembre</th>
-                                        <th scope="col text-whitex"> Total</th>
-                                        <th scope="col text-whitex">Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <script>
-                                        $("#capa").hover(function () {
-                                            $("#mensaje").show();
-                                        }, function () {
-                                            $("#mensaje").hide();
-                                        });
-                                    </script>
-                                    <% gases.forEach((gaslp)=>{ %>
-                                        <tr class="text-center tr">
-                                            <td>
-                                                <div style="padding-left: 1%;">
-                                                    <%=gaslp.unidad%>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <%=gaslp.uso%>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div">
-                                                    <%=gaslp.observacion%>
-                        </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.densidad%>
+                            <div class="table_wrapper mb-4" style="margin-left: 2.5%;">
+                                <table id="tablax" class="table-bordered" style="background-color: white;">
+                                    <thead style="background-color: rgba(26,145,125,255);">
+                                        <tr class="text-center">
+                                            <th scope="col text-whitex"> Unidad/Medida</th>
+                                            <th scope="col text-whitex"> Uso</th>
+                                            <th scope="col text-whitex"> Observación</th>
+                                            <th scope="col text-whitex"> Densidad</th>
+                                            <th scope="col text-whitex"> Enero</th>
+                                            <th scope="col text-whitex"> Febrero</th>
+                                            <th scope="col text-whitex"> Marzo</th>
+                                            <th scope="col text-whitex"> Abril</th>
+                                            <th scope="col text-whitex"> Mayo</th>
+                                            <th scope="col text-whitex"> Junio</th>
+                                            <th scope="col text-whitex"> Julio</th>
+                                            <th scope="col text-whitex"> Agosto</th>
+                                            <th scope="col text-whitex"> Septiembre</th>
+                                            <th scope="col text-whitex"> Octubre</th>
+                                            <th scope="col text-whitex"> Noviembre</th>
+                                            <th scope="col text-whitex"> Diciembre</th>
+                                            <th scope="col text-whitex"> Total</th>
+                                            <th scope="col text-whitex">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <script>
+                                            $("#capa").hover(function () {
+                                                $("#mensaje").show();
+                                            }, function () {
+                                                $("#mensaje").hide();
+                                            });
+                                        </script>
+                                        <% gases.forEach((gaslp)=>{ %>
+                                            <tr class="text-center tr">
+                                                <td>
+                                                    <div style="padding-left: 1%;">
+                                                        <%=gaslp.unidad%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <%=gaslp.uso%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div">
+                                                        <%=gaslp.observacion%>
                             </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.enero%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.febrero%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.marzo%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.abril%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.mayo%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.junio%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.julio%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.agosto%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.septiembre%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.octubre%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.noviembre%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.diciembre%>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <%=gaslp.emision%>
-                            </div>
-                        </td>
-                        <td>
-                            <div id="contenedor">
-                                <div id="boton">
-                                    <button type="link" class="btn btn-success btn-sm"
-                                        onclick="window.location.  href='/gaseslp/editGases/<%=gaslp._id%>'"><i
-                                            class="material-icons">menu</i></button>
-                                    <form action="/gaseslp/deleteGases/<%=gaslp._id%>/<%=gaslp.company%>" method="post">
-                                        <button type="danger" onclick="removeMessage()" class="btn btn-danger btn-sm"><i
-                                                class="material-icons">delete</i></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                        </tr>
-                        <% }) %>
-                            <td class="text-center">Total</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="text-center">
-                                <%=enero%>
-                            </td>
-                            <td class="text-center">
-                                <%=febrero%>
-                            </td>
-                            <td class="text-center">
-                                <%=marzo%>
-                            </td>
-                            <td class="text-center">
-                                <%=abril%>
-                            </td>
-                            <td class="text-center">
-                                <%=mayo%>
-                            </td>
-                            <td class="text-center">
-                                <%=junio%>
-                            </td>
-                            <td class="text-center">
-                                <%=julio%>
-                            </td>
-                            <td class="text-center">
-                                <%=agosto%>
-                            </td>
-                            <td class="text-center">
-                                <%=septiembre%>
-                            </td>
-                            <td class="text-center">
-                                <%=octubre%>
-                            </td>
-                            <td class="text-center">
-                                <%=noviembre%>
-                            </td>
-                            <td class="text-center">
-                                <%=diciembre%>
                             </td>
                             <td>
-                                <div class="text-center">
-                                    <%=sumatoria%>
+                                <div>
+                                    <%=gaslp.densidad%>
                                 </div>
                             </td>
-                            </tbody>
-                            </table>
-                            </div>
-                            </div>
-                            </div>
-                            <script>
-                                function ExportToExcel(type, fn, dl) {
-                                    var elt = document.getElementById('tablax');
-                                    var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
-                                    return dl ?
-                                        XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
-                                        XLSX.writeFile(wb, fn || ('Emisiones de la compañia.' + (type || 'xlsx')));
-                                }
-                            </script>
+                            <td>
+                                <div>
+                                    <%=gaslp.enero%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.febrero%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.marzo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.abril%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.mayo%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.junio%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.julio%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.agosto%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.septiembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.octubre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.noviembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.diciembre%>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <%=gaslp.emision%>
+                                </div>
+                            </td>
+                            <td>
+                                <div id="contenedor">
+                                    <div id="boton">
+                                        <button type="link" class="btn btn-success btn-sm"
+                                            onclick="window.location.  href='/gaseslp/editGases/<%=gaslp._id%>'"><i
+                                                class="material-icons">menu</i></button>
+                                        <form action="/gaseslp/deleteGases/<%=gaslp._id%>/<%=gaslp.company%>"
+                                            method="post">
+                                            <button type="danger" onclick="removeMessage()"
+                                                class="btn btn-danger btn-sm"><i
+                                                    class="material-icons">delete</i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <% }) %>
+                                <td class="text-center">Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center">
+                                    <%=enero%>
+                                </td>
+                                <td class="text-center">
+                                    <%=febrero%>
+                                </td>
+                                <td class="text-center">
+                                    <%=marzo%>
+                                </td>
+                                <td class="text-center">
+                                    <%=abril%>
+                                </td>
+                                <td class="text-center">
+                                    <%=mayo%>
+                                </td>
+                                <td class="text-center">
+                                    <%=junio%>
+                                </td>
+                                <td class="text-center">
+                                    <%=julio%>
+                                </td>
+                                <td class="text-center">
+                                    <%=agosto%>
+                                </td>
+                                <td class="text-center">
+                                    <%=septiembre%>
+                                </td>
+                                <td class="text-center">
+                                    <%=octubre%>
+                                </td>
+                                <td class="text-center">
+                                    <%=noviembre%>
+                                </td>
+                                <td class="text-center">
+                                    <%=diciembre%>
+                                </td>
+                                <td>
+                                    <div class="text-center">
+                                        <%=sumatoria%>
+                                    </div>
+                                </td>
+                                </tbody>
+                                </table>
+                        </div>
+
+                        </div>
+                        </div>
+                        </div>
+                        <script>
+                            function ExportToExcel(type, fn, dl) {
+                                var elt = document.getElementById('tablax');
+                                var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+                                return dl ?
+                                    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                                    XLSX.writeFile(wb, fn || ('Emisiones de la compañia.' + (type || 'xlsx')));
+                            }
+                        </script>
 </body>
-<footer class="bg-light text-center text-lg-start body mt-4 footer" style="margin-top: 4.5% !important;">
+<footer class="bg-light text-center text-lg-start body mt-1 footer" style="margin-top: 4.5% !important;">
     <!-- Copyright -->
     <div class="text-center p-4">
         © 2022 Copyright: Porras & Vásquez
