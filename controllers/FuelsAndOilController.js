@@ -75,11 +75,6 @@ FuelsAndOilController.save = async function (req, res) {
                         validar = true;
                     }
                 }
-                /*for (let x of e) {
-                    if(x.fuente_generador == fuels.combustible && fuels.combustible == "Aceite 2t-4t"){
-                        validar = true;
-                    }
-                }*/
                 let ton = parseFloat(fuels.factor)/1000;
                 let cant = parseFloat(fuels.emision);
                 cant = cant.toFixed(5);
@@ -99,12 +94,18 @@ FuelsAndOilController.save = async function (req, res) {
                 if(fuels.gei=="CO2"){
                     co2 = cant * ton * pcg;
                     co2 = parseFloat(co2).toFixed(5);
+                    ch4 = 0;
+                    n2o = 0;
                 }else if(fuels.gei=="CH4"){
                     ch4 = cant * ton * pcg;
                     ch4 = parseFloat(ch4).toFixed(5);
+                    co2 = 0;
+                    n2o = 0;
                 }else{
                     n2o = cant * ton * pcg;
                     n2o = parseFloat(n2o).toFixed(5);
+                    co2 = 0;
+                    ch4 = 0;
                 }
                 
                 let cant2 = n2o + ch4 + co2;
@@ -142,7 +143,7 @@ FuelsAndOilController.save = async function (req, res) {
                         fuente_generador: fuente,
                         cantidad: cant,
                         unidad: "Litro",
-                        kilogram: fuels.factor,
+                        kilogram: parseFloat(fuels.factor),
                         ton: ton,
                         gei: fuels.gei,
                         pcg: pcg,
@@ -252,7 +253,6 @@ FuelsAndOilController.update = function (req, res) {
         req.params.id,
         {
             $set: {
-                combustible: req.body.combustible,
                 enero: req.body.enero,
                 febrero: req.body.febrero,
                 marzo: req.body.marzo,
@@ -303,38 +303,54 @@ FuelsAndOilController.update = function (req, res) {
             } else {
                 FuelsAndOil.findOne({ _id: req.params.id }).exec(function (err, fuel) {
                     Company.findOne({ _id: fuel.company })
-                    .populate("fuelsAndOil")
+                    .populate("emission")
                     .exec(function(err, company) {
-                        let tot = 0;
-                        for (let x of company.fuelsAndOil) {
-                            tot = tot + parseFloat(x.emision);
+                        let tot = 0, co2 = 0, ch4 = 0, n2o = 0, t = 0;
+                        let emi = null, emi2 = null;
+                        let id;
+                        for (let x of company.emission) {
+                            if(emi2==null && fuel.combustible == x.fuente_generador && fuel.combustible == "Aceite 2t-4t"){
+                                emi = x;
+                                id = emi._id;
+                            }else if(emi==null && fuel.combustible == x.fuente_generador && x._id == fuel._id){
+                                emi2 = x;
+                                id = emi2._id
+                            }
                         }
-                        let ton = fuel.factor/1000;
-                        let cant = parseFloat(fuel.emision) + tot;
+                        let ton = parseFloat(fuel.factor)/1000;
+                        let cant = tot;
                         cant = parseFloat(cant).toFixed(5);
                         let gei = fuel.gei;
-                        let pcg = fuel.pcg;
-                        let co2 = 0;
-                        let ch4 = 0;
-                        let n2o = 0;
-                        let kg = fuel.factor;
+                        let pcg = parseFloat(fuel.pcg);
+                        let kg = parseFloat(fuel.factor);
                         let fuente = fuel.combustible;
-                        let t = 0;
 
                         if(fuel.gei=="CO2"){
                             co2 = cant * ton * pcg;
                             co2 = parseFloat(co2).toFixed(5);
                             t = co2;
+                            ch4 = 0;
+                            n2o = 0;
                         }else if(fuel.gei=="CH4"){
                             ch4 = cant * ton * pcg;
                             ch4 = parseFloat(ch4).toFixed(5);
                             t = ch4;
+                            n2o = 0;
+                            co2 = 0;
                         }else{
                             n2o = cant * ton * pcg;
                             n2o = parseFloat(n2o).toFixed(5);
                             t = n2o;
+                            ch4 = 0;
+                            co2 = 0;
                         }
-                        Emission.updateOne({ fuelsAndOil: req.params.id }, {
+                        
+                        if(emi!=null){
+
+                        }else if(emi2!=null){
+
+                        }
+                        Emission.updateOne({ _id: id }, {
                             $set: {
                                 cantidad: cant,
                                 co2: co2,
@@ -382,104 +398,109 @@ FuelsAndOilController.update = function (req, res) {
 };
 
 FuelsAndOilController.delete = function (req, res) {
-    Emission.findOne({ fuelsAndOil: req.params.id }).exec(function (err, e) {
-        FuelsAndOil.findOne({ _id: req.params.id }).exec(function(err, fuels) {
-            Company.findOne({ _id: req.params.comp })
-            .exec(function (error, company) {
-                let cant = 0, restar = 0, total = 0, restar2 = 0, total2 = 0, cant2 = 0;
-                for(let x of company.emission){
-                    if(fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t-4t"){
-                        cant = parseFloat(x.cantidad);
-                        cant2 = parseFloat(x.totalCo2);
-                    }
+    FuelsAndOil.findOne({ _id: req.params.id }).exec(function(err, fuels) {
+        console.log(fuels);
+        Company.findOne({ _id: req.params.comp })
+        .populate("emission")
+        .exec(function (error, company) {
+            let cant = 0, restar = 0, total = 0, restar2 = 0, total2 = 0, cant2 = 0, co2 = 0, ch4 = 0, n2o = 0;
+            let emi = null;
+            let emi2 = null;
+            for(let x of company.emission){
+                console.log(x);
+                if(emi2==null && fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t-4t"){
+                    cant = parseFloat(x.cantidad);
+                    cant2 = parseFloat(x.totalCo2);
+                    emi = x;
+                }else if(emi==null && fuels.combustible == x.fuente_generador && x._id == fuels._id){
+                    emi2 = x;
                 }
-                if(fuels.combustible == "Aceite 2t-4t"){
-                    sum(company);
-                    restar = parseFloat(sumatoria);
-                    if(fuels.gei=="CO2"){
-                        restar2 = parseFloat(fuels.emision) * parseFloat(fuels.pcg) * parseFloat(fuels.ton);
-                    }else if(fuels.gei=="CH4"){
-                        restar2 = parseFloat(fuels.emision) * parseFloat(fuels.pcg) * parseFloat(fuels.ton);
-                    }else{
-                        restar2 = parseFloat(fuels.emision) * parseFloat(fuels.pcg) * parseFloat(fuels.ton);
-                    }
-                }else{
-                    Company.updateOne({ _id: req.params.comp }, {
-                        $pull: { 
-                            emission: e._id
-                        }
-                    }).exec(function (err, e) { 
-                        Emission.deleteOne({ fuelsAndOil: req.params.id }).exec(function (err, emission) {}); 
-                    });
-                }
+            }
+            console.log("EMI ---- "+emi);
+            console.log("EMI2 ---- "+emi2);
+            if(emi!=null){
+                restar2 = parseFloat(fuels.emision) * parseFloat(fuels.pcg) * (parseFloat(fuels.factor)/1000);
+                restar = parseFloat(fuels.emision);
                 restar = parseFloat(restar).toFixed(5);
-                restar2 = parseFloat(restar2).toFixed(5);
-                total = cant - restar;
-                total2 = cant2 - restar2;
+                //restar2 = parseFloat(restar2).toFixed(5);
+                if(restar <= cant){
+                    total = cant - restar;
+                }else{
+                    total = restar - cant;
+                }
+
+                if(restar2 <= cant2){
+                    total2 = cant2 - restar2;
+                }else{
+                    total2 = restar2 - cant2;
+                }
                 total = parseFloat(total).toFixed(5);
                 total2 = parseFloat(total2).toFixed(5);
+                console.log("CANT2  "+cant2);
+                console.log("RESTAR2  "+restar2);
+                console.log("TOTAL2  "+total2);
+                console.log();
                 if(total == 0 && total2 == 0){
                     Company.updateOne({ _id: req.params.comp }, {
                         $pull: { 
-                            emission: e._id
+                            emission: emi._id
                         }
                     }).exec(function (err, e) { 
-                        Emission.deleteOne({ fuelsAndOil: req.params.id }).exec(function (err, emission) {}); 
+                        Emission.deleteOne({ _id: emi._id }).exec(function (err, emission) {
+                            console.log("ENTONCES TOTAL ES 0  "+emission);
+                        }); 
                     });
                 }else{
-                    if(e==null){
-                        Emission.updateOne({ fuente_generador: fuels.combustible }, {
-                            $set: {
-                                cantidad: total,
-                                totalCo2: total2,
-                                totalFuente: total2
-                            },
-                        }).exec(function (err, ems) {
-                            console.log(ems);
-                        });
-                    }else{
-                        Emission.updateOne({ _id: e._id }, {
-                            $set: {
-                                cantidad: total,
-                                totalCo2: total2,
-                                totalFuente: total2
-                            },
-                        }).exec(function (err, ems) {
-                            console.log(ems);
-                        });
-                    }
+                    Emission.updateOne({ _id: emi._id }, {
+                        $set: {
+                            cantidad: total,
+                            totalCo2: total2,
+                            totalFuente: total2
+                        },
+                    }).exec(function (err, ems) {
+                        console.log("TOTAL NO ES 0  "+ems);
+                    });
                 }
-            });
-        });
-    });
-    Company.updateOne({ "_id": req.params.comp }, {
-        $pull: { "fuelsAndOil": req.params.id }
-    }).exec(function (err, fuelsAndOil) {
-        FuelsAndOil.deleteOne({ _id: req.params.id }, function (err) {
-            Company.findOne({ _id: req.params.comp })
-            .populate("fuelsAndOil")
-            .exec(function (error, company) {
-                sum(company);
-                verifyStatus(res.statusCode);
-                res.render("../views/fuelsAndOil/AllFuelsAndOil", {
-                    company: company,
-                    comp: company.nombre,
-                    message: message,
-                    fuelsAndOils: company.fuelsAndOil,
-                    sumatoria: sumatoria,
-                    enero: enero,
-                    febrero: febrero,
-                    marzo: marzo,
-                    abril: abril,
-                    mayo: mayo,
-                    junio: junio,
-                    julio: julio,
-                    agosto: agosto,
-                    septiembre: septiembre,
-                    octubre: octubre,
-                    noviembre: noviembre,
-                    diciembre: diciembre,
-                    status: status
+            }else if(emi2!=null){
+                Company.updateOne({ _id: req.params.comp }, {
+                    $pull: { 
+                        emission: emi2._id
+                    }
+                }).exec(function (err, e) { 
+                    Emission.deleteOne({ _id: emi2._id }).exec(function (err, emission) {
+                    }); 
+                });
+            }
+            Company.updateOne({ "_id": req.params.comp }, {
+                $pull: { "fuelsAndOil": req.params.id }
+            }).exec(function (err, fuelsAndOil) {
+                FuelsAndOil.deleteOne({ _id: req.params.id }, function (err) {
+                    Company.findOne({ _id: req.params.comp })
+                    .populate("fuelsAndOil")
+                    .exec(function (error, company) {
+                        sum(company);
+                        verifyStatus(res.statusCode);
+                        res.render("../views/fuelsAndOil/AllFuelsAndOil", {
+                            company: company,
+                            comp: company.nombre,
+                            message: message,
+                            fuelsAndOils: company.fuelsAndOil,
+                            sumatoria: sumatoria,
+                            enero: enero,
+                            febrero: febrero,
+                            marzo: marzo,
+                            abril: abril,
+                            mayo: mayo,
+                            junio: junio,
+                            julio: julio,
+                            agosto: agosto,
+                            septiembre: septiembre,
+                            octubre: octubre,
+                            noviembre: noviembre,
+                            diciembre: diciembre,
+                            status: status
+                        });
+                    });
                 });
             });
         });
