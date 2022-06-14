@@ -313,6 +313,7 @@ function calc(req) {
 airConditioningController.save = async function(req, res) {
     calc(req);
     verifyStatus(res.statusCode);
+    console.log(req.body);
     let airConditioning = new AirConditioning(req.body);
     let comp = await Company.findById(req.params.id);
     airConditioning.company = comp;
@@ -320,14 +321,15 @@ airConditioningController.save = async function(req, res) {
     await airConditioning.save(function(err, airConditionings) {
         verifyStatus(res.statusCode);
         console.log("0");
+        console.log(airConditionings);
         if (err) {
             res.render('../views/airConditioning/NewAirConditioning', { status: status, message: message, company: airConditionings.company._id });
         } else {
             AirConditioning.findOne({ _id: airConditionings._id }).exec(function(err, airConditioning) {
                 let c = 0, c2 = 0;
-                let ton = airConditionings.factor_emision/1000;
+                let ton = parseFloat(airConditionings.factor_emision)/1000;
                 let cant = 0, cant2 = 0;
-                let pcg = airConditionings.pcg;
+                let pcg = parseFloat(airConditionings.pcg);
                 
                 if(airConditionings.tipoRefrigerante=="410-A"){
                     c = parseFloat(airConditionings.totalR410a);
@@ -360,8 +362,10 @@ airConditioningController.save = async function(req, res) {
                     c = parseFloat(airConditionings.totalR507);
                     c2 = parseFloat(airConditionings.totalR507Co2);
                 }else if(airConditionings.tipoRefrigerante=="R508B"){
-                    c = parseFloat(airConditionings.totalR508B);
+                    c = parseFloat(airConditionings.total508B);
                     c2 = parseFloat(airConditionings.totalR508BCo2);
+                    console.log(c);
+                    console.log(c2);
                 }
                 let totalR410a = 0, totalCo2 = 0, totalR22 = 0, totalHFC134a = 0,  totalHFC152a = 0, totalR402a = 0,
                 totalR402b = 0, totalR404a = 0, totalR404B = 0, totalR407c = 0, totalR507 = 0, totalR508B = 0;
@@ -463,7 +467,7 @@ airConditioningController.save = async function(req, res) {
                                         cant2 = totalCo2;
                                         cant = totalR507;
                                     }else if(validarR508B==true){//R508B
-                                        totalR508B = parseFloat(totalR508B) + parseFloat(x.totalR508B);
+                                        totalR508B = parseFloat(totalR508B) + parseFloat(x.total508B);
                                         totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR508BCo2);
                                         cant2 = totalCo2;
                                         cant = totalR508B;
@@ -472,8 +476,6 @@ airConditioningController.save = async function(req, res) {
                                 console.log("2");
                                 cant = parseFloat(cant).toFixed(5);
                                 cant2 = parseFloat(cant2).toFixed(5);
-                                console.log("CANT "+cant);
-                                console.log("CANT2 "+cant2);
                                 console.log(airConditionings.tipoRefrigerante);
                                 Emission.updateOne({ unidad: airConditionings.tipoRefrigerante}, {
                                     $set: {
@@ -720,10 +722,10 @@ airConditioningController.update = function(req, res) {
                     });
             } else {
                 AirConditioning.findOne({ _id: req.params.id }).exec(function (err, airConditionings) {
-                    let ton = airConditionings.factor_emision/1000;
-                    let kg = airConditionings.factor_emision;
+                    let ton = parseFloat(airConditionings.factor_emision)/1000;
+                    let kg = parseFloat(airConditionings.factor_emision);
                     let cant = 0, cant2 = 0;
-                    let pcg = airConditionings.pcg;
+                    let pcg = parseFloat(airConditionings.pcg);
                     let gei = airConditionings.gei;
                     
                     let totalR410a = 0, totalCo2 = 0, totalR22 = 0, totalHFC134a = 0,  totalHFC152a = 0, totalR402a = 0,
@@ -822,7 +824,7 @@ airConditioningController.update = function(req, res) {
                                             cant2 = totalCo2;
                                             cant = totalR507;
                                         }else if(validarR508B==true){//R508B
-                                            totalR508B = parseFloat(totalR508B) + parseFloat(x.totalR508B);
+                                            totalR508B = parseFloat(totalR508B) + parseFloat(x.total508B);
                                             totalCo2 = parseFloat(totalCo2) + parseFloat(x.totalR508BCo2);
                                             cant2 = totalCo2;
                                             cant = totalR508B;
@@ -972,7 +974,7 @@ airConditioningController.delete = function (req, res) {
                         restar = parseFloat(airConditionings.totalR507);
                         restar2 = parseFloat(airConditionings.totalR507Co2);
                     }else if(airConditionings.tipoRefrigerante=="R508B"){
-                        restar = parseFloat(airConditionings.totalR508B);
+                        restar = parseFloat(airConditionings.total508B);
                         restar2 = parseFloat(airConditionings.totalR508BCo2);
                     }
                     restar = parseFloat(restar).toFixed(5);
