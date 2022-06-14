@@ -284,7 +284,11 @@ a:hover{
     overflow-y: scroll;
     min-height: 85% !important;
 }
-
+.mbContent{
+    height: 60.5% !important;
+   
+    min-height: 82% !important;
+}
 
 .mb-2x::-webkit-scrollbar {
     display: none;
