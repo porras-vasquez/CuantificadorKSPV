@@ -4,7 +4,11 @@
     <!--ZONA DEL NAVBAR-->
     <%- include('../navbar'); -%>
 </header>
-
+<script>
+    function removeMessage() {
+        localStorage.removeItem("message");
+    }
+</script>
 <body class="row">
 
 
@@ -96,7 +100,7 @@
                     </p>
                 </div>
                 <div class="btnContainer mb-2">
-                    <input type="submit" class="btn btn-success" value="Actualizar">
+                    <input onclick="removeMessage()" type="submit" class="btn btn-success" value="Actualizar">
                     <button type="button" class="btn btn-danger">
                         <a href='/companies/showCompany'>Cancelar</a>
                     </button>

@@ -1055,6 +1055,8 @@ airConditioningController.delete = function (req, res) {
                                 }
                                 res.render("../views/airConditioning/AllAirConditioning", {
                                     company: company,
+                                    status: status,
+                                    message: message,
                                     airConditionings: company.airConditioning,
                                     totalR22: totalR22,
                                     totalCO2: totalCO2,
@@ -1117,6 +1119,8 @@ airConditioningController.delete = function (req, res) {
                                 }
                                 res.render("../views/airConditioning/AllAirConditioning", {
                                     company: company,
+                                    status:status,
+                                    message: message,
                                     airConditionings: company.airConditioning,
                                     totalR22: totalR22,
                                     totalCO2: totalCO2,

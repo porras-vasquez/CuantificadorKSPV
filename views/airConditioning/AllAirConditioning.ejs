@@ -5,10 +5,14 @@
     <%- include('../navbar'); -%>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 </header>
-
+<script>
+    function removeMessage() {
+        localStorage.removeItem("message");
+    }
+</script>
 <body style="height: 100vh !important;">
     <% if(typeof(status) !="undefined" ) { %>
-        <% if(status==200 ) { %>
+        <% if(status==200) { %>
             <script>
                 if (!localStorage.getItem("message")) {
                     Swal.fire({
@@ -16,12 +20,12 @@
                         icon: 'success',
                         title: '<%-message%>',
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 1500
                     });
                     localStorage.setItem("message", 1);
-                }
+                }  
             </script>
-            <% }else if(status!=200 ){ %>
+            <% }else if(status!=200){ %>
                 <script>
                     if (!localStorage.getItem("message")) {
                         Swal.fire({
@@ -29,10 +33,10 @@
                             icon: 'error',
                             title: '<%-message%>',
                             showConfirmButton: false,
-                            timer: 2000
+                            timer: 1500
                         });
                         localStorage.setItem("message", 1);
-                    }                                
+                    }  
                 </script>
                 <% } %>
                     <% } %>
