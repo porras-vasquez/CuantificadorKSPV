@@ -10,9 +10,9 @@
     }
 </script>
 
-<body class="row">
-    <div class="card mt-2 " style=" scrollbar-width: none !important; 
-            margin-left: 2%; margin-right: 2%;">
+<body style="height: 100vh !important">
+    <div class="card mt-4 " style="min-height: 66.5% !important; scrollbar-width: none !important; 
+            margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
         <div id="menu-container" class="menu-container">
             <div id="menu" class="menu">
                 <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
@@ -59,153 +59,143 @@
                     </script>
                     <% } %>
                         <% } %>
-                            <div class="row table-container"
-                                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important; background-color: #e6e6e6;;">
-                                <form action="/electricities/updateMeter/<%=electricity._id%>/<%=meter._id%>" 
-                                    method="post" class="row" style="display: flex;">
-                                    <div class="col-12">
-                                        <h2 class="h2" style="margin-bottom: 1%;">Módulo Electricidad: Editar medidor
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <p class="p" type="Número de medidor:">
-                                                <input class="input" type="text" name="numero" class="form-control"
-                                                    value="<%=meter.numero%>" required />
-                                            </p>
-                                            <p class="p" type="NISE:">
-                                                <input class="input" type="text" name="nise" class="form-control"
-                                                    value="<%=meter.nise%>" required />
-                                            </p>
-                                            <p class="p" type="Ubicación:">
-                                                <input class="input" type="text" name="ubicacion" class="form-control"
-                                                    value="<%=meter.ubicacion%>" required />
-                                            </p>
-                                        </div>
-                                        <div class="col-5 row">
-                                            <h3 class="letterTittleMounth mt-1">
-                                                Consumo de electricidad por mes
-                                            </h3>
-                                            <div class="col-3">
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1"
-                                                        class="form-label text p2">ENE</label>
-                                                    <input value="<%=meter.enero%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="enero" class="textarea form-control" required="true" />
-                                                </div>
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">FEB</label>
-                                                    <input value="<%=meter.febrero%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="febrero" class="textarea form-control" required="true" />
-                                                </div>
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">MAR</label>
-                                                    <input value="<%=meter.marzo%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="marzo" class="textarea form-control" required="true" />
-                                                </div>
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">ABR</label>
-                                                    <input value="<%=meter.abril%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="abril" class="textarea form-control" required="true" />
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">MAY</label>
-                                                    <input value="<%=meter.mayo%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="mayo" class="textarea form-control" required="true" />
-                                                </div>
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">JUN</label>
-                                                    <input value="<%=meter.junio%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="junio" class="textarea form-control" required="true" />
-                                                </div>
-                                                <div class="mb-1 text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">JUL</label>
-                                                    <input value="<%=meter.julio%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="julio" class="textarea form-control" required="true" />
-                                                </div>
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">AGO</label>
-                                                    <input value="<%=meter.agosto%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="agosto" class="textarea form-control" required="true" />
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">SET</label>
-                                                    <input value="<%=meter.septiembre%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="septiembre" class="textarea form-control"
-                                                        required="true" />
-                                                </div>
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">OCT</label>
-                                                    <input value="<%=meter.octubre%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="octubre" class="textarea form-control" required />
-                                                </div>
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">NOV</label>
-                                                    <input value="<%=meter.noviembre%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="noviembre" class="textarea form-control"
-                                                        required="true" />
-                                                </div>
-                                                <div class="text-center">
-                                                    <label for="exampleInputEmail1" class="form-label p2">DIC</label>
-                                                    <input value="<%=meter.diciembre%>" type="text"
-                                                        pattern="^[0-9]+\.?[0-9]*$"
-                                                        oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
-                                                        oninput="this.setCustomValidity('')" autocomplete="off"
-                                                        name="diciembre" class="textarea form-control"
-                                                        required="true" />
-                                                </div>
-                                            </div>
+                            <div class="row text-dark table-container"
+                                style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+                                <h2 class="h2" style="margin-left: 3%;">Módulo medidor: Mostrar</h2>
+                                <form action="/electricities/updateMeter/<%=electricity._id%>/<%=meter._id%>"
+                                    method="post" class="row" style="margin-left: 2%;">
+                                    <div class="col-3">
+                                        <p class="p" type="Número de medidor:">
+                                            <input class="form-control input p2" type="text" name="numero"
+                                                value="<%=meter.numero%>" required />
+                                        </p>
+                                        <p class="p" type="NISE:">
+                                            <input class="form-control input p2" type="text" name="nise"
+                                                value="<%=meter.nise%>" required />
+                                        </p>
+                                        <p class="p">
+                                            <input class="form-control input p2" type="text" name="ubicacion"
+                                                value="<%=meter.ubicacion%>" required />
+                                        </p>
+                                        <div class="mb-2">
+                                            <button class="btn btn-success" onclick="removeMessage()"
+                                                type="submit">Actualizar</button>
+                                            <button type="button" class="btn btn-danger">
+                                                <a href="/electricities/meters/<%=electricity._id%>"
+                                                    type="button">Cancelar</a>
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="btnContainer mb-4">
-                                        <input type="submit" onclick="removeMessage()" name="ElectricityController"
-                                            class="btn btn-success" value="Guardar">
-                                        <button type="button" class="btn btn-danger">
-                                            <a href="/electricities/meters/<%=electricity._id%>"
-                                                type="button">Cancelar</a>
-                                        </button>
+                                    <div class=" col-6 row text-dark" style=" margin-left: 2%;">
+                                        <h3 class="mt-2 letterTittleMounth">
+                                            Consumo de electricidad por mes
+                                        </h3>
+                                        <div class="col-2">
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label text">ENE</label>
+                                                <input value="<%=meter.enero%>" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off" name="enero"
+                                                    class="textarea form-control input p2" required="true" />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">FEB</label>
+                                                <input value="<%=meter.febrero%>" type="text"
+                                                    pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off"
+                                                    name="febrero" class="textarea form-control input p2"
+                                                    required="true" />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">MAR</label>
+                                                <input value="<%=meter.marzo%>" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off" name="marzo"
+                                                    class="textarea form-control input p2" required="true" />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">ABR</label>
+                                                <input value="<%=meter.abril%>" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off" name="abril"
+                                                    class="textarea form-control input p2" required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">MAY</label>
+                                                <input value="<%=meter.mayo%>" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off" name="mayo"
+                                                    class="textarea form-control input p2" required="true" />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">JUN</label>
+                                                <input value="<%=meter.junio%>" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off" name="junio"
+                                                    class="textarea form-control input p2" required="true" />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">JUL</label>
+                                                <input value="<%=meter.julio%>" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off" name="julio"
+                                                    class="textarea form-control input p2" required="true" />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">AGO</label>
+                                                <input value="<%=meter.agosto%>" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off"
+                                                    name="agosto" class="textarea form-control input p2"
+                                                    required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">SET</label>
+                                                <input value="<%=meter.septiembre%>" type="text"
+                                                    pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off"
+                                                    name="septiembre" class="textarea form-control input p2"
+                                                    required="true" />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">OCT</label>
+                                                <input value="<%=meter.octubre%>" type="text"
+                                                    pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off"
+                                                    name="octubre" class="textarea form-control input p2" required />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">NOV</label>
+                                                <input value="<%=meter.noviembre%>" type="text"
+                                                    pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off"
+                                                    name="noviembre" class="textarea form-control input p2"
+                                                    required="true" />
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <label for="exampleInputEmail1" class="form-label">DIC</label>
+                                                <input value="<%=meter.diciembre%>" type="text"
+                                                    pattern="^[0-9]+\.?[0-9]*$"
+                                                    oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
+                                                    oninput="this.setCustomValidity('')" autocomplete="off"
+                                                    name="diciembre" class="textarea form-control input p2"
+                                                    required="true" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
     </div>
 </body>
-<footer class="bg-light text-center text-lg-start footer" style="margin-top: 3%;">
+<footer class="bg-light text-center text-lg-start footer mt-5" style="margin-top: 5%;">
     <!-- Copyright -->
     <div class="text-center p-4">
         © 2022 Copyright: Porras & Vásquez
