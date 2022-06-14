@@ -7,29 +7,40 @@ let airConditioningController = {};
 
 let status = 0;
 let message = "";
-
+/**
+ * @param {string} statusCode Codigo de estado devuelto por una funcion al ser ejecutada, se toma para lanzar un mensaje
+ * Status: 200 ¡Realizado exitosamente!
+ * Status: 400 ¡Error, solicitud incorrecta!
+ * Status: 401 ¡Error, usuario no autenticado!
+ * Status: 404 ¡Ocurrió un problema con la ruta de acceso!
+ * Status: 500 ¡Lo sentimos, ocurrió un problema con el servidor!
+ * Status: 503 ¡Lo sentimos, el servidor se encuentra en mantenimiento!
+ */
 function verifyStatus(statusCode) {
-    if (statusCode == 200) {//Satisfactorio
+    if (statusCode == 200) {
         status = 200;
         message = "¡Realizado exitosamente!";
-    } else if (statusCode == 400) {//Solicitud incorrecta
+    } else if (statusCode == 400) {
         status = 400;
         message = "¡Error, solicitud incorrecta!";
-    } else if (statusCode == 401) {//No autenticado
+    } else if (statusCode == 401) {
         status = 401;
         message = "¡Error, usuario no autenticado!";
-    } else if (statusCode == 404) {//No encontrado
+    } else if (statusCode == 404) {
         status = 404;
         message = "¡Ocurrió un problema con la ruta de acceso!";
-    } else if (statusCode == 500) {//Error del servidor
+    } else if (statusCode == 500) {
         status = 500;
         message = "¡Lo sentimos, ocurrió un problema con el servidor!";
-    } else if (statusCode == 503) {//Mantenimiento
+    } else if (statusCode == 503) {
         status = 503;
         message = "¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
 }
-
+/**
+ * Recibe las variables y se realiza el cálculo respectivo a cada tipo de gas
+ * @param {JSON} req 
+ */
 function calc(req) {
 
     req.body.fugaTotal = ((parseFloat(req.body.capacidadConfinamiento) * parseFloat(req.body.tasaAnualFuga)) / 100);
@@ -292,8 +303,13 @@ function calc(req) {
     }
 };
  
-
-
+/**
+ * Recibe un JSON con los datos desde la vista y los guarda y a su vez llama la funcion que realiza los calculos
+ * @async
+ * @function save
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 airConditioningController.save = async function(req, res) {
     calc(req);
     verifyStatus(res.statusCode);
@@ -505,14 +521,24 @@ airConditioningController.save = async function(req, res) {
     });
 };
 
-
+/**
+ * Busca la compañía para obtener su id y poder relacionar los registros con su respectiva conpañía
+ * @function searchCompany
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 airConditioningController.searchCompany = function(req, res) {
     Company.findOne({ _id: req.params.id }).exec(function(err, company) {
         if (err) { console.log('Error: ', err); return; }
         res.render('../views/airConditioning/NewAirConditioning', { company: company._id });
     });
 };
-
+/**
+ * Lista todos los registros de aires acondicionados
+ * @function list
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 airConditioningController.list = function(req, res) {
     Company.findOne({ _id: req.params.id })
         .populate("airConditioning")
@@ -606,7 +632,12 @@ airConditioningController.list = function(req, res) {
             }
         });
 };
-
+/**
+ * Realiza una busqueda de un registro de aires acondicionados en base a su id
+ * @function search
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 airConditioningController.search = function(req, res) {
     AirConditioning.findOne({ _id: req.params.id }).exec(function(err, airConditioning) {
         if (err) {
@@ -623,7 +654,12 @@ airConditioningController.search = function(req, res) {
         }
     });
 };
-
+/**
+ * Actualiza un registro de aires acondicionados
+ * @function update
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 airConditioningController.update = function(req, res) {
     calc(req);
     console.log(req.body);
@@ -885,7 +921,12 @@ airConditioningController.update = function(req, res) {
         }
     );
 };
-
+/**
+ * Elimina un registro de aires acondicionados
+ * @function delete
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 airConditioningController.delete = function (req, res) {
     Emission.findOne({ unidad: req.params.typ }).exec(function (err, e) {
         //if(e!=null){

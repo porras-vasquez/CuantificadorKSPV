@@ -5,7 +5,15 @@ let userController = {};
 const passport = require('passport');
 let status = 0;
 let message = "";
-
+/**
+ * @param {string} statusCode Codigo de estado devuelto por una funcion al ser ejecutada, se toma para lanzar un mensaje
+ * Status: 200 ¡Realizado exitosamente!
+ * Status: 400 ¡Error, solicitud incorrecta!
+ * Status: 401 ¡Error, usuario no autenticado!
+ * Status: 404 ¡Ocurrió un problema con la ruta de acceso!
+ * Status: 500 ¡Lo sentimos, ocurrió un problema con el servidor!
+ * Status: 503 ¡Lo sentimos, el servidor se encuentra en mantenimiento!
+ */
 function verifyStatus(statusCode) {
     if (statusCode == 200) {
         status = 200;
@@ -27,7 +35,12 @@ function verifyStatus(statusCode) {
         message = "¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
 }
-
+/**
+ * Pemite guardar un registro de usuario a traves de un JSON y cifra la contraseña de usuario
+ * @function save
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 userController.save = async function (req, res) {
     let user = new User(req.body);
     user.password = await user.encryptPassword(req.body.password);
@@ -52,7 +65,12 @@ userController.save = async function (req, res) {
     });
 };
 
-
+/**
+ * Lista todos los registros de usuario
+ * @function list
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 userController.list = function (req, res) {
     User.find({}).exec(function (err, users) {
         if (err) {
@@ -62,7 +80,12 @@ userController.list = function (req, res) {
         }
     });
 };
-
+/**
+ * Recibe un parámetro desde la vista y busca en la base de datos un registro el cuál se utilizara para editar posteriormente
+ * @function search
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 userController.search = function (req, res) {
     User.findOne({ _id: req.params.id }).exec(function (err, user) {
         if (err) {      
@@ -74,7 +97,12 @@ userController.search = function (req, res) {
     });
 
 };
-
+/**
+ * Actualiza un registro de usuario mediante un JSON enviado por la vista
+ * @function update
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 userController.update = function (req, res) {
     User.findByIdAndUpdate(req.params.id, {
         $set: {
@@ -105,7 +133,12 @@ userController.update = function (req, res) {
             }
         });
 };
-
+/**
+ * Elimina un registro en base a su id
+ * @function delete
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 userController.delete = function (req, res) {
 
     User.remove({ _id: req.params.id }, function (err) {
@@ -134,11 +167,20 @@ userController.delete = function (req, res) {
     });
 
 };
+/**
+ * Verifica la autenticación de las crendenciales de usuario
+ */
 userController.login = passport.authenticate('local-signin', {
     successRedirect: '/',
     failureRedirect: '/users/principal',
     failureFlash: true
 });
+/**
+ * Elimina la sesión del usuario
+ * @function logout
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 userController.logout = (req, res) => {
     req.logout();
     res.redirect("/users/principal");

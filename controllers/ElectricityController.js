@@ -38,7 +38,10 @@ function verifyStatus(statusCode){
         message="¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
 }
-
+/**
+ * Recibe las variables y se realiza el cálculo respectivo
+ * @param {JSON} req 
+ */
 function calc(req) {
     req.body.total = (
         parseFloat(req.body.enero) + parseFloat(req.body.febrero) + parseFloat(req.body.marzo)
@@ -48,7 +51,10 @@ function calc(req) {
     );
     req.body.total = parseFloat(req.body.total).toFixed(5);
 };
-
+/**
+ * Recibe las variables y se realiza el cálculo respectivo
+ * @param {JSON} electricity 
+ */
 function sum(electricity){
     sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
     julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
@@ -63,6 +69,7 @@ function sum(electricity){
 }
 /**
  * Método para guardar una emisión de electricidad en una colección.
+ * @async
  * @function save
  * @param {JSON} req 
  * @param {JSON} res 

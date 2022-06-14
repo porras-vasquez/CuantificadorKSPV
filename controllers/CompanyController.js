@@ -41,6 +41,7 @@ function verifyStatus(statusCode){
 }
 /**
  * Método para guardar una compañía.
+ * @async
  * @function save
  * @param {JSON} req 
  * @param {JSON} res 

@@ -1,3 +1,10 @@
+/**
+ * Verifica que el usuario este autenticado para acceder a las diferentes vistas
+ * @param {JSON} req 
+ * @param {JSON} res 
+ * @param {JSON} next 
+ * @returns
+ */
 const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
