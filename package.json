@@ -5,7 +5,8 @@
     "scripts": {
         "start": "node ./bin/www",
         "dev": "nodemon node ./bin/www",
-        "test": "mocha --timeout 10000"
+        "test": "mocha --timeout 10000",
+        "docs": "jsdoc -c jsdoc.json"
     },
     "dependencies": {
         "bcrypt": "^5.0.1",
