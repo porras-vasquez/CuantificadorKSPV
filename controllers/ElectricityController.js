@@ -88,20 +88,28 @@ electricityController.save = async function (req, res) {
                 message: message
             });
         } else {
-            let ton = elec.factor_emision/1000;
-            ton = parseFloat(ton).toFixed(5);
+            let ton = parseFloat(elec.factor_emision)/1000;
+            let pcg = parseFloat(elec.pcg);
+            let cant = parseFloat(elec.total);
+            let co2 = 0;
+            if(elec.gei=="CO2"){
+                co2 = cant * ton * pcg;
+                co2 = parseFloat(co2).toFixed(5);
+            }
             let body = {
                 alcance: "2",
                 fuente_generador:"Electricidad",
-                cantidad: "",
+                cantidad: cant,
                 unidad: "Kilowatts/hora",
                 kilogram: elec.factor_emision,
                 ton: ton,
                 gei: elec.gei,
-                pcg: elec.pcg,
-                co2: 0,
+                pcg: pcg,
+                co2: co2,
                 ch4: 0,
                 n2o: 0,
+                totalCo2: co2,
+                totalFuente: co2,
                 company: elec.company._id,
                 electricity: elec._id
             };
@@ -210,16 +218,22 @@ electricityController.update = function (req, res) {
                 let co2;
                 let kg;
                 Electricity.findOne({ _id: req.params.id }).exec(function (err, elec) {
-                    cant = elec.total;
-                    ton = elec.factor_emision/1000;
-                    ton = parseFloat(ton).toFixed(5);
-                    pcg = elec.pcg;
+                    cant = parseFloat(elec.total);
+                    ton = parseFloat(elec.factor_emision)/1000;
+                    pcg = parseFloat(elec.pcg);
                     co2 = cant * ton * pcg;
                     co2 = parseFloat(co2).toFixed(5);
                     kg = elec.factor_emision;
+                    if(elec.gei=="CO2"){
+                        co2 = cant * ton * pcg;
+                        co2 = parseFloat(co2).toFixed(5);
+                    }
                     Emission.updateOne({ electricity: req.params.id }, {
                         $set: {
+                            cantidad: cant,
                             co2: co2,
+                            totalCo2: co2,
+                            totalFuente: co2,
                             kilogram: kg,
                             pcg: pcg, 
                             ton: ton
@@ -378,20 +392,17 @@ electricityController.addMeter = function (req, res) {
                             let co2;
                             let kg;
                             Electricity.findOne({ _id: req.params._id }).exec(function (err, elec) {
-                                cant = elec.total;
-                                ton = elec.factor_emision/1000;
-                                ton = parseFloat(ton).toFixed(5);
-                                pcg = elec.pcg;
+                                cant =parseFloat(elec.total);
+                                ton = parseFloat(elec.factor_emision)/1000;
+                                pcg = parseFloat(elec.pcg);
                                 co2 = cant * ton * pcg;
                                 co2 = parseFloat(co2).toFixed(5);
-                                kg = elec.factor_emision;
                                 Emission.updateOne({ electricity: req.params._id }, {
                                     $set: {
                                         cantidad: sumatoria,
                                         co2: co2,
-                                        kilogram: kg,
-                                        pcg: pcg, 
-                                        ton: ton
+                                        totalCo2: co2,
+                                        totalFuente: co2
                                     },
                                 }).exec(function (err, ems) {
                                 });
@@ -517,9 +528,17 @@ electricityController.updateMeter = function (req, res) {
                         },
                         function (err, elect) {
                             Electricity.findOne({ _id: req.params.elec }).exec(function (err, elec) {
+                                cant =parseFloat(elec.total);
+                                ton = parseFloat(elec.factor_emision)/1000;
+                                pcg = parseFloat(elec.pcg);
+                                co2 = cant * ton * pcg;
+                                co2 = parseFloat(co2).toFixed(5)
                                 Emission.updateOne({ electricity: req.params.elec }, {
                                     $set: {
                                         cantidad: sumatoria,
+                                        co2: co2,
+                                        totalCo2: co2,
+                                        totalFuente: co2
                                     },
                                 }).exec(function (err, ems){
 
@@ -626,6 +645,8 @@ electricityController.deleteMeter = function (req, res) {
                                 $set: {
                                     cantidad: sumatoria,
                                     co2: co2,
+                                    totalCo2: co2,
+                                    totalFuente: co2
                                 },
                             }).exec(function (err, ems) {
                             });

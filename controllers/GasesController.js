@@ -108,13 +108,21 @@ gasesController.save = async function (req, res) {
             if(gas.gei=="CO2"){
                 co2 = cant * ton * pcg;
                 co2 = parseFloat(co2).toFixed(5);
+                ch4 = 0;
+                n2o = 0;
             }else if(gas.gei=="CH4"){
                 ch4 = cant * ton * pcg;
                 ch4 = parseFloat(ch4).toFixed(5);
+                co2 = 0;
+                n2o = 0;
             }else{
                 n2o = cant * ton * pcg;
                 n2o = parseFloat(n2o).toFixed(5);
+                ch4 = 0;
+                co2 = 0;
             }
+            let cant2 = n2o + ch4 + co2;
+            cant2 = parseFloat(cant2).toFixed(5);
             let body = {
                 alcance: "1",
                 fuente_generador:"Gas Lpg",
@@ -127,6 +135,8 @@ gasesController.save = async function (req, res) {
                 co2: co2,
                 ch4: ch4,
                 n2o: n2o,
+                totalCo2: cant2,
+                totalFuente: cant2,
                 company: gas.company._id,
                 gaslp: gas._id
             };
@@ -283,20 +293,31 @@ gasesController.update = function (req, res) {
                 let kg;
                 Gaseslp.findOne({ _id: req.params.id }).exec(function (err, gas) {
                     let gei = gas.gei;
-                    let ton = gas.factor/1000;
+                    let ton = parseFloat(gas.factor)/1000;
                     let co2=0;
                     let ch4=0;
                     let n2o=0;
-                    cant = gas.emision;
-                    pcg = gas.pcg;
-                    kg = gas.factor;
+                    cant = parseFloat(gas.emision);
+                    pcg = parseFloat(gas.pcg);
+                    kg = parseFloat(gas.factor);
                     if(gas.gei=="CO2"){
                         co2 = cant * ton * pcg;
+                        co2 = parseFloat(co2).toFixed(5);
+                        ch4 = 0;
+                        n2o = 0;
                     }else if(gas.gei=="CH4"){
                         ch4 = cant * ton * pcg;
+                        ch4 = parseFloat(ch4).toFixed(5);
+                        co2 = 0;
+                        n2o = 0;
                     }else{
                         n2o = cant * ton * pcg;
+                        n2o = parseFloat(n2o).toFixed(5);
+                        ch4 = 0;
+                        co2 = 0;
                     }
+                    let cant2 = n2o + ch4 + co2;
+                    cant2 = parseFloat(cant2).toFixed(5);
                     Emission.updateOne({ gaslp: req.params.id }, {
                         $set: {
                             cantidad: cant,
@@ -306,7 +327,9 @@ gasesController.update = function (req, res) {
                             kilogram: kg,
                             pcg: pcg, 
                             ton: ton,
-                            gei: gei
+                            gei: gei,
+                            totalCo2: cant2,
+                            totalFuente: cant2,
                         },
                     }).exec(function (err, ems) {});
                 });

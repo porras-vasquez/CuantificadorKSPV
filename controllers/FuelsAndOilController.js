@@ -147,8 +147,12 @@ FuelsAndOilController.save = async function (req, res) {
                                 Emission.updateOne({ fuente_generador: fuente }, {
                                     $set: {
                                         cantidad: sumatoria,
-                                        totalCo2: tot,
-                                        totalFuente: tot
+                                        totalCo2: cant2,
+                                        totalFuente: cant2,
+                                        co2: co2,
+                                        n2o: n2o,
+                                        ch4: ch4,
+                                        gei: fuels.gei
                                     },
                                 }).exec(function (error, ems) {
                                     res.render('../views/fuelsAndOil/NewfuelsAndOil', { message: message, company: company, status: status });
@@ -160,7 +164,7 @@ FuelsAndOilController.save = async function (req, res) {
                     let body = {
                         alcance: "1",
                         fuente_generador: fuente,
-                        cantidad: cant,
+                        cantidad: c,
                         unidad: "Litro",
                         kilogram: parseFloat(fuels.factor),
                         ton: ton,
