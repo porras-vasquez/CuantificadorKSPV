@@ -71,9 +71,10 @@ FuelsAndOilController.save = async function (req, res) {
             .exec(function (err, e) {
                 let validar = false;
                 if(e!=null){
-                    if(e.fuente_generador == fuels.combustible && fuels.combustible == "Aceite 2t-4t"){
+                    if(e.fuente_generador == fuels.combustible && fuels.combustible == "Aceite 2t-4t" && fuels._id == e.airConditioning){
                         validar = true;
                     }
+                    console.log(e.airConditioning);
                 }
                 let ton = parseFloat(fuels.factor)/1000;
                 let cant = parseFloat(fuels.emision);
@@ -305,7 +306,7 @@ FuelsAndOilController.update = function (req, res) {
                     Company.findOne({ _id: fuel.company })
                     .populate("emission")
                     .exec(function(err, company) {
-                        let tot = 0, co2 = 0, ch4 = 0, n2o = 0, t = 0;
+                        let cant = 0, co2 = 0, ch4 = 0, n2o = 0, t = 0;
                         let emi = null, emi2 = null;
                         let id;
                         for (let x of company.emission) {
@@ -317,54 +318,62 @@ FuelsAndOilController.update = function (req, res) {
                                 id = emi2._id
                             }
                         }
-                        let ton = parseFloat(fuel.factor)/1000;
-                        let cant = tot;
-                        cant = parseFloat(cant).toFixed(5);
-                        let gei = fuel.gei;
-                        let pcg = parseFloat(fuel.pcg);
-                        let kg = parseFloat(fuel.factor);
-                        let fuente = fuel.combustible;
-
-                        if(fuel.gei=="CO2"){
-                            co2 = cant * ton * pcg;
-                            co2 = parseFloat(co2).toFixed(5);
-                            t = co2;
-                            ch4 = 0;
-                            n2o = 0;
-                        }else if(fuel.gei=="CH4"){
-                            ch4 = cant * ton * pcg;
-                            ch4 = parseFloat(ch4).toFixed(5);
-                            t = ch4;
-                            n2o = 0;
-                            co2 = 0;
-                        }else{
-                            n2o = cant * ton * pcg;
-                            n2o = parseFloat(n2o).toFixed(5);
-                            t = n2o;
-                            ch4 = 0;
-                            co2 = 0;
-                        }
-                        
-                        if(emi!=null){
-
-                        }else if(emi2!=null){
-
-                        }
-                        Emission.updateOne({ _id: id }, {
-                            $set: {
-                                cantidad: cant,
-                                co2: co2,
-                                ch4: ch4,
-                                n2o: n2o,
-                                kilogram: kg,
-                                pcg: pcg, 
-                                ton: ton,
-                                totalCo2: t,
-                                totalFuente: t,
-                                fuente_generador: fuente,
-                                gei: gei
-                            },
-                        }).exec(function (err, ems) {});
+                        Company.findOne({ _id: fuel.company })
+                        .populate("fuelsAndOil")
+                        .exec(function(err, company) {
+                            for(let x of company.fuelsAndOil){
+                                if(x.combustible == "Aceite 2t-4t" && x.combustible == fuel.combustible){
+                                    cant = cant + parseFloat(x.emision);
+                                }else if(x.combustible != "Aceite 2t-4t" && x._id == fuel._id){
+                                    cant = x.emision;
+                                }
+                            }
+                            console.log(emi);
+                            console.log(emi2);
+                            console.log(cant);
+                            let ton = parseFloat(fuel.factor)/1000;
+                            cant = parseFloat(cant).toFixed(5);
+                            let gei = fuel.gei;
+                            let pcg = parseFloat(fuel.pcg);
+                            let kg = parseFloat(fuel.factor);
+                            let fuente = fuel.combustible;
+    
+                            if(fuel.gei=="CO2"){
+                                co2 = cant * ton * pcg;
+                                co2 = parseFloat(co2).toFixed(5);
+                                t = co2;
+                                ch4 = 0;
+                                n2o = 0;
+                            }else if(fuel.gei=="CH4"){
+                                ch4 = cant * ton * pcg;
+                                ch4 = parseFloat(ch4).toFixed(5);
+                                t = ch4;
+                                n2o = 0;
+                                co2 = 0;
+                            }else{
+                                n2o = cant * ton * pcg;
+                                n2o = parseFloat(n2o).toFixed(5);
+                                t = n2o;
+                                ch4 = 0;
+                                co2 = 0;
+                            }
+                            
+                            Emission.updateOne({ _id: id }, {
+                                $set: {
+                                    cantidad: cant,
+                                    co2: co2,
+                                    ch4: ch4,
+                                    n2o: n2o,
+                                    kilogram: kg,
+                                    pcg: pcg, 
+                                    ton: ton,
+                                    totalCo2: t,
+                                    totalFuente: t,
+                                    fuente_generador: fuente,
+                                    gei: gei
+                                },
+                            }).exec(function (err, ems) {});
+                        });
                     });
                 });
                 Company.findOne({ _id: fuelsAndOils.company })
@@ -408,11 +417,11 @@ FuelsAndOilController.delete = function (req, res) {
             let emi2 = null;
             for(let x of company.emission){
                 console.log(x);
-                if(emi2==null && fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t-4t"){
+                if(emi==null && fuels.combustible == x.fuente_generador && fuels.combustible == "Aceite 2t-4t"){
                     cant = parseFloat(x.cantidad);
                     cant2 = parseFloat(x.totalCo2);
                     emi = x;
-                }else if(emi==null && fuels.combustible == x.fuente_generador && x._id == fuels._id){
+                }else if(emi2==null && fuels.combustible == x.fuente_generador && x._id == fuels._id){
                     emi2 = x;
                 }
             }
