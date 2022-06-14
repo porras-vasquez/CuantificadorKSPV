@@ -42,55 +42,55 @@
                 </div>
                 <div style="margin-left: 1%; margin-right: 3%;" class="col-3">
                     <p class="p" type="Ubicación: ">
-                        <input type="text" value="<%=airConditioning.ubicacion%>" name="ubicacion" class="input" />
+                        <input type="text" value="<%=airConditioning.ubicacion%>" name="ubicacion" class="input p2" />
                     </p>
                     <p class="p" type="Número de serie: ">
-                        <input type="text" value="<%=airConditioning.serie%>" name="serie" class="input" />
+                        <input type="text" value="<%=airConditioning.serie%>" name="serie" class="input p2" />
                     </p>
                     <p class="p" type="Marca: ">
-                        <input type="text" value="<%=airConditioning.marca%>" name="marca" class="input" />
+                        <input type="text" value="<%=airConditioning.marca%>" name="marca" class="input p2" />
                     </p>
                     <p class="p" type="Modelo: ">
-                        <input type="text" value="<%=airConditioning.modelo%>" name="modelo" class="input" />
+                        <input type="text" value="<%=airConditioning.modelo%>" name="modelo" class="input p2" />
                     </p>
                 </div>
                 <div class="col-3" style="margin-left: 1%;">
                     <p class="p" type="Capacidad: ">
-                        <input type="text" value="<%=airConditioning.capacidad%>" name="capacidad" class="input" />
+                        <input type="text" value="<%=airConditioning.capacidad%>" name="capacidad" class="input p2" />
                     </p>
                     <p class="p" type="Consumo: ">
-                        <input type="text" value="<%=airConditioning.consumo%>" name="consumo" class="input" />
+                        <input type="text" value="<%=airConditioning.consumo%>" name="consumo" class="input p2" />
                     </p>
                     <p class="p" type="Capacidad de confinamiento: ">
                         <input type="text" value="<%=airConditioning.capacidadConfinamiento%>"
-                            name="capacidadConfinamiento" class="input" />
+                            name="capacidadConfinamiento" class="input p2" />
                     </p>
                     <p class="p" type="Aplicación: ">
-                        <input type="text" value="<%=airConditioning.aplicacion%>" name="aplicacion" class="input" />
+                        <input type="text" value="<%=airConditioning.aplicacion%>" name="aplicacion" class="input p2" />
                     </p>
                 </div>
                 <div class="col-3" style="margin-left: 1%;">
                     <p class="p" type="Tasa anual de fuga: ">
                         <input type="text" value="<%=airConditioning.tasaAnualFuga%>" name="tasaAnualFuga"
-                            class="input"/>
+                            class="input p2"/>
                     </p>
                     <p class="p" type="potencial de Calentamineto: ">
                         <input type="text" value="<%=airConditioning.potencialCalentamineto%>"
-                            name="potencialCalentamineto" class="input" />
+                            name="potencialCalentamineto" class="input p2" />
                     </p>
                     <p class="p" type="Tipo de refrigerante: ">
-                        <input type="text" value="<%=airConditioning.tipoRefrigerante%>" hidden name="tipoRefrigerante"
-                            class="input" />
+                        <input type="text" value="<%=airConditioning.tipoRefrigerante%>" disabled name="tipoRefrigerante"
+                            class="input p2" />
                     </p>
                     <p class="p" type="Factor de emisión: ">
                         <input type="text" value="<%=airConditioning.factor_emision%>" name="factor_emision"
-                            class="input" />
+                            class="input p2" />
                     </p>
                     <p class="p" type="PCG:">
                         <input type="text" pattern="^[0-9]+\.?[0-9]*$"
                             oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
                             oninput="this.setCustomValidity('')" value="<%=airConditioning.pcg%>" autocomplete="off"
-                            placeholder="PCG" name="pcg" class="input" required="true" />
+                            placeholder="PCG" name="pcg" class="input p2" required="true" />
                     </p>
                 </div>
                 <div class="btnContainer mb-2">
