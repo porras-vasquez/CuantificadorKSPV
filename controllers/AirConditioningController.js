@@ -979,8 +979,19 @@ airConditioningController.delete = function (req, res) {
                     }
                     restar = parseFloat(restar).toFixed(5);
                     restar2 = parseFloat(restar2).toFixed(5);
-                    total = cant - restar;
-                    total2 = cant2 - restar2;
+
+                    if(restar <= cant){
+                        total = cant - restar;
+                    }else{
+                        total = restar - cant;
+                    }
+    
+                    if(restar2 <= cant2){
+                        total2 = cant2 - restar2;
+                    }else{
+                        total2 = restar2 - cant2;
+                    }
+                    
                     total = parseFloat(total).toFixed(5);
                     total2 = parseFloat(total2).toFixed(5);
                     console.log("TOTAL: " + total);
