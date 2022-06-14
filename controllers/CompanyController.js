@@ -9,7 +9,15 @@ const AirConditioning = require("../models/AirConditioning");
 let companyController = {};
 let status = 0;
 let message = "";
-
+/**
+ * @param {string} statusCode Codigo de estado devuelto por una funcion al ser ejecutada, se toma para lanzar un mensaje
+ * Status: 200 ¡Realizado exitosamente!
+ * Status: 400 ¡Error, solicitud incorrecta!
+ * Status: 401 ¡Error, usuario no autenticado!
+ * Status: 404 ¡Ocurrió un problema con la ruta de acceso!
+ * Status: 500 ¡Lo sentimos, ocurrió un problema con el servidor!
+ * Status: 503 ¡Lo sentimos, el servidor se encuentra en mantenimiento!
+ */
 function verifyStatus(statusCode){
     if(statusCode==200){//Satisfactorio
         status=200;
@@ -31,6 +39,12 @@ function verifyStatus(statusCode){
         message="¡Lo sentimos, el servidor se encuentra en mantenimiento!";
     }
 }
+/**
+ * Método para guardar una compañía.
+ * @function save
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 companyController.save = async function (req, res) {
     let company = new Company(req.body);
     await company.save(function (err, comp) {
@@ -45,6 +59,12 @@ companyController.save = async function (req, res) {
 
     });
 };
+/**
+ * Método para mostrar las compañías.
+ * @function list
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 companyController.list = function (req, res) {
     Company.find({}).exec(function (err, companies) {
         if (err) {
@@ -54,7 +74,12 @@ companyController.list = function (req, res) {
         }
     });
 };
-
+/**
+ * Método para buscar una compañía.
+ * @function search
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 companyController.search = function (req, res) {
     Company.findOne({ _id: req.params.id }).exec(function (err, company) {
         if (err) {
@@ -64,7 +89,12 @@ companyController.search = function (req, res) {
         }    
     });
 };
-
+/**
+ * Método para actualizar datos de una compañía.
+ * @function update
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 companyController.update = function (req, res) {
     Company.findByIdAndUpdate(req.params.id, {
         $set: {
@@ -99,7 +129,12 @@ companyController.update = function (req, res) {
             }
         });
 };
-
+/**
+ * Método para eliminar una compañía.
+ * @function delete
+ * @param {JSON} req 
+ * @param {JSON} res 
+ */
 companyController.delete = function (req, res) {
     Emission.deleteMany({company: req.params.id}).exec(function (err, ele){});
     Electricity.deleteMany({company: req.params.id}).exec(function (err, ele){});
