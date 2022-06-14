@@ -64,21 +64,33 @@ function sum(company){
     sumatoria = 0; enero = 0; febrero = 0; marzo = 0; abril = 0; mayo = 0; junio = 0;
     julio = 0; agosto = 0; septiembre = 0; octubre = 0; noviembre = 0; diciembre = 0;
     for (let x of company.gaslp) {
-        sumatoria = (sumatoria + parseFloat(x.emision)).toFixed(5); 
-        enero = (enero + parseFloat(x.enero)).toFixed(5); 
-        febrero = (febrero + parseFloat(x.febrero)).toFixed(5);
-        marzo = (marzo + parseFloat(x.marzo)).toFixed(5);
-        abril = (abril + parseFloat(x.abril)).toFixed(5);
-        mayo = (mayo + parseFloat(x.mayo)).toFixed(5);
-        junio = (junio + parseFloat(x.junio)).toFixed(5);
-        julio = (julio + parseFloat(x.julio)).toFixed(5);
-        agosto = (agosto + parseFloat(x.agosto)).toFixed(5);
-        septiembre = (septiembre + parseFloat(x.septiembre)).toFixed(5);
-        octubre = (octubre + parseFloat(x.octubre)).toFixed(5);
-        noviembre = (noviembre + parseFloat(x.noviembre)).toFixed(5); 
-        diciembre = (diciembre + parseFloat(x.diciembre)).toFixed(5);
+        sumatoria = sumatoria + parseFloat(x.emision);
+        enero = enero + parseFloat(x.enero);
+        febrero = febrero + parseFloat(x.febrero);
+        marzo = marzo + parseFloat(x.marzo);
+        abril = abril + parseFloat(x.abril);
+        mayo = mayo + parseFloat(x.mayo);
+        junio = junio + parseFloat(x.junio);
+        julio = julio + parseFloat(x.julio);
+        agosto = agosto + parseFloat(x.agosto);
+        septiembre = septiembre + parseFloat(x.septiembre);
+        octubre = octubre + parseFloat(x.octubre);
+        noviembre = noviembre + parseFloat(x.noviembre); 
+        diciembre = diciembre + parseFloat(x.diciembre);
     }
     sumatoria = parseFloat(sumatoria).toFixed(5);
+    enero = parseFloat(enero).toFixed(5);
+    febrero = parseFloat(febrero).toFixed(5);
+    marzo = parseFloat(marzo).toFixed(5);
+    abril = parseFloat(abril).toFixed(5);
+    mayo = parseFloat(mayo).toFixed(5);
+    junio = parseFloat(junio).toFixed(5);
+    julio = parseFloat(julio).toFixed(5);
+    agosto = parseFloat(agosto).toFixed(5);
+    septiembre = parseFloat(septiembre).toFixed(5);
+    octubre = parseFloat(octubre).toFixed(5);
+    noviembre = parseFloat(noviembre).toFixed(5);    
+    diciembre = parseFloat(diciembre).toFixed(5);
 }
 /**
  * Método para guardar datos de la emisión de gases.
