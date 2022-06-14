@@ -5,11 +5,12 @@
     <%- include('../navbar'); -%>
 </header>
 <script>
-    function removeMessage(){
+    function removeMessage() {
         localStorage.removeItem("message");
     }
 </script>
-<body style="background-color: #f4ffec; height: 100vh !important;">
+
+<body style="height: 100vh !important;">
     <% if(typeof(status) !="undefined" ) { %>
         <% if(status==200 ) { %>
             <script>
@@ -39,8 +40,8 @@
                 </script>
                 <% } %>
                     <% } %>
-                        <div class="card mt-2 mb-2x"
-                            style="min-height: 86.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #c5dfbe;">
+                        <div class="card mt-2"
+                            style="min-height: 75.5% !important; scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
                             <div id="menu-container" class="menu-container">
                                 <div id="menu" class="menu">
                                     <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
@@ -60,6 +61,7 @@
                             </div>
                             <div class="row text-dark table-responsive table-container"
                                 style="margin-left: 0.5%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+                                <h3 class="h2">Módulo general de emisiones</h3>
                                 <!--Table-->
                                 <table class="table-bordered" style="background-color: white;">
                                     <!--Table head-->
@@ -151,7 +153,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <% }) %> 
+                                            <% }) %>
                                     </tbody>
                                     <!--Table body-->
                                 </table>
@@ -159,5 +161,12 @@
                             </div>
                         </div>
 </body>
+<footer class="bg-light text-center text-lg-start footer" style="margin-top: 2%;">
+    <!-- Copyright -->
+    <div class="text-center p-4">
+        © 2022 Copyright: Porras & Vásquez
+    </div>
+    <!-- Copyright -->
+</footer>
 
 </html>

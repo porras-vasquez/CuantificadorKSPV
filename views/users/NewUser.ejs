@@ -14,21 +14,7 @@
     <div class="container mt-5">
         <div class="row clearfix">
             <div class="col-lg-12">
-                <div class="card chat-app" style="background-color: #e6e6e6;">
-                    <div class="people-list">
-                        <div class="col-12 row mt-5">
-                            <img style="margin-left: 4%;" src="/images/logov2.png" class="img">
-                        </div>
-                        <ul class="list-unstyled chat-list  mb-0">
-                            <ul class="list-group list-group-flush button">
-                                <a href="/users/create" type="button" class="btn btn primary ">Agregar usuario</a>
-                            </ul>
-                            <ul class="list-group list-group-flush button">
-                                <a href="/users/show" type="button" class="btn btn primary ">Vista de usuarios</a>
-                            </ul>
-                            <div class="col-12 mb-5"></div>
-                        </ul>
-                    </div>
+                <div class="card" style="background-color: #e6e6e6;">
                     <% if(typeof(status) !="undefined" ) { %>
                         <% if(status==200) { %>
                             <script>
@@ -59,6 +45,23 @@
                                 <% } %>
                                     <% } %>
                                         <div class="chat">
+                                            <div id="menu-container" class="menu-container">
+                                                <div id="menu" class="menu">
+                                                    <i id="expand" class="material-icons" style="font-size: 35px">menu_open</i>
+                                                </div>
+                                                <div class="flex-menu">
+                                                    <ul class="list-unstyled chat-list">
+                                                        <ul class="list-group list-group-flush button flex-color">
+                                                            <a onclick="window.location. href='/users/show'"
+                                                                type="button" class="btn btn primary ">Mostrar usuarios</a>
+                                                        </ul>
+                                                        <ul class="list-group list-group-flush button flex-color">
+                                                            <a href="/users/show" type="button"
+                                                                class="btn btn primary ">Atrás</a>
+                                                        </ul>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                             <div style="background-color: #e6e6e6; margin-top: 4%; margin-bottom: 4%;">
                                                 <div class="container">
                                                     <p></p>
@@ -132,9 +135,9 @@
         }
     </script>
 </body>
-<footer class="bg-light text-center text-lg-start footer" style="margin-top: 11%;">
+<footer class="bg-light text-center text-lg-start footer" style="margin-top: 7%;">
     <!-- Copyright -->
-    <div class="text-center p-4" style="background-color: rgba(9, 8, 8, 0.2);">
+    <div class="text-center p-4">
         © 2022 Copyright: Porras & Vásquez
     </div>
     <!-- Copyright -->

@@ -71,31 +71,31 @@
                                 <form action="/airConditioning/saveAirConditioning/<%=company._id%>" method="post"
                                     class="row" style="display: flex;">
                                     <div class="col-12">
-                                        <h2 class="h2" style="margin-bottom: 1%;">Módulo Aires Acondicionados:Agregar</h2>
+                                        <h2 class="h2" style="margin-bottom: 1%;" >Módulo Aires Acondicionados:Agregar</h2>
                                     </div>
                                     <div style="margin-left: 1%; margin-right: 3%;" class="col-3">
                                         <p class="p" type="Ubicación: ">
-                                            <input class="input" type="text" name="ubicacion" />
+                                            <input class="input p2" type="text" name="ubicacion" placeholder="Ubicación..."/>
                                         </p>
                                         <p class="p" type="Número de serie: ">
-                                            <input class="input" type="text" name="serie" />
+                                            <input class="input p2" type="text" name="serie" placeholder="Número de serie..."/>
                                         </p>
                                         <p class="p" type="Marca: ">
-                                            <input class="input" type="text" name="marca" />
+                                            <input class="input p2" type="text" name="marca" placeholder="Marca..."/>
                                         </p>
                                         <p class="p" type="Modelo: ">
-                                            <input class="input" type="text" name="modelo" />
+                                            <input class="input p2" type="text" name="modelo" placeholder="Modelo..."/>
                                         </p>
                                         <p class="p" type="Capacidad: ">
-                                            <input class="input" type="text" name="capacidad" />
+                                            <input class="input p2" type="text" name="capacidad" placeholder="Capacidad..."/>
                                         </p>
                                     </div>
                                     <div class="col-3" style="margin-left: 1%;">
                                         <p class="p" type="Consumo: ">
-                                            <input class="input" type="text" name="consumo" />
+                                            <input class="input p2" type="text" name="consumo" placeholder="Consumo..."/>
                                         </p>
                                         <p class="p" type="Refrigerante: ">
-                                            <select name="tipoRefrigerante" aria-placeholder="tipoRefrigerante"
+                                            <select class="p2" name="tipoRefrigerante" aria-placeholder="tipoRefrigerante"
                                                 aria-label="Default select example">
                                                 <option selected>Tipo de Refrigerante</option>
                                                 <option value="410-A">410-A</option>
@@ -112,7 +112,7 @@
                                             </select>
                                         </p>
                                         <p class="p" type="Datos de emisión:">
-                                            <select style="padding-left: 3px; padding-bottom: 3px; margin-top: 10px;"
+                                            <select class="p2" style="padding-left: 3px; padding-bottom: 3px; margin-top: 10px;"
                                                 name="gei" aria-placeholder="GEI" aria-label="Default select example">
                                                 <option value="" disabled selected>Seleccione el GEI</option>
                                                 <option value="HFC">HFC</option>
@@ -120,8 +120,8 @@
                                             </select>
                                         </p>
                                         <p class="p" type="Capacidad de confinamiento:">
-                                            <input class="input" type="text" name="capacidadConfinamiento"
-                                                class="form-control" />
+                                            <input class="input p2" type="text" name="capacidadConfinamiento"
+                                                class="form-control" placeholder="Capacidad de calentamiento..."/>
                                         </p>
                                         <!--<div>
                                             <label for="exampleInputEmail1" class="form-label">Fuga total (Kg)</label>
@@ -129,23 +129,23 @@
                                         </div>-->
                                         <p class="p" type="Potencial calentamiento
                                         (100 años):">
-                                            <input class="input" type="text" name="potencialCalentamineto"
-                                                class="form-control" />
+                                            <input class="input p2" type="text" name="potencialCalentamineto"
+                                                class="form-control" placeholder="Potencial de calentamiento..."/>
                                         </p>
                                     </div>
                                     <div class="col-3" style="margin-left: 1%;">
                                         <p class="p" type="Aplicación:">
-                                            <input class="input" type="text" name="aplicacion" class="form-control" />
+                                            <input class="input p2" type="text" name="aplicacion" class="form-control" placeholder="Aplicación..."/>
                                         </p>
                                         <p class="p" type="Tasa anual de fuga:">
-                                            <input class="input" type="text" name="tasaAnualFuga"
+                                            <input class="input p2" type="text" name="tasaAnualFuga" placeholder="Tasa anual de fuga..."
                                                 class="form-control p2" />
                                         </p>
                                         <p class="p" type="PCG:">
-                                            <input class="input" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                            <input class="input p2" type="text" pattern="^[0-9]+\.?[0-9]*$"
                                                 oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
                                                 oninput="this.setCustomValidity('')" autocomplete="off"
-                                                placeholder="PCG" name="pcg" class="form-control" required="true" />
+                                                placeholder="PCG..." name="pcg" class="form-control" required="true" />
                                         </p>
                                         <!-- <div>
                                             <label for="exampleInputEmail1" class="form-label">Total R410a HCFC (ton)2</label>
@@ -160,7 +160,7 @@
                                             <input type="text" name="totalCO2" class="form-control" />
                                         </div>-->
                                         <p class="p" type="Factor emision:">
-                                            <input type="text" class="input" placeholder="Factor emision..."
+                                            <input type="text" class="input p2" placeholder="Factor emision..."
                                                 name="factor_emision" required>
                                         </p>
                                     </div>
