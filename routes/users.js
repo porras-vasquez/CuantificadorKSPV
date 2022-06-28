@@ -13,9 +13,9 @@ router.get('/principal', function(req, res) {
 });
 router.post('/login', userController.login);
 router.get('/logout', userController.logout);
-router.get('/search/:id', userController.search);
-router.get('/show', userController.list);
-router.post('/save', userController.save);
-router.post('/delete/:id', userController.delete);
-router.post('/update/:id', userController.update);
+router.get('/search/:id',isAuthenticated, userController.search);
+router.get('/show',isAuthenticated, userController.list);
+router.post('/save', isAuthenticated,userController.save);
+router.post('/delete/:id',isAuthenticated, userController.delete);
+router.post('/update/:id', isAuthenticated,userController.update);
 module.exports = router;

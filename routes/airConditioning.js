@@ -7,11 +7,11 @@ const isAuthenticated= require('../helpers/auth');
 router.get('/createAirConditioning',isAuthenticated, function(req, res) {
     res.render('../views/airConditioning/NewAirConditioning');
 });
-router.get('/airConditioningSearchcompany/:id', AirConditioningController.searchCompany);
-router.get('/airConditioningShow/:id', AirConditioningController.list);
-router.get('/searchAirConditioning/:id', AirConditioningController.search);
+router.get('/airConditioningSearchcompany/:id',isAuthenticated, AirConditioningController.searchCompany);
+router.get('/airConditioningShow/:id',isAuthenticated, AirConditioningController.list);
+router.get('/searchAirConditioning/:id',isAuthenticated, AirConditioningController.search);
 
-router.post('/updateAirConditioning/:id', AirConditioningController.update);
-router.post('/saveAirConditioning/:id', AirConditioningController.save);
-router.post('/deleteAirConditioning/:id/:comp/:typ', AirConditioningController.delete);
+router.post('/updateAirConditioning/:id',isAuthenticated, AirConditioningController.update);
+router.post('/saveAirConditioning/:id', isAuthenticated,AirConditioningController.save);
+router.post('/deleteAirConditioning/:id/:comp/:typ', isAuthenticated,AirConditioningController.delete);
 module.exports = router;
