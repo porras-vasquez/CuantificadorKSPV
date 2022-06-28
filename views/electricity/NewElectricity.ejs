@@ -71,10 +71,10 @@
                                     <div class="row">
                                         <div class="col-3">
                                             <p class="p" type="Título:">
-                                                <input type="text" name="titulo" class="input" required />
+                                                <input placeholder="Digite un título." type="text" name="titulo" class="input p2" required />
                                             </p>
                                             <p class="p" type="Fuente reporte:">
-                                                <input type="text" name="fuente_reporte" class="input" required />
+                                                <input placeholder="Digite una fuente." type="text" name="fuente_reporte" class="input p2" required />
                                             </p>
                                             <p class="p" type="Unidad de medida:">
                                                 <select class="p2" name="unidad_medida" class="form-select p2 input"
@@ -89,11 +89,11 @@
                                             </p>
                                         </div>
                                         <div class="col-3">
-                                            <p class="p" type="Factor de emision:">
-                                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                            <p class="p" type="Factor de emisión:">
+                                                <input placeholder="Factor de emisión." type="text" pattern="^[0-9]+\.?[0-9]*$"
                                                     oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
                                                     oninput="this.setCustomValidity('')" autocomplete="off"
-                                                    name="factor_emision" class="input" required="true" />
+                                                    name="factor_emision" class="input p2" required="true" />
                                             <p class="p" type="Datos de emision general:">
                                                <select class="p2" name="gei" aria-placeholder="GEI" class="form-select"
                                                     aria-label="Default select example">
@@ -102,10 +102,10 @@
                                                 </select>
                                             </p>
                                             <p class="p" type="PCG">
-                                                <input class="input p2" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                                                <input type="text" pattern="^[0-9]+\.?[0-9]*$"
                                                     oninvalid="this.setCustomValidity('Este campo es obligatorio, no se permite el uso de comas, caracteres especiales, espacios o letras')"
                                                     oninput="this.setCustomValidity('')" autocomplete="off"
-                                                    placeholder="PCG" name="pcg" class="form-control" required="true" />
+                                                    placeholder="PCG" name="pcg" class="form-control input p2" required="true" />
                                             </p>
                                         </div>
                                     </div>

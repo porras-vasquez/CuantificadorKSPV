@@ -12,7 +12,7 @@
 
 <body class="row">
     <div class="col-1"></div>
-    <div class="col-10 card mt-3"
+    <div class="col-10 card mt-2"
         style="scrollbar-width: none !important; margin-left: 2%; margin-right: 2%; background-color: #e6e6e6;">
         <!-- Menu desplegable con animacion -->
         <div id="menu-container" class="menu-container">
@@ -41,7 +41,7 @@
         </div>
         <!-- Content of form-->
         <div class="row text-dark table-container"
-            style="margin-left: 1%; margin-bottom: 0.5%; scrollbar-width: none !important;">
+            style="margin-left: 1%; scrollbar-width: none !important;">
             <form action="/gaseslp/updateGases/<%=gaslp._id%>" method="post" class="row" style="display: flex;">
                 <div class="col-12">
                     <h2 class="h2" style="margin-bottom: 1%;">Módulo de Gases LP: Editar</h2>
@@ -190,7 +190,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="btnContainer mb-4">
+                <div class="btnContainer mb-2">
                     <input onclick="removeMessage()" type="submit" class="btn btn-success" value="Actualizar">
                     <button type="button" class="btn btn-danger">
                         <a href='/companies/showCompany'>Cancelar</a>

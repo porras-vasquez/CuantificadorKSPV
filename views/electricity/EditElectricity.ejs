@@ -38,16 +38,16 @@
                 <h2 class="h2" style="margin-bottom: 1%;">Módulo Electricidad: Editar</h2>
                 <div class="row">
                     <div class="col-4">
-                        <p class="p" type="Título:"><input class="input" placeholder="Escriba el título" name="titulo"
+                        <p class="p" type="Título:"><input class="input p2" placeholder="Digite el título" name="titulo"
                                 value="<%=electricity.titulo%>" required /></p>
-                        <p class="p" type="Fuente de reporte:"><input class="input"
-                                placeholder="Escriba la fuente de reporte" name="fuente_reporte"
+                        <p class="p" type="Fuente de reporte:"><input class="input p2"
+                                placeholder="Digite la fuente de reporte" name="fuente_reporte"
                                 value="<%=electricity.fuente_reporte%>" required /></p>
-                        <p class="p" type="Unidad de medida:"><input class="input"
-                                placeholder="Escriba la unidad de medida" name="unidad_medida"
-                                value="<%=electricity.unidad_medida%>" required /></p>
-                        <p class="p" type="Ultima actualización:"><input type="date" class="input"
-                                placeholder="Escriba la fecha de actualización" name="ultima_update"
+                        <p class="p" type="Unidad de medida:"><input class="input p2"
+                                placeholder="Digite la unidad de medida" name="unidad_medida"
+                                value="<%=electricity.unidad_medida%>" required/></p>
+                        <p class="p" type="Ultima actualización:"><input type="date" class="input p2"
+                                placeholder="Digite la fecha de actualización" name="ultima_update"
                                 value="<%=electricity.ultima_update%>" class="form-control" required /></p>
 
                         <div class="btnContainer mb-4">
@@ -57,22 +57,22 @@
                         </div>
                     </div>
                     <div class="col-4" style="margin-left:25px;">
-                        <p class="p" type="Factor de emisión:"><input class="input" pattern="^[0-9]+\.?[0-9]*$"
+                        <p class="p" type="Factor de emisión:"><input class="input p2" pattern="^[0-9]+\.?[0-9]*$"
                                 oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
                                 oninput="this.setCustomValidity('')" autocomplete="off" type="text"
                                 name="factor_emision" value="<%=electricity.factor_emision%>" required /></p>
                         <p class="p" type="GEI:">
-                            <select style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="gei"
+                            <select class="p2" style="padding-left: 10px; padding-bottom: 10px; margin-top: 10px;" name="gei"
                                 aria-placeholder="GEI" aria-label="Default select example">
                                 <option value="<%=electricity.gei%>" selected>
                                     <%=electricity.gei%>
                                 </option>
                             </select>
                         </p>
-                        <p class="p" type="PCG:"><input class="input" type="text" pattern="^[0-9]+\.?[0-9]*$"
+                        <p class="p" type="PCG:"><input class="input p2" type="text" pattern="^[0-9]+\.?[0-9]*$"
                                 oninvalid="this.setCustomValidity('No se permite el uso de comas, caracteres especiales, espacios o letras')"
                                 oninput="this.setCustomValidity('')" autocomplete="off" value="<%=electricity.pcg%>"
-                                placeholder="PCG" name="pcg" /></p>
+                                placeholder="PCG" name="pcg" required/></p>
                     </div>
                 </div>
             </form>
